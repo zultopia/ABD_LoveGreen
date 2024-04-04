@@ -17,11 +17,15 @@ class Penyimpanan {
     public:
         Penyimpanan();
 
+        Penyimpanan(int numRows, int numCols);
+
         virtual void cetakInfo();
 
         void updateCell(int row, int col, const std::string& value);
 
         int hitungSlotKosong();
+
+        virtual string ambilItem(int row, int col);
 };
 
 class Ladang : public Penyimpanan {
@@ -31,9 +35,15 @@ class Ladang : public Penyimpanan {
     public:
         Ladang();
 
+        Ladang(int numRows, int numCols);
+
         void cetakInfo() override;
 
-        void tanamTanaman(int row, int col, const std::string& jenis);
+        void cetakKeteranganTanaman();
+
+        void tanamTanaman(int row, int col, const string& jenis);
+
+        string ambilItem(int row, int col) override;
 };
 
 class Peternakan : public Penyimpanan {
@@ -43,9 +53,13 @@ class Peternakan : public Penyimpanan {
     public:
         Peternakan();
 
+        Peternakan(int numRows, int numCols);
+
         void cetakInfo() override;
 
         void cetakLokasiHewan();
 
-        void ternakHewan(int row, int col, const std::string& jenis);
+        void ternakHewan(int row, int col, const string& jenis);
+
+        string ambilItem(int row, int col) override;
 };
