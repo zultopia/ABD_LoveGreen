@@ -3,9 +3,9 @@
 using namespace std;
 
 // CETAK_PENYIMPANAN
-Penyimpanan::Penyimpanan() : rows(8), cols(8), grid(rows, vector<string>(cols, "")) {}
+Penyimpanan::Penyimpanan() : rows(8), cols(8), grid(8, 8) {}
 
-Penyimpanan::Penyimpanan(int numRows, int numCols) : rows(numRows), cols(numCols), grid(rows, vector<string>(cols, "")) {}
+Penyimpanan::Penyimpanan(int numRows, int numCols) : rows(numRows), cols(numCols), grid(numRows, numCols) {} 
 
 void Penyimpanan::cetakInfo() {
     cout << "   =================[ Penyimpanan ]=================" << endl;
@@ -30,7 +30,7 @@ void Penyimpanan::cetakInfo() {
         }
         cout << setw(2) << "|";
         for (int j = 0; j < cols; ++j) {
-            cout << setw(5) << grid[i][j] << "|";
+            cout << setw(5) << grid.getCell(i, j) << "|"; 
         }
         cout << endl;
         cout << setw(4) << "+";
@@ -44,7 +44,7 @@ void Penyimpanan::cetakInfo() {
 
 void Penyimpanan::updateCell(int row, int col, const string& value) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
-        grid[row - 1][col] = value;
+       grid.updateCell(row - 1, col, value); 
     }
 }
 
@@ -52,7 +52,7 @@ int Penyimpanan::hitungSlotKosong() {
     int count = 0;
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            if (grid[i][j].empty()) {
+            if (grid.getCell(i, j).empty()) { 
                 ++count;
             }
         }
@@ -63,8 +63,8 @@ int Penyimpanan::hitungSlotKosong() {
 string Penyimpanan::ambilItem(int row, int col) {
     string item = "";
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
-        item = grid[row - 1][col];
-        grid[row - 1][col] = ""; 
+        item = grid.getCell(row - 1, col); 
+        grid.updateCell(row - 1, col, "");
     }
     return item;
 }
@@ -76,7 +76,7 @@ void Penyimpanan::tambahItem(const string& jenisItem) {
     // Cari slot kosong pertama
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            if (grid[i][j].empty()) {
+            if (grid.getCell(i, j).empty()) {
                 emptyRow = i;
                 emptyCol = j;
                 break;
@@ -85,7 +85,7 @@ void Penyimpanan::tambahItem(const string& jenisItem) {
         if (emptyRow != -1) break;
     }
     if (emptyRow != -1 && emptyCol != -1) {
-        grid[emptyRow][emptyCol] = jenisItem;
+        grid.updateCell(emptyRow, emptyCol, jenisItem);
         cout << "Item " << jenisItem << " berhasil ditambahkan ke penyimpanan." << endl;
     } else {
         cout << "Penyimpanan penuh, tidak dapat menambahkan item baru." << endl;
@@ -126,7 +126,7 @@ void Ladang::cetakInfo() {
         cout << setw(2) << "|";
         siapPanen = true;
         for (int j = 0; j < cols; ++j) {
-            string cellValue = grid[i][j];
+            string cellValue = grid.getCell(i, j); 
             if (cellValue == " BNT " || cellValue == " ALT " || cellValue == " SDT ") {
                 if ((cellValue == " ALT " || cellValue == " SDT ") && siapPanen) {
                     cout << GREEN;
@@ -155,15 +155,15 @@ void Ladang::cetakKeteranganTanaman() {
 
 void Ladang::tanamTanaman(int row, int col, const string& jenis) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
-        grid[row - 1][col] = jenis;
+        grid.updateCell(row - 1, col, jenis);
     }
 }
 
 string Ladang::ambilTanaman(int row, int col) {
     string item = "";
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
-        item = grid[row - 1][col];
-        grid[row - 1][col] = ""; 
+        item = grid.getCell(row - 1, col); 
+        grid.updateCell(row - 1, col, "");
     }
     return item;
 }
@@ -175,7 +175,7 @@ void Ladang::tambahTanaman(const string& jenisTanaman) {
     // Cari slot kosong pertama
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            if (grid[i][j].empty()) {
+            if (grid.getCell(i, j).empty()) {
                 emptyRow = i;
                 emptyCol = j;
                 break;
@@ -184,7 +184,7 @@ void Ladang::tambahTanaman(const string& jenisTanaman) {
         if (emptyRow != -1) break;
     }
     if (emptyRow != -1 && emptyCol != -1) {
-        grid[emptyRow][emptyCol] = jenisTanaman;
+        grid.updateCell(emptyRow, emptyCol, jenisTanaman);
         cout << "Tanaman " << jenisTanaman << " berhasil ditambahkan ke ladang." << endl;
     } else {
         cout << "Ladang penuh, tidak dapat menambahkan tanaman baru." << endl;
@@ -225,7 +225,7 @@ void Peternakan::cetakInfo() {
         cout << setw(2) << "|";
         siapPanen = true;
         for (int j = 0; j < cols; ++j) {
-            string cellValue = grid[i][j];
+            string cellValue = grid.getCell(i, j);
             if (cellValue == " COW " || cellValue == " SNK ") {
                 if (cellValue == " COW " && siapPanen) {
                     cout << GREEN;
@@ -249,11 +249,11 @@ void Peternakan::cetakLokasiHewan() {
     cout << "\n";
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            string cellValue = grid[i][j];
+            string cellValue = grid.getCell(i, j);
             if (cellValue == " COW ") {
-                cout << "- " << static_cast<char>('A' + j)  << setw(2) << setfill('0') << i+1 << ": Cow" << endl;
+                cout << "- " << static_cast<char>('A' + j)  << "0" << i+1 << ": Cow" << endl;
             } else if (cellValue == " SNK ") {
-                cout << "- " << static_cast<char>('A' + j)  << setw(2) << setfill('0') << i+1 << ": Snake" << endl;
+                cout << "- " << static_cast<char>('A' + j)  << "0" << i+1 << ": Snake" << endl;
             }
         }
     }
@@ -261,15 +261,15 @@ void Peternakan::cetakLokasiHewan() {
 
 void Peternakan::ternakHewan(int row, int col, const string& jenis) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
-        grid[row - 1][col] = jenis;
+        grid.updateCell(row - 1, col, jenis); 
     }
 }
 
 string Peternakan::ambilTernak(int row, int col) {
     string item = "";
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
-        item = grid[row - 1][col];
-        grid[row - 1][col] = ""; 
+        item = grid.getCell(row - 1, col); 
+        grid.updateCell(row - 1, col, "");
     }
     return item;
 }
@@ -281,7 +281,7 @@ void Peternakan::tambahTernak(const string& jenisTernak) {
     // Cari slot kosong pertama
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            if (grid[i][j].empty()) {
+            if (grid.getCell(i, j).empty()) {
                 emptyRow = i;
                 emptyCol = j;
                 break;
@@ -290,7 +290,7 @@ void Peternakan::tambahTernak(const string& jenisTernak) {
         if (emptyRow != -1) break;
     }
     if (emptyRow != -1 && emptyCol != -1) {
-        grid[emptyRow][emptyCol] = jenisTernak;
+        grid.updateCell(emptyRow, emptyCol, jenisTernak);
         cout << "Ternak " << jenisTernak << " berhasil ditambahkan ke peternakan." << endl;
     } else {
         cout << "Peternakan penuh, tidak dapat menambahkan ternak baru." << endl;

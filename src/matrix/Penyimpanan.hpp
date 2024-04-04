@@ -10,11 +10,40 @@ using namespace std;
 #define RED     "\033[31m"  // Belum siap panen
 #define GREEN   "\033[32m"  // Siap panen
 
+template<typename T>
+class Grid {
+    private:
+        vector<vector<T> > grid;
+
+    public:
+        Grid() {}
+
+        Grid(int numRows, int numCols) : grid(numRows, vector<T>(numCols)) {}
+
+        void updateCell(int row, int col, const T& value) {
+            if (row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size()) {
+                grid[row][col] = value;
+            }
+        }
+
+        const T& getCell(int row, int col) const {
+            return grid[row][col];
+        }
+
+        int getRows() const {
+            return grid.size();
+        }
+
+        int getCols() const {
+            return grid.empty() ? 0 : grid[0].size();
+        }
+};
+
 class Penyimpanan {
     protected:
         const int rows;
         const int cols;
-        vector<vector<string> > grid;
+        Grid<string> grid;
 
     public:
         Penyimpanan();
