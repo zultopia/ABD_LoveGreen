@@ -5,6 +5,8 @@ using namespace std;
 // CETAK_PENYIMPANAN
 Penyimpanan::Penyimpanan() : rows(8), cols(8), grid(rows, vector<string>(cols, "")) {}
 
+Penyimpanan::Penyimpanan(int numRows, int numCols) : rows(numRows), cols(numCols), grid(rows, vector<string>(cols, "")) {}
+
 void Penyimpanan::cetakInfo() {
     cout << "   =================[ Penyimpanan ]=================" << endl;
     cout << setw(5) << " ";
@@ -58,8 +60,19 @@ int Penyimpanan::hitungSlotKosong() {
     return count;
 }
 
+string Penyimpanan::ambilItem(int row, int col) {
+    string item = "";
+    if (row >= 1 && row <= rows && col >= 0 && col < cols) {
+        item = grid[row - 1][col];
+        grid[row - 1][col] = ""; 
+    }
+    return item;
+}
+
 // CETAK_LADANG
 Ladang::Ladang() : Penyimpanan() {}
+
+Ladang::Ladang(int numRows, int numCols) : Penyimpanan(numRows, numCols) {}
 
 void Ladang::cetakInfo() {
     cout << "   ====================[ Ladang ]===================" << endl;
@@ -102,7 +115,14 @@ void Ladang::cetakInfo() {
         }
         cout << endl;
     }
-    cout << "\n- ALT: Aloe Tree\n- BNT: Banana Tree\n- SDT: Sandalwood Tree" << endl;
+    cetakKeteranganTanaman();
+}
+
+void Ladang::cetakKeteranganTanaman() {
+    cout << "\nKeterangan Kode Tanaman:\n";
+    cout << "- ALT: Aloe Tree\n";
+    cout << "- BNT: Banana Tree\n";
+    cout << "- SDT: Sandalwood Tree\n";
 }
 
 void Ladang::tanamTanaman(int row, int col, const string& jenis) {
@@ -111,8 +131,19 @@ void Ladang::tanamTanaman(int row, int col, const string& jenis) {
     }
 }
 
+string Penyimpanan::ambilItem(int row, int col) {
+    string item = "";
+    if (row >= 1 && row <= rows && col >= 0 && col < cols) {
+        item = grid[row - 1][col];
+        grid[row - 1][col] = ""; 
+    }
+    return item;
+}
+
 // CETAK_PETERNAKAN
 Peternakan::Peternakan() : Penyimpanan() {}
+
+Peternakan::Peternakan(int numRows, int numCols) : Penyimpanan(numRows, numCols) {}
 
 void Peternakan::cetakInfo() {
     cout << "   ===================[ Peternakan ]================" << endl;
@@ -176,4 +207,13 @@ void Peternakan::ternakHewan(int row, int col, const string& jenis) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
         grid[row - 1][col] = jenis;
     }
+}
+
+string Penyimpanan::ambilItem(int row, int col) {
+    string item = "";
+    if (row >= 1 && row <= rows && col >= 0 && col < cols) {
+        item = grid[row - 1][col];
+        grid[row - 1][col] = ""; 
+    }
+    return item;
 }
