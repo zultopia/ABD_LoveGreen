@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "../../Item/Item.hpp"
+#include "../../Config/Config/Config.hpp"
 
 using namespace std;
 

@@ -10,7 +10,7 @@
 int main() {
     Config config;
     config.loadFarm("Animal.txt");
-    Item *hewan1 = new Hewan(config, "COW");
+    Hewan *hewan1 = new Herbivora(config, "COW");
     hewan1->print();
     config.loadFarm("Plant.txt");
     Item *tanaman1 = new Tanaman(config, "ALT");
