@@ -1,9 +1,7 @@
 {
     "files.associations": {
-<<<<<<< Updated upstream
         "xstring": "cpp",
-        "map": "cpp"
-=======
+        "map": "cpp",
         "__bit_reference": "cpp",
         "__bits": "cpp",
         "__config": "cpp",
@@ -67,6 +65,5 @@
         "compare": "cpp",
         "concepts": "cpp",
         "algorithm": "cpp"
->>>>>>> Stashed changes
     }
 }
