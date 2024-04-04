@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 
+#include "item/Item.hpp"
+
 using namespace std;
 
 // Kode warna untuk menandakan apakah siap panen atau tidak
@@ -10,7 +12,7 @@ using namespace std;
 #define RED     "\033[31m"  // Belum siap panen
 #define GREEN   "\033[32m"  // Siap panen
 
-template<typename T>
+template<class T>
 class Grid {
     private:
         vector<vector<T> > grid;
