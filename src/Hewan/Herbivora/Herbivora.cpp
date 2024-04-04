@@ -5,8 +5,12 @@ Herbivora::Herbivora(int id, int weigth_to_harvest, int price, string code, stri
 
 Herbivora::~Herbivora() {}
 
-bool Herbivora::isCanEat(Produk p) const {
-    cout << "Herbivora bisa makan?" << endl;
-    if (p.getType() == "PRODUCT_FRUIT_PLANT") return true;
-    return false;    
+bool Herbivora::isCanEat(Produk& p) const {
+    if (p.getTypeProduk() == "PRODUCT_FRUIT_PLANT") {\
+        cout << "Herbivora bisa makan brou" << endl;
+        return true;
+    } else {
+        cout << "ga bisa makan itu" << endl;
+        return false;
+    }  
 }

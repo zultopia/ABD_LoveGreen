@@ -2,52 +2,47 @@
 #define HEWAN_HPP
 
 #include <iostream>
-#include "../../Config/ConfigProduk/ConfigProduk.hpp"
+#include "../../Item/Item.hpp"
+#include "../../Produk/BaseProduk/Produk.hpp"
+#include "../../Config/Config/Config.hpp"
 
 using namespace std;
 
-class Hewan {
+class Hewan : public Item {
     private:
-        int id;
+        int idHewan;
         int weightToHarvest;
-        int price;
         int currentWeight;
-        string code;
-        string name;
-        string type;
+        string typeHewan;
 
     public:
         // ctor
         Hewan();
         Hewan(int id, int weigth_to_harvest, int price, string code, string name, string type);
+        Hewan(Config& config, string code);
 
         // dtor
         ~Hewan();
 
         // getter
-        int getId() const;
+        int getIdHewan() const;
         int getWeightToHarvest() const;
-        int getPrice() const;
         int getCurrentWeight() const;
-        string getCode() const;
-        string getName() const;
-        string getType() const;
+        string getTypeHewan() const;
 
         // setter
-        void setId(int id);
+        void setIdHewan(int id);
         void setWeightToHarvest(int weight);
-        void setPrice(int price);
         void setCurrentWeight(int weight);
-        void setCode(string code);
-        void setName(string name);
-        void setType(string type);
+        void setTypeHewan(string typeHewan);
 
         // other operations
-        virtual bool isCanEat(Produk p) const;
-        void eat(Produk p);
+        bool eatable() const override;
+        virtual bool isCanEat(Produk& p) const;
+        void eat(Produk& p);
         bool isHarvest() const;
-        Produk harvest();
-        friend ostream& operator<<(ostream& os, Hewan& hewan);
+        Produk harvest(Config& config);
+        void print() override;
 };
 
 #endif

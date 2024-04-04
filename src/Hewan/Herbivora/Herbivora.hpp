@@ -10,7 +10,7 @@ class Herbivora : public Hewan {
     public:
         Herbivora(int id, int weight_to_harvest, int price, string code, string name);
         ~Herbivora();
-        bool isCanEat(Produk p) const override;
+        bool isCanEat(Produk& p) const override;
 };
 
 #endif

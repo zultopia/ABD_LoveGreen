@@ -5,8 +5,12 @@ Omnivora::Omnivora(int id, int weigth_to_harvest, int price, string code, string
 
 Omnivora::~Omnivora() {}
 
-bool Omnivora::isCanEat(Produk p) const {
-    cout << "Omnivora bisa makan?" << endl;
-    if (p.getType() == "PRODUCT_ANIMAL") return true;
-    return false;    
+bool Omnivora::isCanEat(Produk& p) const {
+    if (p.getTypeProduk() == "PRODUCT_ANIMAL") {
+        cout << "Herbivora bisa makan brou" << endl;
+        return true;
+    } else {
+        cout << "ga bisa makan itu" << endl;
+        return false;
+    }  
 }
