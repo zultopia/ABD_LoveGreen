@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-#include "item/Item.hpp"
+#include "Item/Item.hpp"
 
 using namespace std;
 
