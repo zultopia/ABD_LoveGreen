@@ -27,7 +27,7 @@ class Penyimpanan {
 
         int hitungSlotKosong();
 
-        virtual string ambilItem(int row, int col);
+        string ambilItem(int row, int col);
 
         void tambahItem(const string& jenisItem);
 
@@ -49,7 +49,7 @@ class Ladang : public Penyimpanan {
 
         void tanamTanaman(int row, int col, const string& jenis);
 
-        string ambilItem(int row, int col) override;
+        string ambilTanaman(int row, int col);
 
         void tambahTanaman(const string& jenisTanaman);
 
@@ -71,7 +71,7 @@ class Peternakan : public Penyimpanan {
 
         void ternakHewan(int row, int col, const string& jenis);
 
-        string ambilItem(int row, int col) override;
+        string ambilTernak(int row, int col);
 
         void tambahTernak(const string& jenisTernak);
 

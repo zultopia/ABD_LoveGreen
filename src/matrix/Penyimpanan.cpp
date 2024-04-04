@@ -86,9 +86,9 @@ void Penyimpanan::tambahItem(const string& jenisItem) {
     }
     if (emptyRow != -1 && emptyCol != -1) {
         grid[emptyRow][emptyCol] = jenisItem;
-        cout << "Bangunan " << jenisItem << " berhasil ditambahkan ke penyimpanan." << endl;
+        cout << "Item " << jenisItem << " berhasil ditambahkan ke penyimpanan." << endl;
     } else {
-        cout << "Penyimpanan penuh, tidak dapat menambahkan bangunan baru." << endl;
+        cout << "Penyimpanan penuh, tidak dapat menambahkan item baru." << endl;
     }
 }
 
@@ -159,7 +159,7 @@ void Ladang::tanamTanaman(int row, int col, const string& jenis) {
     }
 }
 
-string Ladang::ambilItem(int row, int col) {
+string Ladang::ambilTanaman(int row, int col) {
     string item = "";
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
         item = grid[row - 1][col];
@@ -185,9 +185,9 @@ void Ladang::tambahTanaman(const string& jenisTanaman) {
     }
     if (emptyRow != -1 && emptyCol != -1) {
         grid[emptyRow][emptyCol] = jenisTanaman;
-        cout << "Bangunan " << jenisTanaman << " berhasil ditambahkan ke penyimpanan." << endl;
+        cout << "Tanaman " << jenisTanaman << " berhasil ditambahkan ke ladang." << endl;
     } else {
-        cout << "Penyimpanan penuh, tidak dapat menambahkan bangunan baru." << endl;
+        cout << "Ladang penuh, tidak dapat menambahkan tanaman baru." << endl;
     }
 }
 
@@ -265,7 +265,7 @@ void Peternakan::ternakHewan(int row, int col, const string& jenis) {
     }
 }
 
-string Peternakan::ambilItem(int row, int col) {
+string Peternakan::ambilTernak(int row, int col) {
     string item = "";
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
         item = grid[row - 1][col];
@@ -291,13 +291,13 @@ void Peternakan::tambahTernak(const string& jenisTernak) {
     }
     if (emptyRow != -1 && emptyCol != -1) {
         grid[emptyRow][emptyCol] = jenisTernak;
-        cout << "Bangunan " << jenisTernak << " berhasil ditambahkan ke penyimpanan." << endl;
+        cout << "Ternak " << jenisTernak << " berhasil ditambahkan ke peternakan." << endl;
     } else {
-        cout << "Penyimpanan penuh, tidak dapat menambahkan bangunan baru." << endl;
+        cout << "Peternakan penuh, tidak dapat menambahkan ternak baru." << endl;
     }
 }
 
-// Operator 
+// Operator Overloading
 void Peternakan::operator+(const string& ternak) {
     tambahTernak(ternak);
 }
