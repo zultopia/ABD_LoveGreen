@@ -10,7 +10,7 @@ class Omnivora : public Hewan {
     public:
         Omnivora(int id, int weight_to_harvest, int price, string code, string name);
         ~Omnivora();
-        bool isCanEat(Produk p) const override;
+        bool isCanEat(Produk& p) const override;
 };
 
 #endif
