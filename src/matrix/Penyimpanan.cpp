@@ -69,6 +69,34 @@ string Penyimpanan::ambilItem(int row, int col) {
     return item;
 }
 
+// Function Overloading
+void Penyimpanan::tambahItem(const string& jenisItem) {
+    int emptyRow = -1;
+    int emptyCol = -1;
+    // Cari slot kosong pertama
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            if (grid[i][j].empty()) {
+                emptyRow = i;
+                emptyCol = j;
+                break;
+            }
+        }
+        if (emptyRow != -1) break;
+    }
+    if (emptyRow != -1 && emptyCol != -1) {
+        grid[emptyRow][emptyCol] = jenisItem;
+        cout << "Bangunan " << jenisItem << " berhasil ditambahkan ke penyimpanan." << endl;
+    } else {
+        cout << "Penyimpanan penuh, tidak dapat menambahkan bangunan baru." << endl;
+    }
+}
+
+// Operator Overloading
+void Penyimpanan::operator+(const string& item) {
+    tambahItem(item);
+}
+
 // CETAK_LADANG
 Ladang::Ladang() : Penyimpanan() {}
 
@@ -131,13 +159,41 @@ void Ladang::tanamTanaman(int row, int col, const string& jenis) {
     }
 }
 
-string Penyimpanan::ambilItem(int row, int col) {
+string Ladang::ambilItem(int row, int col) {
     string item = "";
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
         item = grid[row - 1][col];
         grid[row - 1][col] = ""; 
     }
     return item;
+}
+
+// Function Overloading
+void Ladang::tambahTanaman(const string& jenisTanaman) {
+    int emptyRow = -1;
+    int emptyCol = -1;
+    // Cari slot kosong pertama
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            if (grid[i][j].empty()) {
+                emptyRow = i;
+                emptyCol = j;
+                break;
+            }
+        }
+        if (emptyRow != -1) break;
+    }
+    if (emptyRow != -1 && emptyCol != -1) {
+        grid[emptyRow][emptyCol] = jenisTanaman;
+        cout << "Bangunan " << jenisTanaman << " berhasil ditambahkan ke penyimpanan." << endl;
+    } else {
+        cout << "Penyimpanan penuh, tidak dapat menambahkan bangunan baru." << endl;
+    }
+}
+
+// Operator Overloading
+void Ladang::operator+(const string& tanaman) {
+     tambahTanaman(tanaman);
 }
 
 // CETAK_PETERNAKAN
@@ -209,11 +265,39 @@ void Peternakan::ternakHewan(int row, int col, const string& jenis) {
     }
 }
 
-string Penyimpanan::ambilItem(int row, int col) {
+string Peternakan::ambilItem(int row, int col) {
     string item = "";
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
         item = grid[row - 1][col];
         grid[row - 1][col] = ""; 
     }
     return item;
+}
+
+// Function Overloading
+void Peternakan::tambahTernak(const string& jenisTernak) {
+    int emptyRow = -1;
+    int emptyCol = -1;
+    // Cari slot kosong pertama
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            if (grid[i][j].empty()) {
+                emptyRow = i;
+                emptyCol = j;
+                break;
+            }
+        }
+        if (emptyRow != -1) break;
+    }
+    if (emptyRow != -1 && emptyCol != -1) {
+        grid[emptyRow][emptyCol] = jenisTernak;
+        cout << "Bangunan " << jenisTernak << " berhasil ditambahkan ke penyimpanan." << endl;
+    } else {
+        cout << "Penyimpanan penuh, tidak dapat menambahkan bangunan baru." << endl;
+    }
+}
+
+// Operator 
+void Peternakan::operator+(const string& ternak) {
+    tambahTernak(ternak);
 }

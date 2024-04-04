@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 
+using namespace std;
+
 // Kode warna untuk menandakan apakah siap panen atau tidak
 #define RESET   "\033[0m"
 #define RED     "\033[31m"  // Belum siap panen
@@ -12,7 +14,7 @@ class Penyimpanan {
     protected:
         const int rows;
         const int cols;
-        std::vector<std::vector<std::string> > grid;
+        vector<vector<string> > grid;
 
     public:
         Penyimpanan();
@@ -21,11 +23,15 @@ class Penyimpanan {
 
         virtual void cetakInfo();
 
-        void updateCell(int row, int col, const std::string& value);
+        void updateCell(int row, int col, const string& value);
 
         int hitungSlotKosong();
 
         virtual string ambilItem(int row, int col);
+
+        void tambahItem(const string& jenisItem);
+
+        void operator+(const string& item);
 };
 
 class Ladang : public Penyimpanan {
@@ -44,6 +50,10 @@ class Ladang : public Penyimpanan {
         void tanamTanaman(int row, int col, const string& jenis);
 
         string ambilItem(int row, int col) override;
+
+        void tambahTanaman(const string& jenisTanaman);
+
+        void operator+(const string& tanaman);
 };
 
 class Peternakan : public Penyimpanan {
@@ -62,4 +72,8 @@ class Peternakan : public Penyimpanan {
         void ternakHewan(int row, int col, const string& jenis);
 
         string ambilItem(int row, int col) override;
+
+        void tambahTernak(const string& jenisTernak);
+
+        void operator+(const string& ternak);
 };
