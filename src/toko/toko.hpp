@@ -8,42 +8,26 @@ using namespace std;
 
 class Toko{
     private:
-        // map<namaProduk,tuple<Price,Quantity>>
-        static map<string,pair<int,int>> produk;
-        // map<namaBangunan,tuple<Price,Quantity>>
-        static map<string,pair<int,int>> bangunan;
-        // map<namaProduk, Price>
-        static map<string,int> tanamanHewan;
-        
+        // map<namaBarang,tuple<Price,Quantity>>
+        map<string,pair<int,int>> barang;
+        static int jumlah;
+
 
     public:
 
         Toko();
 
         // tambahkan tanaman atau hewan baru
-        void tambahTanamanHewan(string nama, int Price);
+        void tambahTanamanHewan(string kode, int Price);
 
-        // tambah harga tanaman atau hewan
-        void aturHargaTanamanHewan(string nama, int Price);
+        // tambahkan Produk yang mempunyai kuantitas baru
+        void tambahProduk(string kode, int Price, int Quantity);
 
-        // tambahkan Produk baru
-        void tambahProduk(string nama, int Price, int Quantity);
+        // atur harga barang
+        void aturHargaBarang(string kode, int Price);
 
-        // atur jumlah Produk
-        void aturJumlahProduk(string nama, int Quantity);
-
-        // atur harga Produk
-        void aturHargaProduk(string nama, int Price);
-
-        // tambahkan Bangunan baru
-        void tambahBangunan(string nama, int Price, int Quantity);
-
-        // atur jumlah Bangunan
-        void aturJumlahBangunan(string nama, int Quantity);
-
-        // atur harga Bangunan
-        void aturHargaBangunan(string nama, int Price);
-
+        // atur jumlah Barang yang terbatas
+        void aturJumlahBarang(string kode, int Quantity);
 
         // cetak hal yang dapat dibeli 
         // tiap jenis pemain beda yang dicetak
@@ -53,23 +37,24 @@ class Toko{
 
         // Produk yang dibeli
         // mengembalikan jumlah uang yang harus dibayarkan untuk membeli
-        int Beli(string nama, int Quantity);
+        int BeliWalikota(int no, int Quantity);
+        int BeliPeternakPetani(int no, int Quantity);
 
         // batal melakukan pembelian
-        void batalBeli(string nama, int Quantity);
+        void batalBeli(string kode, int Quantity);
 
         // menjual ke toko
         // mengembalikan jumlah uang yang akan diterima dari penjualan
-        int Jual(string nama, int Quantity);
+        int Jual(string kode, int Quantity);
 
         // batal melakukan penjualan
-        void batalJual(string nama, int Quantity);
+        void batalJual(string kode, int Quantity);
 
         // mengembalikan jumlah Produk yang tersedia
-        int getQuantity(string nama);
+        int getQuantity(string kode);
 
         // mengembalikan harga
-        int getPrice(string nama);
+        int getPrice(string kode);
 
 };
 
