@@ -8,13 +8,10 @@ using namespace std;
 
 class Toko{
     private:
-        // map<namaProduk,tuple<Price,Quantity>>
-        static map<string,pair<int,int>> produk;
-        // map<namaBangunan,tuple<Price,Quantity>>
-        static map<string,pair<int,int>> bangunan;
-        // map<namaProduk, Price>
-        static map<string,int> tanamanHewan;
-        
+        // map<namaBarang,tuple<Price,Quantity>>
+        map<string,pair<int,int>> barang;
+        static int jumlah;
+
 
     public:
 
@@ -23,27 +20,14 @@ class Toko{
         // tambahkan tanaman atau hewan baru
         void tambahTanamanHewan(string nama, int Price);
 
-        // tambah harga tanaman atau hewan
-        void aturHargaTanamanHewan(string nama, int Price);
-
-        // tambahkan Produk baru
+        // tambahkan Produk yang mempunyai kuantitas baru
         void tambahProduk(string nama, int Price, int Quantity);
 
-        // atur jumlah Produk
-        void aturJumlahProduk(string nama, int Quantity);
+        // atur harga barang
+        void aturHargaBarang(string nama, int Price);
 
-        // atur harga Produk
-        void aturHargaProduk(string nama, int Price);
-
-        // tambahkan Bangunan baru
-        void tambahBangunan(string nama, int Price, int Quantity);
-
-        // atur jumlah Bangunan
-        void aturJumlahBangunan(string nama, int Quantity);
-
-        // atur harga Bangunan
-        void aturHargaBangunan(string nama, int Price);
-
+        // atur jumlah Barang yang terbatas
+        void aturJumlahBarang(string nama, int Quantity);
 
         // cetak hal yang dapat dibeli 
         // tiap jenis pemain beda yang dicetak

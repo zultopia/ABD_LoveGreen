@@ -1,46 +1,32 @@
 #include "Toko.hpp"
 
+int Toko::jumlah = 1; 
 Toko::Toko(){}
 
 // tambahkan tanaman atau hewan baru
 void Toko::tambahTanamanHewan(string nama, int Price){
-    tanamanHewan.insert(pair(nama, Price));
+    barang.insert(pair(nama, pair(Price, -1)));
 }
 
-// tambah harga tanaman atau hewan
-void Toko::aturHargaTanamanHewan(string nama, int Price){
-    tanamanHewan.at(nama) = Price;
-}
-
-// tambahkan Produk baru
+// tambahkan Produk yang mempunyai kuantitas baru
 void Toko::tambahProduk(string nama, int Price, int Quantity){
-    produk.insert(pair(nama, pair(Price,Quantity)));
+    barang.insert(pair(nama, pair(Price,Quantity)));
 }
 
-// atur jumlah Produk
-void Toko::aturJumlahProduk(string nama, int Quantity){
-    produk.at(nama).second = Quantity;
+// atur harga barang
+void Toko::aturHargaBarang(string nama, int Price){
+    get<0>(barang.at(nama)) = Price;
 }
 
-// atur harga Produk
-void Toko::aturHargaProduk(string nama, int Price){
-    produk.at(nama).first = Price;
+
+// atur jumlah Barang yang terbatas
+void Toko::aturJumlahBarang(string nama, int Quantity){
+    if (barang.at(nama).first != -1){
+        barang.at(nama).second = Quantity;
+    } 
+    
 }
 
-// tambahkan Bangunan baru
-void Toko::tambahBangunan(string nama, int Price, int Quantity){
-    bangunan.insert(pair(nama, pair(Price,Quantity)));
-}
-
-// atur jumlah Bangunan
-void Toko::aturJumlahBangunan(string nama, int Quantity){
-    bangunan.at(nama).second = Quantity;
-}
-
-// atur harga Bangunan
-void Toko::aturHargaBangunan(string nama, int Price){
-    bangunan.at(nama).first = Price;
-}
 
 // cetak hal yang dapat dibeli 
 // tiap jenis pemain beda yang dicetak
@@ -48,20 +34,15 @@ void Toko::aturHargaBangunan(string nama, int Price){
 void Toko::CetakWalikota(){
     cout << "Selamat datang di toko!!\n";
     cout << "Berikut merupakan hal yang dapat Anda Beli\n";
-    int i = 0;
-    auto itr = tanamanHewan.begin();
-    while(itr != tanamanHewan.end()){
-        cout << i << ". " << itr->first << " - " << itr->second << endl;
-        itr++;
+    int i = 1;
+    auto itr = barang.begin();
+    while(itr != barang.end()){
+        cout << i << itr->first << " - " << itr->second.first; 
+        if ( itr->second.second != -1){
+            cout << " (" << itr->second.second << ")\n";
+        }
         i++;
     }
-    auto itr2 = produk.begin();
-    while(itr2 != produk.end()){
-        cout << i << ". " << itr2->first << " - " << itr2->second.first << " (" << itr2->second.second << ")\n";
-        itr2++;
-        i++;
-    }
-
 }
 void CetakPeternakPetani();
 
