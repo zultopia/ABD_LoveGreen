@@ -18,16 +18,16 @@ class Toko{
         Toko();
 
         // tambahkan tanaman atau hewan baru
-        void tambahTanamanHewan(string nama, int Price);
+        void tambahTanamanHewan(string kode, int Price);
 
         // tambahkan Produk yang mempunyai kuantitas baru
-        void tambahProduk(string nama, int Price, int Quantity);
+        void tambahProduk(string kode, int Price, int Quantity);
 
         // atur harga barang
-        void aturHargaBarang(string nama, int Price);
+        void aturHargaBarang(string kode, int Price);
 
         // atur jumlah Barang yang terbatas
-        void aturJumlahBarang(string nama, int Quantity);
+        void aturJumlahBarang(string kode, int Quantity);
 
         // cetak hal yang dapat dibeli 
         // tiap jenis pemain beda yang dicetak
@@ -37,23 +37,24 @@ class Toko{
 
         // Produk yang dibeli
         // mengembalikan jumlah uang yang harus dibayarkan untuk membeli
-        int Beli(string nama, int Quantity);
+        int BeliWalikota(int no, int Quantity);
+        int BeliPeternakPetani(int no, int Quantity);
 
         // batal melakukan pembelian
-        void batalBeli(string nama, int Quantity);
+        void batalBeli(string kode, int Quantity);
 
         // menjual ke toko
         // mengembalikan jumlah uang yang akan diterima dari penjualan
-        int Jual(string nama, int Quantity);
+        int Jual(string kode, int Quantity);
 
         // batal melakukan penjualan
-        void batalJual(string nama, int Quantity);
+        void batalJual(string kode, int Quantity);
 
         // mengembalikan jumlah Produk yang tersedia
-        int getQuantity(string nama);
+        int getQuantity(string kode);
 
         // mengembalikan harga
-        int getPrice(string nama);
+        int getPrice(string kode);
 
 };
 

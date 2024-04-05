@@ -50,5 +50,7 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-    }
+        "utility": "cpp",
+        "tuple": "cpp"
+}
 }
