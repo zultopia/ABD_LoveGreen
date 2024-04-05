@@ -14,6 +14,8 @@ class Peternak : public Pemain {
 		void cetak_peternakan();
 
 		void harvest();
+		void Peternak::doCommand(string command);
+		void bayarPajak();
 		int calculateTax();
 		void buyItem();
 		void sellItem();

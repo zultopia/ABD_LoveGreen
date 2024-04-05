@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+#include <tuple>
+#include <vector>
 #include "../matrix/Penyimpanan.hpp"
 
 using namespace std;
@@ -13,6 +15,7 @@ class Pemain {
         string username;
 		int kekayaan;
 		Penyimpanan inventory;
+        static vector<Pemain*> listPemain;
     public:
         Pemain(string& username, int kekayaan);
 		// virtual ~Pemain();
@@ -20,8 +23,13 @@ class Pemain {
 		string getUsername();
 		int getKekayaan();
 		Penyimpanan& getInventory();
+        static bool namaValid(string nama);
 
-		virtual void harvest() = 0;
+        virtual void doCommand(string command) = 0;
+        void next();
+        void simpan();
+        virtual void bayarPajak() = 0;
+
 		virtual int calculateTax() = 0;
 		virtual void buyItem() = 0;
 		virtual void sellItem() = 0;
@@ -29,5 +37,8 @@ class Pemain {
 		void cetak_penyimpanan();
 		pair<int, int> konversiKoordinat(string koordinat);
 };
+
+// Declare listPemain
+vector<Pemain*> Pemain::listPemain;
 
 #endif
