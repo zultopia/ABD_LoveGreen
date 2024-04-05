@@ -1,14 +1,14 @@
 #include "Config.hpp"
 
-map<string,tuple<int,string,string,int, int>> plant;
-map<string,tuple<int,string,string,int,int>> animal;
-map<string,tuple<int,string,string,string,int,int>> product;
-map<string,tuple<int,string,int,map<string,int>>> recipe;
-int jumlahUangWin;
-int beratBadanWin;
-pair<int,int> besarPenyimpanan;
-pair<int,int> besarLahan;
-pair<int,int> besarPeternakan;
+map<string,tuple<int,string,string,int, int>> Config::plant;
+map<string,tuple<int,string,string,int,int>> Config::animal;
+map<string,tuple<int,string,string,string,int,int>> Config::product;
+map<string,tuple<int,string,int,map<string,int>>> Config::recipe;
+int Config::jumlahUangWin;
+int Config::beratBadanWin;
+pair<int,int> Config::besarPenyimpanan;
+pair<int,int> Config::besarLahan;
+pair<int,int> Config::besarPeternakan;
 
 Config::Config(){
 
@@ -24,7 +24,7 @@ int Config::bacaPlant(){
         stringstream s(line);
         string id,kode,name,type,duration,price;
         s >> id >> kode >> name >> type >> duration >> price;
-        plant.insert({kode, make_tuple(stoi(id),name, type, stoi(duration), stoi(price))});
+        Config::plant.insert({kode, make_tuple(stoi(id),name, type, stoi(duration), stoi(price))});
     }
     inputFile.close();        
     return 1;
@@ -78,7 +78,7 @@ int Config::bacaRecipe(){
             counter++;
         }
         map<string,int> tempMap;
-        for(int i = 4; i < counter-1; i++){
+        for(int i = 4; i < counter; i+=2){
             tempMap.insert({temp[i],stoi(temp[i+1])});
         }
         recipe.insert({temp[1], make_tuple(stoi(temp[0]),temp[2],stoi(temp[3]),tempMap)});
@@ -93,20 +93,20 @@ int Config::bacaMisc(){
     }
 
     string line;
+    vector<int> temp;
     while(getline(inputFile, line)){
         stringstream s(line);
         string word;
-        vector<int> temp;
-        while(s, word, ' '){
+        while(getline(s, word, ' ')){
             temp.push_back(stoi(word));
         }
-        jumlahUangWin = temp[0];
-        beratBadanWin = temp[1];
-        besarPenyimpanan = make_pair(temp[2], temp[3]);
-        besarLahan = make_pair(temp[4],temp[5]);
-        besarPeternakan = make_pair(temp[6], temp[7]);
 
     }
+    jumlahUangWin = temp[0];
+    beratBadanWin = temp[1];
+    besarPenyimpanan = make_pair(temp[2], temp[3]);
+    besarLahan = make_pair(temp[4],temp[5]);
+    besarPeternakan = make_pair(temp[6], temp[7]);
     inputFile.close(); 
     return 1;
 }
