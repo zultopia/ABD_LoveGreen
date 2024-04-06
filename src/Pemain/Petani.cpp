@@ -36,6 +36,10 @@ void Petani::cetak_ladang() {
 
 void Petani::harvest() {}
 
+void Petani::doCommand(string command) {}
+
+void Petani::bayarPajak() {}
+
 int Petani::calculateTax() { return 0; }
 
 void Petani::buyItem() {}

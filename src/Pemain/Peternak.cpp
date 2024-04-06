@@ -38,6 +38,10 @@ void Peternak::cetak_peternakan() {
 
 void Peternak::harvest() {}
 
+void Peternak::doCommand(string command) {}
+
+void Peternak::bayarPajak() {}
+
 int Peternak::calculateTax() {
     if(kekayaan <= 0 && peternakan.hitungSlotKosong() == 0) {
         return 0;

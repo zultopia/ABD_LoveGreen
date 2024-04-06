@@ -1,6 +1,9 @@
 #include "Pemain.hpp"
 
-Pemain::Pemain(string& username, int kekayaan) : username(username), kekayaan(kekayaan), inventory() {}
+Pemain::Pemain(string& username, int kekayaan) : username(username), kekayaan(kekayaan), inventory() {
+    // NANTI PUSH PRIOQUEUE
+    listPemain.push_back(this);
+}
 
 string Pemain::getUsername() {
     return username;
@@ -12,6 +15,15 @@ int Pemain::getKekayaan() {
 
 Penyimpanan& Pemain::getInventory() {
     return inventory;
+}
+
+bool Pemain::namaValid(string nama){
+    for (int i = 0; i < listPemain.size(); i++) {
+        if (nama.compare(listPemain[i]->username) == 0) {
+            return false;
+        }
+    }
+    return true;
 }
 
 void Pemain::cetak_penyimpanan() {
