@@ -51,6 +51,7 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "utility": "cpp",
-        "tuple": "cpp"
-}
+        "tuple": "cpp",
+        "xtree": "cpp"
+    }
 }
