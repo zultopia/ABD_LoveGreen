@@ -12,8 +12,8 @@ void Petani::tanam() {
 
     pair<int, int> koordinatItem = konversiKoordinat(slot);
     // cout << koordinatItem.first << " " << koordinatItem.second << endl;
-    string item = inventory.ambilItem(koordinatItem.first + 1, koordinatItem.second);
-    cout << "Kamu memilih " << item << "." << endl;
+    Item* item = inventory.ambilItem(koordinatItem.first + 1, koordinatItem.second);
+    cout << "Kamu memilih " << item->getCode() << "." << endl;
 
     cout << endl;
     cout << "Pilih petak tanah yang akan ditanami" << endl;
@@ -25,6 +25,7 @@ void Petani::tanam() {
     pair<int, int> koordinatPetak = konversiKoordinat(petak);
     // cout << koordinatPetak.first << " " << koordinatPetak.second << endl;
 
+    Tanaman tanaman = item;
     ladang.tanamTanaman(koordinatPetak.first + 1, koordinatPetak.second, item);
     cout << "Cangkul, cangkul, cangkul yang dalam~!" << endl;
     cout << item << "berhasil ditanam!" << endl;

@@ -30,7 +30,7 @@ void Penyimpanan::cetakInfo() {
         }
         cout << setw(2) << "|";
         for (int j = 0; j < cols; ++j) {
-            cout << setw(5) << grid.getCell(i, j) << "|"; 
+            cout << setw(5) << grid.getCell(i, j)->getCode() << "|"; 
         }
         cout << endl;
         cout << setw(4) << "+";
@@ -42,9 +42,9 @@ void Penyimpanan::cetakInfo() {
     cout << endl;
 }
 
-void Penyimpanan::updateCell(int row, int col, const string& value) {
+void Penyimpanan::updateCell(int row, int col, const Item& value) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
-       grid.updateCell(row - 1, col, value); 
+        grid.updateCell(row - 1, col, value); 
     }
 }
 
@@ -52,31 +52,32 @@ int Penyimpanan::hitungSlotKosong() {
     int count = 0;
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            if (grid.getCell(i, j).empty()) { 
+            if (grid.getCell(i, j) != nullptr && grid.getCell(i, j)->getCode().empty()) {
                 ++count;
-            }
+            }   
         }
     }
     return count;
 }
 
-string Penyimpanan::ambilItem(int row, int col) {
-    string item = "";
+Item* Penyimpanan::ambilItem(int row, int col) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
-        item = grid.getCell(row - 1, col); 
-        grid.updateCell(row - 1, col, "");
+        Item* item = grid.getCell(row - 1, col);
+        grid.removeItem(row - 1, col);
+        return item;
+    } else {
+        return nullptr;
     }
-    return item;
 }
 
 // Function Overloading
-void Penyimpanan::tambahItem(const string& jenisItem) {
+void Penyimpanan::tambahItem(const Item& jenisItem) {
     int emptyRow = -1;
     int emptyCol = -1;
     // Cari slot kosong pertama
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            if (grid.getCell(i, j).empty()) {
+            if (grid.getCell(i, j)->getCode().empty()) {
                 emptyRow = i;
                 emptyCol = j;
                 break;
@@ -86,14 +87,14 @@ void Penyimpanan::tambahItem(const string& jenisItem) {
     }
     if (emptyRow != -1 && emptyCol != -1) {
         grid.updateCell(emptyRow, emptyCol, jenisItem);
-        cout << "Item " << jenisItem << " berhasil ditambahkan ke penyimpanan." << endl;
+        cout << "Item " << jenisItem.getCode() << " berhasil ditambahkan ke penyimpanan." << endl;
     } else {
         cout << "Penyimpanan penuh, tidak dapat menambahkan item baru." << endl;
     }
 }
 
 // Operator Overloading
-void Penyimpanan::operator+(const string& item) {
+void Penyimpanan::operator+(const Item& item) {
     tambahItem(item);
 }
 
@@ -124,17 +125,16 @@ void Ladang::cetakInfo() {
             cout << i + 1;
         }
         cout << setw(2) << "|";
-        siapPanen = true;
         for (int j = 0; j < cols; ++j) {
-            string cellValue = grid.getCell(i, j); 
-            if (cellValue == " BNT " || cellValue == " ALT " || cellValue == " SDT ") {
-                if ((cellValue == " ALT " || cellValue == " SDT ") && siapPanen) {
+            Tanaman* cellValue = grid.getCell(i, j); 
+            if (cellValue->getCode() == " BNT " || cellValue->getCode() == " ALT " || cellValue->getCode() == " SDT ") {
+                if ((cellValue->getCode() == " ALT " || cellValue->getCode() == " SDT ")) {
                     cout << GREEN;
                 } else {
                     cout << RED;
                 }
             }
-            cout << setw(5) << cellValue << RESET << "|";
+            cout << setw(5) << cellValue->getCode() << RESET << "|";
         }
         cout << endl;
         cout << setw(4) << "+";
@@ -153,29 +153,30 @@ void Ladang::cetakKeteranganTanaman() {
     cout << "- SDT: Sandalwood Tree\n";
 }
 
-void Ladang::tanamTanaman(int row, int col, const string& jenis) {
+void Ladang::tanamTanaman(int row, int col, const Tanaman& jenis) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
         grid.updateCell(row - 1, col, jenis);
     }
 }
 
-string Ladang::ambilTanaman(int row, int col) {
-    string item = "";
+Tanaman* Ladang::ambilTanaman(int row, int col) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
-        item = grid.getCell(row - 1, col); 
-        grid.updateCell(row - 1, col, "");
+        Tanaman* item = grid.getCell(row - 1, col);
+        grid.removeItem(row - 1, col);
+        return item;
+    } else {
+        return nullptr;
     }
-    return item;
 }
 
 // Function Overloading
-void Ladang::tambahTanaman(const string& jenisTanaman) {
+void Ladang::tambahTanaman(const Tanaman& jenisTanaman) {
     int emptyRow = -1;
     int emptyCol = -1;
     // Cari slot kosong pertama
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            if (grid.getCell(i, j).empty()) {
+            if (grid.getCell(i, j)->getCode().empty()) {
                 emptyRow = i;
                 emptyCol = j;
                 break;
@@ -185,14 +186,14 @@ void Ladang::tambahTanaman(const string& jenisTanaman) {
     }
     if (emptyRow != -1 && emptyCol != -1) {
         grid.updateCell(emptyRow, emptyCol, jenisTanaman);
-        cout << "Tanaman " << jenisTanaman << " berhasil ditambahkan ke ladang." << endl;
+        cout << "Tanaman " << jenisTanaman.getCode() << " berhasil ditambahkan ke ladang." << endl;
     } else {
         cout << "Ladang penuh, tidak dapat menambahkan tanaman baru." << endl;
     }
 }
 
 // Operator Overloading
-void Ladang::operator+(const string& tanaman) {
+void Ladang::operator+(const Tanaman& tanaman) {
      tambahTanaman(tanaman);
 }
 
@@ -223,17 +224,16 @@ void Peternakan::cetakInfo() {
             cout << i + 1;
         }
         cout << setw(2) << "|";
-        siapPanen = true;
         for (int j = 0; j < cols; ++j) {
-            string cellValue = grid.getCell(i, j);
-            if (cellValue == " COW " || cellValue == " SNK ") {
-                if (cellValue == " COW " && siapPanen) {
+            Hewan* cellValue = grid.getCell(i, j);
+            if (cellValue->getCode() == " COW " || cellValue->getCode() == " SNK ") {
+                if (cellValue->getCode() == " COW ") {
                     cout << GREEN;
                 } else {
                     cout << RED;
                 }
             }
-            cout << setw(5) << cellValue << RESET << "|";
+            cout << setw(5) << cellValue->getCode() << RESET << "|";
         }
         cout << endl;
         cout << setw(4) << "+";
@@ -249,39 +249,40 @@ void Peternakan::cetakLokasiHewan() {
     cout << "\n";
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            string cellValue = grid.getCell(i, j);
-            if (cellValue == " COW ") {
+            Hewan* cellValue = grid.getCell(i, j);
+            if (cellValue->getCode() == " COW ") {
                 cout << "- " << static_cast<char>('A' + j)  << "0" << i+1 << ": Cow" << endl;
-            } else if (cellValue == " SNK ") {
+            } else if (cellValue->getCode() == " SNK ") {
                 cout << "- " << static_cast<char>('A' + j)  << "0" << i+1 << ": Snake" << endl;
             }
         }
     }
 }
 
-void Peternakan::ternakHewan(int row, int col, const string& jenis) {
+void Peternakan::ternakHewan(int row, int col, const Hewan& jenis) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
         grid.updateCell(row - 1, col, jenis); 
     }
 }
 
-string Peternakan::ambilTernak(int row, int col) {
-    string item = "";
+Hewan* Peternakan::ambilTernak(int row, int col) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
-        item = grid.getCell(row - 1, col); 
-        grid.updateCell(row - 1, col, "");
+        Hewan* item = grid.getCell(row - 1, col);
+        grid.removeItem(row - 1, col);
+        return item;
+    } else {
+        return nullptr;
     }
-    return item;
 }
 
 // Function Overloading
-void Peternakan::tambahTernak(const string& jenisTernak) {
+void Peternakan::tambahTernak(const Hewan& jenisTernak) {
     int emptyRow = -1;
     int emptyCol = -1;
     // Cari slot kosong pertama
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            if (grid.getCell(i, j).empty()) {
+            if (grid.getCell(i, j)->getCode().empty()) {
                 emptyRow = i;
                 emptyCol = j;
                 break;
@@ -291,13 +292,13 @@ void Peternakan::tambahTernak(const string& jenisTernak) {
     }
     if (emptyRow != -1 && emptyCol != -1) {
         grid.updateCell(emptyRow, emptyCol, jenisTernak);
-        cout << "Ternak " << jenisTernak << " berhasil ditambahkan ke peternakan." << endl;
+        cout << "Ternak " << jenisTernak.getCode() << " berhasil ditambahkan ke peternakan." << endl;
     } else {
         cout << "Peternakan penuh, tidak dapat menambahkan ternak baru." << endl;
     }
 }
 
 // Operator Overloading
-void Peternakan::operator+(const string& ternak) {
+void Peternakan::operator+(const Hewan& ternak) {
     tambahTernak(ternak);
 }

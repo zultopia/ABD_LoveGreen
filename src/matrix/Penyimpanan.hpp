@@ -3,7 +3,9 @@
 #include <vector>
 #include <string>
 
-#include "Item/Item.hpp"
+#include "item/Item.hpp"
+#include "Tanaman.hpp"
+#include "Hewan.hpp"
 
 using namespace std;
 
@@ -15,12 +17,12 @@ using namespace std;
 template<class T>
 class Grid {
     private:
-        vector<vector<T> > grid;
+        vector<vector<T*> > grid;
 
     public:
         Grid() {}
 
-        Grid(int numRows, int numCols) : grid(numRows, vector<T>(numCols)) {}
+        Grid(int numRows, int numCols) : grid(numRows, vector<T*>(numCols)) {}
 
         void updateCell(int row, int col, const T& value) {
             if (row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size()) {
@@ -28,9 +30,16 @@ class Grid {
             }
         }
 
-        const T& getCell(int row, int col) const {
+        T* getCell(int row, int col) const {
             return grid[row][col];
         }
+
+        void removeItem(int row, int col) {
+        if (row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size()) {
+            delete grid[row][col];
+            grid[row][col] = nullptr;
+        }
+    }
 
         int getRows() const {
             return grid.size();
@@ -45,7 +54,7 @@ class Penyimpanan {
     protected:
         const int rows;
         const int cols;
-        Grid<string> grid;
+        Grid<Item> grid;
 
     public:
         Penyimpanan();
@@ -54,20 +63,20 @@ class Penyimpanan {
 
         virtual void cetakInfo();
 
-        void updateCell(int row, int col, const string& value);
+        void updateCell(int row, int col, const Item& value);
 
         int hitungSlotKosong();
 
-        string ambilItem(int row, int col);
+        Item* ambilItem(int row, int col);
 
-        void tambahItem(const string& jenisItem);
+        void tambahItem(const Item& jenisItem);
 
-        void operator+(const string& item);
+        void operator+(const Item& item);
 };
 
 class Ladang : public Penyimpanan {
     private:
-        bool siapPanen;
+        Grid<Tanaman> grid;
 
     public:
         Ladang();
@@ -78,18 +87,18 @@ class Ladang : public Penyimpanan {
 
         void cetakKeteranganTanaman();
 
-        void tanamTanaman(int row, int col, const string& jenis);
+        void tanamTanaman(int row, int col, const Tanaman& jenis);
 
-        string ambilTanaman(int row, int col);
+        Tanaman* ambilTanaman(int row, int col);
 
-        void tambahTanaman(const string& jenisTanaman);
+        void tambahTanaman(const Tanaman& jenisTanaman);
 
-        void operator+(const string& tanaman);
+        void operator+(const Tanaman& tanaman);
 };
 
 class Peternakan : public Penyimpanan {
     private:
-        bool siapPanen;
+        Grid<Hewan> grid;
 
     public:
         Peternakan();
@@ -100,11 +109,11 @@ class Peternakan : public Penyimpanan {
 
         void cetakLokasiHewan();
 
-        void ternakHewan(int row, int col, const string& jenis);
+        void ternakHewan(int row, int col, const Hewan& jenis);
 
-        string ambilTernak(int row, int col);
+        Hewan* ambilTernak(int row, int col);
 
-        void tambahTernak(const string& jenisTernak);
+        void tambahTernak(const Hewan& jenisTernak);
 
-        void operator+(const string& ternak);
+        void operator+(const Hewan& ternak);
 };
