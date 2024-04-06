@@ -52,6 +52,7 @@
         "streambuf": "cpp",
         "utility": "cpp",
         "tuple": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "string_view": "cpp"
     }
 }
