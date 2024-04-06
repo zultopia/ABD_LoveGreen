@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "../../Item/Item.hpp"
-#include "../../Config/Config/Config.hpp"
+#include "../../Config/Config.hpp"
 
 using namespace std;
 
@@ -17,8 +17,6 @@ class Produk : public Item  {
     public:
         // ctor
         Produk();
-        Produk(int id, int addedWeight, int price, string code, string name, string origin, string type);
-        Produk(Config& config, string name);
 
         // dtor
         ~Produk();
@@ -37,7 +35,7 @@ class Produk : public Item  {
 
         // other operations
         bool eatable() const override;
-        void print() override;
+        friend ostream& operator<<(ostream& os, Produk produk);
 };
 
 #endif

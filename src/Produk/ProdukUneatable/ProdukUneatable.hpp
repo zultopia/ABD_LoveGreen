@@ -10,7 +10,7 @@ class ProdukUneatable : public Produk  {
     public:
         // ctor
         ProdukUneatable();
-        ProdukUneatable(int id, int added_weight, int price, string code, string name, string origin, string type);
+        ProdukUneatable(string code);
 
         // dtor
         ~ProdukUneatable();

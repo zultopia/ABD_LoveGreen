@@ -14,7 +14,7 @@ Config::Config(){
 
 }
 int Config::bacaPlant(){
-    ifstream inputFile("../../config/plant.txt");
+    ifstream inputFile("../config/plant.txt");
     if(!inputFile.is_open()){
         return -1;
     }
@@ -30,7 +30,7 @@ int Config::bacaPlant(){
     return 1;
 }
 int Config::bacaAnimal(){
-    ifstream inputFile("../../config/animal.txt");
+    ifstream inputFile("../config/animal.txt");
     if(!inputFile.is_open()){
         return -1;
     }
@@ -46,7 +46,7 @@ int Config::bacaAnimal(){
     return 1;
 }
 int Config::bacaProduct(){
-    ifstream inputFile("../../config/product.txt");
+    ifstream inputFile("../config/product.txt");
     if(!inputFile.is_open()){
         return -1;
     }
@@ -62,7 +62,7 @@ int Config::bacaProduct(){
     return 1;
 }
 int Config::bacaRecipe(){
-    ifstream inputFile("../../config/recipe.txt");
+    ifstream inputFile("../config/recipe.txt");
     if(!inputFile.is_open()){
         return -1;
     }
@@ -87,7 +87,7 @@ int Config::bacaRecipe(){
     return 1;
 }
 int Config::bacaMisc(){
-    ifstream inputFile("../../config/misc.txt");
+    ifstream inputFile("../config/misc.txt");
     if(!inputFile.is_open()){
         return -1;
     }
@@ -156,6 +156,20 @@ bool Config::isExistProduct(string key){
 }
 bool Config::isExistRecipe(string key){
     return(recipe.find(key) != recipe.end());
+}
+int Config::getId(string key){
+    if(plant.find(key) != plant.end()){
+        return get<0>(plant.at(key));
+    }else if(animal.find(key) != animal.end()){
+        return get<0>(animal.at(key));
+    }else if(product.find(key) != product.end()){
+        return get<0>(product.at(key));
+    }else if(recipe.find(key) != recipe.end()){
+        return get<0>(recipe.at(key));
+    }else{
+        ConfigException e("Tidak ada key tersebut pada Config");
+        throw e;
+    }
 }
 string Config::getNama(string key){
     if(plant.find(key) != plant.end()){

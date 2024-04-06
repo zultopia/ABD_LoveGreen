@@ -1,16 +1,21 @@
 #include "Karnivora.hpp"
 
-Karnivora::Karnivora(int id, int weigth_to_harvest, int price, string code, string name) : 
-    Hewan(id, weigth_to_harvest, price, code, name, "CARNIVORE") {}
+Karnivora::Karnivora(string code) : Hewan() {
+    setIdHewan(Config::getId(code));
+    setCode(code);
+    setName(Config::getNama(code));
+    setTypeHewan(Config::getType(code));
+    setWeightToHarvest(Config::getWeightHarvest(code));
+    setPrice(Config::getPrice(code));
+}
 
 Karnivora::~Karnivora() {}
 
 bool Karnivora::isCanEat(Produk& p) const {
-    if (p.getTypeProduk() == "PRODUCT_ANIMAL")  {
-        cout << "Herbivora bisa makan brou" << endl;
-        return true;
-    } else {
-        cout << "ga bisa makan itu" << endl;
-        return false;
-    }  
+    if (p.eatable()) {
+        if (p.getTypeProduk() == "PRODUCT_ANIMAL")  {
+            return true;
+        }
+    }
+    return false;
 }
