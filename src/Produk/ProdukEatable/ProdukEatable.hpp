@@ -10,7 +10,7 @@ class ProdukEatable : public Produk  {
     public:
         // ctor
         ProdukEatable();
-        ProdukEatable(int id, int added_weight, int price, string code, string name, string origin, string type);
+        ProdukEatable(string code);
 
         // dtor
         ~ProdukEatable();

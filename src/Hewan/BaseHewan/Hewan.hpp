@@ -2,9 +2,10 @@
 #define HEWAN_HPP
 
 #include <iostream>
+#include "../HewanException/HewanException.hpp"
 #include "../../Item/Item.hpp"
 #include "../../Produk/BaseProduk/Produk.hpp"
-#include "../../Config/Config/Config.hpp"
+#include "../../Config/Config.hpp"
 
 using namespace std;
 
@@ -18,8 +19,7 @@ class Hewan : public Item {
     public:
         // ctor
         Hewan();
-        Hewan(int id, int weigth_to_harvest, int price, string code, string name, string type);
-        Hewan(Config& config, string code);
+        Hewan(string code);
 
         // dtor
         ~Hewan();
@@ -41,8 +41,7 @@ class Hewan : public Item {
         virtual bool isCanEat(Produk& p) const;
         void eat(Produk& p);
         bool isHarvest() const;
-        Produk harvest(Config& config);
-        void print() override;
+        friend ostream& operator<<(ostream& os, Hewan hewan);
 };
 
 #endif

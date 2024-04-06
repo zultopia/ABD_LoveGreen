@@ -31,7 +31,6 @@ class Item {
 
         // other operations
         virtual bool eatable() const = 0;
-        virtual void print();
 };
 
 #endif

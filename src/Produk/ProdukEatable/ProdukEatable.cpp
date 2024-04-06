@@ -2,8 +2,15 @@
 
 // ctor
 ProdukEatable::ProdukEatable() : Produk() {}
-ProdukEatable::ProdukEatable(int id, int addedWeight, int price, string code, string name, string origin, string type) :
-    Produk(id, addedWeight, price, code, name, origin, type) {}
+ProdukEatable::ProdukEatable(string code) : Produk() {
+    setIdProduk(Config::getId(code));
+    setCode(code);
+    setName(Config::getNama(code));
+    setTypeProduk(Config::getType(code));
+    setOrigin(Config::getOrigin(code));
+    setAddedWeight(Config::getAddedWeight(code));
+    setPrice(Config::getPrice(code));
+}
 
 // dtor
 ProdukEatable::~ProdukEatable() {}

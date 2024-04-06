@@ -8,8 +8,13 @@ using namespace std;
 
 class Herbivora : public Hewan {
     public:
-        Herbivora(int id, int weight_to_harvest, int price, string code, string name);
+        // ctor
+        Herbivora(string code);
+
+        // dtor
         ~Herbivora();
+
+        // validator
         bool isCanEat(Produk& p) const override;
 };
 

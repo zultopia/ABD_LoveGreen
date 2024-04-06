@@ -2,9 +2,8 @@
 #define TANAMAN_HPP
 
 #include <iostream>
-#include "../../Item/Item.hpp"
-#include "../../Produk/BaseProduk/Produk.hpp"
-#include "../../Config/Config/Config.hpp"
+#include "../Item/Item.hpp"
+#include "../Produk/BaseProduk/Produk.hpp"
 
 using namespace std;
 
@@ -18,8 +17,7 @@ class Tanaman : public Item{
     public:
         // ctor
         Tanaman();
-        Tanaman(int id, int duration_to_harvest, int price, string code, string name, string typeTanaman);
-        Tanaman(Config& config, string code);
+        Tanaman(string code);
 
         // dtor
         ~Tanaman();
@@ -40,9 +38,7 @@ class Tanaman : public Item{
         bool eatable() const override;
         void addDuration();
         bool isHarvest() const;
-        Produk harvest(Config& config);
-        void print() override;
-        
+        friend ostream& operator<<(ostream& os, Tanaman tanaman);
 };
 
 #endif

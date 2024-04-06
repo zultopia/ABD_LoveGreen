@@ -21,9 +21,3 @@ string Item::getName() {return name;}
 void Item::setPrice(int price) {this->price = price;}
 void Item::setCode(string code) {this->code = code;}
 void Item::setName(string name) {this->name = name;}
-
-void Item::print() {
-    cout << "Code     : " << getCode() << endl;
-    cout << "Name     : " << getName() << endl;
-    cout << "Price    : " << getPrice() << endl;
-}

@@ -8,7 +8,7 @@ using namespace std;
 
 class Omnivora : public Hewan {
     public:
-        Omnivora(int id, int weight_to_harvest, int price, string code, string name);
+        Omnivora(string code);
         ~Omnivora();
         bool isCanEat(Produk& p) const override;
 };
