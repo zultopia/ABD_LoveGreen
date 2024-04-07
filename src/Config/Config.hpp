@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include "ConfigException.cpp"
 #include "ConfigException.hpp"
 using namespace std;
 class Config{

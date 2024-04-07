@@ -14,7 +14,7 @@ Config::Config(){
 
 }
 int Config::bacaPlant(){
-    ifstream inputFile("../config/plant.txt");
+    ifstream inputFile("../../config/plant.txt");
     if(!inputFile.is_open()){
         return -1;
     }
@@ -24,13 +24,13 @@ int Config::bacaPlant(){
         stringstream s(line);
         string id,kode,name,type,duration,price;
         s >> id >> kode >> name >> type >> duration >> price;
-        Config::plant.insert({kode, make_tuple(stoi(id),name, type, stoi(duration), stoi(price))});
+        Config::plant.insert({name, make_tuple(stoi(id),kode, type, stoi(duration), stoi(price))});
     }
     inputFile.close();        
     return 1;
 }
 int Config::bacaAnimal(){
-    ifstream inputFile("../config/animal.txt");
+    ifstream inputFile("../../config/animal.txt");
     if(!inputFile.is_open()){
         return -1;
     }
@@ -40,13 +40,13 @@ int Config::bacaAnimal(){
         stringstream s(line);
         string id,kode,name,type,weight,price;
         s >> id >> kode >> name >> type >> weight >> price;
-        animal.insert({kode, make_tuple(stoi(id),name, type, stoi(weight), stoi(price))});
+        animal.insert({name, make_tuple(stoi(id),kode, type, stoi(weight), stoi(price))});
     }
     inputFile.close(); 
     return 1;
 }
 int Config::bacaProduct(){
-    ifstream inputFile("../config/product.txt");
+    ifstream inputFile("../../config/product.txt");
     if(!inputFile.is_open()){
         return -1;
     }
@@ -56,13 +56,13 @@ int Config::bacaProduct(){
         stringstream s(line);
         string id,kode,name,type,origin,weight,price;
         s >> id >> kode >> name >> type >> origin >> weight >> price;
-        product.insert({kode, make_tuple(stoi(id),name, type, origin,stoi(weight), stoi(price))});
+        product.insert({name, make_tuple(stoi(id),kode, type, origin,stoi(weight), stoi(price))});
     }
     inputFile.close(); 
     return 1;
 }
 int Config::bacaRecipe(){
-    ifstream inputFile("../config/recipe.txt");
+    ifstream inputFile("../../config/recipe.txt");
     if(!inputFile.is_open()){
         return -1;
     }
@@ -81,13 +81,13 @@ int Config::bacaRecipe(){
         for(int i = 4; i < counter; i+=2){
             tempMap.insert({temp[i],stoi(temp[i+1])});
         }
-        recipe.insert({temp[1], make_tuple(stoi(temp[0]),temp[2],stoi(temp[3]),tempMap)});
+        recipe.insert({temp[2], make_tuple(stoi(temp[0]),temp[1],stoi(temp[3]),tempMap)});
     }
     inputFile.close(); 
     return 1;
 }
 int Config::bacaMisc(){
-    ifstream inputFile("../config/misc.txt");
+    ifstream inputFile("../../config/misc.txt");
     if(!inputFile.is_open()){
         return -1;
     }
@@ -171,20 +171,20 @@ int Config::getId(string key){
         throw e;
     }
 }
-string Config::getNama(string key){
-    if(plant.find(key) != plant.end()){
-        return get<1>(plant.at(key));
-    }else if(animal.find(key) != animal.end()){
-        return get<1>(animal.at(key));
-    }else if(product.find(key) != product.end()){
-        return get<1>(product.at(key));
-    }else if(recipe.find(key) != recipe.end()){
-        return get<1>(recipe.at(key));
-    }else{
-        ConfigException e("Tidak ada key tersebut pada Config");
-        throw e;
-    }
-}
+// string Config::getNama(string key){
+//     if(plant.find(key) != plant.end()){
+//         return get<1>(plant.at(key));
+//     }else if(animal.find(key) != animal.end()){
+//         return get<1>(animal.at(key));
+//     }else if(product.find(key) != product.end()){
+//         return get<1>(product.at(key));
+//     }else if(recipe.find(key) != recipe.end()){
+//         return get<1>(recipe.at(key));
+//     }else{
+//         ConfigException e("Tidak ada key tersebut pada Config");
+//         throw e;
+//     }
+// }
 string Config::getType(string key){
     if(plant.find(key) != plant.end()){
         return get<2>(plant.at(key));

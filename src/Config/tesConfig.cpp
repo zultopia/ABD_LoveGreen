@@ -1,4 +1,4 @@
-#include "Config.hpp"
+#include "Config.cpp"
 
 int main(){
     map<string,tuple<int,string,string,int,int>>& plant = Config::getPlantMap();
