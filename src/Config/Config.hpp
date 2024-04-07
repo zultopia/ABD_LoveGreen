@@ -11,16 +11,16 @@
 using namespace std;
 class Config{
     private:
-        // map<kode,tuple<id,nama,type,duration,price>>
+        // map<nama,tuple<id,kode,type,duration,price>>
         static map<string,tuple<int,string,string,int,int>> plant;
 
-        // map<kode,tuple<id,nama,type,weight,price>>
+        // map<nama,tuple<id,kode,type,weight,price>>
         static map<string,tuple<int,string,string,int,int>> animal;
 
-        // map<kode,tuple<id,nama,type,origin,added_weight,price>>
+        // map<nama,tuple<id,kode,type,origin,added_weight,price>>
         static map<string,tuple<int,string,string,string,int,int>> product;
 
-        // map<kode,tuple<id,nama,price, map<material,quantity>>>
+        // map<nama,tuple<id,kode,price, map<material,quantity>>>
         static map<string,tuple<int,string,int,map<string,int>>> recipe;
         static int jumlahUangWin;
         static int beratBadanWin;
