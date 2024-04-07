@@ -1,5 +1,6 @@
 #include "Toko.hpp"
 
+
 int Toko::jumlah = 1; 
 Toko::Toko(){}
 
@@ -37,11 +38,14 @@ void Toko::CetakWalikota(){
     int i = 1;
     auto itr = barang.begin();
     while(itr != barang.end()){
-        cout << i << itr->first << " - " << itr->second.first; 
-        if ( itr->second.second != -1){
-            cout << " (" << itr->second.second << ")\n";
+        // jika tidak ada di recipe bangunan
+        if(!Config::isExistRecipe(itr->first) && itr->second.second != 0){
+            cout << i << itr->first << " - " << itr->second.first; 
+            if ( itr->second.second != -1){
+                cout << " (" << itr->second.second << ")\n";
+            }
+            i++;
         }
-        i++;
         itr++;
     }
 }
@@ -50,7 +54,7 @@ void Toko::CetakPeternakPetani(){
     cout << "Berikut merupakan hal yang dapat Anda Beli\n";
     int i = 1;
     auto itr = barang.begin();
-    while(itr != barang.end()){
+    while(itr != barang.end() && itr->second.second != 0){
         cout << i << itr->first << " - " << itr->second.first; 
         if ( itr->second.second != -1){
             cout << " (" << itr->second.second << ")\n";
@@ -60,46 +64,65 @@ void Toko::CetakPeternakPetani(){
     }
 }
 
+void Toko::Cetak(){
+    // if(typeid(CurrPemain) == typeid(Walikota)){
+    //     CetakWalikota(no,Quantity);
+    // }else{
+    //     CetakPeternakPetani(no,Quantity);
+    // }
+}
+
 // Produk yang dibeli
 // mengembalikan jumlah uang yang harus dibayarkan untuk membeli
 int Toko::BeliWalikota(int no, int Quantity){
     int i = 1;
     auto itr = barang.begin();
     while(itr != barang.end() && i < no){
-        cout << i << itr->first << " - " << itr->second.first; 
-        if ( itr->second.second != -1){
-            cout << " (" << itr->second.second << ")\n";
+        if(!Config::isExistRecipe(itr->first) && itr->second.second != 0){
+            i++;
         }
-        i++;
+        itr++;
     }
+    // itr = barang yang ditunjuk oleh no
+    itr->second.second--;
+    return itr->second.first*Quantity;
 }
 
+int Toko::Beli(int no, int Quantity){
+    // if(typeid(CurrPemain) == typeid(Walikota)){
+    //     BeliWalikota(no,Quantity);
+    // }else{
+    //     BeliPeternakPetani(no,Quantity);
+    // }
+}
+
+
 // batal melakukan pembelian
-void batalBeli(string kode, int Quantity);
+void Toko::batalBeli(string kode, int Quantity){
+    (barang.at(kode)).second += Quantity;
+}
 
 // menjual ke toko
 // mengembalikan jumlah uang yang akan diterima dari penjualan
-int Jual(string kode, int Quantity);
+int Toko::Jual(string kode, int Quantity){
+    barang.at(kode).second += Quantity;
+    return barang.at(kode).first * Quantity;
+}
 
 // batal melakukan penjualan
-void batalJual(string kode, int Quantity);
+void Toko::batalJual(string kode, int Quantity){
+    barang.at(kode).second -= Quantity;
+}
 
-// // mengembalikan jumlah Produk yang tersedia
-// // dijamin ada ?
-// int Toko::getQuantity(string kode){
-//     return (produk.at(kode)).second;
-// }
+// mengembalikan jumlah Produk yang tersedia
+// dijamin ada 
+// -1 berati infinite
+int Toko::getQuantity(string kode){
+    return (barang.at(kode)).second;
+}
 
-// // mengembalikan harga
-// // dijamin ada ?
-// int Toko::getPrice(string kode){
-//     if(produk.find(kode)!= produk.end()){
-//         return (produk.at(kode)).first;
-//     }else if(tanamanHewan.find(kode) != tanamanHewan.end()){
-//         return (tanamanHewan.at(kode));
-//     }
-//     // else{
-//     //     cout << "Tidak ada Produk/bangunan dengan kode tersebut.\n";
-//     //     return -1;
-//     // }
-// }
+// mengembalikan harga
+// dijamin ada 
+int Toko::getPrice(string kode){
+    return barang.at(kode).first;
+}

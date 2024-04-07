@@ -5,6 +5,11 @@
 #include <map>
 #include <string>
 #include "../Config/Config.hpp"
+#include "../Pemain/Pemain.hpp"
+#include "../Pemain/Walikota.hpp"
+#include "../Pemain/Petani.hpp"
+#include "../Pemain/Peternak.hpp"
+
 using namespace std;
 
 class Toko{
@@ -35,11 +40,13 @@ class Toko{
         // pake method yang sesuai dengan current user
         void CetakWalikota();
         void CetakPeternakPetani();
-
+        void Cetak();
         // Produk yang dibeli
         // mengembalikan jumlah uang yang harus dibayarkan untuk membeli
         int BeliWalikota(int no, int Quantity);
         int BeliPeternakPetani(int no, int Quantity);
+
+        int Beli(int no, int Quantity);
 
         // batal melakukan pembelian
         void batalBeli(string kode, int Quantity);
