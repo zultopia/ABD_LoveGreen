@@ -30,6 +30,40 @@ void Walikota::pungutPajak(){
 }
 
 void Walikota::bangun(){
+    cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
+    auto itr = Config::getAnimalMap().begin();
+    int i = 1;
+    map<string, string> Bahan;
+    while (itr != Config::getAnimalMap().end()) {
+        cout << "  " << i << ". " << Config::getNama(itr->first) << " (" << Config::getPrice(itr->first);
+        auto itrMaterial = Config::getMaterialInfo(itr->first).begin();
+        while (itrMaterial != Config::getMaterialInfo(itr->first).end()){
+            cout << ", " << itrMaterial->first << " " << itrMaterial->second;
+            itrMaterial++;
+        }
+        cout << ")" << endl;
+        Bahan.insert(pair<string,string>(Config::getNama(itr->first), itr->first));
+        i++;
+        itr++;
+    }
+    cout << endl << "Bangunan yang ingin dibangun: ";
+    string answer;
+    cin >> answer;
+    try {
+        string kodeBangunan = Bahan[answer];
+    } catch(...){
+        cout << "Kamu tidak punya resep bangunan tersebut!" << endl;
+        this->bangun();
+        return;
+    }
+    // Harus Cek Inventory ada item atau ga
+
+    // Kalau ga ada:
+        cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan "; // apa aja yg gapunya
+    // Kalau ada:
+        // tambah ke inventory : new Bangunan(...)
+        cout << answer << " berhasil dibangun dan telah menjadi hak milik walikota!";
+
 
 }
 void Walikota::tambahPemain(){
@@ -74,11 +108,13 @@ int Walikota::calculateTax(){
 }
 
 void Walikota::buyItem(){
-
+    // Reference toko?
+    // Toko::CetakWalikota();
+    // Toko::BeliWalikota();
 }
 
 void Walikota::sellItem(){
-
+    // Toko::Jual();
 }
 
 void Walikota::eat(){

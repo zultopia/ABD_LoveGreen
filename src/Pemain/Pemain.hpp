@@ -7,6 +7,8 @@
 #include <tuple>
 #include <vector>
 #include "../matrix/Penyimpanan.hpp"
+#include "../config/Config.hpp"
+#include "../toko/toko.hpp"
 
 using namespace std;
 
