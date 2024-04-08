@@ -19,11 +19,11 @@ class Muat{
     public:
         static void muat(string path);
         static void read(ifstream& inputFile);
-        static vector<string> getPemain();
-        static map<string,tuple<string,int,int>> getDataPemain();
-        static map<string, vector<string>> getInventory();
-        static map<string,vector<tuple<string,string,int>>> getLadangdanTernak();
-        static map<string,int> getToko();
+        static vector<string>& getPemain();
+        static map<string,tuple<string,int,int>>& getDataPemain();
+        static map<string, vector<string>>& getInventory();
+        static map<string,vector<tuple<string,string,int>>>& getLadangdanTernak();
+        static map<string,int>& getToko();
 };
 
 #endif
