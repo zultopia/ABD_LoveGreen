@@ -76,18 +76,18 @@ void Muat::read(ifstream& inputFile){
     }
 
 }
-vector<string> Muat::getPemain(){
+vector<string>& Muat::getPemain(){
     return pemain;
 }
-map<string,tuple<string,int,int>> Muat::getDataPemain(){
+map<string,tuple<string,int,int>>& Muat::getDataPemain(){
     return dataPemain;
 }
-map<string, vector<string>> Muat::getInventory(){
+map<string, vector<string>>& Muat::getInventory(){
     return inventory;
 }
-map<string,vector<tuple<string,string,int>>> Muat::getLadangdanTernak(){
+map<string,vector<tuple<string,string,int>>>& Muat::getLadangdanTernak(){
     return LadangdanTernak;
 }
-map<string,int> Muat::getToko(){
+map<string,int>& Muat::getToko(){
     return toko;
 }

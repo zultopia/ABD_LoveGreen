@@ -23,11 +23,11 @@ class Muat{
         static void readPetani(ifstream& inputFile);
         static void readWalikota(ifstream& inputFile);
         static void readToko(ifstream& inputFile);
-        static vector<string> getPemain();
-        static map<string,tuple<string,int,int>> getDataPemain();
-        static map<string, vector<string>> getInventory();
-        static map<string,vector<tuple<string,string,int>>> getLadangdanTernak();
-        static map<string,int> getToko();
+        static vector<string>& getPemain();
+        static map<string,tuple<string,int,int>>& getDataPemain();
+        static map<string, vector<string>>& getInventory();
+        static map<string,vector<tuple<string,string,int>>>& getLadangdanTernak();
+        static map<string,int>& getToko();
 };
 
 #endif
