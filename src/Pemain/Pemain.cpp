@@ -2,10 +2,13 @@
 
 // Declare listPemain
 vector<Pemain*> Pemain::listPemain;
+int Pemain::currentPemain = 0;
+int Pemain::numPemain = 0;
 
 Pemain::Pemain(string& username, int kekayaan) : username(username), kekayaan(kekayaan), inventory() {
     // NANTI PUSH PRIOQUEUE
     listPemain.push_back(this);
+    numPemain++;
 }
 
 string Pemain::getUsername() {
@@ -18,6 +21,26 @@ int Pemain::getKekayaan() {
 
 Penyimpanan& Pemain::getInventory() {
     return inventory;
+}
+
+void Pemain::next() {
+    currentPemain = (currentPemain + 1) % numPemain;
+}
+void Pemain::simpan() {
+
+}
+
+int Pemain::bayarPajak() {
+    int pajak = this->calculateTax();
+    if (this->kekayaan >= pajak) {
+        kekayaan -= pajak;
+        return pajak;
+    } else {
+        int tempKekayaan = kekayaan;
+        kekayaan -= pajak;
+        return tempKekayaan;
+    }
+
 }
 
 bool Pemain::namaValid(string nama){
@@ -52,3 +75,4 @@ pair<int, int> Pemain::konversiKoordinat(string koordinat) {
 
     return {x, y};
 }
+

@@ -4,58 +4,72 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <vector>
+// #include "../Config/Config.cpp"
+// #include "../Config/Muat.cpp"
+// #include "TokoException.cpp"
 #include "../Config/Config.hpp"
+#include "../Config/Muat.hpp"
+#include "TokoException.hpp"
+
+
+
 using namespace std;
 
 class Toko{
     private:
         // map<namaBarang,tuple<Price,Quantity>>
-        map<string,pair<int,int>> barang;
-        static int jumlah;
+        static map<string,pair<int,int>> barang;
+        static vector<string> urutan;
+        
 
 
     public:
 
         Toko();
+        static void setUpToko();
+        static void setUpTokoMuat();
 
         // tambahkan tanaman atau hewan baru
-        void tambahTanamanHewan(string kode, int Price);
+        static void tambahTanamanHewan(string nama, int Price);
 
         // tambahkan Produk yang mempunyai kuantitas baru
-        void tambahProduk(string kode, int Price, int Quantity);
+        static void tambahProduk(string nama, int Price, int Quantity);
 
         // atur harga barang
-        void aturHargaBarang(string kode, int Price);
+        static void aturHargaBarang(string nama, int Price);
 
         // atur jumlah Barang yang terbatas
-        void aturJumlahBarang(string kode, int Quantity);
+        static void aturJumlahBarang(string nama, int Quantity);
 
         // cetak hal yang dapat dibeli 
         // tiap jenis pemain beda yang dicetak
         // pake method yang sesuai dengan current user
-        void CetakWalikota();
-        void CetakPeternakPetani();
-
+        static int CetakWalikota();
+        static int CetakPeternakPetani();
         // Produk yang dibeli
         // mengembalikan jumlah uang yang harus dibayarkan untuk membeli
-        int BeliWalikota(int no, int Quantity);
-        int BeliPeternakPetani(int no, int Quantity);
+        static int BeliWalikota(int no, int Quantity);
+        static int BeliPeternakPetani(int no, int Quantity);
 
         // batal melakukan pembelian
-        void batalBeli(string kode, int Quantity);
+        static void batalBeli(string nama, int Quantity);
 
         // menjual ke toko
         // mengembalikan jumlah uang yang akan diterima dari penjualan
-        int Jual(string kode, int Quantity);
+        static int Jual(string nama, int Quantity);
 
         // batal melakukan penjualan
-        void batalJual(string kode, int Quantity);
+        static void batalJual(string nama, int Quantity);
 
         // mengembalikan jumlah Produk yang tersedia
-        int getQuantity(string kode);
+        static int getQuantity(string nama);
 
         // mengembalikan harga
-        int getPrice(string kode);
+        static int getPrice(string nama);
+
+        static map<string,pair<int,int>>& getBarang();
+        static vector<string>& getUrutan();
 
 };
 

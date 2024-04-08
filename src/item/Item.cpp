@@ -14,8 +14,8 @@ Item::~Item() {}
 
 // getter
 int Item::getPrice() {return price;}
-string Item::getCode() const {return code;}
-string Item::getName() const {return name;}
+string Item::getCode() {return code;}
+string Item::getName() {return name;}
 
 // setter
 void Item::setPrice(int price) {this->price = price;}

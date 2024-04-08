@@ -21,8 +21,8 @@ class Item {
 
         // getter
         int getPrice();
-        string getCode() const;
-        string getName() const;
+        string getCode();
+        string getName();
 
         // getter
         void setPrice(int price);

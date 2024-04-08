@@ -1,4 +1,5 @@
-#include "Config.hpp"
+#include "Config.cpp"
+#include "Muat.cpp"
 
 int main(){
     map<string,tuple<int,string,string,int,int>>& plant = Config::getPlantMap();
@@ -32,5 +33,30 @@ int main(){
     cout << Config::getBesarPenyimpanan().first << " " << Config::getBesarPenyimpanan().second << endl;
     cout << Config::getBesarLahan().first << " " << Config::getBesarLahan().second << endl;
     cout << Config::getBesarPeternakan().first << " " << Config::getBesarPeternakan().second << endl;
+    cout << endl;
+    Muat::muat("../../config/state.txt");
+    vector<string> pemain = Muat::getPemain();
+    map<string,tuple<string,int,int>> dataPemain = Muat::getDataPemain();
+    map<string, vector<string>> inventory = Muat::getInventory();
+    map<string,vector<tuple<string,string,int>>> LadangdanTernak = Muat::getLadangdanTernak();
+    map<string,int> toko = Muat::getToko();
+
+    for(auto i = pemain.begin(); i != pemain.end(); i++){
+        cout << *i << endl;
+        cout << get<0>(dataPemain.at(*i)) << " " << get<1>(dataPemain.at(*i)) << " " << get<2>(dataPemain.at(*i)) << endl;
+        for(auto j = inventory.at(*i).begin(); j != inventory.at(*i).end(); j++){
+            cout << *j << endl;
+        }
+        if( get<0>(dataPemain.at(*i)) != "Walikota" ){
+            for(auto j = LadangdanTernak.at(*i).begin(); j != LadangdanTernak.at(*i).end(); j++){
+                cout << get<0>(*j) << " " << get<1>(*j) << " " << get<2>(*j) << endl;
+            }
+        }
+        cout << endl;
+    }
+    for(auto j = toko.begin(); j != toko.end(); j++){
+        cout << j->first << " " << j->second << endl;
+    }
+    
     
 }

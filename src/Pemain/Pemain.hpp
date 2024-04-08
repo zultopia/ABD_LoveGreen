@@ -18,6 +18,8 @@ class Pemain {
 		int kekayaan;
 		Penyimpanan inventory;
         static vector<Pemain*> listPemain;
+		static int currentPemain;
+		static int numPemain;
     public:
         Pemain(string& username, int kekayaan);
 		// virtual ~Pemain();
@@ -30,7 +32,7 @@ class Pemain {
         virtual void doCommand(string command) = 0;
         void next();
         void simpan();
-        virtual void bayarPajak() = 0;
+        virtual int bayarPajak();
 
 		virtual int calculateTax() = 0;
 		virtual void buyItem() = 0;

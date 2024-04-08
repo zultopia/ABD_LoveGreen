@@ -149,7 +149,7 @@ void Petani::harvest() {
 
 void Petani::doCommand(string command) {}
 
-void Petani::bayarPajak() {}
+int Petani::bayarPajak() { return 0; }
 
 int Petani::calculateTax() { return 0; }
 
