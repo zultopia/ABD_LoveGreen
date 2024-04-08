@@ -16,13 +16,12 @@ void Walikota::pungutPajak(){
         currentPajak = listPemain[i]->calculateTax();
         // NANTI PUSH PRIOQUEUE
         pajak.push_back(tuple<Pemain*, int>(listPemain[i], currentPajak));
-        totalPajak += currentPajak;
     }
     // Print hasil pemungutan;
     cout << "Berikut adalah detil dari pemungutan pajak:" << endl;
     for (int i = 0; i < listPemain.size(); i++) {
         cout << "  " << i+1;
-        get<0>(pajak[i])->bayarPajak();
+        totalPajak += get<0>(pajak[i])->bayarPajak();
     }
 
     cout << "Negara mendapatkan pemasukan sebesar" << totalPajak << " gulden." << endl;
