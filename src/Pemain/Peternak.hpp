@@ -1,5 +1,5 @@
-#ifndef __PETERNAK__
-#define __PETERNAK__
+#ifndef __PETERNAK_HPP__
+#define __PETERNAK_HPP__
 
 #include "Pemain.hpp"
 
@@ -9,12 +9,14 @@ class Peternak : public Pemain {
 	public:
 		Peternak(string& username, int kekayaan);
 
+		Peternakan& getPeternakan();
+
 		void ternak();
 		void beri_pangan();
 		void cetak_peternakan();
 
 		void harvest();
-		void Peternak::doCommand(string command);
+		void doCommand(string command);
 		void bayarPajak();
 		int calculateTax();
 		void buyItem();

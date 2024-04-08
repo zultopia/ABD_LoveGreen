@@ -40,7 +40,4 @@ class Pemain {
 		pair<int, int> konversiKoordinat(string koordinat);
 };
 
-// Declare listPemain
-vector<Pemain*> Pemain::listPemain;
-
 #endif

@@ -1,5 +1,8 @@
 #include "Pemain.hpp"
 
+// Declare listPemain
+vector<Pemain*> Pemain::listPemain;
+
 Pemain::Pemain(string& username, int kekayaan) : username(username), kekayaan(kekayaan), inventory() {
     // NANTI PUSH PRIOQUEUE
     listPemain.push_back(this);

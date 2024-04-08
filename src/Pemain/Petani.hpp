@@ -1,5 +1,5 @@
-#ifndef __PETANI__
-#define __PETANI__
+#ifndef __PETANI_HPP__
+#define __PETANI_HPP__
 
 #include "Pemain.hpp"
 
@@ -8,6 +8,8 @@ class Petani : public Pemain {
 		Ladang ladang;
 	public:
 		Petani(string& username, int kekayaan);
+
+		Ladang& getLadang();
 
 		void tanam();
 		void cetak_ladang();

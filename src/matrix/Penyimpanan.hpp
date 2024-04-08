@@ -1,11 +1,14 @@
+#ifndef __PENYIMPANAN_HPP__
+#define __PENYIMPANAN_HPP__
+
 #include <iostream>
 #include <iomanip>
 #include <vector>
 #include <string>
 
-#include "item/Item.hpp"
-#include "Tanaman.hpp"
-#include "Hewan.hpp"
+#include "../item/Item.hpp"
+#include "../Tanaman/Tanaman.hpp"
+#include "../Hewan/BaseHewan/Hewan.hpp"
 
 using namespace std;
 
@@ -24,7 +27,7 @@ class Grid {
 
         Grid(int numRows, int numCols) : grid(numRows, vector<T*>(numCols)) {}
 
-        void updateCell(int row, int col, const T& value) {
+        void updateCell(int row, int col, T* value) {
             if (row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size()) {
                 grid[row][col] = value;
             }
@@ -35,11 +38,15 @@ class Grid {
         }
 
         void removeItem(int row, int col) {
-        if (row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size()) {
-            delete grid[row][col];
-            grid[row][col] = nullptr;
+            if (row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size()) {
+                delete grid[row][col];
+                grid[row][col] = nullptr;
+            }
         }
-    }
+
+        vector<vector<T*> > getGrid() const {
+            return grid;
+        }
 
         int getRows() const {
             return grid.size();
@@ -63,15 +70,17 @@ class Penyimpanan {
 
         virtual void cetakInfo();
 
-        void updateCell(int row, int col, const Item& value);
+        void updateCell(int row, int col, Item* value);
 
         int hitungSlotKosong();
 
+        Grid<Item> getGrid() const;
+
         Item* ambilItem(int row, int col);
 
-        void tambahItem(const Item& jenisItem);
+        void tambahItem(Item* jenisItem);
 
-        void operator+(const Item& item);
+        void operator+(Item* item);
 };
 
 class Ladang : public Penyimpanan {
@@ -87,13 +96,17 @@ class Ladang : public Penyimpanan {
 
         void cetakKeteranganTanaman();
 
-        void tanamTanaman(int row, int col, const Tanaman& jenis);
+        void tanamTanaman(int row, int col, Tanaman* jenis);
+
+        Grid<Tanaman> getGrid() const;
 
         Tanaman* ambilTanaman(int row, int col);
 
-        void tambahTanaman(const Tanaman& jenisTanaman);
+        void tambahTanaman(Tanaman* jenisTanaman);
 
-        void operator+(const Tanaman& tanaman);
+        map<string, int> hitungJumlahTanamanPanen();
+
+        void operator+(Tanaman* tanaman);
 };
 
 class Peternakan : public Penyimpanan {
@@ -109,11 +122,17 @@ class Peternakan : public Penyimpanan {
 
         void cetakLokasiHewan();
 
-        void ternakHewan(int row, int col, const Hewan& jenis);
+        void ternakHewan(int row, int col,  Hewan* jenis);
+
+        Grid<Hewan> getGrid() const;
 
         Hewan* ambilTernak(int row, int col);
 
-        void tambahTernak(const Hewan& jenisTernak);
+        void tambahTernak( Hewan* jenisTernak);
 
-        void operator+(const Hewan& ternak);
+        map<string, int> hitungJumlahHewanPanen();
+
+        void operator+(Hewan* ternak);
 };
+
+#endif
