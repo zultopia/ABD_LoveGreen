@@ -16,7 +16,8 @@ Config::Config(){
 int Config::bacaPlant(){
     ifstream inputFile("../../config/plant.txt");
     if(!inputFile.is_open()){
-        return -1;
+        ConfigException e("File plant.txt tidak dapat dibuka.");
+        throw e;
     }
 
     string line;
@@ -32,7 +33,8 @@ int Config::bacaPlant(){
 int Config::bacaAnimal(){
     ifstream inputFile("../../config/animal.txt");
     if(!inputFile.is_open()){
-        return -1;
+        ConfigException e("File animal.txt tidak dapat dibuka.");
+        throw e;
     }
 
     string line;
@@ -48,7 +50,8 @@ int Config::bacaAnimal(){
 int Config::bacaProduct(){
     ifstream inputFile("../../config/product.txt");
     if(!inputFile.is_open()){
-        return -1;
+        ConfigException e("File product.txt tidak dapat dibuka.");
+        throw e;
     }
 
     string line;
@@ -64,7 +67,8 @@ int Config::bacaProduct(){
 int Config::bacaRecipe(){
     ifstream inputFile("../../config/recipe.txt");
     if(!inputFile.is_open()){
-        return -1;
+        ConfigException e("File recipe.txt tidak dapat dibuka.");
+        throw e;
     }
 
     string line;
@@ -89,7 +93,8 @@ int Config::bacaRecipe(){
 int Config::bacaMisc(){
     ifstream inputFile("../../config/misc.txt");
     if(!inputFile.is_open()){
-        return -1;
+        ConfigException e("File misc.txt tidak dapat dibuka.");
+        throw e;
     }
 
     string line;
@@ -112,20 +117,24 @@ int Config::bacaMisc(){
 }
 
 void Config::bacaConfig(){
-    if(bacaPlant() == -1){
-        
-    }
-    if(bacaAnimal() == -1){
-        
-    }
-    if(bacaProduct() == -1){
-        
-    }
-    if(bacaRecipe() == -1){
-        
-    }
-    if(bacaMisc() == -1){
-        
+    try{
+        if(bacaPlant() == 1){
+            cout << "plant.txt berhasil.\n";
+        }
+        if(bacaAnimal() == 1){
+            cout << "animal.txt berhasil.\n";
+        }
+        if(bacaProduct() == 1){
+            cout << "product.txt berhasil.\n";
+        }
+        if(bacaRecipe() == 1){
+            cout << "recipe.txt berhasil.\n";
+        }
+        if(bacaMisc() == 1){
+            cout << "misc.txt berhasil.\n";
+        }
+    } catch(ConfigException e){
+        cout << e.what() << endl;
     }
 }
 
@@ -141,9 +150,6 @@ map<string,tuple<int,string,string,string,int,int>>& Config::getProductMap(){
 map<string,tuple<int,string,int,map<string,int>>>& Config::getRecipeMap(){
     return recipe;
 }
-
-
-
 
 bool Config::isExistPlant(string key){
     return(plant.find(key) != plant.end());
