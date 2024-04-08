@@ -1,18 +1,53 @@
 #include "Toko.hpp"
 
+map<string,pair<int,int>> Toko::barang;
+vector<string> Toko::urutan;
 
-int Toko::jumlah = 1; 
 Toko::Toko(){}
+void Toko::setUpToko(){
+    map<string,tuple<int,string,string,int,int>>& plant = Config::getPlantMap();
+    map<string,tuple<int,string,string,int,int>>& animal = Config::getAnimalMap();
+    map<string,tuple<int,string,string,string,int,int>>& product = Config::getProductMap();
+    map<string,tuple<int,string,int,map<string,int>>>& recipe = Config::getRecipeMap();
+    for(auto i = plant.begin(); i != plant.end(); i++){
+        tambahTanamanHewan(i->first,Config::getPrice(i->first));
+    }
+    for(auto i = animal.begin(); i != animal.end(); i++){
+        tambahTanamanHewan(i->first,Config::getPrice(i->first));
+    }
+    for(auto i = product.begin(); i != product.end(); i++){
+        tambahProduk(i->first,Config::getPrice(i->first), 0);
+    }
+    for(auto i = recipe.begin(); i != recipe.end(); i++){
+        tambahProduk(i->first,Config::getPrice(i->first), 0);
+    }
+}
+
+void Toko::setUpTokoMuat(){
+    map<string,int>& temp = Muat::getToko();
+    map<string,tuple<int,string,string,int,int>>& plant = Config::getPlantMap();
+    map<string,tuple<int,string,string,int,int>>& animal = Config::getAnimalMap();
+    for(auto i = plant.begin(); i != plant.end(); i++){
+        tambahTanamanHewan(i->first,Config::getPrice(i->first));
+    }
+    for(auto i = animal.begin(); i != animal.end(); i++){
+        tambahTanamanHewan(i->first,Config::getPrice(i->first));
+    }
+    for(auto i = temp.begin(); i != temp.end(); i++){
+        tambahProduk(i->first,Config::getPrice(i->first), i->second);
+    }
+
+}
 
 // tambahkan tanaman atau hewan baru
 void Toko::tambahTanamanHewan(string nama, int Price){
-    barang.insert(pair(nama, pair(Price, -1)));
+    barang.insert(make_pair(nama, make_pair(Price, -1)));
     urutan.push_back(nama);
 }
 
 // tambahkan Produk yang mempunyai kuantitas baru
 void Toko::tambahProduk(string nama, int Price, int Quantity){
-    barang.insert(pair(nama, pair(Price,Quantity)));
+    barang.insert(make_pair(nama, make_pair(Price,Quantity)));
     urutan.push_back(nama);
 }
 
@@ -37,11 +72,13 @@ int Toko::CetakWalikota(){
     cout << "Selamat datang di toko!!\n";
     cout << "Berikut merupakan hal yang dapat Anda Beli\n";
     int i = 1;
-    for(int j = 0; i < urutan.size(); j++){
+    for(int j = 0; j < urutan.size(); j++){
         if(!Config::isExistRecipe(urutan[j]) && barang.at(urutan[j]).second != 0){
-            cout << i << ". " << barang.at(urutan[j]).first << " - " << barang.at(urutan[j]).first;
+            cout << i << ". " << urutan[j] << " - " << barang.at(urutan[j]).first;
             if(barang.at(urutan[j]).second != -1){
-                cout << "(" << barang.at(urutan[j]).second << ")\n";
+                cout << " (" << barang.at(urutan[j]).second << ")\n";
+            }else{
+                cout << endl;
             }
             i++;
         }
@@ -53,11 +90,13 @@ int Toko::CetakPeternakPetani(){
     cout << "Selamat datang di toko!!\n";
     cout << "Berikut merupakan hal yang dapat Anda Beli\n";
     int i = 1;
-    for(int j = 0; i < urutan.size(); j++){
+    for(int j = 0; j < urutan.size(); j++){
         if(barang.at(urutan[j]).second != 0){
-            cout << i << ". " << barang.at(urutan[j]).first << " - " << barang.at(urutan[j]).first;
+            cout << i << ". " << urutan[j] << " - " << barang.at(urutan[j]).first;
             if(barang.at(urutan[j]).second != -1){
-                cout << "(" << barang.at(urutan[j]).second << ")\n";
+                cout << " (" << barang.at(urutan[j]).second << ")\n";
+            }else{
+                cout << endl;
             }
             i++;
         }
@@ -77,8 +116,14 @@ int Toko::BeliWalikota(int no, int Quantity){
         }
         itr++;
     }
+    if(itr == urutan.end() && i != no){
+        TokoException e("Nomor tidak valid\n");
+        throw e;
+    }
     // itr = barang yang ditunjuk oleh no
-    barang.at(*itr).second--;
+    if(barang.at(*itr).second != -1){
+        barang.at(*itr).second -= Quantity;
+    }
     // harga * quantity
     return barang.at(*itr).first*Quantity;
 }
@@ -92,8 +137,14 @@ int Toko::BeliPeternakPetani(int no, int Quantity){
         }
         itr++;
     }
+    if(itr == urutan.end() && i != no){
+        TokoException e("Nomor tidak valid\n");
+        throw e;
+    }
     // itr = barang yang ditunjuk oleh no
-    barang.at(*itr).second--;
+    if(barang.at(*itr).second != -1){
+        barang.at(*itr).second -= Quantity;
+    }
     return barang.at(*itr).first*Quantity;
 }
 
