@@ -7,6 +7,11 @@ map<string,vector<tuple<string,string,int>>> Muat::LadangdanTernak;
 map<string,int> Muat::toko;
 
 void Muat::muat(string path){
+    // Memeriksa folder sudah ada atau belum
+    if(!filesystem::exists(filesystem::path(path).parent_path())) {
+        ConfigException e("Lokasi berkas tidak valid");
+        throw e;
+    }
     ifstream inputFile(path);
     if(!inputFile.is_open()){
         ConfigException e("File state.txt tidak dapat dibuka.");
@@ -33,7 +38,7 @@ void Muat::muat(string path){
         toko.insert({namaItem,stoi(jumlahItem)});
     }
 }
-// void Muat::simpan(string path);
+
 void Muat::read(ifstream& inputFile){
     string line;
     getline(inputFile, line);
@@ -76,18 +81,18 @@ void Muat::read(ifstream& inputFile){
     }
 
 }
-vector<string> Muat::getPemain(){
+vector<string>& Muat::getPemain(){
     return pemain;
 }
-map<string,tuple<string,int,int>> Muat::getDataPemain(){
+map<string,tuple<string,int,int>>& Muat::getDataPemain(){
     return dataPemain;
 }
-map<string, vector<string>> Muat::getInventory(){
+map<string, vector<string>>& Muat::getInventory(){
     return inventory;
 }
-map<string,vector<tuple<string,string,int>>> Muat::getLadangdanTernak(){
+map<string,vector<tuple<string,string,int>>>& Muat::getLadangdanTernak(){
     return LadangdanTernak;
 }
-map<string,int> Muat::getToko(){
+map<string,int>& Muat::getToko(){
     return toko;
 }

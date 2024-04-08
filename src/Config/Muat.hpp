@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <filesystem>
 #include "ConfigException.hpp"
 using namespace std;
 class Muat{
@@ -18,16 +19,12 @@ class Muat{
         static map<string,int> toko;
     public:
         static void muat(string path);
-        static void simpan(string path);
         static void read(ifstream& inputFile);
-        static void readPetani(ifstream& inputFile);
-        static void readWalikota(ifstream& inputFile);
-        static void readToko(ifstream& inputFile);
-        static vector<string> getPemain();
-        static map<string,tuple<string,int,int>> getDataPemain();
-        static map<string, vector<string>> getInventory();
-        static map<string,vector<tuple<string,string,int>>> getLadangdanTernak();
-        static map<string,int> getToko();
+        static vector<string>& getPemain();
+        static map<string,tuple<string,int,int>>& getDataPemain();
+        static map<string, vector<string>>& getInventory();
+        static map<string,vector<tuple<string,string,int>>>& getLadangdanTernak();
+        static map<string,int>& getToko();
 };
 
 #endif
