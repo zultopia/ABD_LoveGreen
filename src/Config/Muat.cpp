@@ -7,6 +7,11 @@ map<string,vector<tuple<string,string,int>>> Muat::LadangdanTernak;
 map<string,int> Muat::toko;
 
 void Muat::muat(string path){
+    // Memeriksa folder sudah ada atau belum
+    if(!filesystem::exists(filesystem::path(path).parent_path())) {
+        ConfigException e("Lokasi berkas tidak valid");
+        throw e;
+    }
     ifstream inputFile(path);
     if(!inputFile.is_open()){
         ConfigException e("File state.txt tidak dapat dibuka.");
