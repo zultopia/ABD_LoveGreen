@@ -18,11 +18,7 @@ class Muat{
         static map<string,int> toko;
     public:
         static void muat(string path);
-        static void simpan(string path);
         static void read(ifstream& inputFile);
-        static void readPetani(ifstream& inputFile);
-        static void readWalikota(ifstream& inputFile);
-        static void readToko(ifstream& inputFile);
         static vector<string> getPemain();
         static map<string,tuple<string,int,int>> getDataPemain();
         static map<string, vector<string>> getInventory();

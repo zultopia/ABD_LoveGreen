@@ -33,7 +33,7 @@ void Muat::muat(string path){
         toko.insert({namaItem,stoi(jumlahItem)});
     }
 }
-// void Muat::simpan(string path);
+
 void Muat::read(ifstream& inputFile){
     string line;
     getline(inputFile, line);
