@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <vector>
 #include "../Config/Config.hpp"
 #include "../Pemain/Pemain.hpp"
 #include "../Pemain/Walikota.hpp"
@@ -16,6 +17,7 @@ class Toko{
     private:
         // map<namaBarang,tuple<Price,Quantity>>
         map<string,pair<int,int>> barang;
+        vector<string> urutan;
         static int jumlah;
 
 
@@ -38,15 +40,12 @@ class Toko{
         // cetak hal yang dapat dibeli 
         // tiap jenis pemain beda yang dicetak
         // pake method yang sesuai dengan current user
-        void CetakWalikota();
-        void CetakPeternakPetani();
-        void Cetak();
+        int CetakWalikota();
+        int CetakPeternakPetani();
         // Produk yang dibeli
         // mengembalikan jumlah uang yang harus dibayarkan untuk membeli
         int BeliWalikota(int no, int Quantity);
         int BeliPeternakPetani(int no, int Quantity);
-
-        int Beli(int no, int Quantity);
 
         // batal melakukan pembelian
         void batalBeli(string nama, int Quantity);

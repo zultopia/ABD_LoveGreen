@@ -7,11 +7,13 @@ Toko::Toko(){}
 // tambahkan tanaman atau hewan baru
 void Toko::tambahTanamanHewan(string nama, int Price){
     barang.insert(pair(nama, pair(Price, -1)));
+    urutan.push_back(nama);
 }
 
 // tambahkan Produk yang mempunyai kuantitas baru
 void Toko::tambahProduk(string nama, int Price, int Quantity){
     barang.insert(pair(nama, pair(Price,Quantity)));
+    urutan.push_back(nama);
 }
 
 // atur harga barang
@@ -28,90 +30,94 @@ void Toko::aturJumlahBarang(string nama, int Quantity){
     
 }
 
-
 // cetak hal yang dapat dibeli 
 // tiap jenis pemain beda yang dicetak
 // pake method yang sesuai dengan current user
-void Toko::CetakWalikota(){
+int Toko::CetakWalikota(){
     cout << "Selamat datang di toko!!\n";
     cout << "Berikut merupakan hal yang dapat Anda Beli\n";
     int i = 1;
-    auto itr = barang.begin();
-    while(itr != barang.end()){
-        // jika tidak ada di recipe bangunan
-        if(!Config::isExistRecipe(itr->first) && itr->second.second != 0){
-            cout << i << itr->first << " - " << itr->second.first; 
-            if ( itr->second.second != -1){
-                cout << " (" << itr->second.second << ")\n";
+    for(int j = 0; i < urutan.size(); j++){
+        if(!Config::isExistRecipe(urutan[j]) && barang.at(urutan[j]).second != 0){
+            cout << i << ". " << barang.at(urutan[j]).first << " - " << barang.at(urutan[j]).first;
+            if(barang.at(urutan[j]).second != -1){
+                cout << "(" << barang.at(urutan[j]).second << ")\n";
             }
             i++;
         }
-        itr++;
+        
     }
+    return i;
 }
-void Toko::CetakPeternakPetani(){
+int Toko::CetakPeternakPetani(){
     cout << "Selamat datang di toko!!\n";
     cout << "Berikut merupakan hal yang dapat Anda Beli\n";
     int i = 1;
-    auto itr = barang.begin();
-    while(itr != barang.end() && itr->second.second != 0){
-        cout << i << itr->first << " - " << itr->second.first; 
-        if ( itr->second.second != -1){
-            cout << " (" << itr->second.second << ")\n";
+    for(int j = 0; i < urutan.size(); j++){
+        if(barang.at(urutan[j]).second != 0){
+            cout << i << ". " << barang.at(urutan[j]).first << " - " << barang.at(urutan[j]).first;
+            if(barang.at(urutan[j]).second != -1){
+                cout << "(" << barang.at(urutan[j]).second << ")\n";
+            }
+            i++;
         }
-        i++;
-        itr++;
+        
     }
-}
-
-void Toko::Cetak(){
-    // if(typeid(CurrPemain) == typeid(Walikota)){
-    //     CetakWalikota(no,Quantity);
-    // }else{
-    //     CetakPeternakPetani(no,Quantity);
-    // }
+    return i;
 }
 
 // Produk yang dibeli
 // mengembalikan jumlah uang yang harus dibayarkan untuk membeli
 int Toko::BeliWalikota(int no, int Quantity){
     int i = 1;
-    auto itr = barang.begin();
-    while(itr != barang.end() && i < no){
-        if(!Config::isExistRecipe(itr->first) && itr->second.second != 0){
+    auto itr = urutan.begin();
+    while(itr != urutan.end() && i < no){
+        if(!Config::isExistRecipe(*itr) && barang.at(*itr).second != 0){
             i++;
         }
         itr++;
     }
     // itr = barang yang ditunjuk oleh no
-    itr->second.second--;
-    return itr->second.first*Quantity;
+    barang.at(*itr).second--;
+    // harga * quantity
+    return barang.at(*itr).first*Quantity;
 }
 
-int Toko::Beli(int no, int Quantity){
-    // if(typeid(CurrPemain) == typeid(Walikota)){
-    //     BeliWalikota(no,Quantity);
-    // }else{
-    //     BeliPeternakPetani(no,Quantity);
-    // }
+int Toko::BeliPeternakPetani(int no, int Quantity){
+    int i = 1;
+    auto itr = urutan.begin();
+    while(itr != urutan.end() && i < no){
+        if(barang.at(*itr).second != 0){
+            i++;
+        }
+        itr++;
+    }
+    // itr = barang yang ditunjuk oleh no
+    barang.at(*itr).second--;
+    return barang.at(*itr).first*Quantity;
 }
-
 
 // batal melakukan pembelian
 void Toko::batalBeli(string nama, int Quantity){
-    (barang.at(nama)).second += Quantity;
+    if(barang.at(nama).second != -1){
+        (barang.at(nama)).second += Quantity;
+    }
 }
 
 // menjual ke toko
 // mengembalikan jumlah uang yang akan diterima dari penjualan
 int Toko::Jual(string nama, int Quantity){
-    barang.at(nama).second += Quantity;
+    if(barang.at(nama).second != -1){
+        (barang.at(nama)).second += Quantity;
+    }
     return barang.at(nama).first * Quantity;
 }
 
 // batal melakukan penjualan
 void Toko::batalJual(string nama, int Quantity){
-    barang.at(nama).second -= Quantity;
+    if(barang.at(nama).second != -1){
+        (barang.at(nama)).second -= Quantity;
+    }
 }
 
 // mengembalikan jumlah Produk yang tersedia
