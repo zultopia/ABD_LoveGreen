@@ -1,5 +1,6 @@
 #ifndef Config_HPP
 #define Config_HPP
+
 #include <map>
 #include <vector>
 #include <string>
@@ -8,7 +9,9 @@
 #include <sstream>
 // #include "ConfigException.cpp"
 #include "ConfigException.hpp"
+
 using namespace std;
+
 class Config{
     private:
         // map<nama,tuple<id,kode,type,duration,price>>
@@ -58,9 +61,6 @@ class Config{
         static pair<int,int> getBesarLahan();
         static pair<int,int> getBesarPeternakan();
         
-
-
-
 };
 
 #endif
