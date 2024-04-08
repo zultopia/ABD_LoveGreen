@@ -1,6 +1,4 @@
 #include "Simpan.hpp"
-#include "ConfigException.hpp"
-#include <filesystem>
 
 using namespace std;
 
@@ -10,7 +8,7 @@ void Simpan::simpan(string path) {
         ConfigException e("Lokasi berkas tidak valid");
         throw e;
     }
-    
+
     ofstream outputFile(path, ios::out);
 
     // Memeriksa file bisa dibuka atau tidak
