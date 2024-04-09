@@ -28,6 +28,10 @@ void Pemain::simpan() {
 
 }
 
+void Pemain::muat() {
+    
+}
+
 int Pemain::bayarPajak() {
     int pajak = this->calculateTax();
     if (this->kekayaan >= pajak) {
@@ -50,7 +54,7 @@ bool Pemain::namaValid(string nama){
     return true;
 }
 
-void Pemain::cetak_penyimpanan() {
+void Pemain::cetakPenyimpanan() {
     inventory.cetakInfo();
 }
 
@@ -72,5 +76,9 @@ pair<int, int> Pemain::konversiKoordinat(string koordinat) {
     }
 
     return {x, y};
+}
+
+void Pemain::makan() {
+    //makan
 }
 

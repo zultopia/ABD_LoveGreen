@@ -73,7 +73,7 @@ void Petani::tanam() {
     }
 }
 
-void Petani::cetak_ladang() {
+void Petani::cetakLadang() {
     ladang.cetakInfo();
 }
 
@@ -147,15 +147,52 @@ void Petani::harvest() {
     }
 }
 
-void Petani::doCommand(string command) {}
+void Petani::doCommand(string command) {
+    if(commandTable.find(command) == commandTable.end()){
+        // throw error
+    }
+    switch (commandTable[command])
+    {
+    case 1:
+        this->next();
+        break;
+    case 2:
+        this->cetakPenyimpanan();
+        break;
+    case 4:
+        this->cetakLadang();
+        break;
+    case 6:
+        this->tanam();
+        break;
+    case 9:
+        this->makan();
+        break;
+    case 11:
+        this->beli();
+        break;
+    case 12:
+        this->jual();
+        break;
+    case 13:
+        this->harvest();
+        break;
+    case 14:
+        this->muat();
+        break;
+    case 15:
+        this->simpan();
+        break;
+    default:
+        throw "Command Tidak Valid untuk Pemain ini";
+        break;
+    }
+}
 
 int Petani::bayarPajak() { return 0; }
 
 int Petani::calculateTax() { return 0; }
 
-void Petani::buyItem() {}
+void Petani::beli() {}
 
-void Petani::sellItem() {}
-
-void Petani::eat() {}
-
+void Petani::jual() {}

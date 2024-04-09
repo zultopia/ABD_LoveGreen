@@ -12,15 +12,15 @@ class Peternak : public Pemain {
 		Peternakan& getPeternakan();
 
 		void ternak();
-		void beri_pangan();
-		void cetak_peternakan();
+		void beriPangan();
+		void cetakPeternakan();
 		void harvest();
 
 		void doCommand(string command);
 		int bayarPajak();
 		int calculateTax();
-		void buyItem();
-		void sellItem();
+		void beli();
+		void jual();
 		void eat();
 };
 

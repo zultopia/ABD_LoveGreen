@@ -73,9 +73,9 @@ void Peternak::ternak() {
     }
 }
 
-void Peternak::beri_pangan() {}
+void Peternak::beriPangan() {}
 
-void Peternak::cetak_peternakan() {
+void Peternak::cetakPeternakan() {
     peternakan.cetakInfo();
 }
 
@@ -149,14 +149,55 @@ void Peternak::harvest() {
     }
 }
 
-void Peternak::doCommand(string command) {}
+void Peternak::doCommand(string command) {
+    if(commandTable.find(command) == commandTable.end()){
+        // throw error
+    }
+    switch (commandTable[command])
+    {
+    case 1:
+        this->next();
+        break;
+    case 2:
+        this->cetakPenyimpanan();
+        break;
+    case 5:
+        this->cetakPeternakan();
+        break;
+    case 7:
+        this->ternak();
+        break;
+    case 9:
+        this->makan();
+        break;
+    case 10:
+        this->beriPangan();
+        break;
+    case 11:
+        this->beli();
+        break;
+    case 12:
+        this->jual();
+        break;
+    case 13:
+        harvest();
+        break;
+    case 14:
+        this->muat();
+        break;
+    case 15:
+        this->simpan();
+        break;
+    default:
+        throw "Command Tidak Valid untuk Pemain ini";
+        break;
+    }
+}
 
 int Peternak::bayarPajak() { return 0; }
 
 int Peternak::calculateTax() { return 0; }
 
-void Peternak::buyItem() {}
+void Peternak::beli() {}
 
-void Peternak::sellItem() {}
-
-void Peternak::eat() {}
+void Peternak::jual() {}

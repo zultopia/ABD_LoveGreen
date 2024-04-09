@@ -12,15 +12,14 @@ class Petani : public Pemain {
 		Ladang& getLadang();
 
 		void tanam();
-		void cetak_ladang();
+		void cetakLadang();
 		void harvest();
 
 		void doCommand(string command);
 		int bayarPajak();
 		int calculateTax();
-		void buyItem();
-		void sellItem();
-		void eat();
+		void beli();
+		void jual();
 };
 
 #endif

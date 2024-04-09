@@ -12,7 +12,7 @@ class Walikota : public Pemain {
         int bayarPajak();
         void doCommand(string command);
         int calculateTax();
-        void buyItem();
-        void sellItem();
+        void beli();
+        void jual();
         void eat();
 };

@@ -105,20 +105,58 @@ void Walikota::tambahPemain(){
 
 // Inherited functions (virtual)
 void Walikota::doCommand(string command){
-
+    if(commandTable.find(command) == commandTable.end()){
+        throw "Command Tidak Valid!";
+    }
+    switch (commandTable[command])
+    {
+    case 1:
+        this->next();
+        break;
+    case 2:
+        this->cetakPenyimpanan();
+        break;
+    case 3:
+        this->pungutPajak();
+        break;
+    case 8:
+        this->bangun();
+        break;
+    case 9:
+        this->makan();
+        break;
+    case 11:
+        this->beli();
+        break;
+    case 12:
+        this->jual();
+        break;
+    case 14:
+        this->muat();
+        break;
+    case 15:
+        this->simpan();
+        break;
+    case 16:
+        this->tambahPemain();
+        break;
+    default:
+        throw "Command Tidak Valid untuk Pemain ini";
+        break;
+    }
 }
 
 int Walikota::calculateTax(){
     return -1;
 }
 
-void Walikota::buyItem(){
-    // Reference toko?
-    // Toko::CetakWalikota();
+// Beli jual belom beres implementasi
+void Walikota::beli(){
+    Toko::CetakWalikota();
     // Toko::BeliWalikota();
 }
 
-void Walikota::sellItem(){
+void Walikota::jual(){
     // Toko::Jual();
 }
 
