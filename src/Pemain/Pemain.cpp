@@ -7,7 +7,11 @@ int Pemain::numPemain = 0;
 
 Pemain::Pemain(string& username, int kekayaan) : username(username), kekayaan(kekayaan), inventory() {
     // NANTI PUSH PRIOQUEUE
-    listPemain.push_back(this);
+    auto itr = listPemain.begin();
+    while (username.compare((*itr)->getUsername()) < 0) {
+        itr++;
+    }
+    listPemain.insert(itr, this);
     numPemain++;
 }
 
