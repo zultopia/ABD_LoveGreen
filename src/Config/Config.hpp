@@ -47,7 +47,7 @@ class Config{
         static map<string,tuple<int,string,string,string,int,int>>& getProductMap();
         static map<string,tuple<int,string,int,map<string,int>>>& getRecipeMap();
         static int getId(string key);
-        static string getNama(string key);
+        static string getCode(string key);
         static string getType(string key);
         static int getDuration(string key);
         static int getPrice(string key);
