@@ -68,6 +68,7 @@ void Toko::aturJumlahBarang(string nama, int Quantity){
 // cetak hal yang dapat dibeli 
 // tiap jenis pemain beda yang dicetak
 // pake method yang sesuai dengan current user
+// mengembalikan jumlah item yang muncul
 int Toko::CetakWalikota(){
     cout << "Selamat datang di toko!!\n";
     cout << "Berikut merupakan hal yang dapat Anda Beli\n";
@@ -86,6 +87,8 @@ int Toko::CetakWalikota(){
     }
     return i;
 }
+
+// mengembalikan jumlah item yang muncul
 int Toko::CetakPeternakPetani(){
     cout << "Selamat datang di toko!!\n";
     cout << "Berikut merupakan hal yang dapat Anda Beli\n";
