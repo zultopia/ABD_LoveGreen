@@ -8,6 +8,7 @@
 #include <tuple>
 #include <filesystem>
 #include "ConfigException.hpp"
+#include "../Pemain/Pemain.hpp"
 #include "../Pemain/Peternak.hpp"
 #include "../Pemain/Petani.hpp"
 #include "../Pemain/Walikota.hpp"
