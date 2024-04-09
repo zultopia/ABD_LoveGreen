@@ -21,3 +21,24 @@ map<string,vector<tuple<string,string,int>>>& SimpanMuat::getLadangdanTernak(){
 map<string,int>& SimpanMuat::getToko(){
     return toko;
 }
+
+void SimpanMuat::update(const std::vector<std::string>& newPemain,
+                        const std::map<std::string, std::tuple<std::string, int, int>>& newDataPemain,
+                        const std::map<std::string, std::vector<std::string>>& newInventory,
+                        const std::map<std::string, std::vector<std::tuple<std::string, std::string, int>>>& newLadangdanTernak,
+                        const std::map<std::string, int>& newToko) {
+    // Memperbarui data pemain
+    pemain = newPemain;
+
+    // Memperbarui data pemain
+    dataPemain = newDataPemain;
+
+    // Memperbarui data inventory
+    inventory = newInventory;
+
+    // Memperbarui data ladang dan ternak
+    LadangdanTernak = newLadangdanTernak;
+
+    // Memperbarui data toko
+    toko = newToko;
+}

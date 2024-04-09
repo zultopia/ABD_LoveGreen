@@ -17,6 +17,9 @@ void Simpan::simpan(string path) {
         throw e;
     }
 
+    SimpanMuat simpanMuat;
+    simpanMuat.update(getPemain(), getDataPemain(), getInventory(), getLadangdanTernak(), getToko());
+
     // Data pemain ditulis
     outputFile << getPemain().size() << endl;
     for (const auto& pemain : getPemain()) {
