@@ -177,20 +177,20 @@ int Config::getId(string key){
         throw e;
     }
 }
-// string Config::getNama(string key){
-//     if(plant.find(key) != plant.end()){
-//         return get<1>(plant.at(key));
-//     }else if(animal.find(key) != animal.end()){
-//         return get<1>(animal.at(key));
-//     }else if(product.find(key) != product.end()){
-//         return get<1>(product.at(key));
-//     }else if(recipe.find(key) != recipe.end()){
-//         return get<1>(recipe.at(key));
-//     }else{
-//         ConfigException e("Tidak ada key tersebut pada Config");
-//         throw e;
-//     }
-// }
+string Config::getCode(string key){
+    if(plant.find(key) != plant.end()){
+        return get<1>(plant.at(key));
+    }else if(animal.find(key) != animal.end()){
+        return get<1>(animal.at(key));
+    }else if(product.find(key) != product.end()){
+        return get<1>(product.at(key));
+    }else if(recipe.find(key) != recipe.end()){
+        return get<1>(recipe.at(key));
+    }else{
+        ConfigException e("Tidak ada key tersebut pada Config");
+        throw e;
+    }
+}
 string Config::getType(string key){
     if(plant.find(key) != plant.end()){
         return get<2>(plant.at(key));
