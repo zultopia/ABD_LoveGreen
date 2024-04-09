@@ -1,14 +1,8 @@
 #include "Pemain.hpp"
 
-// Declare listPemain
-vector<Pemain*> Pemain::listPemain;
-int Pemain::currentPemain = 0;
-int Pemain::numPemain = 0;
-
 Pemain::Pemain(string& username, int kekayaan) : username(username), kekayaan(kekayaan), inventory() {
-    // NANTI PUSH PRIOQUEUE
     auto itr = listPemain.begin();
-    while (username.compare((*itr)->getUsername()) < 0) {
+    while (username.compare((*itr)->getUsername()) < 0 && itr != listPemain.end()) {
         itr++;
     }
     listPemain.insert(itr, this);

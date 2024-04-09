@@ -42,4 +42,9 @@ class Pemain {
 		pair<int, int> konversiKoordinat(string koordinat);
 };
 
+// Declare listPemain
+vector<Pemain*> Pemain::listPemain;
+int Pemain::currentPemain = 0;
+int Pemain::numPemain = 0;
+
 #endif

@@ -14,8 +14,14 @@ void Walikota::pungutPajak(){
 
     for (int i = 0; i < listPemain.size(); i++) {
         currentPajak = listPemain[i]->calculateTax();
-        // NANTI PUSH PRIOQUEUE
-        pajak.push_back(tuple<Pemain*, int>(listPemain[i], currentPajak));
+        // Cek apakah walikota/bukan
+        if (currentPajak >= 0) {
+            auto itr = pajak.begin();
+            while ((currentPajak < get<1>(*itr) ||(currentPajak == get<1>(*itr) && username.compare(get<0>(*itr)->getUsername()) == 0)) && itr != pajak.end()) {
+                itr++;
+            }
+            pajak.insert(itr, tuple<Pemain*, int>(listPemain[i], currentPajak));
+        }
     }
     // Print hasil pemungutan;
     cout << "Berikut adalah detil dari pemungutan pajak:" << endl;
@@ -30,18 +36,18 @@ void Walikota::pungutPajak(){
 
 void Walikota::bangun(){
     cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
-    auto itr = Config::getAnimalMap().begin();
+    auto itr = Config::getRecipeMap().begin();
     int i = 1;
     map<string, string> Bahan;
-    while (itr != Config::getAnimalMap().end()) {
-        cout << "  " << i << ". " << Config::getNama(itr->first) << " (" << Config::getPrice(itr->first);
+    while (itr != Config::getRecipeMap().end()) {
+        cout << "  " << i << ". " << itr->first << " (" << Config::getPrice(itr->first);
         auto itrMaterial = Config::getMaterialInfo(itr->first).begin();
         while (itrMaterial != Config::getMaterialInfo(itr->first).end()){
             cout << ", " << itrMaterial->first << " " << itrMaterial->second;
             itrMaterial++;
         }
         cout << ")" << endl;
-        Bahan.insert(pair<string,string>(Config::getNama(itr->first), itr->first));
+        Bahan.insert(pair<string,string>(itr->first, Config::getCode(itr->first)));
         i++;
         itr++;
     }
