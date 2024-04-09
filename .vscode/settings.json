@@ -61,10 +61,10 @@
         "algorithm": "cpp",
         "memory_resource": "cpp",
         "string": "cpp",
-        "string_view": "cpp",
         "system_error": "cpp",
         "type_traits": "cpp",
         "fstream": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "filesystem": "cpp"
     }
 }

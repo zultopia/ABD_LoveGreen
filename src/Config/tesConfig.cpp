@@ -35,11 +35,11 @@ int main(){
     cout << Config::getBesarPeternakan().first << " " << Config::getBesarPeternakan().second << endl;
     cout << endl;
     Muat::muat("../../config/state.txt");
-    vector<string> pemain = Muat::getPemain();
-    map<string,tuple<string,int,int>> dataPemain = Muat::getDataPemain();
-    map<string, vector<string>> inventory = Muat::getInventory();
-    map<string,vector<tuple<string,string,int>>> LadangdanTernak = Muat::getLadangdanTernak();
-    map<string,int> toko = Muat::getToko();
+    vector<string> pemain = SimpanMuat::getPemain();
+    map<string,tuple<string,int,int>> dataPemain = SimpanMuat::getDataPemain();
+    map<string, vector<string>> inventory = SimpanMuat::getInventory();
+    map<string,vector<tuple<string,string,int>>> LadangdanTernak = SimpanMuat::getLadangdanTernak();
+    map<string,int> toko = SimpanMuat::getToko();
 
     for(auto i = pemain.begin(); i != pemain.end(); i++){
         cout << *i << endl;

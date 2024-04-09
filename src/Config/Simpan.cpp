@@ -18,22 +18,22 @@ void Simpan::simpan(string path) {
     }
 
     // Data pemain ditulis
-    outputFile << Muat::getPemain().size() << endl;
-    for (const auto& pemain : Muat::getPemain()) {
-        outputFile << get<0>(Muat::getDataPemain()[pemain]) << " ";
-        outputFile << get<1>(Muat::getDataPemain()[pemain]) << " ";
-        outputFile << get<2>(Muat::getDataPemain()[pemain]) << endl;
+    outputFile << getPemain().size() << endl;
+    for (const auto& pemain : getPemain()) {
+        outputFile << get<0>(getDataPemain()[pemain]) << " ";
+        outputFile << get<1>(getDataPemain()[pemain]) << " ";
+        outputFile << get<2>(getDataPemain()[pemain]) << endl;
 
         // Inventory ditulis
-        outputFile << Muat::getInventory()[pemain].size() << endl;
-        for (const auto& inventory : Muat::getInventory()[pemain]) {
+        outputFile << getInventory()[pemain].size() << endl;
+        for (const auto& inventory : getInventory()[pemain]) {
             outputFile << inventory << endl;
         }
 
         // Ladang (petani) atau peternakan (peternak) ditulis
-        if (get<0>(Muat::getDataPemain()[pemain]) != "Walikota") {
-            outputFile << Muat::getLadangdanTernak()[pemain].size() << endl;
-            for (const auto& ladangTernak : Muat::getLadangdanTernak()[pemain]) {
+        if (get<0>(getDataPemain()[pemain]) != "Walikota") {
+            outputFile << getLadangdanTernak()[pemain].size() << endl;
+            for (const auto& ladangTernak : getLadangdanTernak()[pemain]) {
                 outputFile << get<0>(ladangTernak) << " ";
                 outputFile << get<1>(ladangTernak) << " ";
                 outputFile << get<2>(ladangTernak) << endl;
@@ -42,8 +42,8 @@ void Simpan::simpan(string path) {
     }
 
     // Data toko ditulis
-    outputFile << Muat::getToko().size() << endl;
-    for (const auto& item : Muat::getToko()) {
+    outputFile << getToko().size() << endl;
+    for (const auto& item : getToko()) {
         outputFile << item.first << " " << item.second << endl;
     }
 

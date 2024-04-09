@@ -1,10 +1,5 @@
 #include "Muat.hpp"
 
-vector<string> Muat::pemain;
-map<string,tuple<string,int,int>> Muat::dataPemain;
-map<string, vector<string>> Muat::inventory;
-map<string,vector<tuple<string,string,int>>> Muat::LadangdanTernak;
-map<string,int> Muat::toko;
 
 void Muat::muat(string path){
     // Memeriksa folder sudah ada atau belum
@@ -80,19 +75,4 @@ void Muat::read(ifstream& inputFile){
         ladangTernaktTmp.clear();
     }
 
-}
-vector<string>& Muat::getPemain(){
-    return pemain;
-}
-map<string,tuple<string,int,int>>& Muat::getDataPemain(){
-    return dataPemain;
-}
-map<string, vector<string>>& Muat::getInventory(){
-    return inventory;
-}
-map<string,vector<tuple<string,string,int>>>& Muat::getLadangdanTernak(){
-    return LadangdanTernak;
-}
-map<string,int>& Muat::getToko(){
-    return toko;
 }

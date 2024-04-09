@@ -7,10 +7,9 @@
 #include <map>
 #include <tuple>
 #include <filesystem>
-#include "Muat.hpp"
-#include "ConfigException.hpp"
+#include "SimpanMuat.hpp"
 
-class Simpan {
+class Simpan : virtual SimpanMuat{
     public:
         static void simpan(std::string path);
 };
