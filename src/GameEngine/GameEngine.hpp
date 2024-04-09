@@ -18,21 +18,4 @@ class GameEngine{
         static string command;
     public:
         static void ReceiveCommand();
-        static void Next();
-        static void CetakPenyimpanan();
-        static void PungutPajak();
-        static void CetakLadang();
-        static void CetakPeternakan();
-        static void Tanam();
-        static void Ternak();
-        static void BangunBangunan();
-        static void Makan();
-        static void KasihMakan();
-        static void Membeli();
-        static void Menjual();
-        static void Memanen();
-        static void Muat();
-        static void Simpan();
-        static void TambahPemain();
-
 };

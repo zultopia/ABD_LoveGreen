@@ -17,14 +17,15 @@ class Pemain {
         string username;
 		int kekayaan;
 		Penyimpanan inventory;
-        static vector<Pemain*> listPemain;
-		static int currentPemain;
-		static int numPemain;
 		static map<string,int> commandTable;
     public:
         Pemain(string& username, int kekayaan);
 		// virtual ~Pemain();
 
+        static vector<Pemain*> listPemain;
+		static int currentPemain;
+		static int numPemain;
+		
 		string getUsername();
 		int getKekayaan();
 		Penyimpanan& getInventory();
