@@ -24,7 +24,7 @@ void Toko::setUpToko(){
 }
 
 void Toko::setUpTokoMuat(){
-    map<string,int>& temp = Muat::getToko();
+    map<string,int>& temp = SimpanMuat::getToko();
     map<string,tuple<int,string,string,int,int>>& plant = Config::getPlantMap();
     map<string,tuple<int,string,string,int,int>>& animal = Config::getAnimalMap();
     for(auto i = plant.begin(); i != plant.end(); i++){
