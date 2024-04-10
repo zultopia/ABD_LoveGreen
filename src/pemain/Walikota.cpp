@@ -162,7 +162,3 @@ void Walikota::beli(){
 void Walikota::jual(){
     // Toko::Jual();
 }
-
-void Walikota::eat(){
-
-}

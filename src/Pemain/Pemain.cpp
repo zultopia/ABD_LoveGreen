@@ -84,5 +84,6 @@ pair<int, int> Pemain::konversiKoordinat(string koordinat) {
 
 void Pemain::makan() {
     //makan
+    
 }
 
