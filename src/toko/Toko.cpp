@@ -125,6 +125,10 @@ int Toko::BeliWalikota(int no, int Quantity){
     }
     // itr = barang yang ditunjuk oleh no
     if(barang.at(*itr).second != -1){
+        if(barang.at(*itr).second < Quantity){
+            TokoException e("Quantity tidak valid\n");
+            throw e;
+        }
         barang.at(*itr).second -= Quantity;
     }
     // harga * quantity
@@ -146,6 +150,10 @@ int Toko::BeliPeternakPetani(int no, int Quantity){
     }
     // itr = barang yang ditunjuk oleh no
     if(barang.at(*itr).second != -1){
+        if(barang.at(*itr).second < Quantity){
+            TokoException e("Quantity tidak valid\n");
+            throw e;
+        }
         barang.at(*itr).second -= Quantity;
     }
     return barang.at(*itr).first*Quantity;
