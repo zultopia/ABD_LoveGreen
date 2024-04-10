@@ -10,6 +10,7 @@ class Peternak : public Pemain {
 		Peternak(string& username, int kekayaan, int beratBadan);
 
 		Peternakan& getPeternakan();
+		string getRole();
 
 		void ternak();
 		void beriPangan();

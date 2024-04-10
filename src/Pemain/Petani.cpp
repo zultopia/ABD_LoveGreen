@@ -6,6 +6,10 @@ Ladang& Petani::getLadang() {
     return ladang;
 }
 
+string Petani::getRole() {
+    return "petani";
+}
+
 void Petani::tanam() {
     // Menampilkan daftar tanaman yang tersedia di penyimpanan
     cout << endl;

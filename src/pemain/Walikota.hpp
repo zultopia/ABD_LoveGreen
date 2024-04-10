@@ -8,6 +8,8 @@ class Walikota : public Pemain {
         void bangun();
         void tambahPemain();
 
+        string getRole();
+
         // Inherited functions (virtual)
         int bayarPajak();
         void doCommand(string command);

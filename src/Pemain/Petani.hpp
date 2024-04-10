@@ -10,6 +10,7 @@ class Petani : public Pemain {
 		Petani(string& username, int kekayaan, int beratBadan);
 
 		Ladang& getLadang();
+		string getRole();
 
 		void tanam();
 		void cetakLadang();

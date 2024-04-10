@@ -102,6 +102,10 @@ void Walikota::tambahPemain(){
     }
 }
 
+string Walikota::getRole() {
+    return "walikota";
+}
+
 // Inherited functions (virtual)
 void Walikota::doCommand(string command){
     if(commandTable.find(command) == commandTable.end()){

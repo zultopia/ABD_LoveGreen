@@ -29,6 +29,7 @@ class Pemain {
 		
 		string getUsername();
 		int getKekayaan();
+		virtual string getRole() = 0;
 		Penyimpanan& getInventory();
         static bool namaValid(string nama);
 

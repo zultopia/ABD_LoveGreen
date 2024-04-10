@@ -8,6 +8,10 @@ Peternakan& Peternak::getPeternakan() {
     return peternakan;
 }
 
+string Peternak::getRole() {
+    return "peternak";
+}
+
 void Peternak::ternak() {
     // Menampilkan daftar hewan yang tersedia di penyimpanan
     cout << endl;
