@@ -11,8 +11,6 @@ class TokoException : public exception{
     public:
         TokoException(const char* message);
         const char* what() const throw();
-        
-
 };
 
 #endif

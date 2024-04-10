@@ -7,7 +7,7 @@ class Petani : public Pemain {
 	private:
 		Ladang ladang;
 	public:
-		Petani(string& username, int kekayaan);
+		Petani(string& username, int kekayaan, int beratBadan);
 
 		Ladang& getLadang();
 

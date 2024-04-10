@@ -2,7 +2,7 @@
 #include "../Hewan/BaseHewan/Hewan.hpp"
 #include "../Hewan/karnivora/karnivora.hpp"
 
-Peternak::Peternak(string& username, int kekayaan) : Pemain(username, kekayaan), peternakan() {}
+Peternak::Peternak(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), peternakan() {}
 
 Peternakan& Peternak::getPeternakan() {
     return peternakan;

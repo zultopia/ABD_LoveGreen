@@ -1,6 +1,6 @@
 #include "Pemain.hpp"
 
-Pemain::Pemain(string& username, int kekayaan) : username(username), kekayaan(kekayaan), inventory() {
+Pemain::Pemain(string& username, int kekayaan, int beratBadan) : username(username), kekayaan(kekayaan), beratBadan(beratBadan), inventory() {
     auto itr = listPemain.begin();
     while (username.compare((*itr)->getUsername()) < 0 && itr != listPemain.end()) {
         itr++;

@@ -16,10 +16,11 @@ class Pemain {
     protected:
         string username;
 		int kekayaan;
+		int beratBadan;
 		Penyimpanan inventory;
 		static map<string,int> commandTable;
     public:
-        Pemain(string& username, int kekayaan);
+        Pemain(string& username, int kekayaan, int beratBadan);
 		// virtual ~Pemain();
 
         static vector<Pemain*> listPemain;

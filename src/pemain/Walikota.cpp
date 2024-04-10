@@ -3,7 +3,7 @@
 #include "./Peternak.hpp"
 
 // subclass functions
-Walikota::Walikota(string& username, int kekayaan) : Pemain(username, kekayaan){}
+Walikota::Walikota(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan){}
 
 void Walikota::pungutPajak(){
     cout << "Cring cring cring..." << endl;
@@ -89,13 +89,12 @@ void Walikota::tambahPemain(){
             cin >> nama;
         }
         Pemain* pemainBaru;
-        // nanti ganti config
         if (jenis.compare("walikota") == 0){
-            pemainBaru = new Walikota(nama, 50);
+            pemainBaru = new Walikota(nama, 50, 40);
         } else if (jenis.compare("petani") == 0) {
-            pemainBaru = new Petani(nama, 50);
+            pemainBaru = new Petani(nama, 50, 40);
         } else if (jenis.compare("peternak")) {
-            pemainBaru = new Peternak(nama, 50);
+            pemainBaru = new Peternak(nama, 50, 40);
         }
 
         cout << "Pemain baru ditambahkan!" << endl;

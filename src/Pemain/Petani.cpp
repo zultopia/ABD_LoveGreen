@@ -1,6 +1,6 @@
 #include "Petani.hpp"
 
-Petani::Petani(string& username, int kekayaan) : Pemain(username, kekayaan), ladang() {}
+Petani::Petani(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), ladang() {}
 
 Ladang& Petani::getLadang() {
     return ladang;

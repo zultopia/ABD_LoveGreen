@@ -3,7 +3,7 @@
 class Walikota : public Pemain {
     public:
         // subclass functions
-        Walikota(string& username, int kekayaan);
+        Walikota(string& username, int kekayaan, int beratBadan);
         void pungutPajak();
         void bangun();
         void tambahPemain();
