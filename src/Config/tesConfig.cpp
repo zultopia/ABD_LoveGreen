@@ -34,7 +34,7 @@ int main(){
     cout << Config::getBesarLahan().first << " " << Config::getBesarLahan().second << endl;
     cout << Config::getBesarPeternakan().first << " " << Config::getBesarPeternakan().second << endl;
     cout << endl;
-    Muat::muat("../../config/state.txt");
+    Muat::muat();
     vector<string> pemain = SimpanMuat::getPemain();
     map<string,tuple<string,int,int>> dataPemain = SimpanMuat::getDataPemain();
     map<string, vector<string>> inventory = SimpanMuat::getInventory();

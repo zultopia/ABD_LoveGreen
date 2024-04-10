@@ -7,12 +7,14 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <ctype.h>
 #include <filesystem>
 #include "SimpanMuat.hpp"
 using namespace std;
 class Muat: virtual SimpanMuat{
     public:
-        static void muat(string path);
+        static string readPath();
+        static void muat();
         static void read(ifstream& inputFile);
         
 };

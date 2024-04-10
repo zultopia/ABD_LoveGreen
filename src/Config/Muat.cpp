@@ -1,37 +1,61 @@
 #include "Muat.hpp"
 
+string Muat::readPath(){
+    char answer;
+    cout << "Apakah Anda ingin memuat state? (y/n) ";
+    cin >> answer;
+    answer = (char)tolower(answer);
+    while(answer != 'y' && answer != 'n'){
+        cout << "Apakah Anda ingin memuat state? (y/n) ";
+        cin >> answer;
+        answer = (char)tolower(answer);
+    }
+    string path;
+    if(answer == 'y'){
+        cout << "Masukkan lokasi berkas state : ";
+        cin >> path;
+    }
+    return path;
 
-void Muat::muat(string path){
-    // Memeriksa folder sudah ada atau belum
-    if(!filesystem::exists(filesystem::path(path).parent_path())) {
-        ConfigException e("Lokasi berkas tidak valid");
-        throw e;
-    }
-    ifstream inputFile(path);
-    if(!inputFile.is_open()){
-        ConfigException e("File state.txt tidak dapat dibuka.");
-        throw e;
-    }
-    string line;
-    getline(inputFile, line);
-    stringstream s(line);
-    string loop;
-    s >> loop;
-    for(int i = 0; i < stoi(loop); i++){
-        read(inputFile);
-    }
-    // bagian toko
-    getline(inputFile,line);
-    string jumlah;
-    stringstream s2(line);
-    s2 >> jumlah;
-    for(int i = 0; i < stoi(jumlah); i++){
-        getline(inputFile,line);
+}
+
+void Muat::muat(){
+    string path = readPath();
+    if(path.length() == 0){
+
+    }else{
+        // Memeriksa folder sudah ada atau belum
+        // if(!filesystem::exists(filesystem::path(path).parent_path())) {
+        //     ConfigException e("Lokasi berkas tidak valid");
+        //     throw e;
+        // }
+        ifstream inputFile(path);
+        if(!inputFile.is_open()){
+            ConfigException e("File state.txt tidak dapat dibuka.");
+            throw e;
+        }
+        string line;
+        getline(inputFile, line);
         stringstream s(line);
-        string namaItem, jumlahItem;
-        s >> namaItem >> jumlahItem;
-        toko.insert({namaItem,stoi(jumlahItem)});
+        string loop;
+        s >> loop;
+        for(int i = 0; i < stoi(loop); i++){
+            read(inputFile);
+        }
+        // bagian toko
+        getline(inputFile,line);
+        string jumlah;
+        stringstream s2(line);
+        s2 >> jumlah;
+        for(int i = 0; i < stoi(jumlah); i++){
+            getline(inputFile,line);
+            stringstream s(line);
+            string namaItem, jumlahItem;
+            s >> namaItem >> jumlahItem;
+            toko.insert({namaItem,stoi(jumlahItem)});
+        }
     }
+    
 }
 
 void Muat::read(ifstream& inputFile){
