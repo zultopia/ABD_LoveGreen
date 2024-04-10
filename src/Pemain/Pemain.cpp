@@ -17,6 +17,10 @@ int Pemain::getKekayaan() {
     return kekayaan;
 }
 
+int Pemain::getBeratBadan() {
+    return beratBadan;
+}
+
 Penyimpanan& Pemain::getInventory() {
     return inventory;
 }
