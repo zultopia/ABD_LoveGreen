@@ -32,6 +32,7 @@ class Pemain {
 		int getBeratBadan();
 		virtual string getRole() = 0;
 		Penyimpanan& getInventory();
+        vector<string> getDaftarInventory();
         static bool namaValid(string nama);
 
         virtual void doCommand(string command) = 0;

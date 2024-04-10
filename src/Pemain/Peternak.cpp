@@ -205,3 +205,7 @@ int Peternak::calculateTax() { return 0; }
 void Peternak::beli() {}
 
 void Peternak::jual() {}
+
+vector<tuple<string,string,int>> Peternak::getDaftarIsi(){
+    return peternakan.getDaftarIsi();
+}

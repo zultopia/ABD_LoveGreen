@@ -21,6 +21,7 @@ class Petani : public Pemain {
 		int calculateTax();
 		void beli();
 		void jual();
+		vector<tuple<string,string,int>> getDaftarIsi();
 };
 
 #endif

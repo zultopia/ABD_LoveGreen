@@ -23,6 +23,7 @@ class Peternak : public Pemain {
 		void beli();
 		void jual();
 		void eat();
+		vector<tuple<string,string,int>> getDaftarIsi();
 };
 
 #endif
