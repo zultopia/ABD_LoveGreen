@@ -83,7 +83,30 @@ pair<int, int> Pemain::konversiKoordinat(string koordinat) {
 }
 
 void Pemain::makan() {
-    //makan
-    
+    // Cek apakah ada makanan di inventory (penyimpanan)
+    int width = Config::getBesarPenyimpanan().first;
+    int height = Config::getBesarPenyimpanan().second;
+    bool adaMakanan = false;
+    int i, j = 0;
+    Item* currentItem;
+    while (i < width && !adaMakanan) {
+        while (j < height && !adaMakanan) {
+            currentItem = inventory.ambilItem(i, j);
+            if (currentItem != nullptr) {
+                if (currentItem->eatable()) {
+                    adaMakanan = true;
+                }
+            }
+            j++;
+        }
+        i++;
+    }
+
+    if (!adaMakanan) {
+        cout << "Tidak ada makanan dalam penyimpanan" << endl;
+    } else {
+        // PIlih makanan
+    }
+
 }
 
