@@ -24,7 +24,9 @@ int Pemain::getBeratBadan() {
 Penyimpanan& Pemain::getInventory() {
     return inventory;
 }
-
+vector<string> Pemain::getDaftarInventory(){
+    return inventory.getListPenyimpanan();
+}
 void Pemain::next() {
     currentPemain = (currentPemain + 1) % numPemain;
 }

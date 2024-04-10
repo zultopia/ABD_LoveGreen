@@ -194,3 +194,18 @@ int Toko::getQuantity(string nama){
 int Toko::getPrice(string nama){
     return barang.at(nama).first;
 }
+map<string,pair<int,int>>& Toko::getBarang(){
+    return barang;
+}
+vector<string>& Toko::getUrutan(){
+    return urutan;
+}
+map<string,int> Toko::getIsiToko(){
+    map<string,int> temp;
+    for(auto i = urutan.begin(); i != urutan.end(); i++){
+        if(barang[*i].second != -1){
+            temp[*i] = barang[*i].second;
+        }
+    }
+    return temp;
+}

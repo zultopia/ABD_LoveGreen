@@ -81,6 +81,8 @@ class Penyimpanan {
         void tambahItem(Item* jenisItem);
 
         void operator+(Item* item);
+
+        vector<string> getListPenyimpanan();
 };
 
 class Ladang : public Penyimpanan {
@@ -107,6 +109,9 @@ class Ladang : public Penyimpanan {
         map<string, int> hitungJumlahTanamanPanen();
 
         void operator+(Tanaman* tanaman);
+
+        // daftar isi ladang
+        vector<tuple<string,string,int>> getDaftarIsi();
 };
 
 class Peternakan : public Penyimpanan {
@@ -133,6 +138,8 @@ class Peternakan : public Penyimpanan {
         map<string, int> hitungJumlahHewanPanen();
 
         void operator+(Hewan* ternak);
+
+        vector<tuple<string,string,int>> getDaftarIsi();
 };
 
 #endif

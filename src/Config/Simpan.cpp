@@ -17,9 +17,6 @@ void Simpan::simpan(string path) {
         throw e;
     }
 
-    SimpanMuat simpanMuat;
-    simpanMuat.update(getPemain(), getDataPemain(), getInventory(), getLadangdanTernak(), getToko());
-
     // Data pemain ditulis
     outputFile << getPemain().size() << endl;
     for (const auto& pemain : getPemain()) {
@@ -52,4 +49,25 @@ void Simpan::simpan(string path) {
 
     outputFile.close();
     cout << "State berhasil disimpan" << endl;
+}
+
+void Simpan::update(){
+    pemain.clear();
+    for(auto i = Pemain::listPemain.begin(); i != Pemain::listPemain.end(); i++){
+        pemain.push_back((*i)->Pemain::getUsername());
+        string role;
+        role = (*i)->getRole();
+        dataPemain[(*i)->Pemain::getUsername()] = make_tuple(role,(*i)->getBeratBadan(), (*i)->getKekayaan());
+        inventory[(*i)->Pemain::getUsername()] = (*i)->getDaftarInventory();
+        if((*i)->getRole() == "petani"){
+            Petani* currenPetani = (Petani*)(*i);
+            LadangdanTernak[(*i)->getUsername()] = currenPetani->getDaftarIsi();
+        }
+        if((*i)->getRole() == "peternak"){
+            Peternak* currenPetani = (Peternak*)(*i);
+            LadangdanTernak[(*i)->getUsername()] = currenPetani->getDaftarIsi();
+        }
+        toko.clear();
+        toko = Toko::getIsiToko();
+    }
 }
