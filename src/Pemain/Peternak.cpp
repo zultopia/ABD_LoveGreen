@@ -9,7 +9,7 @@ Peternakan& Peternak::getPeternakan() {
 }
 
 string Peternak::getRole() {
-    return "peternak";
+    return "Peternak";
 }
 
 void Peternak::ternak() {

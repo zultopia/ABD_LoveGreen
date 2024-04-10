@@ -7,7 +7,7 @@ Ladang& Petani::getLadang() {
 }
 
 string Petani::getRole() {
-    return "petani";
+    return "Petani";
 }
 
 void Petani::tanam() {
