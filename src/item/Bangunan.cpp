@@ -29,7 +29,9 @@ void Bangunan::setIdBangunan(int idBangunan) {
 void Bangunan::setMaterials(const map<string, int>& materials) {
     this->materials = materials;
 }
-
+bool Bangunan::eatable() const {
+    return false;
+}
 // Operator overloading 
 ostream& operator<<(ostream& os, Bangunan& bangunan) {
     os << "=+=+= INFO BANGUNAN =+=+=" << endl;

@@ -29,6 +29,8 @@ class Bangunan : public Item {
         void setIdBangunan(int idBangunan);
         void setMaterials(const map<string, int>& materials); 
 
+        bool eatable() const override;
+        
         // Operator overloading untuk ostream
         friend ostream& operator<<(ostream& os, Bangunan& bangunan);
 };
