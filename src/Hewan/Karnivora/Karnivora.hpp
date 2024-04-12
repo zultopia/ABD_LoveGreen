@@ -8,8 +8,14 @@ using namespace std;
 
 class Karnivora : public Hewan {
     public:
-        Karnivora(string code);
+        // ctor
+        Karnivora(string nama);
+        Karnivora(string nama, int berat);
+
+        // dtor
         ~Karnivora();
+
+        // validator
         bool isCanEat(Produk& p) const override;
 };
 

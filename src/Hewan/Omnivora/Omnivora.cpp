@@ -9,6 +9,15 @@ Omnivora::Omnivora(string nama) : Hewan() {
     setPrice(Config::getPrice(nama));
 }
 
+Omnivora::Omnivora(string nama, int berat) : Hewan(berat) {
+    setIdHewan(Config::getId(nama));
+    setCode(Config::getCode(nama));
+    setName(nama);
+    setTypeHewan(Config::getType(nama));
+    setWeightToHarvest(Config::getWeightHarvest(nama));
+    setPrice(Config::getPrice(nama));
+}
+
 Omnivora::~Omnivora() {}
 
 bool Omnivora::isCanEat(Produk& p) const {
