@@ -9,7 +9,8 @@ using namespace std;
 class Herbivora : public Hewan {
     public:
         // ctor
-        Herbivora(string code);
+        Herbivora(string nama);
+        Herbivora(string nama, int berat);
 
         // dtor
         ~Herbivora();

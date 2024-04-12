@@ -81,7 +81,7 @@ void Penyimpanan::tambahItem(Item* jenisItem) {
     // Cari slot kosong pertama
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            if (grid.getCell(i, j)->getCode().empty()) {
+            if (grid.getCell(i, j) == nullptr || grid.getCell(i, j)->getCode().empty()) {
                 emptyRow = i;
                 emptyCol = j;
                 break;

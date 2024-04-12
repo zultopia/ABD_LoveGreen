@@ -43,10 +43,10 @@ class Config{
         static bool isExistAnimal(string key);
         static bool isExistProduct(string key);
         static bool isExistRecipe(string key);
-        static map<string,tuple<int,string,string,int,int> >& getPlantMap();
-        static map<string,tuple<int,string,string,int,int> >& getAnimalMap();
-        static map<string,tuple<int,string,string,string,int,int> >& getProductMap();
-        static map<string,tuple<int,string,int,map<string,int> > >& getRecipeMap();
+        static map<string,tuple<int,string,string,int,int> > getPlantMap();
+        static map<string,tuple<int,string,string,int,int> > getAnimalMap();
+        static map<string,tuple<int,string,string,string,int,int> > getProductMap();
+        static map<string,tuple<int,string,int,map<string,int> > > getRecipeMap();
         static int getId(string key);
         static string getCode(string key);
         static string getType(string key);
@@ -55,7 +55,7 @@ class Config{
         static int getWeightHarvest(string key);
         static string getOrigin(string key);
         static int getAddedWeight(string key);
-        static map<string,int>& getMaterialInfo(string key);
+        static map<string,int> getMaterialInfo(string key);
         static int getJumlahUangWin();
         static int getBeratBadanWin();
         static pair<int,int> getBesarPenyimpanan();

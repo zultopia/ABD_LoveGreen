@@ -19,7 +19,7 @@ class Hewan : public Item {
     public:
         // ctor
         Hewan();
-        Hewan(string code);
+        Hewan(int currentWeight);
 
         // dtor
         ~Hewan();
