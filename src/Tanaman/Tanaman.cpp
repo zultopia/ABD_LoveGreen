@@ -2,14 +2,14 @@
 
 // ctor
 Tanaman::Tanaman() : Item(), idTanaman(0), durationToHarvest(0), currentDuration(0), typeTanaman("") {}
-Tanaman::Tanaman(string code) {
-    setIdTanaman(Config::getId(code));
-    setCode(code);
-    setName(Config::getNama(code));
-    setTypeTanaman(Config::getType(code));
-    setDurationToHarvest(Config::getDuration(code));
+Tanaman::Tanaman(string nama) {
+    setIdTanaman(Config::getId(nama));
+    setCode(Config::getCode(nama));
+    setName(nama);
+    setTypeTanaman(Config::getType(nama));
+    setDurationToHarvest(Config::getDuration(nama));
     setCurrentDuration(0);
-    setPrice(Config::getPrice(code));
+    setPrice(Config::getPrice(nama));
 }
 
 Tanaman::~Tanaman() {}
