@@ -111,6 +111,26 @@ vector<string> Penyimpanan::getListPenyimpanan(){
     }
     return temp;
 }
+
+bool Penyimpanan::checkMakanan(int row, int col){
+    if (row <= 0 || row > rows || col < 0 || col >= cols) {
+        // Index tidak valid
+        return -1;
+    } else {
+        Item* item = grid.getCell(row-1, col);
+        if (item == nullptr) {
+            // Penyimpanan di index tersebut kosong
+            return 1;
+        } else if (!(item->eatable())) {
+            // Penyimpanan di index tersebut bukan makanan
+            return 2;
+        } else {
+            // Item bisa dimakan
+            return 0;
+        }
+    }
+}
+
 // CETAK_LADANG
 Ladang::Ladang() : Penyimpanan(), grid(8,8) {}
 

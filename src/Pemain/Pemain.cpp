@@ -116,15 +116,27 @@ void Pemain::makan() {
         cin >> slot;
         cout << endl;
 
-        // Cek apakah input valid;
-        bool valid = false;
-
         pair<int,int> koordinat = konversiKoordinat(slot);
-        if (inventory.ambilItem(koordinat.first, koordinat.second) == nullptr) {
+        int validity = inventory.checkMakanan(koordinat.first, koordinat.second);
+        while (validity != 0) {
+            if (validity == -1){
+                cout << "Tidak ada slot dengan index seperti itu!" << endl;
+            } else if (validity = 1) {
+                cout << "Kamu mengambil harapan kosong dari penyimpanan." << endl;
+            } else if (validity = 2) {
+                cout << "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!" << endl;
+            }
+            cout << "Silahkan masukan slot yang berisi makanan." << endl << endl;
+            cout << "Slot: ";
+            cin >> slot;
+            cout << endl;
+            koordinat = konversiKoordinat(slot);
+            validity = inventory.checkMakanan(koordinat.first, koordinat.second);
         }
-        while (inventory.ambilItem(koordinat.first, koordinat.second) == nullptr){
-            
-        }
+        Item* item = inventory.ambilItem(koordinat.first, koordinat.second);
+        cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
+        beratBadan += Config::getAddedWeight(item->getName());
+        cout << "Alhasil, berat badan kamu naik menjadi " << beratBadan << endl;
 
 
     }
