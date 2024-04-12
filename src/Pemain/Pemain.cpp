@@ -83,9 +83,6 @@ pair<int, int> Pemain::konversiKoordinat(string koordinat) {
 }
 
 void Pemain::makan() {
-<<<<<<< Updated upstream
-    //makan
-=======
     // Cek apakah ada makanan di inventory (penyimpanan)
     int width = Config::getBesarPenyimpanan().first;
     int height = Config::getBesarPenyimpanan().second;
@@ -128,6 +125,5 @@ void Pemain::makan() {
 
     }
 
->>>>>>> Stashed changes
 }
 
