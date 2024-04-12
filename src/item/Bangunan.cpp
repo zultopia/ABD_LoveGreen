@@ -1,23 +1,14 @@
 #include "Bangunan.hpp"
 
 // Constructor
-Bangunan::Bangunan() {}
-
-Bangunan::Bangunan(int id, Item* item, const vector<pair<string, int> >& materials)
-    : id(id), item(item), materials(materials) {}
+Bangunan::Bangunan() : Item(), idBangunan(0) {}
 
 // Destructor
-Bangunan::~Bangunan() {
-    delete item; 
-}
+Bangunan::~Bangunan() {}
 
 // Getter
-int Bangunan::getId() {
-    return id;
-}
-
-Item* Bangunan::getItem() {
-    return item;
+int Bangunan::getIdBangunan() const {
+    return idBangunan;
 }
 
 vector<pair<string, int> > Bangunan::getMaterials() {
@@ -25,25 +16,24 @@ vector<pair<string, int> > Bangunan::getMaterials() {
 }
 
 // Setter
-void Bangunan::setId(int id) {
-    this->id = id;
-}
-
-void Bangunan::setItem(Item* item) {
-    this->item = item;
+void Bangunan::setIdBangunan(int idBangunan) {
+    this->idBangunan = idBangunan;
 }
 
 void Bangunan::setMaterials(const vector<pair<string, int> >& materials) {
     this->materials = materials;
 }
 
-// Operator overloading untuk ostream
+// Operator overloading 
 ostream& operator<<(ostream& os, Bangunan& bangunan) {
-    os << "ID: " << bangunan.id << endl;
-    os << "Item: " << bangunan.item->getName() << endl; // Akses nama item menggunakan pointer
-    os << "Materials:" << endl;
-    for (const auto& material : bangunan.materials) {
+    os << "=+=+= INFO BANGUNAN =+=+=" << endl;
+    os << "idBangunan           : " << bangunan.getIdBangunan() << endl;
+    os << "code                 : " << bangunan.getCode() << endl;
+    os << "name                 : " << bangunan.getName() << endl;
+    os << "price                : " << bangunan.getPrice() << endl;
+    os << "materials            : " << endl;
+    for (const auto& material : bangunan.getMaterials()) {
         os << material.first << " - " << material.second << endl;
-    }
+    } 
     return os;
 }

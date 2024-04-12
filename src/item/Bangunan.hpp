@@ -8,32 +8,28 @@
 
 using namespace std;
 
-class Bangunan {
-private:
-    int id;
-    Item* item; 
-    vector<pair<string, int> > materials;
+class Bangunan : public Item {
+    private:
+        int idBangunan;
+        vector<pair<string, int> > materials; 
 
-public:
-    // Constructor
-    Bangunan();
-    Bangunan(int id, Item* item, const vector<pair<string, int> >& materials);
+    public:
+        // Constructor
+        Bangunan();
 
-    // Destructor
-    ~Bangunan();
+        // Destructor
+        ~Bangunan();
 
-    // Getter
-    int getId();
-    Item* getItem();
-    vector<pair<string, int> > getMaterials();
+        // Getter
+        int getIdBangunan() const;
+        vector<pair<string, int> > getMaterials();
 
-    // Setter
-    void setId(int id);
-    void setItem(Item* item);
-    void setMaterials(const vector<pair<string, int> >& materials);
+        // Setter
+        void setIdBangunan(int idBangunan);
+        void setMaterials(const vector<pair<string, int> >& materials); 
 
-    // Operator overloading untuk ostream
-    friend ostream& operator<<(ostream& os, Bangunan& bangunan);
+        // Operator overloading untuk ostream
+        friend ostream& operator<<(ostream& os, Bangunan& bangunan);
 };
 
 #endif
