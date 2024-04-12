@@ -2,7 +2,13 @@
 
 // Constructor
 Bangunan::Bangunan() : Item(), idBangunan(0) {}
-
+Bangunan::Bangunan(string nama) : Item(){
+    idBangunan = Config::getId(nama);
+    setPrice(Config::getPrice(nama));
+    setCode(Config::getCode(nama));
+    setName(nama);
+    materials = Config::getMaterialInfo(nama);
+}
 // Destructor
 Bangunan::~Bangunan() {}
 
@@ -11,7 +17,7 @@ int Bangunan::getIdBangunan() const {
     return idBangunan;
 }
 
-vector<pair<string, int> > Bangunan::getMaterials() {
+map<string, int> Bangunan::getMaterials() {
     return materials;
 }
 
@@ -20,7 +26,7 @@ void Bangunan::setIdBangunan(int idBangunan) {
     this->idBangunan = idBangunan;
 }
 
-void Bangunan::setMaterials(const vector<pair<string, int> >& materials) {
+void Bangunan::setMaterials(const map<string, int>& materials) {
     this->materials = materials;
 }
 
