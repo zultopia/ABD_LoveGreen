@@ -12,6 +12,16 @@ Tanaman::Tanaman(string nama) {
     setPrice(Config::getPrice(nama));
 }
 
+Tanaman::Tanaman(string nama, int currentDuration) {
+    this->currentDuration = currentDuration;
+    setIdTanaman(Config::getId(nama));
+    setCode(Config::getCode(nama));
+    setName(nama);
+    setTypeTanaman(Config::getType(nama));
+    setDurationToHarvest(Config::getDuration(nama));
+    setPrice(Config::getPrice(nama));
+}
+
 Tanaman::~Tanaman() {}
 
 int Tanaman::getIdTanaman() const {return idTanaman;}

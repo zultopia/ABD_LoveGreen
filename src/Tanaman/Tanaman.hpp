@@ -17,7 +17,8 @@ class Tanaman : public Item{
     public:
         // ctor
         Tanaman();
-        Tanaman(string code);
+        Tanaman(string nama);
+        Tanaman(string nama, int currentDuration);
 
         // dtor
         ~Tanaman();
