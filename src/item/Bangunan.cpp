@@ -1,74 +1,49 @@
 #include "Bangunan.hpp"
 
-// Constructor default
-Bangunan::Bangunan() : id(0), price(0) {}
+// Constructor
+Bangunan::Bangunan() {}
 
-// Constructor dengan parameter
-Bangunan::Bangunan(int id, int price, string code, string name, const vector<pair<string, int> >& materials)
-    : id(id), price(price), code(code), name(name), materials(materials) {}
+Bangunan::Bangunan(int id, Item* item, const vector<pair<string, int> >& materials)
+    : id(id), item(item), materials(materials) {}
 
 // Destructor
-Bangunan::~Bangunan() {}
+Bangunan::~Bangunan() {
+    delete item; 
+}
 
-// Getter untuk id
+// Getter
 int Bangunan::getId() {
     return id;
 }
 
-// Getter untuk price
-int Bangunan::getPrice() {
-    return price;
+Item* Bangunan::getItem() {
+    return item;
 }
 
-// Getter untuk code
-string Bangunan::getCode() {
-    return code;
-}
-
-// Getter untuk name
-string Bangunan::getName() {
-    return name;
-}
-
-// Getter untuk materials
 vector<pair<string, int> > Bangunan::getMaterials() {
     return materials;
 }
 
-// Setter untuk id
+// Setter
 void Bangunan::setId(int id) {
     this->id = id;
 }
 
-// Setter untuk price
-void Bangunan::setPrice(int price) {
-    this->price = price;
+void Bangunan::setItem(Item* item) {
+    this->item = item;
 }
 
-// Setter untuk code
-void Bangunan::setCode(string code) {
-    this->code = code;
-}
-
-// Setter untuk name
-void Bangunan::setName(string name) {
-    this->name = name;
-}
-
-// Setter untuk materials
 void Bangunan::setMaterials(const vector<pair<string, int> >& materials) {
     this->materials = materials;
 }
 
 // Operator overloading untuk ostream
 ostream& operator<<(ostream& os, Bangunan& bangunan) {
-    os << "ID: " << bangunan.getId() << endl;
-    os << "Code: " << bangunan.getCode() << endl;
-    os << "Name: " << bangunan.getName() << endl;
-    os << "Price: " << bangunan.getPrice() << endl;
+    os << "ID: " << bangunan.id << endl;
+    os << "Item: " << bangunan.item->getName() << endl; // Akses nama item menggunakan pointer
     os << "Materials:" << endl;
-    for (const pair<string, int>& material : bangunan.getMaterials()) {
-        os << "- " << material.first << ": " << material.second << endl;
+    for (const auto& material : bangunan.materials) {
+        os << material.first << " - " << material.second << endl;
     }
     return os;
 }

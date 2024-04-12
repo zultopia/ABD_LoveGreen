@@ -4,38 +4,33 @@
 #include <iostream>
 #include <vector> 
 #include <string>
+#include "Item.hpp"
 
 using namespace std;
 
 class Bangunan {
 private:
     int id;
-    int price;
-    string code;
-    string name;
-    vector<pair<string, int> > materials; 
+    Item* item; 
+    vector<pair<string, int> > materials;
 
 public:
     // Constructor
     Bangunan();
-    Bangunan(int id, int price, string code, string name, const vector<pair<string, int> >& materials);
+    Bangunan(int id, Item* item, const vector<pair<string, int> >& materials);
 
     // Destructor
     ~Bangunan();
 
     // Getter
     int getId();
-    int getPrice();
-    string getCode();
-    string getName();
+    Item* getItem();
     vector<pair<string, int> > getMaterials();
 
     // Setter
     void setId(int id);
-    void setPrice(int price);
-    void setCode(string code);
-    void setName(string name);
-    void setMaterials(const vector<pair<string, int> >& materials); 
+    void setItem(Item* item);
+    void setMaterials(const vector<pair<string, int> >& materials);
 
     // Operator overloading untuk ostream
     friend ostream& operator<<(ostream& os, Bangunan& bangunan);
