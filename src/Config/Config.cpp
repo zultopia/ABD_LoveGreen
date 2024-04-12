@@ -138,16 +138,16 @@ void Config::bacaConfig(){
     }
 }
 
-map<string,tuple<int,string,string,int,int>>& Config::getPlantMap(){
+map<string,tuple<int,string,string,int,int>> Config::getPlantMap(){
     return plant;
 }
-map<string,tuple<int,string,string,int,int>>& Config::getAnimalMap(){
+map<string,tuple<int,string,string,int,int>> Config::getAnimalMap(){
     return animal;
 }
-map<string,tuple<int,string,string,string,int,int>>& Config::getProductMap(){
+map<string,tuple<int,string,string,string,int,int>> Config::getProductMap(){
     return product;
 }
-map<string,tuple<int,string,int,map<string,int>>>& Config::getRecipeMap(){
+map<string,tuple<int,string,int,map<string,int>>> Config::getRecipeMap(){
     return recipe;
 }
 
@@ -249,7 +249,7 @@ int Config::getAddedWeight(string key){
         throw e;
     }
 }
-map<string,int>& Config::getMaterialInfo(string key){
+map<string,int> Config::getMaterialInfo(string key){
     if(recipe.find(key) != recipe.end()){
         return get<3>(recipe.at(key));
     }else{
