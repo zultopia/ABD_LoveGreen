@@ -6,9 +6,9 @@
 #include <cctype>
 #include <tuple>
 #include <vector>
-#include "../matrix/Penyimpanan.hpp"
+#include "../Matrix/Penyimpanan.hpp"
 #include "../config/Config.hpp"
-#include "../toko/toko.hpp"
+#include "../Toko/Toko.hpp"
 
 using namespace std;
 

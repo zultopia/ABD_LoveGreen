@@ -2,7 +2,11 @@
 
 using namespace std;
 
-void Simpan::simpan(string path) {
+void Simpan::simpan() {
+    cout << "Masukkan lokasi berkas state: ";
+    string path;
+    getline(cin, path);
+
     // Memeriksa folder sudah ada atau belum
     if(!filesystem::exists(filesystem::path(path).parent_path())) {
         ConfigException e("Lokasi berkas tidak valid");
@@ -16,6 +20,8 @@ void Simpan::simpan(string path) {
         ConfigException e("File tidak dapat dibuka.");
         throw e;
     }
+
+    update();
 
     // Data pemain ditulis
     outputFile << getPemain().size() << endl;

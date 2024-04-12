@@ -15,7 +15,7 @@
 
 class Simpan : virtual SimpanMuat{
     public:
-        static void simpan(std::string path);
+        static void simpan();
         static void update();
 };
 
