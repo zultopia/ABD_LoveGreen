@@ -27,7 +27,10 @@ class Muat: virtual SimpanMuat{
         static void muat();
         static void read(ifstream& inputFile);
         static void setUp();
-        
+        static void setUpPetani(Pemain* player, string nama);
+        static void setUpPeternak(Pemain* player, string nama);
+        static void setUpWalikota(Pemain* player, string nama);
+        static void setUpInventory(Pemain* pemain);
 };
 
 #endif
