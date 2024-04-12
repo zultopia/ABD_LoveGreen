@@ -111,7 +111,7 @@ class Ladang : public Penyimpanan {
         void operator+(Tanaman* tanaman);
 
         // daftar isi ladang
-        vector<tuple<string,string,int>> getDaftarIsi();
+        vector<tuple<string,string,int> > getDaftarIsi();
 };
 
 class Peternakan : public Penyimpanan {

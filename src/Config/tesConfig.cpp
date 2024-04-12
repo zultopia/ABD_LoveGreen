@@ -57,6 +57,4 @@ int main(){
     for(auto j = toko.begin(); j != toko.end(); j++){
         cout << j->first << " " << j->second << endl;
     }
-    
-    
 }
