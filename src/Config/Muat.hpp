@@ -19,6 +19,7 @@
 #include "../Hewan/Omnivora/Omnivora.hpp"
 #include "../Produk/ProdukEatable/ProdukEatable.hpp"
 #include "../Produk/ProdukUneatable/ProdukUneatable.hpp"
+#include "../Item/Bangunan.hpp"
 #include "Config.hpp"
 using namespace std;
 class Muat: virtual SimpanMuat{

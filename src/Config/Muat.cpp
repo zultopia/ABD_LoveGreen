@@ -180,7 +180,8 @@ void Muat::setUpInventory(Pemain* pemain){
             inventoryPlayer.tambahItem(product);
         }else if(Config::getCode(*j) == "SMH" || Config::getCode(*j) == "MDH" || Config::getCode(*j) == "LRH" || Config::getCode(*j) == "HTL"){
             // konstruk bangunan trus masukin inventory
-
+            Bangunan* bangunan = new Bangunan(*j);
+            inventoryPlayer.tambahItem(bangunan);
         }
     }
 }
