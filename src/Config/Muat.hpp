@@ -19,6 +19,7 @@
 #include "../Hewan/Omnivora/Omnivora.hpp"
 #include "../Produk/ProdukEatable/ProdukEatable.hpp"
 #include "../Produk/ProdukUneatable/ProdukUneatable.hpp"
+#include "../Item/Bangunan.hpp"
 #include "Config.hpp"
 using namespace std;
 class Muat: virtual SimpanMuat{
@@ -27,7 +28,10 @@ class Muat: virtual SimpanMuat{
         static void muat();
         static void read(ifstream& inputFile);
         static void setUp();
-        
+        static void setUpPetani(Pemain* player, string nama);
+        static void setUpPeternak(Pemain* player, string nama);
+        static void setUpWalikota(Pemain* player, string nama);
+        static void setUpInventory(Pemain* pemain);
 };
 
 #endif

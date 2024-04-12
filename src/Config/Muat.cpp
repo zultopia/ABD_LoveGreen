@@ -104,66 +104,84 @@ void Muat::read(ifstream& inputFile){
 void Muat::setUp(){
     for(auto i = pemain.begin(); i != pemain.end(); i++){
         Pemain* player;
-        
         if(get<0>(dataPemain.at(*i)) == "Petani"){
-            player = new Petani(*i,get<2>(dataPemain.at(*i)),get<1>(dataPemain.at(*i)));
-            Pemain::listPemain.push_back(player);
-            Petani* currenPetani = (Petani*)(player);
-            Ladang& ladang = currenPetani->getLadang();
-            for(auto j = LadangdanTernak.at(*i).begin(); j != LadangdanTernak.at(*i).end(); j++){
-                Tanaman currTanaman(get<1>(*j), get<2>(*j));
-                // ladang.
-                // masukkin ladang
-            }
+            setUpPetani(player, *i);
             
         }
         if(get<0>(dataPemain.at(*i)) == "Peternak"){
-            player = new Peternak(*i,get<2>(dataPemain.at(*i)),get<1>(dataPemain.at(*i)));
-            Pemain::listPemain.push_back(player);
-            Peternak* currenPeternak = (Peternak*)(player);
-            Peternakan& peternakan = currenPeternak->getPeternakan();
-            for(auto j = LadangdanTernak.at(*i).begin(); j != LadangdanTernak.at(*i).end(); j++){
-                if(Config::getType(get<1>(*j)) == "HERBIVORE"){
-                    Herbivora animal(get<1>(*j), get<2>(*j));
-                    // masukkin peternakan
-                }else if(Config::getType(get<1>(*j)) == "CARNIVORE"){
-                    Karnivora animal(get<1>(*j), get<2>(*j));
-                    // masukkin peternakan
-                }else if(Config::getType(get<1>(*j)) == "OMNIVORE"){
-                    Omnivora animal(get<1>(*j), get<2>(*j));
-                    // masukkin peternakan
-                }
-            
-            }
+            setUpPeternak(player, *i);
         }
         if(get<0>(dataPemain.at(*i)) == "Walikota"){
-            player = new Walikota(*i,get<2>(dataPemain.at(*i)),get<1>(dataPemain.at(*i)));
-            Pemain::listPemain.push_back(player);
+            setUpWalikota(player, *i);
         }
-        Penyimpanan& inventoryPlayer = player->getInventory();
-        for(auto j = inventory.at(*i).begin(); j != inventory.at(*i).end(); j++){
-            if(Config::getType(*j) == "HERBIVORE"){
-                Herbivora animal(*j);
-                inventoryPlayer.tambahItem(&animal);
-            }else if(Config::getType(*j) == "CARNIVORE"){
-                Karnivora animal(*j);
-                inventoryPlayer.tambahItem(&animal);
-            }else if(Config::getType(*j) == "OMNIVORE"){
-                Omnivora animal(*j);
-                inventoryPlayer.tambahItem(&animal);
-            }else if(Config::getType(*j) == "MATERIAL_PLANT" || Config::getType(*j) == "FRUIT_PLANT"){
-                Tanaman plant(*j);
-                inventoryPlayer.tambahItem(&plant);
-            }else if(Config::getType(*j) == "PRODUCT_MATERIAL_PLANT"){
-                ProdukUneatable product(*j);
-                inventoryPlayer.tambahItem(&product);
-            }else if(Config::getType(*j) == "PRODUCT_FRUIT_PLANT" || Config::getType(*j) == "PRODUCT_ANIMAL"){
-                ProdukEatable product(*j);
-                inventoryPlayer.tambahItem(&product);
-            }else if(Config::getCode(*j) == "SMH" || Config::getCode(*j) == "MDH" || Config::getCode(*j) == "LRH" || Config::getCode(*j) == "HTL"){
-                // konstruk bangunan trus masukin inventory
-            }
-        }
+        setUpInventory(player);
     }
     Toko::setUpTokoMuat();
+}
+void Muat::setUpPetani(Pemain* player, string nama){
+    player = new Petani(nama,get<2>(dataPemain.at(nama)),get<1>(dataPemain.at(nama)));
+    Pemain::listPemain.push_back(player);
+    Petani* currenPetani = (Petani*)(player);
+    Ladang& ladang = currenPetani->getLadang();
+    for(auto j = LadangdanTernak.at(nama).begin(); j != LadangdanTernak.at(nama).end(); j++){
+        pair<int,int> posisi = currenPetani->konversiKoordinat(get<0>(*j));
+        Tanaman* currTanaman = new Tanaman(get<1>(*j), get<2>(*j));
+        // masukkin ladang
+        ladang.tanamTanaman(posisi.first, posisi.second, currTanaman);
+    }
+}
+void Muat::setUpPeternak(Pemain* player, string nama){
+    player = new Peternak(nama,get<2>(dataPemain.at(nama)),get<1>(dataPemain.at(nama)));
+    Pemain::listPemain.push_back(player);
+    Peternak* currenPeternak = (Peternak*)(player);
+    Peternakan& peternakan = currenPeternak->getPeternakan();
+    for(auto j = LadangdanTernak.at(nama).begin(); j != LadangdanTernak.at(nama).end(); j++){
+        pair<int,int> posisi = currenPeternak->konversiKoordinat(get<0>(*j));
+        if(Config::getType(get<1>(*j)) == "HERBIVORE"){
+            Herbivora* animal = new Herbivora(get<1>(*j), get<2>(*j));
+            // masukkin peternakan
+            peternakan.ternakHewan(posisi.first,posisi.second, animal);
+        }else if(Config::getType(get<1>(*j)) == "CARNIVORE"){
+            Karnivora* animal = new Karnivora(get<1>(*j), get<2>(*j));
+            // masukkin peternakan
+            peternakan.ternakHewan(posisi.first,posisi.second, animal);
+        }else if(Config::getType(get<1>(*j)) == "OMNIVORE"){
+            Omnivora* animal = new Omnivora(get<1>(*j), get<2>(*j));
+            // masukkin peternakan
+            peternakan.ternakHewan(posisi.first,posisi.second, animal);
+        }
+    
+    }
+}
+void Muat::setUpWalikota(Pemain* player, string nama){
+    player = new Walikota(nama,get<2>(dataPemain.at(nama)),get<1>(dataPemain.at(nama)));
+    Pemain::listPemain.push_back(player);
+}
+void Muat::setUpInventory(Pemain* pemain){
+    Penyimpanan& inventoryPlayer = pemain->getInventory();
+    for(auto j = inventory.at(pemain->getUsername()).begin(); j != inventory.at(pemain->getUsername()).end(); j++){
+        if(Config::getType(*j) == "HERBIVORE"){
+            Herbivora* animal = new Herbivora(*j);
+            inventoryPlayer.tambahItem(animal);
+        }else if(Config::getType(*j) == "CARNIVORE"){
+            Karnivora* animal = new Karnivora(*j);
+            inventoryPlayer.tambahItem(animal);
+        }else if(Config::getType(*j) == "OMNIVORE"){
+            Omnivora* animal = new Omnivora(*j);
+            inventoryPlayer.tambahItem(animal);
+        }else if(Config::getType(*j) == "MATERIAL_PLANT" || Config::getType(*j) == "FRUIT_PLANT"){
+            Tanaman* plant = new Tanaman(*j);
+            inventoryPlayer.tambahItem(plant);
+        }else if(Config::getType(*j) == "PRODUCT_MATERIAL_PLANT"){
+            ProdukUneatable* product = new ProdukUneatable(*j);
+            inventoryPlayer.tambahItem(product);
+        }else if(Config::getType(*j) == "PRODUCT_FRUIT_PLANT" || Config::getType(*j) == "PRODUCT_ANIMAL"){
+            ProdukEatable* product = new ProdukEatable(*j);
+            inventoryPlayer.tambahItem(product);
+        }else if(Config::getCode(*j) == "SMH" || Config::getCode(*j) == "MDH" || Config::getCode(*j) == "LRH" || Config::getCode(*j) == "HTL"){
+            // konstruk bangunan trus masukin inventory
+            Bangunan* bangunan = new Bangunan(*j);
+            inventoryPlayer.tambahItem(bangunan);
+        }
+    }
 }

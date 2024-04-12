@@ -24,17 +24,10 @@ void Toko::setUpToko(){
 }
 
 void Toko::setUpTokoMuat(){
+    setUpToko();
     map<string,int>& temp = SimpanMuat::getToko();
-    map<string,tuple<int,string,string,int,int>>& plant = Config::getPlantMap();
-    map<string,tuple<int,string,string,int,int>>& animal = Config::getAnimalMap();
-    for(auto i = plant.begin(); i != plant.end(); i++){
-        tambahTanamanHewan(i->first,Config::getPrice(i->first));
-    }
-    for(auto i = animal.begin(); i != animal.end(); i++){
-        tambahTanamanHewan(i->first,Config::getPrice(i->first));
-    }
     for(auto i = temp.begin(); i != temp.end(); i++){
-        tambahProduk(i->first,Config::getPrice(i->first), i->second);
+        aturJumlahBarang(i->first, i->second);
     }
 
 }

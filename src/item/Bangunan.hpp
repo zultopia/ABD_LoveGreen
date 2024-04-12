@@ -2,43 +2,37 @@
 #define BANGUNAN_HPP
 
 #include <iostream>
-#include <vector> 
+#include <map> 
 #include <string>
+#include "Item.hpp"
+#include "../Config/Config.hpp"
 
 using namespace std;
 
-class Bangunan {
-private:
-    int id;
-    int price;
-    string code;
-    string name;
-    vector<pair<string, int> > materials; 
+class Bangunan : public Item {
+    private:
+        int idBangunan;
+        map<string, int> materials; 
+    
+    public:
+        // Constructor
+        Bangunan();
+        Bangunan(string nama);
+        // Destructor
+        ~Bangunan();
 
-public:
-    // Constructor
-    Bangunan();
-    Bangunan(int id, int price, string code, string name, const vector<pair<string, int> >& materials);
+        // Getter
+        int getIdBangunan() const;
+        map<string, int> getMaterials();
 
-    // Destructor
-    ~Bangunan();
+        // Setter
+        void setIdBangunan(int idBangunan);
+        void setMaterials(const map<string, int>& materials); 
 
-    // Getter
-    int getId();
-    int getPrice();
-    string getCode();
-    string getName();
-    vector<pair<string, int> > getMaterials();
-
-    // Setter
-    void setId(int id);
-    void setPrice(int price);
-    void setCode(string code);
-    void setName(string name);
-    void setMaterials(const vector<pair<string, int> >& materials); 
-
-    // Operator overloading untuk ostream
-    friend ostream& operator<<(ostream& os, Bangunan& bangunan);
+        bool eatable() const override;
+        
+        // Operator overloading untuk ostream
+        friend ostream& operator<<(ostream& os, Bangunan& bangunan);
 };
 
 #endif
