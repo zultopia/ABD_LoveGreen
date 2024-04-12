@@ -24,7 +24,9 @@ int Pemain::getBeratBadan() {
 Penyimpanan& Pemain::getInventory() {
     return inventory;
 }
-
+vector<string> Pemain::getDaftarInventory(){
+    return inventory.getListPenyimpanan();
+}
 void Pemain::next() {
     currentPemain = (currentPemain + 1) % numPemain;
 }
@@ -120,7 +122,9 @@ void Pemain::makan() {
         pair<int,int> koordinat = konversiKoordinat(slot);
         if (inventory.ambilItem(koordinat.first, koordinat.second) == nullptr) {
         }
-        while (inventory.ambilItem(koordinat.first, koordinat.second) == nullptr)
+        while (inventory.ambilItem(koordinat.first, koordinat.second) == nullptr){
+            
+        }
 
 
     }

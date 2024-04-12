@@ -103,7 +103,7 @@ void Walikota::tambahPemain(){
 }
 
 string Walikota::getRole() {
-    return "walikota";
+    return "Walikota";
 }
 
 // Inherited functions (virtual)
@@ -161,8 +161,4 @@ void Walikota::beli(){
 
 void Walikota::jual(){
     // Toko::Jual();
-}
-
-void Walikota::eat(){
-
 }

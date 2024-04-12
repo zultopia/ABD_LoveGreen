@@ -81,7 +81,7 @@ void Penyimpanan::tambahItem(Item* jenisItem) {
     // Cari slot kosong pertama
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            if (grid.getCell(i, j)->getCode().empty()) {
+            if (grid.getCell(i, j) == nullptr || grid.getCell(i, j)->getCode().empty()) {
                 emptyRow = i;
                 emptyCol = j;
                 break;
@@ -102,6 +102,15 @@ void Penyimpanan::operator+(Item* item) {
     tambahItem(item);
 }
 
+vector<string> Penyimpanan::getListPenyimpanan(){
+    vector<string> temp;
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++){
+            temp.push_back(grid.getCell(i,j)->getName());
+        }
+    }
+    return temp;
+}
 // CETAK_LADANG
 Ladang::Ladang() : Penyimpanan(), grid(8,8) {}
 
@@ -232,6 +241,19 @@ void Ladang::operator+(Tanaman* tanaman) {
     tambahTanaman(tanaman);
 }
 
+vector<tuple<string,string,int>> Ladang::getDaftarIsi(){
+    vector<tuple<string,string,int>> tempvector;
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++){
+            char lokasitemp = 'A' + j;
+            string temp = string() + lokasitemp;
+            string lokasi = temp + "0" + to_string(i+1);
+            tempvector.push_back(make_tuple(lokasi,grid.getCell(i,j)->getName(),grid.getCell(i,j)->getCurrentDuration()));
+        }
+    }
+    return tempvector;
+}
+
 // CETAK_PETERNAKAN
 Peternakan::Peternakan() : Penyimpanan(), grid(8,8) {}
 
@@ -356,4 +378,17 @@ map<string, int> Peternakan::hitungJumlahHewanPanen() {
 // Operator Overloading
 void Peternakan::operator+(Hewan* ternak) {
     tambahTernak(ternak);
+}
+
+vector<tuple<string,string,int>> Peternakan::getDaftarIsi(){
+    vector<tuple<string,string,int>> tempvector;
+    for(int i = 0; i < rows; i++){
+        for(int j = 0; j < cols; j++){
+            char lokasitemp = 'A' + cols;
+            string lokasi = lokasitemp + "0" + to_string(i+1);
+            tempvector.push_back(make_tuple(lokasi,grid.getCell(i,j)->getName(),grid.getCell(i,j)->getCurrentWeight()));
+        }
+    }
+    return tempvector;
+
 }

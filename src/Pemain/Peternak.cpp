@@ -9,7 +9,7 @@ Peternakan& Peternak::getPeternakan() {
 }
 
 string Peternak::getRole() {
-    return "peternak";
+    return "Peternak";
 }
 
 void Peternak::ternak() {
@@ -77,7 +77,47 @@ void Peternak::ternak() {
     }
 }
 
-void Peternak::beriPangan() {}
+void Peternak::beriPangan() {
+    cout << endl;
+    cout << "Pilih petak kandang yang akan ditinggali" << endl;
+    cout << endl;
+    peternakan.cetakInfo();
+
+    // Meminta input slot petak kandang
+    string petak;
+    cout << endl;
+    cout << "Petak kandang: ";
+    cin >> petak;
+    cout << endl;
+
+    // Memeriksa apakah petak kandang sudah ditempati
+    pair<int, int> koordinatPetak = konversiKoordinat(petak);
+    Hewan* hewan = peternakan.getGrid().getCell(koordinatPetak.first, koordinatPetak.second);
+
+    if (hewan != nullptr) {
+        cout << "Kamu memilih " << hewan->getName() << " untuk diberi makan.\n" << endl;
+        cout << "Pilih pangan yang akan diberikan:" << endl;
+        cout << endl;
+        inventory.cetakInfo();
+
+        // Meminta input slot item yang akan diberikan
+        string slot;
+        cout << "Slot: "; cin >> slot; cout << endl;
+
+        // Mengambil item dari penyimpanan
+        pair<int, int> koordinatItem = konversiKoordinat(slot);
+        Item* item = inventory.ambilItem(koordinatItem.first + 1, koordinatItem.second);
+        if (item != nullptr) {
+            
+
+            cout << "Hewan telah diberi makan." << endl;
+        } else {
+            cout << "Tidak ada Item pada posisi tersebut." << endl;
+        }
+    } else {
+        cout << "Petak kandang tersebut kosong." << endl;
+    }
+}
 
 void Peternak::cetakPeternakan() {
     peternakan.cetakInfo();
@@ -205,3 +245,7 @@ int Peternak::calculateTax() { return 0; }
 void Peternak::beli() {}
 
 void Peternak::jual() {}
+
+vector<tuple<string,string,int>> Peternak::getDaftarIsi(){
+    return peternakan.getDaftarIsi();
+}

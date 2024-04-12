@@ -19,7 +19,7 @@ using namespace std;
 class Toko{
     private:
         // map<namaBarang,tuple<Price,Quantity>>
-        static map<string,pair<int,int>> barang;
+        static map<string,pair<int,int> > barang;
         static vector<string> urutan;
         
 
@@ -68,8 +68,10 @@ class Toko{
         // mengembalikan harga
         static int getPrice(string nama);
 
-        static map<string,pair<int,int>>& getBarang();
+        static map<string,pair<int,int> >& getBarang();
         static vector<string>& getUrutan();
+
+        static map<string,int> getIsiToko();
 
 };
 

@@ -2,7 +2,11 @@
 
 using namespace std;
 
-void Simpan::simpan(string path) {
+void Simpan::simpan() {
+    cout << "Masukkan lokasi berkas state: ";
+    string path;
+    getline(cin, path);
+
     // Memeriksa folder sudah ada atau belum
     if(!filesystem::exists(filesystem::path(path).parent_path())) {
         ConfigException e("Lokasi berkas tidak valid");
@@ -17,8 +21,7 @@ void Simpan::simpan(string path) {
         throw e;
     }
 
-    SimpanMuat simpanMuat;
-    simpanMuat.update(getPemain(), getDataPemain(), getInventory(), getLadangdanTernak(), getToko());
+    update();
 
     // Data pemain ditulis
     outputFile << getPemain().size() << endl;
@@ -52,4 +55,25 @@ void Simpan::simpan(string path) {
 
     outputFile.close();
     cout << "State berhasil disimpan" << endl;
+}
+
+void Simpan::update(){
+    pemain.clear();
+    for(auto i = Pemain::listPemain.begin(); i != Pemain::listPemain.end(); i++){
+        pemain.push_back((*i)->Pemain::getUsername());
+        string role;
+        role = (*i)->getRole();
+        dataPemain[(*i)->Pemain::getUsername()] = make_tuple(role,(*i)->getBeratBadan(), (*i)->getKekayaan());
+        inventory[(*i)->Pemain::getUsername()] = (*i)->getDaftarInventory();
+        if((*i)->getRole() == "Petani"){
+            Petani* currenPetani = (Petani*)(*i);
+            LadangdanTernak[(*i)->getUsername()] = currenPetani->getDaftarIsi();
+        }
+        if((*i)->getRole() == "Peternak"){
+            Peternak* currenPeternak = (Peternak*)(*i);
+            LadangdanTernak[(*i)->getUsername()] = currenPeternak->getDaftarIsi();
+        }
+        toko.clear();
+        toko = Toko::getIsiToko();
+    }
 }

@@ -6,9 +6,9 @@
 #include <cctype>
 #include <tuple>
 #include <vector>
-#include "../matrix/Penyimpanan.hpp"
+#include "../Matrix/Penyimpanan.hpp"
 #include "../config/Config.hpp"
-#include "../toko/toko.hpp"
+#include "../Toko/Toko.hpp"
 
 using namespace std;
 
@@ -32,6 +32,7 @@ class Pemain {
 		int getBeratBadan();
 		virtual string getRole() = 0;
 		Penyimpanan& getInventory();
+        vector<string> getDaftarInventory();
         static bool namaValid(string nama);
 
         virtual void doCommand(string command) = 0;

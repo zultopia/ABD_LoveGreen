@@ -7,7 +7,7 @@ Ladang& Petani::getLadang() {
 }
 
 string Petani::getRole() {
-    return "petani";
+    return "Petani";
 }
 
 void Petani::tanam() {
@@ -200,3 +200,7 @@ int Petani::calculateTax() { return 0; }
 void Petani::beli() {}
 
 void Petani::jual() {}
+
+vector<tuple<string,string,int>> Petani::getDaftarIsi(){
+    return ladang.getDaftarIsi();
+}

@@ -2,6 +2,7 @@
 
 // ctor
 Hewan::Hewan() : Item(), idHewan(0), weightToHarvest(0), currentWeight(0), typeHewan("") {}
+Hewan::Hewan(int currentWeight) : Item(), idHewan(0), weightToHarvest(0), currentWeight(currentWeight), typeHewan("") {}
 
 // dtor
 Hewan::~Hewan() {}

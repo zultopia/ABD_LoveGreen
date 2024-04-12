@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <tuple>
 // #include "ConfigException.cpp"
 #include "ConfigException.hpp"
 
@@ -15,16 +16,16 @@ using namespace std;
 class Config{
     private:
         // map<nama,tuple<id,kode,type,duration,price>>
-        static map<string,tuple<int,string,string,int,int>> plant;
+        static map<string,tuple<int,string,string,int,int> > plant;
 
         // map<nama,tuple<id,kode,type,weight,price>>
-        static map<string,tuple<int,string,string,int,int>> animal;
+        static map<string,tuple<int,string,string,int,int> > animal;
 
         // map<nama,tuple<id,kode,type,origin,added_weight,price>>
-        static map<string,tuple<int,string,string,string,int,int>> product;
+        static map<string,tuple<int,string,string,string,int,int> > product;
 
         // map<nama,tuple<id,kode,price, map<material,quantity>>>
-        static map<string,tuple<int,string,int,map<string,int>>> recipe;
+        static map<string,tuple<int,string,int,map<string,int> > > recipe;
         static int jumlahUangWin;
         static int beratBadanWin;
         static pair<int,int> besarPenyimpanan;
@@ -42,10 +43,10 @@ class Config{
         static bool isExistAnimal(string key);
         static bool isExistProduct(string key);
         static bool isExistRecipe(string key);
-        static map<string,tuple<int,string,string,int,int>>& getPlantMap();
-        static map<string,tuple<int,string,string,int,int>>& getAnimalMap();
-        static map<string,tuple<int,string,string,string,int,int>>& getProductMap();
-        static map<string,tuple<int,string,int,map<string,int>>>& getRecipeMap();
+        static map<string,tuple<int,string,string,int,int> > getPlantMap();
+        static map<string,tuple<int,string,string,int,int> > getAnimalMap();
+        static map<string,tuple<int,string,string,string,int,int> > getProductMap();
+        static map<string,tuple<int,string,int,map<string,int> > > getRecipeMap();
         static int getId(string key);
         static string getCode(string key);
         static string getType(string key);
@@ -54,7 +55,7 @@ class Config{
         static int getWeightHarvest(string key);
         static string getOrigin(string key);
         static int getAddedWeight(string key);
-        static map<string,int>& getMaterialInfo(string key);
+        static map<string,int> getMaterialInfo(string key);
         static int getJumlahUangWin();
         static int getBeratBadanWin();
         static pair<int,int> getBesarPenyimpanan();
