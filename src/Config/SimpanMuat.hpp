@@ -18,11 +18,11 @@ class SimpanMuat{
         static map<string,vector<tuple<string,string,int> > > LadangdanTernak;
         static map<string,int> toko;
     public:
-        static vector<string>& getPemain();
-        static map<string,tuple<string,int,int> >& getDataPemain();
-        static map<string, vector<string> >& getInventory();
-        static map<string,vector<tuple<string,string,int> > >& getLadangdanTernak();
-        static map<string,int>& getToko();
+        static vector<string> getPemain();
+        static map<string,tuple<string,int,int> > getDataPemain();
+        static map<string, vector<string> > getInventory();
+        static map<string,vector<tuple<string,string,int> > > getLadangdanTernak();
+        static map<string,int> getToko();
         // void update(const std::vector<std::string>& newPemain,
         //         const std::map<std::string, std::tuple<std::string, int, int>>& newDataPemain,
         //         const std::map<std::string, std::vector<std::string>>& newInventory,
