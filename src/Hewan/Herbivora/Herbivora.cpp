@@ -1,12 +1,12 @@
 #include "Herbivora.hpp"
 
-Herbivora::Herbivora(string code) : Hewan() {
-    setIdHewan(Config::getId(code));
-    setCode(code);
-    setName(Config::getNama(code));
-    setTypeHewan(Config::getType(code));
-    setWeightToHarvest(Config::getWeightHarvest(code));
-    setPrice(Config::getPrice(code));
+Herbivora::Herbivora(string nama) : Hewan() {
+    setIdHewan(Config::getId(nama));
+    setCode(Config::getCode(nama));
+    setName(nama);
+    setTypeHewan(Config::getType(nama));
+    setWeightToHarvest(Config::getWeightHarvest(nama));
+    setPrice(Config::getPrice(nama));
 }
 
 Herbivora::~Herbivora() {}
