@@ -1,7 +1,8 @@
 #include "Ladang.hpp"
 
 // CETAK_LADANG
-Ladang::Ladang() : Penyimpanan(), grid(8,8) {}
+Ladang::Ladang() : Penyimpanan(), 
+                    grid(Config::getBesarLahan().first, Config::getBesarLahan().second) {}
 
 Ladang::Ladang(int numRows, int numCols) : Penyimpanan(numRows, numCols), grid(numRows, numCols) {}
 
