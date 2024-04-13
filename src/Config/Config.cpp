@@ -14,7 +14,7 @@ Config::Config(){
 
 }
 int Config::bacaPlant(){
-    ifstream inputFile("../../config/plant.txt");
+    ifstream inputFile("../config/plant.txt");
     if(!inputFile.is_open()){
         ConfigException e("File plant.txt tidak dapat dibuka.");
         throw e;
@@ -31,7 +31,7 @@ int Config::bacaPlant(){
     return 1;
 }
 int Config::bacaAnimal(){
-    ifstream inputFile("../../config/animal.txt");
+    ifstream inputFile("../config/animal.txt");
     if(!inputFile.is_open()){
         ConfigException e("File animal.txt tidak dapat dibuka.");
         throw e;
@@ -48,7 +48,7 @@ int Config::bacaAnimal(){
     return 1;
 }
 int Config::bacaProduct(){
-    ifstream inputFile("../../config/product.txt");
+    ifstream inputFile("../config/product.txt");
     if(!inputFile.is_open()){
         ConfigException e("File product.txt tidak dapat dibuka.");
         throw e;
@@ -65,7 +65,7 @@ int Config::bacaProduct(){
     return 1;
 }
 int Config::bacaRecipe(){
-    ifstream inputFile("../../config/recipe.txt");
+    ifstream inputFile("../config/recipe.txt");
     if(!inputFile.is_open()){
         ConfigException e("File recipe.txt tidak dapat dibuka.");
         throw e;
@@ -91,7 +91,7 @@ int Config::bacaRecipe(){
     return 1;
 }
 int Config::bacaMisc(){
-    ifstream inputFile("../../config/misc.txt");
+    ifstream inputFile("../config/misc.txt");
     if(!inputFile.is_open()){
         ConfigException e("File misc.txt tidak dapat dibuka.");
         throw e;

@@ -1,7 +1,7 @@
 #include "Peternakan.hpp"
 
 // CETAK_PETERNAKAN
-Peternakan::Peternakan() : Penyimpanan(), grid(8,8) {}
+Peternakan::Peternakan() : Penyimpanan(), grid(Config::getBesarPeternakan().first, Config::getBesarPeternakan().second) {}
 
 Peternakan::Peternakan(int numRows, int numCols) : Penyimpanan(numRows, numCols), grid(numRows, numCols) {}
 

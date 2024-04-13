@@ -71,7 +71,11 @@ class Toko{
         static map<string,pair<int,int> >& getBarang();
         static vector<string>& getUrutan();
 
+        // return map isi dari toko
         static map<string,int> getIsiToko();
+
+        // print isi toko
+        static void displayIsiToko();
 
 };
 

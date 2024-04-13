@@ -3,7 +3,9 @@
 using namespace std;
 
 // CETAK_PENYIMPANAN
-Penyimpanan::Penyimpanan() : rows(8), cols(8), grid(8, 8) {}
+Penyimpanan::Penyimpanan() : rows(Config::getBesarPenyimpanan().first), 
+                                cols(Config::getBesarPenyimpanan().second), 
+                                grid(Config::getBesarPenyimpanan().first, Config::getBesarPenyimpanan().second) {}
 
 Penyimpanan::Penyimpanan(int numRows, int numCols) : rows(numRows), cols(numCols), grid(numRows, numCols) {} 
 
