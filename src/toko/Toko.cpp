@@ -159,6 +159,24 @@ void Toko::batalBeli(string nama, int Quantity){
     }
 }
 
+string Toko::getBarangNoUrut(int no){
+    int i = 1;
+    auto itr = urutan.begin();
+    while(itr != urutan.end() && i < no){
+        if(barang.at(*itr).second != 0){
+            i++;
+        }
+        itr++;
+    }
+    if(itr == urutan.end() && i != no){
+        TokoException e("Nomor tidak valid\n");
+        throw e;
+    }
+    // itr = barang yang ditunjuk oleh no
+    return *itr;
+}
+
+
 // menjual ke toko
 // mengembalikan jumlah uang yang akan diterima dari penjualan
 int Toko::Jual(string nama, int Quantity){
