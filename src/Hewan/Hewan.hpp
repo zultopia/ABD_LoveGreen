@@ -2,10 +2,10 @@
 #define HEWAN_HPP
 
 #include <iostream>
-#include "../HewanException/HewanException.hpp"
-#include "../../Item/Item.hpp"
-#include "../../Produk/BaseProduk/Produk.hpp"
-#include "../../Config/Config.hpp"
+#include "HewanException.hpp"
+#include "../Item/Item.hpp"
+#include "../Produk/Produk.hpp"
+#include "../Config/Config.hpp"
 
 using namespace std;
 

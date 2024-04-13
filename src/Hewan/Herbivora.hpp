@@ -1,7 +1,7 @@
 #ifndef HERBIVORA_HPP
 #define HERBIVORA_HPP
 
-#include "../BaseHewan/Hewan.hpp"
+#include "Hewan.hpp"
 #include <iostream>
 
 using namespace std;

@@ -1,7 +1,7 @@
 #ifndef OMNIVORA_HPP
 #define OMNIVORA_HPP
 
-#include "../BaseHewan/Hewan.hpp"
+#include "../Hewan.hpp"
 #include <iostream>
 
 using namespace std;
