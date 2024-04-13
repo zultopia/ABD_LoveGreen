@@ -220,3 +220,15 @@ map<string,int> Toko::getIsiToko(){
     }
     return temp;
 }
+
+void Toko::displayIsiToko(){
+    cout << "namaBarang | Harga | Jumlah " << endl;
+    for(auto i = urutan.begin(); i != urutan.end(); i++){
+        cout << *i << " " << barang.at(*i).first << " ";
+        if(barang.at(*i).second == -1){
+            cout << "infinite" << endl;
+        }else{
+            cout << barang.at(*i).second << endl;
+        }
+    }
+}

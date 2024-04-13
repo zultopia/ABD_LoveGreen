@@ -120,19 +120,17 @@ void Muat::setUp(){
 }
 void Muat::setUpPetani(Pemain* player, string nama){
     player = new Petani(nama,get<2>(dataPemain.at(nama)),get<1>(dataPemain.at(nama)));
-    Pemain::listPemain.push_back(player);
     Petani* currenPetani = (Petani*)(player);
     Ladang& ladang = currenPetani->getLadang();
     for(auto j = LadangdanTernak.at(nama).begin(); j != LadangdanTernak.at(nama).end(); j++){
         pair<int,int> posisi = currenPetani->konversiKoordinat(get<0>(*j));
         Tanaman* currTanaman = new Tanaman(get<1>(*j), get<2>(*j));
         // masukkin ladang
-        ladang.tanamTanaman(posisi.first, posisi.second, currTanaman);
+        ladang.tambahTanaman(posisi.first, posisi.second, currTanaman);
     }
 }
 void Muat::setUpPeternak(Pemain* player, string nama){
     player = new Peternak(nama,get<2>(dataPemain.at(nama)),get<1>(dataPemain.at(nama)));
-    Pemain::listPemain.push_back(player);
     Peternak* currenPeternak = (Peternak*)(player);
     Peternakan& peternakan = currenPeternak->getPeternakan();
     for(auto j = LadangdanTernak.at(nama).begin(); j != LadangdanTernak.at(nama).end(); j++){
@@ -140,22 +138,21 @@ void Muat::setUpPeternak(Pemain* player, string nama){
         if(Config::getType(get<1>(*j)) == "HERBIVORE"){
             Herbivora* animal = new Herbivora(get<1>(*j), get<2>(*j));
             // masukkin peternakan
-            peternakan.ternakHewan(posisi.first,posisi.second, animal);
+            peternakan.tambahHewan(posisi.first,posisi.second, animal);
         }else if(Config::getType(get<1>(*j)) == "CARNIVORE"){
             Karnivora* animal = new Karnivora(get<1>(*j), get<2>(*j));
             // masukkin peternakan
-            peternakan.ternakHewan(posisi.first,posisi.second, animal);
+            peternakan.tambahHewan(posisi.first,posisi.second, animal);
         }else if(Config::getType(get<1>(*j)) == "OMNIVORE"){
             Omnivora* animal = new Omnivora(get<1>(*j), get<2>(*j));
             // masukkin peternakan
-            peternakan.ternakHewan(posisi.first,posisi.second, animal);
+            peternakan.tambahHewan(posisi.first,posisi.second, animal);
         }
     
     }
 }
 void Muat::setUpWalikota(Pemain* player, string nama){
     player = new Walikota(nama,get<2>(dataPemain.at(nama)),get<1>(dataPemain.at(nama)));
-    Pemain::listPemain.push_back(player);
 }
 void Muat::setUpInventory(Pemain* pemain){
     Penyimpanan& inventoryPlayer = pemain->getInventory();
