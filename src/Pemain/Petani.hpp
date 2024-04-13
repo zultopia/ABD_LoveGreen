@@ -2,6 +2,7 @@
 #define __PETANI_HPP__
 
 #include "Pemain.hpp"
+#include "../Matrix/Ladang.hpp"
 
 class Petani : public Pemain {
 	private:
