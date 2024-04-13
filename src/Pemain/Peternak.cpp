@@ -28,7 +28,7 @@ void Peternak::ternak() {
     cout << "Slot: "; cin >> slot; cout << endl; 
 
     // Mengambil item dari penyimpanan
-    pair<int, int> koordinatItem = konversiKoordinat(slot);
+    pair<int, int> koordinatItem = Penyimpanan::konversiKoordinat(slot);
     Item* item = inventory.ambilItem(koordinatItem.first + 1, koordinatItem.second);
     if (item != nullptr) {
         string nama = item->getName();
@@ -60,7 +60,7 @@ void Peternak::ternak() {
             cout << endl; 
 
             // Menanam hewan pada petak kandang yang dipilih
-            pair<int, int> koordinatPetak = konversiKoordinat(petak);
+            pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
 
             // Memeriksa apakah petak kandang sudah ditempati
             if (peternakan.getGrid().getCell(koordinatPetak.first, koordinatPetak.second) != nullptr) {
@@ -103,7 +103,7 @@ void Peternak::beriPangan() {
     cout << endl;
 
     // Memeriksa apakah petak kandang sudah ditempati
-    pair<int, int> koordinatPetak = konversiKoordinat(petak);
+    pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
     Hewan* hewan = peternakan.getGrid().getCell(koordinatPetak.first, koordinatPetak.second);
 
     if (hewan != nullptr) {
@@ -122,7 +122,7 @@ void Peternak::beriPangan() {
         cout << "Slot: "; cin >> slot; cout << endl;
 
         // Mengambil item dari penyimpanan
-        pair<int, int> koordinatItem = konversiKoordinat(slot);
+        pair<int, int> koordinatItem = Penyimpanan::konversiKoordinat(slot);
         Item* item = inventory.ambilItem(koordinatItem.first + 1, koordinatItem.second);
         if (item != nullptr) {
             bool isAnimal = (Config::getAnimalMap().find(item->getName()) != Config::getAnimalMap().end());
@@ -217,7 +217,7 @@ void Peternak::harvest() {
                 cout << "Pilih petak yang ingin dipanen: " << endl;
                 for (int i = 0; i < jumlahPetak; i++) {
                     cout << "Petak ke-" << i + 1 << ": "; cin >> petak;
-                    pair<int, int> koordinatPetak = konversiKoordinat(petak);
+                    pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
                     if (peternakan.getGrid().getCell(koordinatPetak.first, koordinatPetak.second) == nullptr) {
                         cout << "Petak tersebut tidak memiliki hewan." << endl;
                         return;

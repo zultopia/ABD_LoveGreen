@@ -24,7 +24,7 @@ void Petani::tanam() {
     cout << "Slot: "; cin >> slot; cout << endl; 
 
     // Mengambil item dari penyimpanan
-    pair<int, int> koordinatItem = konversiKoordinat(slot);
+    pair<int, int> koordinatItem = Penyimpanan::konversiKoordinat(slot);
     Item* item = inventory.ambilItem(koordinatItem.first + 1, koordinatItem.second);
     if (item != nullptr) {
         string code = item->getCode();
@@ -58,7 +58,7 @@ void Petani::tanam() {
             cout << endl;
 
             // Menanam tanaman pada petak tanah yang dipilih
-            pair<int, int> koordinatPetak = konversiKoordinat(petak);
+            pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
 
             // Memeriksa apakah petak tanah sudah ditanami
             if (ladang.getGrid().getCell(koordinatPetak.first, koordinatPetak.second) != nullptr) {
@@ -125,7 +125,7 @@ void Petani::harvest() {
                 cout << "Pilih petak yang ingin dipanen: " << endl;
                 for (int i = 0; i < jumlahPetak; i++) {
                     cout << "Petak ke-" << i + 1 << ": "; cin >> petak;
-                    pair<int, int> koordinatPetak = konversiKoordinat(petak);
+                    pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
                     if (ladang.getGrid().getCell(koordinatPetak.first, koordinatPetak.second) == nullptr) {
                         cout << "Petak tersebut tidak memiliki tanaman." << endl;
                         return;
