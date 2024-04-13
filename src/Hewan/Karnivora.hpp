@@ -1,7 +1,7 @@
 #ifndef KARNIVORA_HPP
 #define KARNIVORA_HPP
 
-#include "../Hewan.hpp"
+#include "Hewan.hpp"
 #include <iostream>
 
 using namespace std;
