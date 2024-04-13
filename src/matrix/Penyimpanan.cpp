@@ -153,7 +153,6 @@ vector<tuple<int, int>> Penyimpanan::ParserListKoordinat(string slots){
             slotList.clear();
             slotIntList.clear();
             break;
-            // cout << "Pilihan slot tidak valid! silahkan input kembali!" << endl;
         } else {
             slotIntList.push_back(koordinatInt);
         }

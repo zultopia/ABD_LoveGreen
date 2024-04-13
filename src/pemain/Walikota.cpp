@@ -237,6 +237,8 @@ void Walikota::beli(){
         slotIntList = Penyimpanan::ParserListKoordinat(slots);
         if (slotIntList.size() == kuantitasInt) {
             slotsValid = true;
+        } else {
+            cout << "Pilihan slot tidak valid! silahkan input kembali!" << endl;
         }
     }
 
@@ -265,5 +267,8 @@ void Walikota::beli(){
 }
 
 void Walikota::jual(){
+
+    cetakPenyimpanan();
+
     // Toko::Jual();
 }

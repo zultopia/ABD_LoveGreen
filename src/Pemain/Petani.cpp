@@ -358,6 +358,8 @@ void Petani::beli() {
         slotIntList = Penyimpanan::ParserListKoordinat(slots);
         if (slotIntList.size() == kuantitasInt) {
             slotsValid = true;
+        } else {
+            cout << "Pilihan slot tidak valid! silahkan input kembali!" << endl;
         }
     }
 
