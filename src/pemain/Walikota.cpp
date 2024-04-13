@@ -245,7 +245,7 @@ void Walikota::beli(){
             slotList.push_back(koordinat);
             slots.erase(0, pos + delimiter.length());
             koordinatInt = konversiKoordinat(koordinat);
-            if (koordinatInt->first < 0 || koordinat->second < 0) {
+            if (get<0>(koordinatInt) < 0 || get<1>(koordinatInt) < 0) {
                 slotsValid = false;
                 slotList.clear();
                 slotIntList.clear();
