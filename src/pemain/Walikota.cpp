@@ -219,7 +219,7 @@ void Walikota::beli(){
         PemainException e("Jumlah gulden pemain tidak cukup!");
         throw e;
     }
-    string namaBarang = Toko::getBarangNoUrut(pilihanInt);
+    string namaBarang = Toko::getBarangNoUrutWalikota(pilihanInt);
     kekayaan -= hargaTotal;
     cout << "Selamat Anda berhasil membeli " << kuantitas << " " << namaBarang << ". Uang Anda tersisa 88 gulden." << endl;
     cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;

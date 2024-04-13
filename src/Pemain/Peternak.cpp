@@ -1,9 +1,9 @@
 #include "Peternak.hpp"
-#include "../Hewan/BaseHewan/Hewan.hpp"
-#include "../Hewan/karnivora/karnivora.hpp"
-#include "../Hewan/Herbivora/Herbivora.hpp"
-#include "../Hewan/Omnivora/Omnivora.hpp"
-#include "../Produk/ProdukEatable/ProdukEatable.hpp"
+#include "../Hewan/Hewan.hpp"
+#include "../Hewan/karnivora.hpp"
+#include "../Hewan/Herbivora.hpp"
+#include "../Hewan/Omnivora.hpp"
+#include "../Produk/ProdukEatable.hpp"
 #include "../Config/Config.hpp"
 
 Peternak::Peternak(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), peternakan() {}
@@ -411,7 +411,7 @@ void Peternak::beli() {
         PemainException e("Jumlah gulden pemain tidak cukup!");
         throw e;
     }
-    string namaBarang = Toko::getBarangNoUrut(pilihanInt);
+    string namaBarang = Toko::getBarangNoUrutPeternakPetani(pilihanInt);
     kekayaan -= hargaTotal;
     cout << "Selamat Anda berhasil membeli " << kuantitas << " " << namaBarang << ". Uang Anda tersisa 88 gulden." << endl;
     cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
@@ -437,7 +437,7 @@ void Peternak::beli() {
             slotList.push_back(koordinat);
             slots.erase(0, pos + delimiter.length());
             koordinatInt = konversiKoordinat(koordinat);
-            if (koordinatInt->first < 0 || koordinat->second < 0) {
+            if (get<0>(koordinatInt) < 0 || get<1>(koordinatInt) < 0) {
                 slotsValid = false;
                 slotList.clear();
                 slotIntList.clear();
@@ -451,23 +451,23 @@ void Peternak::beli() {
         if (slotsValid) {
             for (auto i = slotIntList.begin(); i != slotIntList.end(); i++) {
                 if (Config::isExistPlant(namaBarang)) {
-                    getInventory()->tambahItem((*i)->first, (*i)->second, new Tanaman(namaBarang));
+                    getInventory().tambahItem(get<0>(*i), get<1>(*i), new Tanaman(namaBarang));
                 } else if (Config::isExistAnimal(namaBarang)) {
                     if (Config::getType(namaBarang).compare("HERBIVORE") == 0) {
-                        getInventory()->tambahItem((*i)->first, (*i)->second, new Herbivora(namaBarang));
+                        getInventory().tambahItem(get<0>(*i), get<1>(*i), new Herbivora(namaBarang));
                     } else if (Config::getType(namaBarang).compare("CARNIVORE") == 0) {
-                        getInventory()->tambahItem((*i)->first, (*i)->second, new Karnivora(namaBarang));
+                        getInventory().tambahItem(get<0>(*i), get<1>(*i), new Karnivora(namaBarang));
                     } else {
-                        getInventory()->tambahItem((*i)->first, (*i)->second, new Omnivora(namaBarang));
+                        getInventory().tambahItem(get<0>(*i), get<1>(*i), new Omnivora(namaBarang));
                     }
                 } else if (Config::isExistProduct(namaBarang)) {
                     if (Config::getType(namaBarang).compare("PRODUCT_MATERIAL_PLANT") == 0) {
-                        getInventory()->tambahItem((*i)->first, (*i)->second, new ProdukUneatable(namaBarang));
+                        getInventory().tambahItem(get<0>(*i), get<1>(*i), new ProdukUneatable(namaBarang));
                     } else {
-                        getInventory()->tambahItem((*i)->first, (*i)->second, new ProdukEatable(namaBarang));
+                        getInventory().tambahItem(get<0>(*i), get<1>(*i), new ProdukEatable(namaBarang));
                     }
                 } else {
-                    getInventory()->tambahItem((*i)->first, (*i)->second, new Bangunan(namaBarang));
+                    getInventory().tambahItem(get<0>(*i), get<1>(*i), new Bangunan(namaBarang));
                 }
             }
         }

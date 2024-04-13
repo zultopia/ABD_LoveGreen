@@ -1,6 +1,6 @@
 #include "Petani.hpp"
-#include "../produk/ProdukEatable/ProdukEatable.hpp"
-#include "../produk/ProdukUneatable/ProdukUneatable.hpp"
+#include "../produk/ProdukEatable.hpp"
+#include "../produk/ProdukUneatable.hpp"
 
 Petani::Petani(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), ladang() {}
 
@@ -366,7 +366,7 @@ void Petani::beli() {
             slotList.push_back(koordinat);
             slots.erase(0, pos + delimiter.length());
             koordinatInt = konversiKoordinat(koordinat);
-            if (koordinatInt->first < 0 || koordinat->second < 0) {
+            if (get<0>(koordinatInt) < 0 || get<1>(koordinatInt) < 0) {
                 slotsValid = false;
                 slotList.clear();
                 slotIntList.clear();
@@ -380,23 +380,23 @@ void Petani::beli() {
         if (slotsValid) {
             for (auto i = slotIntList.begin(); i != slotIntList.end(); i++) {
                 if (Config::isExistPlant(namaBarang)) {
-                    getInventory()->tambahItem((*i)->first, (*i)->second, new Tanaman(namaBarang));
+                    getInventory().tambahItem(get<0>(*i), get<1>(*i), new Tanaman(namaBarang));
                 } else if (Config::isExistAnimal(namaBarang)) {
                     if (Config::getType(namaBarang).compare("HERBIVORE") == 0) {
-                        getInventory()->tambahItem((*i)->first, (*i)->second, new Herbivora(namaBarang));
+                        getInventory().tambahItem(get<0>(*i), get<1>(*i), new Herbivora(namaBarang));
                     } else if (Config::getType(namaBarang).compare("CARNIVORE") == 0) {
-                        getInventory()->tambahItem((*i)->first, (*i)->second, new Karnivora(namaBarang));
+                        getInventory().tambahItem(get<0>(*i), get<1>(*i), new Karnivora(namaBarang));
                     } else {
-                        getInventory()->tambahItem((*i)->first, (*i)->second, new Omnivora(namaBarang));
+                        getInventory().tambahItem(get<0>(*i), get<1>(*i), new Omnivora(namaBarang));
                     }
                 } else if (Config::isExistProduct(namaBarang)) {
                     if (Config::getType(namaBarang).compare("PRODUCT_MATERIAL_PLANT") == 0) {
-                        getInventory()->tambahItem((*i)->first, (*i)->second, new ProdukUneatable(namaBarang));
+                        getInventory().tambahItem(get<0>(*i), get<1>(*i), new ProdukUneatable(namaBarang));
                     } else {
-                        getInventory()->tambahItem((*i)->first, (*i)->second, new ProdukEatable(namaBarang));
+                        getInventory().tambahItem(get<0>(*i), get<1>(*i), new ProdukEatable(namaBarang));
                     }
                 } else {
-                    getInventory()->tambahItem((*i)->first, (*i)->second, new Bangunan(namaBarang));
+                    getInventory().tambahItem(get<0>(*i), get<1>(*i), new Bangunan(namaBarang));
                 }
             }
         }
