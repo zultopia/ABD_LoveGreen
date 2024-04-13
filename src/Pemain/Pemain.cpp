@@ -64,26 +64,6 @@ void Pemain::cetakPenyimpanan() {
     inventory.cetakInfo();
 }
 
-pair<int, int> Pemain::konversiKoordinat(string koordinat) {
-    if (koordinat.length() < 3) {
-        cout << "Format koordinat tidak valid\n";
-        return {-1, -1};
-    }
-
-    char huruf = toupper(koordinat[0]); 
-    int y = huruf - 'A';
-
-    string angkaStr = koordinat.substr(1); 
-    int x = stoi(angkaStr) - 1; 
-
-    if (x < 0 || x > 7) {
-        cout << "Indeks kolom tidak valid\n";
-        return {-1, -1}; 
-    }
-
-    return {x, y};
-}
-
 void Pemain::makan() {
     // Cek apakah ada makanan di inventory (penyimpanan)
     int width = Config::getBesarPenyimpanan().first;
@@ -116,7 +96,7 @@ void Pemain::makan() {
         cin >> slot;
         cout << endl;
 
-        pair<int,int> koordinat = konversiKoordinat(slot);
+        pair<int,int> koordinat = Penyimpanan::konversiKoordinat(slot);
         int validity = inventory.checkMakanan(koordinat.first, koordinat.second);
         while (validity != 0) {
             if (validity == -1){
@@ -130,15 +110,13 @@ void Pemain::makan() {
             cout << "Slot: ";
             cin >> slot;
             cout << endl;
-            koordinat = konversiKoordinat(slot);
+            koordinat = Penyimpanan::konversiKoordinat(slot);
             validity = inventory.checkMakanan(koordinat.first, koordinat.second);
         }
         Item* item = inventory.ambilItem(koordinat.first, koordinat.second);
         cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
         beratBadan += Config::getAddedWeight(item->getName());
         cout << "Alhasil, berat badan kamu naik menjadi " << beratBadan << endl;
-
-
     }
 
 }

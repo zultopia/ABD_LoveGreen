@@ -46,7 +46,6 @@ class Pemain {
 		virtual void jual() = 0;
 		virtual void makan();
 		void cetakPenyimpanan();
-		pair<int, int> konversiKoordinat(string koordinat);
 };
 
 // Declare listPemain

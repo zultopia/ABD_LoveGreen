@@ -420,56 +420,38 @@ void Peternak::beli() {
     // Pilih slot penyimpanan
     bool slotsValid = false;
     string slots;
-    string delimiter = ",";
+    vector<tuple<int, int>> slotIntList;
 
     while (!slotsValid) {
         slotsValid = true;
         cout << "Petak Slot: ";
         cin >> slots;
-        vector<string> slotList;
-        vector<tuple<int, int>> slotIntList;
-        tuple<int, int> koordinatInt;
-        size_t pos = 0;
-        string koordinat;
-        while ((pos = slots.find(delimiter)) != string::npos && slotsValid) {
-            koordinat = slots.substr(0, pos);
-            koordinat.erase(std::remove_if(koordinat.begin(), koordinat.end(), ::isspace),koordinat.end());
-            slotList.push_back(koordinat);
-            slots.erase(0, pos + delimiter.length());
-            koordinatInt = konversiKoordinat(koordinat);
-            if (get<0>(koordinatInt) < 0 || get<1>(koordinatInt) < 0) {
-                slotsValid = false;
-                slotList.clear();
-                slotIntList.clear();
-                cout << "Pilihan slot tidak valid! silahkan input kembali!" << endl;
-            } else {
-                slotIntList.push_back(koordinatInt);
-            }
+        slotIntList = Penyimpanan::ParserListKoordinat(slots);
+        if (slotIntList.size() == kuantitasInt) {
+            slotsValid = true;
         }
+    }
 
-        // Add item ke penyimpanan
-        if (slotsValid) {
-            for (auto i = slotIntList.begin(); i != slotIntList.end(); i++) {
-                if (Config::isExistPlant(namaBarang)) {
-                    getInventory().tambahItem(get<0>(*i), get<1>(*i), new Tanaman(namaBarang));
-                } else if (Config::isExistAnimal(namaBarang)) {
-                    if (Config::getType(namaBarang).compare("HERBIVORE") == 0) {
-                        getInventory().tambahItem(get<0>(*i), get<1>(*i), new Herbivora(namaBarang));
-                    } else if (Config::getType(namaBarang).compare("CARNIVORE") == 0) {
-                        getInventory().tambahItem(get<0>(*i), get<1>(*i), new Karnivora(namaBarang));
-                    } else {
-                        getInventory().tambahItem(get<0>(*i), get<1>(*i), new Omnivora(namaBarang));
-                    }
-                } else if (Config::isExistProduct(namaBarang)) {
-                    if (Config::getType(namaBarang).compare("PRODUCT_MATERIAL_PLANT") == 0) {
-                        getInventory().tambahItem(get<0>(*i), get<1>(*i), new ProdukUneatable(namaBarang));
-                    } else {
-                        getInventory().tambahItem(get<0>(*i), get<1>(*i), new ProdukEatable(namaBarang));
-                    }
-                } else {
-                    getInventory().tambahItem(get<0>(*i), get<1>(*i), new Bangunan(namaBarang));
-                }
+    // Add item ke penyimpanan
+    for (auto i = slotIntList.begin(); i != slotIntList.end(); i++) {
+        if (Config::isExistPlant(namaBarang)) {
+            getInventory().tambahItem(get<0>(*i), get<1>(*i), new Tanaman(namaBarang));
+        } else if (Config::isExistAnimal(namaBarang)) {
+            if (Config::getType(namaBarang).compare("HERBIVORE") == 0) {
+                getInventory().tambahItem(get<0>(*i), get<1>(*i), new Herbivora(namaBarang));
+            } else if (Config::getType(namaBarang).compare("CARNIVORE") == 0) {
+                getInventory().tambahItem(get<0>(*i), get<1>(*i), new Karnivora(namaBarang));
+            } else {
+                getInventory().tambahItem(get<0>(*i), get<1>(*i), new Omnivora(namaBarang));
             }
+        } else if (Config::isExistProduct(namaBarang)) {
+            if (Config::getType(namaBarang).compare("PRODUCT_MATERIAL_PLANT") == 0) {
+                getInventory().tambahItem(get<0>(*i), get<1>(*i), new ProdukUneatable(namaBarang));
+            } else {
+                getInventory().tambahItem(get<0>(*i), get<1>(*i), new ProdukEatable(namaBarang));
+            }
+        } else {
+            getInventory().tambahItem(get<0>(*i), get<1>(*i), new Bangunan(namaBarang));
         }
     }
 }

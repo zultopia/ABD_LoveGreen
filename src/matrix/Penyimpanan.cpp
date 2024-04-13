@@ -116,6 +116,51 @@ vector<string> Penyimpanan::getListPenyimpanan(){
     return temp;
 }
 
+pair<int, int> Penyimpanan::konversiKoordinat(string koordinat) {
+    if (koordinat.length() < 3) {
+        cout << "Format koordinat tidak valid\n";
+        return {-1, -1};
+    }
+
+    char huruf = toupper(koordinat[0]); 
+    int y = huruf - 'A';
+
+    string angkaStr = koordinat.substr(1); 
+    int x = stoi(angkaStr) - 1; 
+
+    if (x < 0 || x > 7) {
+        cout << "Indeks kolom tidak valid\n";
+        return {-1, -1}; 
+    }
+
+    return {x, y};
+}
+
+vector<tuple<int, int>> Penyimpanan::ParserListKoordinat(string slots){
+    string delimiter = ",";
+    vector<string> slotList;
+    vector<tuple<int, int>> slotIntList;
+    tuple<int, int> koordinatInt;
+    size_t pos = 0;
+    string koordinat;
+    while ((pos = slots.find(delimiter)) != string::npos) {
+        koordinat = slots.substr(0, pos);
+        koordinat.erase(std::remove_if(koordinat.begin(), koordinat.end(), ::isspace),koordinat.end());
+        slotList.push_back(koordinat);
+        slots.erase(0, pos + delimiter.length());
+        koordinatInt = konversiKoordinat(koordinat);
+        if (get<0>(koordinatInt) <= 0 || get<0>(koordinatInt) > Config::getBesarPenyimpanan().first || get<1>(koordinatInt) < 0 || get<1>(koordinatInt) >Config::getBesarPenyimpanan().second) {
+            slotList.clear();
+            slotIntList.clear();
+            break;
+            // cout << "Pilihan slot tidak valid! silahkan input kembali!" << endl;
+        } else {
+            slotIntList.push_back(koordinatInt);
+        }
+    }
+    return slotIntList;
+}
+
 bool Penyimpanan::checkMakanan(int row, int col){
     if (row <= 0 || row > rows || col < 0 || col >= cols) {
         // Index tidak valid

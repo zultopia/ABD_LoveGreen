@@ -30,7 +30,13 @@ class Penyimpanan {
 
         vector<string> getListPenyimpanan();
 
+        static pair<int, int> konversiKoordinat(string koordinat);
+
+        static vector<tuple<int, int>> ParserListKoordinat(string input);
+
         bool checkMakanan(int row, int col);
+
+
 };
 
 #endif
