@@ -17,13 +17,13 @@ class Peternakan : public Penyimpanan {
 
         void cetakLokasiHewan();
 
-        void ternakHewan(int row, int col,  Hewan* jenis);
+        void tambahHewan(int row, int col,  Hewan* jenis);
 
         Grid<Hewan> getGrid() const;
 
         Hewan* ambilTernak(int row, int col);
 
-        void tambahTernak( Hewan* jenisTernak);
+        void tambahHewan( Hewan* jenisTernak);
 
         map<string, int> hitungJumlahHewanPanen();
 

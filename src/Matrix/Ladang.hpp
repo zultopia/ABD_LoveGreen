@@ -17,7 +17,7 @@ class Ladang : public Penyimpanan {
 
         void cetakKeteranganTanaman();
 
-        void tanamTanaman(int row, int col, Tanaman* jenis);
+        void tambahTanaman(int row, int col, Tanaman* jenis);
 
         Grid<Tanaman> getGrid() const;
 

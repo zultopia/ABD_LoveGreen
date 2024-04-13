@@ -64,7 +64,7 @@ void Ladang::cetakKeteranganTanaman() {
 }
 
 
-void Ladang::tanamTanaman(int row, int col, Tanaman* jenis) {
+void Ladang::tambahTanaman(int row, int col, Tanaman* jenis) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
         grid.updateCell(row - 1, col, jenis);
     }

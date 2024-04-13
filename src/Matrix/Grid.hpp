@@ -23,38 +23,21 @@ class Grid {
         vector<vector<T*> > grid;
 
     public:
-        Grid() {}
+        Grid();
 
-        Grid(int numRows, int numCols) : grid(numRows, vector<T*>(numCols)) {}
+        Grid(int numRows, int numCols);
 
-        void updateCell(int row, int col, T* value) {
-            if (row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size()) {
-                grid[row][col] = value;
-            }
-        }
+        void updateCell(int row, int col, T* value);
 
-        T* getCell(int row, int col) const {
-            return grid[row][col];
-        }
+        T* getCell(int row, int col) const;
 
-        void removeItem(int row, int col) {
-            if (row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size()) {
-                delete grid[row][col];
-                grid[row][col] = nullptr;
-            }
-        }
+        void removeItem(int row, int col);
 
-        vector<vector<T*> > getGrid() const {
-            return grid;
-        }
+        vector<vector<T*> > getGrid() const;
 
-        int getRows() const {
-            return grid.size();
-        }
+        int getRows() const;
 
-        int getCols() const {
-            return grid.empty() ? 0 : grid[0].size();
-        }
+        int getCols() const;
 };
 
 #endif

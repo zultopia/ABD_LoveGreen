@@ -16,7 +16,7 @@ class Penyimpanan {
 
         virtual void cetakInfo();
 
-        void updateCell(int row, int col, Item* value);
+        void tambahItem(int row, int col, Item* jenisItem);
 
         int hitungSlotKosong();
 

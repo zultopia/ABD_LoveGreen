@@ -60,7 +60,7 @@ void Peternakan::cetakLokasiHewan() {
     }
 }
 
-void Peternakan::ternakHewan(int row, int col, Hewan* jenis) {
+void Peternakan::tambahHewan(int row, int col, Hewan* jenis) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
         grid.updateCell(row - 1, col, jenis); 
     }
@@ -81,7 +81,7 @@ Hewan* Peternakan::ambilTernak(int row, int col) {
 }
 
 // Function Overloading
-void Peternakan::tambahTernak(Hewan* jenisTernak) {
+void Peternakan::tambahHewan(Hewan* jenisTernak) {
     int emptyRow = -1;
     int emptyCol = -1;
     // Cari slot kosong pertama
@@ -123,7 +123,7 @@ map<string, int> Peternakan::hitungJumlahHewanPanen() {
 
 // Operator Overloading
 void Peternakan::operator+(Hewan* ternak) {
-    tambahTernak(ternak);
+    tambahHewan(ternak);
 }
 
 vector<tuple<string,string,int>> Peternakan::getDaftarIsi(){

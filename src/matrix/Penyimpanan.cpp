@@ -42,9 +42,9 @@ void Penyimpanan::cetakInfo() {
     cout << endl;
 }
 
-void Penyimpanan::updateCell(int row, int col, Item* value) {
+void Penyimpanan::tambahItem(int row, int col, Item* jenisItem) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
-        grid.updateCell(row - 1, col, value); 
+        grid.updateCell(row - 1, col, jenisItem); 
     }
 }
 
