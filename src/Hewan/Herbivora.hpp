@@ -1,7 +1,7 @@
 #ifndef HERBIVORA_HPP
 #define HERBIVORA_HPP
 
-#include "../BaseHewan/Hewan.hpp"
+#include "Hewan.hpp"
 #include <iostream>
 
 using namespace std;
@@ -17,6 +17,10 @@ class Herbivora : public Hewan {
 
         // validator
         bool isCanEat(Produk& p) const override;
+        
+        // overloading
+        friend ostream& operator<<(ostream& os, Herbivora hewan);
+
 };
 
 #endif

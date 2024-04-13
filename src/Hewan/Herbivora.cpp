@@ -28,3 +28,16 @@ bool Herbivora::isCanEat(Produk& p) const {
     }
     return false;
 }
+
+// overloading
+ostream& operator<<(ostream& os, Herbivora hewan) {
+    os << "=+=+= PROFIL HEWAN =+=+=" << endl;
+    os << "id                   : " << hewan.getIdHewan() << endl;
+    os << "code                 : " << hewan.getCode() << endl;
+    os << "name                 : " << hewan.getName() << endl;
+    os << "type                 : " << hewan.getTypeHewan() << endl;
+    os << "current weight       : " << hewan.getCurrentWeight() << endl;
+    os << "weight to harvest    : " << hewan.getWeightToHarvest() << endl;
+    os << "price                : " << hewan.getPrice() << endl;
+    return os;
+}
