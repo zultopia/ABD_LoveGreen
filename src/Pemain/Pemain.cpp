@@ -93,7 +93,7 @@ void Pemain::makan() {
     Item* currentItem;
     while (i < width && !adaMakanan) {
         while (j < height && !adaMakanan) {
-            currentItem = inventory.ambilItem(i, j);
+            currentItem = inventory.getGrid().getCell(i, j);
             if (currentItem != nullptr) {
                 if (currentItem->eatable()) {
                     adaMakanan = true;
@@ -107,7 +107,38 @@ void Pemain::makan() {
     if (!adaMakanan) {
         cout << "Tidak ada makanan dalam penyimpanan" << endl;
     } else {
-        // PIlih makanan
+        // Pilih makanan
+        cout << "Pilih makanan dari penyimpanan" << endl;
+        cetakPenyimpanan();
+        cout << endl;
+        cout << "Slot: ";
+        string slot;
+        cin >> slot;
+        cout << endl;
+
+        pair<int,int> koordinat = konversiKoordinat(slot);
+        int validity = inventory.checkMakanan(koordinat.first, koordinat.second);
+        while (validity != 0) {
+            if (validity == -1){
+                cout << "Tidak ada slot dengan index seperti itu!" << endl;
+            } else if (validity = 1) {
+                cout << "Kamu mengambil harapan kosong dari penyimpanan." << endl;
+            } else if (validity = 2) {
+                cout << "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!" << endl;
+            }
+            cout << "Silahkan masukan slot yang berisi makanan." << endl << endl;
+            cout << "Slot: ";
+            cin >> slot;
+            cout << endl;
+            koordinat = konversiKoordinat(slot);
+            validity = inventory.checkMakanan(koordinat.first, koordinat.second);
+        }
+        Item* item = inventory.ambilItem(koordinat.first, koordinat.second);
+        cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
+        beratBadan += Config::getAddedWeight(item->getName());
+        cout << "Alhasil, berat badan kamu naik menjadi " << beratBadan << endl;
+
+
     }
 
 }

@@ -17,7 +17,7 @@ class Item {
         Item(int price, string code, string name);
 
         // dtor
-        ~Item();
+        virtual ~Item();
 
         // getter
         int getPrice();

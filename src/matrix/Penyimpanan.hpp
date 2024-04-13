@@ -83,6 +83,8 @@ class Penyimpanan {
         void operator+(Item* item);
 
         vector<string> getListPenyimpanan();
+
+        bool checkMakanan(int row, int col);
 };
 
 class Ladang : public Penyimpanan {

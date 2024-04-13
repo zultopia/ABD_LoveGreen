@@ -1,74 +1,47 @@
 #include "Bangunan.hpp"
 
-// Constructor default
-Bangunan::Bangunan() : id(0), price(0) {}
-
-// Constructor dengan parameter
-Bangunan::Bangunan(int id, int price, string code, string name, const vector<pair<string, int> >& materials)
-    : id(id), price(price), code(code), name(name), materials(materials) {}
-
+// Constructor
+Bangunan::Bangunan() : Item(), idBangunan(0) {}
+Bangunan::Bangunan(string nama) : Item(){
+    idBangunan = Config::getId(nama);
+    setPrice(Config::getPrice(nama));
+    setCode(Config::getCode(nama));
+    setName(nama);
+    materials = Config::getMaterialInfo(nama);
+}
 // Destructor
 Bangunan::~Bangunan() {}
 
-// Getter untuk id
-int Bangunan::getId() {
-    return id;
+// Getter
+int Bangunan::getIdBangunan() const {
+    return idBangunan;
 }
 
-// Getter untuk price
-int Bangunan::getPrice() {
-    return price;
-}
-
-// Getter untuk code
-string Bangunan::getCode() {
-    return code;
-}
-
-// Getter untuk name
-string Bangunan::getName() {
-    return name;
-}
-
-// Getter untuk materials
-vector<pair<string, int> > Bangunan::getMaterials() {
+map<string, int> Bangunan::getMaterials() {
     return materials;
 }
 
-// Setter untuk id
-void Bangunan::setId(int id) {
-    this->id = id;
+// Setter
+void Bangunan::setIdBangunan(int idBangunan) {
+    this->idBangunan = idBangunan;
 }
 
-// Setter untuk price
-void Bangunan::setPrice(int price) {
-    this->price = price;
-}
-
-// Setter untuk code
-void Bangunan::setCode(string code) {
-    this->code = code;
-}
-
-// Setter untuk name
-void Bangunan::setName(string name) {
-    this->name = name;
-}
-
-// Setter untuk materials
-void Bangunan::setMaterials(const vector<pair<string, int> >& materials) {
+void Bangunan::setMaterials(const map<string, int>& materials) {
     this->materials = materials;
 }
-
-// Operator overloading untuk ostream
+bool Bangunan::eatable() const {
+    return false;
+}
+// Operator overloading 
 ostream& operator<<(ostream& os, Bangunan& bangunan) {
-    os << "ID: " << bangunan.getId() << endl;
-    os << "Code: " << bangunan.getCode() << endl;
-    os << "Name: " << bangunan.getName() << endl;
-    os << "Price: " << bangunan.getPrice() << endl;
-    os << "Materials:" << endl;
-    for (const pair<string, int>& material : bangunan.getMaterials()) {
-        os << "- " << material.first << ": " << material.second << endl;
-    }
+    os << "=+=+= INFO BANGUNAN =+=+=" << endl;
+    os << "idBangunan           : " << bangunan.getIdBangunan() << endl;
+    os << "code                 : " << bangunan.getCode() << endl;
+    os << "name                 : " << bangunan.getName() << endl;
+    os << "price                : " << bangunan.getPrice() << endl;
+    os << "materials            : " << endl;
+    for (const auto& material : bangunan.getMaterials()) {
+        os << material.first << " - " << material.second << endl;
+    } 
     return os;
 }

@@ -65,13 +65,13 @@ void Simpan::update(){
         role = (*i)->getRole();
         dataPemain[(*i)->Pemain::getUsername()] = make_tuple(role,(*i)->getBeratBadan(), (*i)->getKekayaan());
         inventory[(*i)->Pemain::getUsername()] = (*i)->getDaftarInventory();
-        if((*i)->getRole() == "petani"){
+        if((*i)->getRole() == "Petani"){
             Petani* currenPetani = (Petani*)(*i);
             LadangdanTernak[(*i)->getUsername()] = currenPetani->getDaftarIsi();
         }
-        if((*i)->getRole() == "peternak"){
-            Peternak* currenPetani = (Peternak*)(*i);
-            LadangdanTernak[(*i)->getUsername()] = currenPetani->getDaftarIsi();
+        if((*i)->getRole() == "Peternak"){
+            Peternak* currenPeternak = (Peternak*)(*i);
+            LadangdanTernak[(*i)->getUsername()] = currenPeternak->getDaftarIsi();
         }
         toko.clear();
         toko = Toko::getIsiToko();

@@ -1,20 +1,30 @@
 CC = g++
 CFLAGS = -c -Wall
 LDFLAGS =
-SOURCES = hello.cpp
-OBJECTS = $(SOURCES:.cpp=.o)
-EXECUTABLE = hello
+INCLUDES = -I./src
+SRCDIR = coba
+OBJDIR = obj
+BINDIR = bin
 
-all: $(SOURCES) $(EXECUTABLE)
+SUBDIRS := $(shell find $(SRCDIR) -type d)
 
-$(EXECUTABLE): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+SOURCES := $(wildcard $(SRCDIR)/**/*.cpp)
 
-.cpp.o:
-	$(CC) $(CFLAGS) $< -o $@
+OBJECTS := $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SOURCES))
+
+all: $(BINDIR)/program
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
+
+$(BINDIR)/program: $(OBJECTS) $(SRCDIR)/main.cpp
+	$(CC) $(LDFLAGS) $(OBJECTS) $(SRCDIR)/main.cpp -o $@
 
 clean:
-	rm -rf *.o $(EXECUTABLE)
+	rm -rf $(OBJDIR) $(BINDIR)/program
 
-run: $(EXECUTABLE)
-	./$(EXECUTABLE)
+run: $(BINDIR)/program
+	./$<
+
+.PHONY: all clean run
