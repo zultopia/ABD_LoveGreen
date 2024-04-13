@@ -127,7 +127,22 @@ int Toko::BeliWalikota(int no, int Quantity){
     // harga * quantity
     return barang.at(*itr).first*Quantity;
 }
-
+string Toko::getBarangNoUrutWalikota(int no){
+    int i = 1;
+    auto itr = urutan.begin();
+    while(itr != urutan.end() && i < no){
+        if(!Config::isExistRecipe(*itr) && barang.at(*itr).second != 0){
+            i++;
+        }
+        itr++;
+    }
+    if(itr == urutan.end() && i != no){
+        TokoException e("Nomor tidak valid\n");
+        throw e;
+    }
+    // itr = barang yang ditunjuk oleh no
+    return (*itr);
+}
 int Toko::BeliPeternakPetani(int no, int Quantity){
     int i = 1;
     auto itr = urutan.begin();
@@ -159,7 +174,7 @@ void Toko::batalBeli(string nama, int Quantity){
     }
 }
 
-string Toko::getBarangNoUrut(int no){
+string Toko::getBarangNoUrutPeternakPetani(int no){
     int i = 1;
     auto itr = urutan.begin();
     while(itr != urutan.end() && i < no){
@@ -173,7 +188,7 @@ string Toko::getBarangNoUrut(int no){
         throw e;
     }
     // itr = barang yang ditunjuk oleh no
-    return *itr;
+    return (*itr);
 }
 
 
