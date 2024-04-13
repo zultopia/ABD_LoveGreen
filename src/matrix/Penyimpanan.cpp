@@ -106,7 +106,9 @@ vector<string> Penyimpanan::getListPenyimpanan(){
     vector<string> temp;
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < cols; j++){
-            temp.push_back(grid.getCell(i,j)->getName());
+            if (grid.getCell(i,j) != nullptr) {
+                temp.push_back(grid.getCell(i,j)->getName());
+            }
         }
     }
     return temp;
@@ -265,10 +267,12 @@ vector<tuple<string,string,int>> Ladang::getDaftarIsi(){
     vector<tuple<string,string,int>> tempvector;
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < cols; j++){
-            char lokasitemp = 'A' + j;
-            string temp = string() + lokasitemp;
-            string lokasi = temp + "0" + to_string(i+1);
-            tempvector.push_back(make_tuple(lokasi,grid.getCell(i,j)->getName(),grid.getCell(i,j)->getCurrentDuration()));
+            if (grid.getCell(i,j) != nullptr) {
+                char lokasitemp = 'A' + j;
+                string temp = string() + lokasitemp;
+                string lokasi = temp + "0" + to_string(i+1);
+                tempvector.push_back(make_tuple(lokasi,grid.getCell(i,j)->getName(),grid.getCell(i,j)->getCurrentDuration()));
+            }
         }
     }
     return tempvector;
@@ -404,9 +408,12 @@ vector<tuple<string,string,int>> Peternakan::getDaftarIsi(){
     vector<tuple<string,string,int>> tempvector;
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < cols; j++){
-            char lokasitemp = 'A' + cols;
-            string lokasi = lokasitemp + "0" + to_string(i+1);
-            tempvector.push_back(make_tuple(lokasi,grid.getCell(i,j)->getName(),grid.getCell(i,j)->getCurrentWeight()));
+            if (grid.getCell(i,j) != nullptr) {
+                char lokasitemp = 'A' + j;
+                string temp = string() + lokasitemp;
+                string lokasi = temp + "0" + to_string(i+1);
+                tempvector.push_back(make_tuple(lokasi,grid.getCell(i,j)->getName(),grid.getCell(i,j)->getCurrentWeight()));
+            }
         }
     }
     return tempvector;
