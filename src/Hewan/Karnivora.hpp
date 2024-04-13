@@ -17,6 +17,10 @@ class Karnivora : public Hewan {
 
         // validator
         bool isCanEat(Produk& p) const override;
+
+        // overloading
+        friend ostream& operator<<(ostream& os, Karnivora hewan);
+        
 };
 
 #endif

@@ -17,3 +17,16 @@ ProdukEatable::~ProdukEatable() {}
 
 // other operations
 bool ProdukEatable::eatable() const {return true;}
+
+// overloading
+ostream& operator<<(ostream& os, ProdukEatable produk) {
+    os << "=+=+= PROFIL PRODUK =+=+=" << endl;
+    os << "id           : " << produk.getIdProduk() << endl;
+    os << "Code         : " << produk.getCode() << endl;
+    os << "Name         : " << produk.getName() << endl;
+    os << "type         : " << produk.getTypeProduk() << endl;
+    os << "origin       : " << produk.getOrigin() << endl;
+    os << "added weight : " << produk.getAddedWeight() << endl;
+    os << "Price        : " << produk.getPrice() << endl;
+    return os;
+}

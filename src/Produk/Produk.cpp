@@ -18,17 +18,3 @@ void Produk::setAddedWeight(int weight) {this->addedWeight = weight;}
 void Produk::setTypeProduk(string type) {this->typeProduk = type;}
 void Produk::setOrigin(string origin) {this->origin = origin;}
 
-// other operations
-bool Produk::eatable() const {return false;} // belum bisa dimakan
-
-ostream& operator<<(ostream& os, Produk produk) {
-    os << "=+=+= PROFIL PRODUK =+=+=" << endl;
-    os << "id           : " << produk.getIdProduk() << endl;
-    os << "Code         : " << produk.getCode() << endl;
-    os << "Name         : " << produk.getName() << endl;
-    os << "type         : " << produk.getTypeProduk() << endl;
-    os << "origin       : " << produk.getOrigin() << endl;
-    os << "added weight : " << produk.getAddedWeight() << endl;
-    os << "Price        : " << produk.getPrice() << endl;
-    return os;
-}

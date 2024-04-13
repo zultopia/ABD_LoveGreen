@@ -34,8 +34,8 @@ class Produk : public Item  {
         void setOrigin(string origin);
 
         // other operations
-        bool eatable() const override;
-        friend ostream& operator<<(ostream& os, Produk produk);
+        bool eatable() const = 0;
+
 };
 
 #endif

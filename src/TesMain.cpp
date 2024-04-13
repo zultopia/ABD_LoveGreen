@@ -2,15 +2,15 @@
 // g++ TesMain.cpp -o TesMain
 #include "Config/Config.cpp"
 #include "Config/ConfigException.cpp"
-#include "Hewan/BaseHewan/Hewan.cpp"
-#include "Hewan/HewanException/HewanException.cpp"
-#include "Hewan/Herbivora/Herbivora.cpp"
-#include "Hewan/karnivora/karnivora.cpp"
-#include "Hewan/Omnivora/Omnivora.cpp"
+#include "Hewan/Hewan.cpp"
+#include "Hewan/HewanException.cpp"
+#include "Hewan/Herbivora.cpp"
+#include "Hewan/karnivora.cpp"
+#include "Hewan/Omnivora.cpp"
 #include "Item/Item.cpp"
-#include "Produk/BaseProduk/Produk.cpp"
-#include "Produk/ProdukEatable/ProdukEatable.cpp"
-#include "Produk/ProdukUneatable/ProdukUneatable.cpp"
+#include "Produk/Produk.cpp"
+#include "Produk/ProdukEatable.cpp"
+#include "Produk/ProdukUneatable.cpp"
 #include "Tanaman/Tanaman.cpp"
 
 int main(){

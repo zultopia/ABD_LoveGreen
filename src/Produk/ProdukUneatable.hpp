@@ -17,6 +17,10 @@ class ProdukUneatable : public Produk  {
 
         // other operations
         bool eatable() const override;
+
+        // overloading
+        friend ostream& operator<<(ostream& os, ProdukUneatable produk);
+
 };
 
 #endif

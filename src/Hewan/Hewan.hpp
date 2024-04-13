@@ -38,10 +38,9 @@ class Hewan : public Item {
 
         // other operations
         bool eatable() const override;
-        virtual bool isCanEat(Produk& p) const;
+        virtual bool isCanEat(Produk& p) const = 0;
         void eat(Produk& p);
         bool isHarvest() const;
-        friend ostream& operator<<(ostream& os, Hewan hewan);
 };
 
 #endif
