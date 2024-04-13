@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -c -Wall
 LDFLAGS =
 INCLUDES = -I./src
-SRCDIR = coba
+SRCDIR = src
 OBJDIR = obj
 BINDIR = bin
 
