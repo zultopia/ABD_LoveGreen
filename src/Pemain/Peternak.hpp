@@ -2,6 +2,7 @@
 #define __PETERNAK_HPP__
 
 #include "Pemain.hpp"
+#include "../Peternakan.hpp"
 
 class Peternak : public Pemain {
 	private:
