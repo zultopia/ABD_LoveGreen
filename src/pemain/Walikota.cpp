@@ -144,7 +144,8 @@ void Walikota::doCommand(string command){
         this->tambahPemain();
         break;
     default:
-        throw "Command Tidak Valid untuk Pemain ini";
+        PemainException e("Command Tidak Valid untuk Pemain ini");
+        throw e;
         break;
     }
 }
@@ -153,7 +154,6 @@ int Walikota::calculateTax(){
     return -1;
 }
 
-// Beli jual belom beres implementasi
 void Walikota::beli(){
     Toko::CetakWalikota();
     cout << "Uang anda : " << kekayaan << endl;
@@ -213,15 +213,73 @@ void Walikota::beli(){
     int hargaTotal = Toko::BeliWalikota(pilihanInt, kuantitasInt);
 
     if (kuantitasInt > slotKosong) {
-        // Throw exception penyimpanan tidak cukup
+        PemainException e("Slot penyimpanan tidak cukup!");
+        throw e;
     } else if (hargaTotal > kekayaan) {
-        // Throw exception uang tidak cukup
+        PemainException e("Jumlah gulden pemain tidak cukup!");
+        throw e;
     }
-    
+    string namaBarang = Toko::getBarangNoUrut(pilihanInt);
     kekayaan -= hargaTotal;
-    cout << "Selamat Anda berhasil membeli" << kuantitas << . Uang Anda tersisa 88 gulden."
+    cout << "Selamat Anda berhasil membeli " << kuantitas << " " << namaBarang << ". Uang Anda tersisa 88 gulden." << endl;
+    cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
+    cetakPenyimpanan();
 
+    // Pilih slot penyimpanan
+    bool slotsValid = false;
+    string slots;
+    string delimiter = ",";
 
+    while (!slotsValid) {
+        slotsValid = true;
+        cout << "Petak Slot: ";
+        cin >> slots;
+        vector<string> slotList;
+        vector<tuple<int, int>> slotIntList;
+        tuple<int, int> koordinatInt;
+        size_t pos = 0;
+        string koordinat;
+        while ((pos = slots.find(delimiter)) != string::npos && slotsValid) {
+            koordinat = slots.substr(0, pos);
+            koordinat.erase(std::remove_if(koordinat.begin(), koordinat.end(), ::isspace),koordinat.end());
+            slotList.push_back(koordinat);
+            slots.erase(0, pos + delimiter.length());
+            koordinatInt = konversiKoordinat(koordinat);
+            if (koordinatInt->first < 0 || koordinat->second < 0) {
+                slotsValid = false;
+                slotList.clear();
+                slotIntList.clear();
+                cout << "Pilihan slot tidak valid! silahkan input kembali!" << endl;
+            } else {
+                slotIntList.push_back(koordinatInt);
+            }
+        }
+
+        // Add item ke penyimpanan
+        if (slotsValid) {
+            for (auto i = slotIntList.begin(); i != slotIntList.end(); i++) {
+                if (Config::isExistPlant(namaBarang)) {
+                    getInventory()->tambahItem((*i)->first, (*i)->second, new Tanaman(namaBarang));
+                } else if (Config::isExistAnimal(namaBarang)) {
+                    if (Config::getType(namaBarang).compare("HERBIVORE") == 0) {
+                        getInventory()->tambahItem((*i)->first, (*i)->second, new Herbivora(namaBarang));
+                    } else if (Config::getType(namaBarang).compare("CARNIVORE") == 0) {
+                        getInventory()->tambahItem((*i)->first, (*i)->second, new Karnivora(namaBarang));
+                    } else {
+                        getInventory()->tambahItem((*i)->first, (*i)->second, new Omnivora(namaBarang));
+                    }
+                } else if (Config::isExistProduct(namaBarang)) {
+                    if (Config::getType(namaBarang).compare("PRODUCT_MATERIAL_PLANT") == 0) {
+                        getInventory()->tambahItem((*i)->first, (*i)->second, new ProdukUneatable(namaBarang));
+                    } else {
+                        getInventory()->tambahItem((*i)->first, (*i)->second, new ProdukEatable(namaBarang));
+                    }
+                } else {
+                    getInventory()->tambahItem((*i)->first, (*i)->second, new Bangunan(namaBarang));
+                }
+            }
+        }
+    }
 }
 
 void Walikota::jual(){

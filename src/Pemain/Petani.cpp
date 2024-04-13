@@ -275,7 +275,133 @@ int Petani::calculateTax() {
     }
 }
 
-void Petani::beli() {}
+void Petani::beli() {
+    Toko::CetakPeternakPetani();
+    cout << "Uang anda : " << kekayaan << endl;
+    int slotKosong = inventory.hitungSlotKosong();
+    cout << "Slot penyimpanan tersedia : " << slotKosong << endl;
+
+    string pilihan;
+    cout << "Barang ingin dibeli : ";
+
+    cin >> pilihan;
+    int pilihanInt;
+    bool valid = true;
+
+    try {
+        pilihanInt = stoi(pilihan);
+    } catch (invalid_argument e) {
+        valid = false;
+    }
+
+    while (!valid) {
+        cout << "Pilihan berupa integer!" << endl;
+
+        cout << "Barang ingin dibeli : ";
+        valid = true;
+
+        try {
+            pilihanInt = stoi(pilihan);
+        } catch (invalid_argument e) {
+            valid = false;
+        }
+    }
+
+    cout << "Kuantitas : ";
+    string kuantitas;
+    cin >> kuantitas;
+    int kuantitasInt;
+
+    try {
+        kuantitasInt = stoi(kuantitas);
+    } catch (invalid_argument e) {
+        valid = false;
+    }
+
+    while (!valid) {
+        cout << "Kuantitas berupa integer!" << endl;
+
+        cout << "Kuantitas : ";
+        valid = true;
+
+        try {
+            kuantitasInt = stoi(kuantitas);
+        } catch (invalid_argument e) {
+            valid = false;
+        }
+    }
+
+    int hargaTotal = Toko::BeliPeternakPetani(pilihanInt, kuantitasInt);
+
+    if (kuantitasInt > slotKosong) {
+        PemainException e("Slot penyimpanan tidak cukup!");
+        throw e;
+    } else if (hargaTotal > kekayaan) {
+        PemainException e("Jumlah gulden pemain tidak cukup!");
+        throw e;
+    }
+    string namaBarang = Toko::getBarangNoUrut(pilihanInt);
+    kekayaan -= hargaTotal;
+    cout << "Selamat Anda berhasil membeli " << kuantitas << " " << namaBarang << ". Uang Anda tersisa 88 gulden." << endl;
+    cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
+    cetakPenyimpanan();
+
+    // Pilih slot penyimpanan
+    bool slotsValid = false;
+    string slots;
+    string delimiter = ",";
+
+    while (!slotsValid) {
+        slotsValid = true;
+        cout << "Petak Slot: ";
+        cin >> slots;
+        vector<string> slotList;
+        vector<tuple<int, int>> slotIntList;
+        tuple<int, int> koordinatInt;
+        size_t pos = 0;
+        string koordinat;
+        while ((pos = slots.find(delimiter)) != string::npos && slotsValid) {
+            koordinat = slots.substr(0, pos);
+            koordinat.erase(std::remove_if(koordinat.begin(), koordinat.end(), ::isspace),koordinat.end());
+            slotList.push_back(koordinat);
+            slots.erase(0, pos + delimiter.length());
+            koordinatInt = konversiKoordinat(koordinat);
+            if (koordinatInt->first < 0 || koordinat->second < 0) {
+                slotsValid = false;
+                slotList.clear();
+                slotIntList.clear();
+                cout << "Pilihan slot tidak valid! silahkan input kembali!" << endl;
+            } else {
+                slotIntList.push_back(koordinatInt);
+            }
+        }
+
+        // Add item ke penyimpanan
+        if (slotsValid) {
+            for (auto i = slotIntList.begin(); i != slotIntList.end(); i++) {
+                if (Config::isExistPlant(namaBarang)) {
+                    getInventory()->tambahItem((*i)->first, (*i)->second, new Tanaman(namaBarang));
+                } else if (Config::isExistAnimal(namaBarang)) {
+                    if (Config::getType(namaBarang).compare("HERBIVORE") == 0) {
+                        getInventory()->tambahItem((*i)->first, (*i)->second, new Herbivora(namaBarang));
+                    } else if (Config::getType(namaBarang).compare("CARNIVORE") == 0) {
+                        getInventory()->tambahItem((*i)->first, (*i)->second, new Karnivora(namaBarang));
+                    } else {
+                        getInventory()->tambahItem((*i)->first, (*i)->second, new Omnivora(namaBarang));
+                    }
+                } else if (Config::isExistProduct(namaBarang)) {
+                    if (Config::getType(namaBarang).compare("PRODUCT_MATERIAL_PLANT") == 0) {
+                        getInventory()->tambahItem((*i)->first, (*i)->second, new ProdukUneatable(namaBarang));
+                    } else {
+                        getInventory()->tambahItem((*i)->first, (*i)->second, new ProdukEatable(namaBarang));
+                    }
+                } else {
+                    getInventory()->tambahItem((*i)->first, (*i)->second, new Bangunan(namaBarang));
+                }
+            }
+        }
+    }
+}
 
 void Petani::jual() {}
 

@@ -9,6 +9,7 @@
 #include "../Matrix/Penyimpanan.hpp"
 #include "../config/Config.hpp"
 #include "../Toko/Toko.hpp"
+#include "PemainException.hpp"
 
 using namespace std;
 
@@ -21,7 +22,6 @@ class Pemain {
 		static map<string,int> commandTable;
     public:
         Pemain(string& username, int kekayaan, int beratBadan);
-		// virtual ~Pemain();
 
         static vector<Pemain*> listPemain;
 		static int currentPemain;
