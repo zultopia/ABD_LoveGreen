@@ -67,7 +67,15 @@ void Peternak::ternak() {
                 cout << "Petak tanah tersebut sudah ditempati. Pilih petak lain." << endl;
             } else {
                 // Menanam hewan pada petak kandang yang dipilih
-                Hewan* hewan = new Karnivora(item->getName());
+                Hewan* hewan;
+                string type = get<2>(Config::getAnimalMap()[nama]);
+                if (type == "CARNIVORE") {
+                    hewan = new Karnivora(nama);
+                } else if (type == "HERBIVORE") {
+                    hewan = new Herbivora(nama);
+                } else if (type == "OMNIVORE") {
+                    hewan = new Omnivora(nama);
+                }
                 peternakan.ternakHewan(koordinatPetak.first + 1, koordinatPetak.second, hewan);
                 cout << "Dengan hati-hati, kamu meletakkan seekor Chicken di kandang." << endl;
                 cout << item->getName() << " telah menjadi peliharaanmu sekarang!" << endl;
