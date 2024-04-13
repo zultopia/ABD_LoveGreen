@@ -1,4 +1,6 @@
 #include "Petani.hpp"
+#include "../produk/ProdukEatable/ProdukEatable.hpp"
+#include "../produk/ProdukUneatable/ProdukUneatable.hpp"
 
 Petani::Petani(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), ladang() {}
 
@@ -136,6 +138,33 @@ void Petani::harvest() {
                     } else {
                         petakDipanen.push_back(petak);
                         Tanaman* tanamanPanen = ladang.ambilTanaman(koordinatPetak.first + 1, koordinatPetak.second);
+
+                        // Produk hasil panen
+                        vector<string> namaProduk;
+                        string tipeTanamanPanen = tanamanPanen->getTypeTanaman();
+                        for (const auto& entry : Config::getProductMap()) {
+                            const tuple productInfo = entry.second;
+                            string productOrigin = get<3>(productInfo); 
+                            if (productOrigin == tanamanPanen->getName()) {
+                                namaProduk.push_back(entry.first);
+                            }
+                        }
+
+                        for (int i = 0; i < namaProduk.size(); i++) {
+                            if (tipeTanamanPanen == "MATERIAL_PLANT") {
+                                Produk* produk = new ProdukEatable(namaProduk[i]);
+                                Item* item = dynamic_cast<Item*>(produk);
+                                if(produk != nullptr){
+                                    inventory.tambahItem(produk);
+                                }
+                            } else if (tipeTanamanPanen == "FRUIT_PLANT") {
+                                Produk* produk = new ProdukEatable(namaProduk[i]);
+                                Item* item = dynamic_cast<Item*>(produk);
+                                if(produk != nullptr){
+                                    inventory.tambahItem(produk);
+                                }
+                            }
+                        }
                     }
                 }
                 cout << petakDipanen.size() << " petak tanaman " << kodeTanaman << " pada petak ";
@@ -193,9 +222,58 @@ void Petani::doCommand(string command) {
     }
 }
 
-int Petani::bayarPajak() { return 0; }
+int Petani::bayarPajak() {
+    int pajak = calculateTax();
+    if (pajak == 0) {
+        cout << "Tidak ada pajak yang harus dibayar." << endl;
+    } else {
+        cout << "Pajak yang harus dibayar: " << pajak << endl;
+        if (getKekayaan() < pajak) {
+            pajak = getKekayaan();
+            this->kekayaan = 0;
+            cout << "Kekayaan tidak mencukupi untuk membayar pajak." << endl;
+        } else {
+            this->kekayaan = getKekayaan() - pajak;
+            cout << "Pajak berhasil dibayar." << endl;
+        }
+    }
+    return pajak;
+}
 
-int Petani::calculateTax() { return 0; }
+int Petani::calculateTax() {
+    int netoKekayaan = getKekayaan();
+    int KTKP = 13; // Petani getKTKP()
+    
+    vector<string> list = ladang.getListPenyimpanan();
+    for (int i = 0; i < list.size(); i++) {
+        if (Config::getPlantMap().find(list[i]) != Config::getPlantMap().end()) {
+            netoKekayaan += get<4>(Config::getPlantMap()[list[i]]);
+        }
+        if (Config::getAnimalMap().find(list[i]) != Config::getAnimalMap().end()) {
+            netoKekayaan += get<4>(Config::getAnimalMap()[list[i]]);
+        }
+        if (Config::getProductMap().find(list[i]) != Config::getProductMap().end()) {
+            netoKekayaan += get<5>(Config::getProductMap()[list[i]]);
+        }
+    }
+
+    // kekayaan bangunan belum dihitung
+
+    int KKP = netoKekayaan - KTKP;
+    if (KKP <= 0) {
+        return 0;
+    } else if (KKP <= 6) {
+        return KKP * 0.05;
+    } else if (KKP > 6 && KKP <= 25) {
+        return KKP * 0.15;
+    } else if (KKP > 25 && KKP <= 50) {
+        return KKP * 0.25;
+    } else if (KKP > 50 && KKP <= 500) {
+        return KKP * 0.3;
+    } else {
+        return KKP * 0.35;
+    }
+}
 
 void Petani::beli() {}
 

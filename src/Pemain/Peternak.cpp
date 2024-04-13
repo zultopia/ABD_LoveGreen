@@ -1,6 +1,10 @@
 #include "Peternak.hpp"
 #include "../Hewan/BaseHewan/Hewan.hpp"
 #include "../Hewan/karnivora/karnivora.hpp"
+#include "../Hewan/Herbivora/Herbivora.hpp"
+#include "../Hewan/Omnivora/Omnivora.hpp"
+#include "../Produk/ProdukEatable/ProdukEatable.hpp"
+#include "../Config/Config.hpp"
 
 Peternak::Peternak(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), peternakan() {}
 
@@ -27,8 +31,8 @@ void Peternak::ternak() {
     pair<int, int> koordinatItem = konversiKoordinat(slot);
     Item* item = inventory.ambilItem(koordinatItem.first + 1, koordinatItem.second);
     if (item != nullptr) {
-        string code = item->getCode();
-        auto it = Config::getAnimalMap().find(code);
+        string nama = item->getName();
+        auto it = Config::getAnimalMap().find(nama);
         if (it == Config::getAnimalMap().end()) {
             cout << "Item yang dipilih bukan hewan." << endl;
             return;
@@ -63,7 +67,7 @@ void Peternak::ternak() {
                 cout << "Petak tanah tersebut sudah ditempati. Pilih petak lain." << endl;
             } else {
                 // Menanam hewan pada petak kandang yang dipilih
-                Hewan* hewan = new Karnivora(item->getCode());
+                Hewan* hewan = new Karnivora(item->getName());
                 peternakan.ternakHewan(koordinatPetak.first + 1, koordinatPetak.second, hewan);
                 cout << "Dengan hati-hati, kamu meletakkan seekor Chicken di kandang." << endl;
                 cout << item->getName() << " telah menjadi peliharaanmu sekarang!" << endl;
@@ -95,6 +99,11 @@ void Peternak::beriPangan() {
     Hewan* hewan = peternakan.getGrid().getCell(koordinatPetak.first, koordinatPetak.second);
 
     if (hewan != nullptr) {
+        string type = hewan->getTypeHewan();
+        bool isKarnivore = (type == "CARNIVORE");
+        bool isHerbivore = (type == "HERBIVORE");
+        bool isOmnivore = (type == "OMNIVORE");
+
         cout << "Kamu memilih " << hewan->getName() << " untuk diberi makan.\n" << endl;
         cout << "Pilih pangan yang akan diberikan:" << endl;
         cout << endl;
@@ -108,15 +117,50 @@ void Peternak::beriPangan() {
         pair<int, int> koordinatItem = konversiKoordinat(slot);
         Item* item = inventory.ambilItem(koordinatItem.first + 1, koordinatItem.second);
         if (item != nullptr) {
-            
+            bool isAnimal = (Config::getAnimalMap().find(item->getName()) != Config::getAnimalMap().end());
+            bool isPlant = (Config::getPlantMap().find(item->getName()) != Config::getPlantMap().end());
+            bool isProduct = (Config::getProductMap().find(item->getName()) != Config::getProductMap().end());
 
-            cout << "Hewan telah diberi makan." << endl;
+            if (isAnimal) {
+                // Item ada di map animal
+                cout << "Hewan hanya dapat memakan produk hewan" << endl;
+            } else if (isPlant) {
+                // Item ada di map plant
+                cout << "Hewan hanya dapat memakan produk tanaman" << endl;
+            } else if (isProduct) {
+                // Item ada di map product
+                string typePangan = get<2>(Config::getProductMap()[item->getName()]);
+                Produk* produkPangan;
+                if (typePangan == "PRODUCT_MATERIAL_PLANT") {
+                    produkPangan = new ProdukUneatable(item->getName());
+                } else {
+                    produkPangan = new ProdukEatable(item->getName());
+                }
+                
+                if (Config::getAnimalMap().find(produkPangan->getOrigin()) != Config::getAnimalMap().end()) {
+                    if (isKarnivore || isOmnivore) {
+                        hewan->eat(*produkPangan);
+                        cout << "Hewan telah diberi makan." << endl;
+                    } else if (isHerbivore) {
+                        cout << "Hewan Herbivora hanya dapat memakan produk tanaman." << endl;
+                    } 
+                } else if (Config::getPlantMap().find(produkPangan->getOrigin()) != Config::getPlantMap().end()) {
+                    if (isHerbivore || isOmnivore) {
+                        hewan->eat(*produkPangan);
+                        cout << "Hewan telah diberi makan." << endl;
+                    } else if (isKarnivore) {
+                        cout << "Hewan Karnivora hanya dapat memakan produk hewan." << endl;
+                    }
+                }
+            }
+
         } else {
             cout << "Tidak ada Item pada posisi tersebut." << endl;
         }
     } else {
         cout << "Petak kandang tersebut kosong." << endl;
     }
+    delete hewan;
 }
 
 void Peternak::cetakPeternakan() {
@@ -178,6 +222,25 @@ void Peternak::harvest() {
                     } else {
                         petakDipanen.push_back(petak);
                         Hewan* hewanPanen = peternakan.ambilTernak(koordinatPetak.first + 1, koordinatPetak.second);
+
+                        // Menambahkan item hasil panen ke penyimpanan
+                        vector<string> namaProduk;
+                        string tipeTanamanPanen = hewanPanen->getTypeHewan();
+                        for (const auto& entry : Config::getProductMap()) {
+                            const tuple productInfo = entry.second;
+                            string productOrigin = get<3>(productInfo); 
+                            if (productOrigin == hewanPanen->getName()) {
+                                namaProduk.push_back(entry.first);
+                            }
+                        }
+
+                        for (int i = 0; i < namaProduk.size(); i++) {
+                            Produk* produk = new ProdukEatable(namaProduk[i]);
+                            Item* item = dynamic_cast<Item*>(produk);
+                            if(produk != nullptr){
+                                inventory.tambahItem(produk);
+                            }
+                        }
                     }
                 }
                 cout << petakDipanen.size() << " petak hewan " << kodeHewan << " pada petak ";
@@ -240,7 +303,40 @@ void Peternak::doCommand(string command) {
 
 int Peternak::bayarPajak() { return 0; }
 
-int Peternak::calculateTax() { return 0; }
+int Peternak::calculateTax() {
+    int netoKekayaan = getKekayaan();
+    int KTKP = 11; // Petani
+    
+    vector<string> list = peternakan.getListPenyimpanan();
+    for (int i = 0; i < list.size(); i++) {
+        if (Config::getPlantMap().find(list[i]) != Config::getPlantMap().end()) {
+            netoKekayaan += get<4>(Config::getPlantMap()[list[i]]);
+        }
+        if (Config::getAnimalMap().find(list[i]) != Config::getAnimalMap().end()) {
+            netoKekayaan += get<4>(Config::getAnimalMap()[list[i]]);
+        }
+        if (Config::getProductMap().find(list[i]) != Config::getProductMap().end()) {
+            netoKekayaan += get<5>(Config::getProductMap()[list[i]]);
+        }
+    }
+
+    // kekayaan bangunan belum dihitung
+
+    int KKP = netoKekayaan - KTKP;
+    if (KKP <= 0) {
+        return 0;
+    } else if (KKP <= 6) {
+        return KKP * 0.05;
+    } else if (KKP > 6 && KKP <= 25) {
+        return KKP * 0.15;
+    } else if (KKP > 25 && KKP <= 50) {
+        return KKP * 0.25;
+    } else if (KKP > 50 && KKP <= 500) {
+        return KKP * 0.3;
+    } else {
+        return KKP * 0.35;
+    }
+}
 
 void Peternak::beli() {}
 
