@@ -156,7 +156,72 @@ int Walikota::calculateTax(){
 // Beli jual belom beres implementasi
 void Walikota::beli(){
     Toko::CetakWalikota();
-    // Toko::BeliWalikota();
+    cout << "Uang anda : " << kekayaan << endl;
+    int slotKosong = inventory.hitungSlotKosong();
+    cout << "Slot penyimpanan tersedia : " << slotKosong << endl;
+
+    string pilihan;
+    cout << "Barang ingin dibeli : ";
+
+    cin >> pilihan;
+    int pilihanInt;
+    bool valid = true;
+
+    try {
+        pilihanInt = stoi(pilihan);
+    } catch (invalid_argument e) {
+        valid = false;
+    }
+
+    while (!valid) {
+        cout << "Pilihan berupa integer!" << endl;
+
+        cout << "Barang ingin dibeli : ";
+        valid = true;
+
+        try {
+            pilihanInt = stoi(pilihan);
+        } catch (invalid_argument e) {
+            valid = false;
+        }
+    }
+
+    cout << "Kuantitas : ";
+    string kuantitas;
+    cin >> kuantitas;
+    int kuantitasInt;
+
+    try {
+        kuantitasInt = stoi(kuantitas);
+    } catch (invalid_argument e) {
+        valid = false;
+    }
+
+    while (!valid) {
+        cout << "Kuantitas berupa integer!" << endl;
+
+        cout << "Kuantitas : ";
+        valid = true;
+
+        try {
+            kuantitasInt = stoi(kuantitas);
+        } catch (invalid_argument e) {
+            valid = false;
+        }
+    }
+
+    int hargaTotal = Toko::BeliWalikota(pilihanInt, kuantitasInt);
+
+    if (kuantitasInt > slotKosong) {
+        // Throw exception penyimpanan tidak cukup
+    } else if (hargaTotal > kekayaan) {
+        // Throw exception uang tidak cukup
+    }
+    
+    kekayaan -= hargaTotal;
+    cout << "Selamat Anda berhasil membeli" << kuantitas << . Uang Anda tersisa 88 gulden."
+
+
 }
 
 void Walikota::jual(){
