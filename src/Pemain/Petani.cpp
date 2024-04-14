@@ -387,7 +387,55 @@ void Petani::beli() {
     }
 }
 
-void Petani::jual() {}
+void Petani::jual() {
+    if (inventory.hitungSlotKosong() == Config::getBesarPenyimpanan().first * Config::getBesarPenyimpanan().second) {
+        PemainException e("Inventory kosong, tidak ada barang yang bisa dijual");
+        throw e;
+    }
+
+    cout << "Berikut merupakan penyimpanan Anda." << endl;
+    cetakPenyimpanan();
+    cout << "Silahkan pilih petak yang ingin Anda jual!" << endl;
+
+    // Pilih slot penyimpanan
+    bool slotsValid = false;
+    string slots;
+    vector<tuple<int, int>> slotIntList;
+
+    while (!slotsValid) {
+        slotsValid = true;
+        cout << "Petak: ";
+        cin >> slots;
+        slotIntList = Penyimpanan::ParserListKoordinat(slots);
+        Item* item;
+        if (slotIntList.size() != 0) {
+            slotsValid = true;
+            for (int i = 0; i < slotIntList.size(); i++) {
+                item = inventory.getGrid().getCell(get<0>(slotIntList[i]), get<1>(slotIntList[i]));
+                if ( item == nullptr || Config::isExistRecipe(item->getName())) {
+                    slotsValid = false;
+                    break;
+                }
+            }
+            if (!slotsValid) {
+                cout << "Pilihan petak tidak valid! silahkan input kembali!" << endl << endl;
+            }
+        } else {
+            cout << "Pilihan petak tidak valid! silahkan input kembali!" << endl << endl;
+        }
+    }
+
+    // Jika slot valid, maka jual
+    Item* item;
+    int totalJual = 0;
+    for (auto i = slotIntList.begin(); i != slotIntList.end(); i++) {
+        item = getInventory().ambilItem(get<0>(*i)+1, get<1>(*i));
+        totalJual += Config::getPrice((item->getName()));
+        Toko::Jual(item->getName(), 1);
+    }
+    kekayaan += totalJual;
+    cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << totalJual << " gulden!" << endl;
+}
 
 vector<tuple<string,string,int>> Petani::getDaftarIsi(){
     return ladang.getDaftarIsi();

@@ -128,7 +128,7 @@ pair<int, int> Penyimpanan::konversiKoordinat(string koordinat) {
     string angkaStr = koordinat.substr(1); 
     int x = stoi(angkaStr) - 1; 
 
-    if (x < 0 || x > 7) {
+    if (x < 0 || x >= Config::getBesarPenyimpanan().first) {
         cout << "Indeks kolom tidak valid\n";
         return {-1, -1}; 
     }
@@ -149,7 +149,7 @@ vector<tuple<int, int>> Penyimpanan::ParserListKoordinat(string slots){
         slotList.push_back(koordinat);
         slots.erase(0, pos + delimiter.length());
         koordinatInt = konversiKoordinat(koordinat);
-        if (get<0>(koordinatInt) <= 0 || get<0>(koordinatInt) > Config::getBesarPenyimpanan().first || get<1>(koordinatInt) < 0 || get<1>(koordinatInt) >Config::getBesarPenyimpanan().second) {
+        if (get<0>(koordinatInt) < 0 || get<0>(koordinatInt) >= Config::getBesarPenyimpanan().first || get<1>(koordinatInt) < 0 || get<1>(koordinatInt) >= Config::getBesarPenyimpanan().second) {
             slotList.clear();
             slotIntList.clear();
             break;
