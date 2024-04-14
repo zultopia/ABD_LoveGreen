@@ -39,7 +39,6 @@ class Pemain {
         virtual void doCommand(string command) = 0;
         void next();
         void simpan();
-		void muat();
         virtual int bayarPajak();
 
 		virtual int calculateTax() = 0;
@@ -67,7 +66,6 @@ map<string,int> Pemain::commandTable = {
     {"BELI",11},
     {"JUAL",12},
     {"PANEN",13},
-    {"MUAT",14},
     {"SIMPAN",15},
     {"TAMBAH_PEMAIN",16}
 };

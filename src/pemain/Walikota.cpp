@@ -180,9 +180,6 @@ void Walikota::doCommand(string command){
     case 12:
         this->jual();
         break;
-    case 14:
-        this->muat();
-        break;
     case 15:
         this->simpan();
         break;

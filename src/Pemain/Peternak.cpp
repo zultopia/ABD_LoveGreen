@@ -296,9 +296,6 @@ void Peternak::doCommand(string command) {
     case 13:
         harvest();
         break;
-    case 14:
-        this->muat();
-        break;
     case 15:
         this->simpan();
         break;

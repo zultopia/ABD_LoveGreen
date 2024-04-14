@@ -213,9 +213,6 @@ void Petani::doCommand(string command) {
     case 13:
         this->harvest();
         break;
-    case 14:
-        this->muat();
-        break;
     case 15:
         this->simpan();
         break;

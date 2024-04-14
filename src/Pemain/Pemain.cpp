@@ -34,10 +34,6 @@ void Pemain::simpan() {
 
 }
 
-void Pemain::muat() {
-    
-}
-
 int Pemain::bayarPajak() {
     int pajak = this->calculateTax();
     if (this->kekayaan >= pajak) {
