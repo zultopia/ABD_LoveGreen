@@ -1,3 +1,6 @@
+#ifndef WALIKOTA_HPP
+#define WALIKTA_HPP
+
 #include "Pemain.hpp"
 
 class Walikota : public Pemain {
@@ -17,3 +20,5 @@ class Walikota : public Pemain {
         void beli();
         void jual();
 };
+
+#endif
