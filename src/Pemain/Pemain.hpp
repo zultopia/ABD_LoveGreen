@@ -11,6 +11,7 @@
 #include "../config/Config.hpp"
 #include "../Toko/Toko.hpp"
 #include "../Exception/PemainException.hpp"
+#include "../Config/Simpan.hpp"
 
 using namespace std;
 

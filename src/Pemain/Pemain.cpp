@@ -31,7 +31,7 @@ void Pemain::next() {
     currentPemain = (currentPemain + 1) % numPemain;
 }
 void Pemain::simpan() {
-
+    Simpan::simpan();
 }
 
 int Pemain::bayarPajak() {
