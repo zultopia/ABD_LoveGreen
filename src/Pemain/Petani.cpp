@@ -1,8 +1,10 @@
 #include "Petani.hpp"
-#include "../produk/ProdukEatable.hpp"
-#include "../produk/ProdukUneatable.hpp"
+#include "../Produk/ProdukEatable.hpp"
+#include "../Produk/ProdukUneatable.hpp"
 
 Petani::Petani(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), ladang() {}
+
+Petani::~Petani() {}
 
 Ladang& Petani::getLadang() {
     return ladang;
@@ -30,8 +32,8 @@ void Petani::tanam() {
         string code = item->getCode();
         auto it = Config::getPlantMap().find(code);
         if (it == Config::getPlantMap().end()) {
-            cout << "Item yang dipilih bukan tanaman." << endl;
-            return;
+            PemainException e("Item yang dipilih bukan tanaman.");
+            throw e;
         }
         
         cout << "Kamu memilih " << item->getName() << "." << endl;
@@ -39,8 +41,8 @@ void Petani::tanam() {
 
         // Memeriksa apakah ladang sudah penuh
         if (ladang.hitungSlotKosong() == 0) {
-            cout << "Ladang sudah penuh. Tidak dapat menanam lebih banyak tanaman." << endl;
-            return;
+            PemainException e("Ladang sudah penuh. Tidak dapat menanam lebih banyak tanaman.");
+            throw e;
         }
 
         bool tanamBerhasil = false;
@@ -66,7 +68,7 @@ void Petani::tanam() {
             } else {
                 // Menanam tanaman pada petak tanah yang dipilih
                 Tanaman* tanaman = new Tanaman(item->getCode());
-                ladang.tanamTanaman(koordinatPetak.first + 1, koordinatPetak.second, tanaman);
+                ladang.tambahTanaman(koordinatPetak.first + 1, koordinatPetak.second, tanaman);
                 cout << "Cangkul, cangkul, cangkul yang dalam~!" << endl;
                 cout << item->getName() << " berhasil ditanam di petak " << petak << endl;
                 ladang.cetakInfo();
@@ -90,7 +92,8 @@ void Petani::harvest() {
     map<string, int> harvest = ladang.hitungJumlahTanamanPanen();
 
     if (harvest.empty()) {
-        cout << "Tidak ada tanaman siap panen." << endl;
+        PemainException e("Tidak ada tanaman siap panen.");
+        throw e;
     } else {
         cout << "Pilih tanaman siap panen yang kamu miliki" << endl;
         int counter = 1;
@@ -106,18 +109,20 @@ void Petani::harvest() {
         cout << "Nomor tanaman yang ingin dipanen: "; cin >> nomor; cout << endl;
 
         if (nomor < 1 || nomor > harvest.size()) {
-            cout << "Nomor tanaman tidak valid." << endl;
+            PemainException e("Nomor tanaman tidak valid.");
+            throw e;
         } else {
             int jumlahPetak;
             string kodeTanaman = tanamanByNumber[nomor];
             cout << "Berapa petak yang ingin dipanen: "; cin >> jumlahPetak; cout << endl;
 
             if (jumlahPetak < 1 || jumlahPetak > harvest[kodeTanaman]) {
-                cout << "Jumlah petak yang ingin dipanen melebihi/kurang dari jumlah petak yang tersedia." << endl;
+                PemainException e("Jumlah petak yang ingin dipanen melebihi/kurang dari jumlah petak yang tersedia.");
+                throw e;
             } else {
                 if (inventory.hitungSlotKosong() < jumlahPetak) {
-                    cout << "Slot penyimpanan tidak cukup." << endl;
-                    return;
+                    PemainException e("Slot penyimpanan tidak cukup.");
+                    throw e;
                 } 
 
                 string petak;
@@ -244,6 +249,15 @@ int Petani::calculateTax() {
     int netoKekayaan = getKekayaan();
     int KTKP = 13; // Petani getKTKP()
     
+    Grid<Item> inv = inventory.getGrid();
+    for (int i = 0; i < inv.getRows(); i++) {
+        for (int j = 0; j < inv.getCols(); j++) {
+            if (inv.getCell(i, j) != nullptr) {
+                netoKekayaan += inv.getCell(i, j)->getPrice();
+            }
+        }
+    }
+
     vector<string> list = ladang.getListPenyimpanan();
     for (int i = 0; i < list.size(); i++) {
         if (Config::getPlantMap().find(list[i]) != Config::getPlantMap().end()) {
@@ -256,8 +270,6 @@ int Petani::calculateTax() {
             netoKekayaan += get<5>(Config::getProductMap()[list[i]]);
         }
     }
-
-    // kekayaan bangunan belum dihitung
 
     int KKP = netoKekayaan - KTKP;
     if (KKP <= 0) {
@@ -340,7 +352,7 @@ void Petani::beli() {
         PemainException e("Jumlah gulden pemain tidak cukup!");
         throw e;
     }
-    string namaBarang = Toko::getBarangNoUrut(pilihanInt);
+    string namaBarang = Toko::getBarangNoUrutPeternakPetani(pilihanInt);
     kekayaan -= hargaTotal;
     cout << "Selamat Anda berhasil membeli " << kuantitas << " " << namaBarang << ". Uang Anda tersisa 88 gulden." << endl;
     cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;

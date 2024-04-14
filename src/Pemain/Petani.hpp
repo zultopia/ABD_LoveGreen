@@ -9,6 +9,7 @@ class Petani : public Pemain {
 		Ladang ladang;
 	public:
 		Petani(string& username, int kekayaan, int beratBadan);
+		~Petani();
 
 		Ladang& getLadang();
 		string getRole();

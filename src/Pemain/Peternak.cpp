@@ -8,6 +8,8 @@
 
 Peternak::Peternak(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), peternakan() {}
 
+Peternak::~Peternak() {}
+
 Peternakan& Peternak::getPeternakan() {
     return peternakan;
 }
@@ -34,13 +36,13 @@ void Peternak::ternak() {
         string nama = item->getName();
         auto it = Config::getAnimalMap().find(nama);
         if (it == Config::getAnimalMap().end()) {
-            cout << "Item yang dipilih bukan hewan." << endl;
+            throw "Item yang dipilih bukan hewan.";
             return;
         }
 
         // Memeriksa apakah peternakan sudah penuh
         if (peternakan.hitungSlotKosong() == 0) {
-            cout << "Peternakan sudah penuh. Tidak dapat menambahkan lebih banyak hewan." << endl;
+            throw "Peternakan sudah penuh. Tidak dapat menambahkan lebih banyak hewan.";
             return;
         }
 
@@ -76,7 +78,7 @@ void Peternak::ternak() {
                 } else if (type == "OMNIVORE") {
                     hewan = new Omnivora(nama);
                 }
-                peternakan.ternakHewan(koordinatPetak.first + 1, koordinatPetak.second, hewan);
+                peternakan.tambahHewan(koordinatPetak.first + 1, koordinatPetak.second, hewan);
                 cout << "Dengan hati-hati, kamu meletakkan seekor Chicken di kandang." << endl;
                 cout << item->getName() << " telah menjadi peliharaanmu sekarang!" << endl;
                 peternakan.cetakInfo();
@@ -163,10 +165,12 @@ void Peternak::beriPangan() {
             }
 
         } else {
-            cout << "Tidak ada Item pada posisi tersebut." << endl;
+            throw "Tidak ada Item pada posisi tersebut.";
+            return;
         }
     } else {
-        cout << "Petak kandang tersebut kosong." << endl;
+        throw "Petak kandang tersebut kosong.";
+        return;
     }
     delete hewan;
 }
@@ -309,11 +313,27 @@ void Peternak::doCommand(string command) {
     }
 }
 
-int Peternak::bayarPajak() { return 0; }
+int Peternak::bayarPajak() {
+    int pajak = calculateTax();
+    if (pajak == 0) {
+        cout << "Tidak ada pajak yang harus dibayar." << endl;
+    } else {
+        cout << "Pajak yang harus dibayar: " << pajak << endl;
+        if (getKekayaan() < pajak) {
+            pajak = getKekayaan();
+            this->kekayaan = 0;
+            cout << "Kekayaan tidak mencukupi untuk membayar pajak." << endl;
+        } else {
+            this->kekayaan = getKekayaan() - pajak;
+            cout << "Pajak berhasil dibayar." << endl;
+        }
+    }
+    return pajak;
+}
 
 int Peternak::calculateTax() {
     int netoKekayaan = getKekayaan();
-    int KTKP = 11; // Petani
+    int KTKP = 11; // Peternak
     
     vector<string> list = peternakan.getListPenyimpanan();
     for (int i = 0; i < list.size(); i++) {
@@ -327,8 +347,6 @@ int Peternak::calculateTax() {
             netoKekayaan += get<5>(Config::getProductMap()[list[i]]);
         }
     }
-
-    // kekayaan bangunan belum dihitung
 
     int KKP = netoKekayaan - KTKP;
     if (KKP <= 0) {
