@@ -3,6 +3,14 @@
 
 #include "Pemain.hpp"
 #include "../Matrix/Peternakan.hpp"
+#include "../Hewan/Hewan.hpp"
+#include "../Hewan/karnivora.hpp"
+#include "../Hewan/Herbivora.hpp"
+#include "../Hewan/Omnivora.hpp"
+#include "../Produk/ProdukEatable.hpp"
+#include "../Produk/ProdukUneatable.hpp"
+#include "../Item/Bangunan.hpp"
+#include "../Config/Config.hpp"
 
 class Peternak : public Pemain {
 	private:

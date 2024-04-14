@@ -1,6 +1,4 @@
 #include "Petani.hpp"
-#include "../Produk/ProdukEatable.hpp"
-#include "../Produk/ProdukUneatable.hpp"
 
 Petani::Petani(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), ladang() {}
 
@@ -160,13 +158,13 @@ void Petani::harvest() {
                                 Produk* produk = new ProdukEatable(namaProduk[i]);
                                 Item* item = dynamic_cast<Item*>(produk);
                                 if(produk != nullptr){
-                                    inventory.tambahItem(produk);
+                                    inventory.tambahItem(item);
                                 }
                             } else if (tipeTanamanPanen == "FRUIT_PLANT") {
                                 Produk* produk = new ProdukEatable(namaProduk[i]);
                                 Item* item = dynamic_cast<Item*>(produk);
                                 if(produk != nullptr){
-                                    inventory.tambahItem(produk);
+                                    inventory.tambahItem(item);
                                 }
                             }
                         }
@@ -302,7 +300,7 @@ void Petani::beli() {
 
     try {
         pilihanInt = stoi(pilihan);
-    } catch (invalid_argument e) {
+    } catch (invalid_argument& e) {
         valid = false;
     }
 
@@ -314,7 +312,7 @@ void Petani::beli() {
 
         try {
             pilihanInt = stoi(pilihan);
-        } catch (invalid_argument e) {
+        } catch (invalid_argument& e) {
             valid = false;
         }
     }
@@ -326,7 +324,7 @@ void Petani::beli() {
 
     try {
         kuantitasInt = stoi(kuantitas);
-    } catch (invalid_argument e) {
+    } catch (invalid_argument& e) {
         valid = false;
     }
 
@@ -338,7 +336,7 @@ void Petani::beli() {
 
         try {
             kuantitasInt = stoi(kuantitas);
-        } catch (invalid_argument e) {
+        } catch (invalid_argument& e) {
             valid = false;
         }
     }

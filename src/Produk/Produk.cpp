@@ -1,7 +1,7 @@
 #include "Produk.hpp"
 
 // ctor
-Produk::Produk() : Item(), idProduk(0), addedWeight(0), origin(""), typeProduk("") {}
+Produk::Produk() : Item(), idProduk(0), addedWeight(0), typeProduk(""), origin("")  {}
 
 // dtor
 Produk::~Produk() {}

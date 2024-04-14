@@ -1,5 +1,5 @@
 #ifndef WALIKOTA_HPP
-#define WALIKTA_HPP
+#define WALIKOTA_HPP
 
 #include "Pemain.hpp"
 

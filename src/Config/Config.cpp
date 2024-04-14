@@ -133,7 +133,7 @@ void Config::bacaConfig(){
         if(bacaMisc() == 1){
             cout << "misc.txt berhasil.\n";
         }
-    } catch(ConfigException e){
+    } catch(ConfigException& e){
         cout << e.what() << endl;
     }
 }

@@ -1,10 +1,5 @@
 #include "Peternak.hpp"
-#include "../Hewan/Hewan.hpp"
-#include "../Hewan/karnivora.hpp"
-#include "../Hewan/Herbivora.hpp"
-#include "../Hewan/Omnivora.hpp"
-#include "../Produk/ProdukEatable.hpp"
-#include "../Config/Config.hpp"
+
 
 Peternak::Peternak(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), peternakan() {}
 
@@ -250,7 +245,7 @@ void Peternak::harvest() {
                             Produk* produk = new ProdukEatable(namaProduk[i]);
                             Item* item = dynamic_cast<Item*>(produk);
                             if(produk != nullptr){
-                                inventory.tambahItem(produk);
+                                inventory.tambahItem(item);
                             }
                         }
                     }
@@ -388,7 +383,7 @@ void Peternak::beli() {
 
     try {
         pilihanInt = stoi(pilihan);
-    } catch (invalid_argument e) {
+    } catch (invalid_argument& e) {
         valid = false;
     }
 
@@ -400,7 +395,7 @@ void Peternak::beli() {
 
         try {
             pilihanInt = stoi(pilihan);
-        } catch (invalid_argument e) {
+        } catch (invalid_argument& e) {
             valid = false;
         }
     }
@@ -412,7 +407,7 @@ void Peternak::beli() {
 
     try {
         kuantitasInt = stoi(kuantitas);
-    } catch (invalid_argument e) {
+    } catch (invalid_argument& e) {
         valid = false;
     }
 
@@ -424,7 +419,7 @@ void Peternak::beli() {
 
         try {
             kuantitasInt = stoi(kuantitas);
-        } catch (invalid_argument e) {
+        } catch (invalid_argument& e) {
             valid = false;
         }
     }
