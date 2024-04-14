@@ -160,6 +160,18 @@ vector<tuple<int, int>> Penyimpanan::parserListKoordinat(string slots){
     return slotIntList;
 }
 
+int Penyimpanan::jumlahItem(string nama) {
+    int jumlah = 0;
+    for (int i = 0; i < rows; i++) {
+        for(int j = 0; j < cols; j++) {
+            if (grid.getCell(i, j)->getName().compare(nama) == 0) {
+                jumlah++;
+            }
+        }
+    }
+    return jumlah;
+}
+
 bool Penyimpanan::checkMakanan(int row, int col){
     if (row <= 0 || row > rows || col < 0 || col >= cols) {
         // Index tidak valid

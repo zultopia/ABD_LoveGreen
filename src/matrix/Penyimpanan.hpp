@@ -34,6 +34,8 @@ class Penyimpanan {
 
         static vector<tuple<int, int>> parserListKoordinat(string input);
 
+        int jumlahItem(string nama);
+
         bool checkMakanan(int row, int col);
 
 

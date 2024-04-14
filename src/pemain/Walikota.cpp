@@ -38,7 +38,7 @@ void Walikota::bangun(){
     cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
     auto itr = Config::getRecipeMap().begin();
     int i = 1;
-    map<string, string> Bahan;
+    vector<string> listBangunan;
     while (itr != Config::getRecipeMap().end()) {
         cout << "  " << i << ". " << itr->first << " (" << Config::getPrice(itr->first);
         auto itrMaterial = Config::getMaterialInfo(itr->first).begin();
@@ -47,27 +47,73 @@ void Walikota::bangun(){
             itrMaterial++;
         }
         cout << ")" << endl;
-        Bahan.insert(pair<string,string>(itr->first, Config::getCode(itr->first)));
+        listBangunan.push_back(itr->first);
         i++;
         itr++;
     }
     cout << endl << "Bangunan yang ingin dibangun: ";
     string answer;
     cin >> answer;
-    try {
-        string kodeBangunan = Bahan[answer];
-    } catch(...){
-        cout << "Kamu tidak punya resep bangunan tersebut!" << endl;
-        this->bangun();
-        return;
+    if (!Config::isExistRecipe(answer)) {
+        PemainException e("Kamu tidak punya resep bangunan tersebut!");
+        throw e;
     }
-    // Harus Cek Inventory ada item atau ga
 
-    // Kalau ga ada:
-        cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan "; // apa aja yg gapunya
-    // Kalau ada:
-        // tambah ke inventory : new Bangunan(...)
+    // Cek apakah bahan memenuhi
+    map<string,int> materials = Config::getMaterialInfo(answer);
+    map<string,int> bahanKurang;
+
+    // Cek gulden
+    if (kekayaan < Config::getPrice(answer)) {
+        bahanKurang.insert(pair<string, int>("gulden", Config::getPrice(answer) - kekayaan));
+    }
+
+    // Cek material
+    auto itrMaterials = materials.begin();
+    while (itrMaterials != materials.end()) {
+        int dimiliki = inventory.jumlahItem(itrMaterials->first);
+        if (dimiliki < itrMaterials->second) { 
+            bahanKurang.insert(pair<string, int>(itrMaterials->first, itrMaterials->second - dimiliki));
+        }
+        itrMaterials++;
+    }
+
+    if (bahanKurang.size() > 0) {
+        cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
+        auto itrBahanKurang = bahanKurang.begin();
+        while (itrBahanKurang != materials.end()) {
+            cout << itrBahanKurang->second << " " << itrBahanKurang->first;
+            if (++itrBahanKurang != bahanKurang.end()) {
+                cout << ", ";
+            } else {
+                cout << "!" << endl;
+            }
+        }
+        return;
+    } else {
+        // Bahan memenuhi
+        auto itrMaterials = materials.begin();
+        while (itrMaterials != materials.end()) {
+            int jumlah = 0, i = 0;
+            while (jumlah != itrMaterials->second) {
+                int j = 0;
+                while (j < Config::getBesarPenyimpanan().second){
+                    Item* item;
+                    item = inventory.getGrid().getCell(i, j);
+                    if (item->getName().compare(itrMaterials->first)){
+                        jumlah++;
+                        inventory.ambilItem(i+1, j);
+                    }
+                    j++;
+                }
+                i++;
+            }
+        }
+        
+        inventory.tambahItem(new Bangunan(answer));
+
         cout << answer << " berhasil dibangun dan telah menjadi hak milik walikota!";
+    };
 
 
 }
@@ -234,7 +280,7 @@ void Walikota::beli(){
         slotsValid = true;
         cout << "Petak Slot: ";
         cin >> slots;
-        slotIntList = Penyimpanan::ParserListKoordinat(slots);
+        slotIntList = Penyimpanan::parserListKoordinat(slots);
         if (slotIntList.size() == kuantitasInt) {
             slotsValid = true;
         } else {
@@ -285,7 +331,7 @@ void Walikota::jual(){
         slotsValid = true;
         cout << "Petak: ";
         cin >> slots;
-        slotIntList = Penyimpanan::ParserListKoordinat(slots);
+        slotIntList = Penyimpanan::parserListKoordinat(slots);
         if (slotIntList.size() != 0) {
             slotsValid = true;
             for (int i = 0; i < slotIntList.size(); i++) {
