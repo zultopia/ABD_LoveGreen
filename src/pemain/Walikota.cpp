@@ -234,7 +234,7 @@ void Walikota::beli(){
         slotsValid = true;
         cout << "Petak Slot: ";
         cin >> slots;
-        slotIntList = Penyimpanan::ParserListKoordinat(slots);
+        slotIntList = Penyimpanan::parserListKoordinat(slots);
         if (slotIntList.size() == kuantitasInt) {
             slotsValid = true;
         } else {
@@ -285,7 +285,7 @@ void Walikota::jual(){
         slotsValid = true;
         cout << "Petak: ";
         cin >> slots;
-        slotIntList = Penyimpanan::ParserListKoordinat(slots);
+        slotIntList = Penyimpanan::parserListKoordinat(slots);
         if (slotIntList.size() != 0) {
             slotsValid = true;
             for (int i = 0; i < slotIntList.size(); i++) {

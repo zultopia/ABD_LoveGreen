@@ -10,7 +10,7 @@
 #include "../Matrix/Penyimpanan.hpp"
 #include "../config/Config.hpp"
 #include "../Toko/Toko.hpp"
-#include "PemainException.hpp"
+#include "../Exception/PemainException.hpp"
 
 using namespace std;
 

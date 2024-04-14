@@ -8,7 +8,7 @@
 #include "../Config/Config.hpp"
 #include "../Config/Muat.hpp"
 #include "../Config/SimpanMuat.hpp"
-#include "TokoException.hpp"
+#include "../Exception/TokoException.hpp"
 
 using namespace std;
 

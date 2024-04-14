@@ -16,7 +16,7 @@ Config::Config(){
 int Config::bacaPlant(){
     ifstream inputFile("../config/plant.txt");
     if(!inputFile.is_open()){
-        ConfigException e("File plant.txt tidak dapat dibuka.");
+        InvalidFileConfigException e("plant");
         throw e;
     }
 
@@ -33,7 +33,7 @@ int Config::bacaPlant(){
 int Config::bacaAnimal(){
     ifstream inputFile("../config/animal.txt");
     if(!inputFile.is_open()){
-        ConfigException e("File animal.txt tidak dapat dibuka.");
+        InvalidFileConfigException e("animal");
         throw e;
     }
 
@@ -50,7 +50,7 @@ int Config::bacaAnimal(){
 int Config::bacaProduct(){
     ifstream inputFile("../config/product.txt");
     if(!inputFile.is_open()){
-        ConfigException e("File product.txt tidak dapat dibuka.");
+        InvalidFileConfigException e("product");
         throw e;
     }
 
@@ -67,7 +67,7 @@ int Config::bacaProduct(){
 int Config::bacaRecipe(){
     ifstream inputFile("../config/recipe.txt");
     if(!inputFile.is_open()){
-        ConfigException e("File recipe.txt tidak dapat dibuka.");
+        InvalidFileConfigException e("recipe");
         throw e;
     }
 
@@ -93,7 +93,7 @@ int Config::bacaRecipe(){
 int Config::bacaMisc(){
     ifstream inputFile("../config/misc.txt");
     if(!inputFile.is_open()){
-        ConfigException e("File misc.txt tidak dapat dibuka.");
+        InvalidFileConfigException e("misc");
         throw e;
     }
 
@@ -173,7 +173,7 @@ int Config::getId(string key){
     }else if(recipe.find(key) != recipe.end()){
         return get<0>(recipe.at(key));
     }else{
-        ConfigException e("Tidak ada key tersebut pada Config");
+        InvalidKeyConfigException e;
         throw e;
     }
 }
@@ -187,7 +187,7 @@ string Config::getCode(string key){
     }else if(recipe.find(key) != recipe.end()){
         return get<1>(recipe.at(key));
     }else{
-        ConfigException e("Tidak ada key tersebut pada Config");
+        InvalidKeyConfigException e;
         throw e;
     }
 }
@@ -199,7 +199,7 @@ string Config::getType(string key){
     }else if(product.find(key) != product.end()){
         return get<2>(product.at(key));
     }else{
-        ConfigException e("Tidak ada key tersebut pada Config");
+        InvalidKeyConfigException e;
         throw e;
     }
 }
@@ -207,7 +207,7 @@ int Config::getDuration(string key){
     if(plant.find(key) != plant.end()){
         return get<3>(plant.at(key));
     }else{
-        ConfigException e("Tidak ada key tersebut pada Config");
+        InvalidKeyConfigException e;
         throw e;
     }
 }
@@ -221,7 +221,7 @@ int Config::getPrice(string key){
     }else if(recipe.find(key) != recipe.end()){
         return get<2>(recipe.at(key));
     }else{
-        ConfigException e("Tidak ada key tersebut pada Config");
+        InvalidKeyConfigException e;
         throw e;
     }
 }
@@ -229,7 +229,7 @@ int Config::getWeightHarvest(string key){
     if(animal.find(key) != animal.end()){
         return get<3>(animal.at(key));
     }else{
-        ConfigException e("Tidak ada key tersebut pada Config");
+        InvalidKeyConfigException e;
         throw e;
     }
 }
@@ -237,7 +237,7 @@ string Config::getOrigin(string key){
     if(product.find(key) != product.end()){
         return get<3>(product.at(key));
     }else{
-        ConfigException e("Tidak ada key tersebut pada Config");
+        InvalidKeyConfigException e;
         throw e;
     }
 }
@@ -245,7 +245,7 @@ int Config::getAddedWeight(string key){
     if(product.find(key) != product.end()){
         return get<4>(product.at(key));
     }else{
-        ConfigException e("Tidak ada key tersebut pada Config");
+        InvalidKeyConfigException e;
         throw e;
     }
 }
@@ -253,7 +253,7 @@ map<string,int> Config::getMaterialInfo(string key){
     if(recipe.find(key) != recipe.end()){
         return get<3>(recipe.at(key));
     }else{
-        ConfigException e("Tidak ada key tersebut pada Config");
+        InvalidKeyConfigException e;
         throw e;
     }
 }
