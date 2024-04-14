@@ -367,7 +367,7 @@ void Petani::beli() {
         slotsValid = true;
         cout << "Petak Slot: ";
         cin >> slots;
-        slotIntList = Penyimpanan::ParserListKoordinat(slots);
+        slotIntList = Penyimpanan::parserListKoordinat(slots);
         if (slotIntList.size() == kuantitasInt) {
             slotsValid = true;
         } else {
@@ -418,7 +418,7 @@ void Petani::jual() {
         slotsValid = true;
         cout << "Petak: ";
         cin >> slots;
-        slotIntList = Penyimpanan::ParserListKoordinat(slots);
+        slotIntList = Penyimpanan::parserListKoordinat(slots);
         Item* item;
         if (slotIntList.size() != 0) {
             slotsValid = true;
