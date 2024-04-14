@@ -104,7 +104,7 @@ void Pemain::makan() {
             } else if (validity = 1) {
                 cout << "Kamu mengambil harapan kosong dari penyimpanan." << endl;
             } else if (validity = 2) {
-                cout << "Apa yang kamu lakukan? Kamu mencoba untuk memakan itu?!!" << endl;
+                cout << "Apa yang kamu lakukan??!! Kamu mencoba untuk memakan itu?!!" << endl;
             }
             cout << "Silahkan masukan slot yang berisi makanan." << endl << endl;
             cout << "Slot: ";

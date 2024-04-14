@@ -334,6 +334,15 @@ int Peternak::bayarPajak() {
 int Peternak::calculateTax() {
     int netoKekayaan = getKekayaan();
     int KTKP = 11; // Peternak
+
+    Grid<Item> inv = inventory.getGrid();
+    for (int i = 0; i < inv.getRows(); i++) {
+        for (int j = 0; j < inv.getCols(); j++) {
+            if (inv.getCell(i, j) != nullptr) {
+                netoKekayaan += inv.getCell(i, j)->getPrice();
+            }
+        }
+    }
     
     vector<string> list = peternakan.getListPenyimpanan();
     for (int i = 0; i < list.size(); i++) {
