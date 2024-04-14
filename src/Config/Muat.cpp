@@ -103,7 +103,7 @@ void Muat::read(ifstream& inputFile){
 
 void Muat::setUp(){
     for(auto i = pemain.begin(); i != pemain.end(); i++){
-        Pemain* player;
+        Pemain* player = nullptr;
         if(get<0>(dataPemain.at(*i)) == "Petani"){
             setUpPetani(player, *i);
             
@@ -123,7 +123,7 @@ void Muat::setUpPetani(Pemain* player, string nama){
     Petani* currenPetani = (Petani*)(player);
     Ladang& ladang = currenPetani->getLadang();
     for(auto j = LadangdanTernak.at(nama).begin(); j != LadangdanTernak.at(nama).end(); j++){
-        pair<int,int> posisi = currenPetani->konversiKoordinat(get<0>(*j));
+        pair<int,int> posisi = Penyimpanan::konversiKoordinat(get<0>(*j));
         Tanaman* currTanaman = new Tanaman(get<1>(*j), get<2>(*j));
         // masukkin ladang
         ladang.tambahTanaman(posisi.first, posisi.second, currTanaman);
@@ -134,7 +134,7 @@ void Muat::setUpPeternak(Pemain* player, string nama){
     Peternak* currenPeternak = (Peternak*)(player);
     Peternakan& peternakan = currenPeternak->getPeternakan();
     for(auto j = LadangdanTernak.at(nama).begin(); j != LadangdanTernak.at(nama).end(); j++){
-        pair<int,int> posisi = currenPeternak->konversiKoordinat(get<0>(*j));
+        pair<int,int> posisi = Penyimpanan::konversiKoordinat(get<0>(*j));
         if(Config::getType(get<1>(*j)) == "HERBIVORE"){
             Herbivora* animal = new Herbivora(get<1>(*j), get<2>(*j));
             // masukkin peternakan

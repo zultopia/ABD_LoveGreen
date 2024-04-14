@@ -5,10 +5,10 @@ vector<string> Toko::urutan;
 
 Toko::Toko(){}
 void Toko::setUpToko(){
-    map<string,tuple<int,string,string,int,int>>& plant = Config::getPlantMap();
-    map<string,tuple<int,string,string,int,int>>& animal = Config::getAnimalMap();
-    map<string,tuple<int,string,string,string,int,int>>& product = Config::getProductMap();
-    map<string,tuple<int,string,int,map<string,int>>>& recipe = Config::getRecipeMap();
+    const map<string,tuple<int,string,string,int,int>> plant = Config::getPlantMap();
+    const map<string,tuple<int,string,string,int,int>> animal = Config::getAnimalMap();
+    const map<string,tuple<int,string,string,string,int,int>> product = Config::getProductMap();
+    const map<string,tuple<int,string,int,map<string,int>>> recipe = Config::getRecipeMap();
     for(auto i = plant.begin(); i != plant.end(); i++){
         tambahTanamanHewan(i->first,Config::getPrice(i->first));
     }
@@ -25,7 +25,7 @@ void Toko::setUpToko(){
 
 void Toko::setUpTokoMuat(){
     setUpToko();
-    map<string,int>& temp = SimpanMuat::getToko();
+    const map<string,int> temp = SimpanMuat::getToko();
     for(auto i = temp.begin(); i != temp.end(); i++){
         aturJumlahBarang(i->first, i->second);
     }
@@ -113,13 +113,13 @@ int Toko::BeliWalikota(int no, int Quantity){
         itr++;
     }
     if(itr == urutan.end() && i != no){
-        TokoException e("Nomor tidak valid\n");
+        InvalidNumberTokoException e;
         throw e;
     }
     // itr = barang yang ditunjuk oleh no
     if(barang.at(*itr).second != -1){
         if(barang.at(*itr).second < Quantity){
-            TokoException e("Quantity tidak valid\n");
+            InvalidQuantityTokoException e;
             throw e;
         }
         barang.at(*itr).second -= Quantity;
@@ -137,7 +137,7 @@ string Toko::getBarangNoUrutWalikota(int no){
         itr++;
     }
     if(itr == urutan.end() && i != no){
-        TokoException e("Nomor tidak valid\n");
+        InvalidNumberTokoException e;
         throw e;
     }
     // itr = barang yang ditunjuk oleh no
@@ -153,13 +153,13 @@ int Toko::BeliPeternakPetani(int no, int Quantity){
         itr++;
     }
     if(itr == urutan.end() && i != no){
-        TokoException e("Nomor tidak valid\n");
+        InvalidNumberTokoException e;
         throw e;
     }
     // itr = barang yang ditunjuk oleh no
     if(barang.at(*itr).second != -1){
         if(barang.at(*itr).second < Quantity){
-            TokoException e("Quantity tidak valid\n");
+            InvalidQuantityTokoException e;
             throw e;
         }
         barang.at(*itr).second -= Quantity;
@@ -184,7 +184,7 @@ string Toko::getBarangNoUrutPeternakPetani(int no){
         itr++;
     }
     if(itr == urutan.end() && i != no){
-        TokoException e("Nomor tidak valid\n");
+        InvalidNumberTokoException e;
         throw e;
     }
     // itr = barang yang ditunjuk oleh no

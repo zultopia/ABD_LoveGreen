@@ -5,14 +5,9 @@
 #include <map>
 #include <string>
 #include <vector>
-// #include "../Config/Config.cpp"
-// #include "../Config/Muat.cpp"
-// #include "TokoException.cpp"
 #include "../Config/Config.hpp"
-#include "../Config/Muat.hpp"
-#include "TokoException.hpp"
-
-
+#include "../Config/SimpanMuat.hpp"
+#include "../Exception/TokoException.hpp"
 
 using namespace std;
 
@@ -22,8 +17,6 @@ class Toko{
         static map<string,pair<int,int> > barang;
         static vector<string> urutan;
         
-
-
     public:
 
         Toko();

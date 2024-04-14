@@ -2,7 +2,7 @@
 #define HEWAN_HPP
 
 #include <iostream>
-#include "HewanException.hpp"
+#include "../Exception/HewanException.hpp"
 #include "../Item/Item.hpp"
 #include "../Produk/Produk.hpp"
 #include "../Config/Config.hpp"
