@@ -32,7 +32,7 @@ class Penyimpanan {
 
         static pair<int, int> konversiKoordinat(string koordinat);
 
-        static vector<tuple<int, int>> ParserListKoordinat(string input);
+        static vector<tuple<int, int>> parserListKoordinat(string input);
 
         bool checkMakanan(int row, int col);
 

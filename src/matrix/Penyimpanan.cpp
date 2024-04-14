@@ -136,7 +136,7 @@ pair<int, int> Penyimpanan::konversiKoordinat(string koordinat) {
     return {x, y};
 }
 
-vector<tuple<int, int>> Penyimpanan::ParserListKoordinat(string slots){
+vector<tuple<int, int>> Penyimpanan::parserListKoordinat(string slots){
     string delimiter = ",";
     vector<string> slotList;
     vector<tuple<int, int>> slotIntList;
