@@ -9,7 +9,7 @@
 #include <sstream>
 #include <tuple>
 // #include "ConfigException.cpp"
-#include "ConfigException.hpp"
+#include "../Exception/ConfigException.hpp"
 
 using namespace std;
 

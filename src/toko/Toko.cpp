@@ -113,13 +113,13 @@ int Toko::BeliWalikota(int no, int Quantity){
         itr++;
     }
     if(itr == urutan.end() && i != no){
-        TokoException e("Nomor tidak valid\n");
+        InvalidNumberTokoException e;
         throw e;
     }
     // itr = barang yang ditunjuk oleh no
     if(barang.at(*itr).second != -1){
         if(barang.at(*itr).second < Quantity){
-            TokoException e("Quantity tidak valid\n");
+            InvalidQuantityTokoException e;
             throw e;
         }
         barang.at(*itr).second -= Quantity;
@@ -137,7 +137,7 @@ string Toko::getBarangNoUrutWalikota(int no){
         itr++;
     }
     if(itr == urutan.end() && i != no){
-        TokoException e("Nomor tidak valid\n");
+        InvalidNumberTokoException e;
         throw e;
     }
     // itr = barang yang ditunjuk oleh no
@@ -153,13 +153,13 @@ int Toko::BeliPeternakPetani(int no, int Quantity){
         itr++;
     }
     if(itr == urutan.end() && i != no){
-        TokoException e("Nomor tidak valid\n");
+        InvalidNumberTokoException e;
         throw e;
     }
     // itr = barang yang ditunjuk oleh no
     if(barang.at(*itr).second != -1){
         if(barang.at(*itr).second < Quantity){
-            TokoException e("Quantity tidak valid\n");
+            InvalidQuantityTokoException e;
             throw e;
         }
         barang.at(*itr).second -= Quantity;
@@ -184,7 +184,7 @@ string Toko::getBarangNoUrutPeternakPetani(int no){
         itr++;
     }
     if(itr == urutan.end() && i != no){
-        TokoException e("Nomor tidak valid\n");
+        InvalidNumberTokoException e;
         throw e;
     }
     // itr = barang yang ditunjuk oleh no

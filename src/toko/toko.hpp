@@ -7,7 +7,7 @@
 #include <vector>
 #include "../Config/Config.hpp"
 #include "../Config/SimpanMuat.hpp"
-#include "TokoException.hpp"
+#include "../Exception/TokoException.hpp"
 
 using namespace std;
 
