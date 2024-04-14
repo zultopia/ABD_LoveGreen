@@ -5,10 +5,10 @@ vector<string> Toko::urutan;
 
 Toko::Toko(){}
 void Toko::setUpToko(){
-    map<string,tuple<int,string,string,int,int>>& plant = Config::getPlantMap();
-    map<string,tuple<int,string,string,int,int>>& animal = Config::getAnimalMap();
-    map<string,tuple<int,string,string,string,int,int>>& product = Config::getProductMap();
-    map<string,tuple<int,string,int,map<string,int>>>& recipe = Config::getRecipeMap();
+    const map<string,tuple<int,string,string,int,int>> plant = Config::getPlantMap();
+    const map<string,tuple<int,string,string,int,int>> animal = Config::getAnimalMap();
+    const map<string,tuple<int,string,string,string,int,int>> product = Config::getProductMap();
+    const map<string,tuple<int,string,int,map<string,int>>> recipe = Config::getRecipeMap();
     for(auto i = plant.begin(); i != plant.end(); i++){
         tambahTanamanHewan(i->first,Config::getPrice(i->first));
     }
@@ -25,7 +25,7 @@ void Toko::setUpToko(){
 
 void Toko::setUpTokoMuat(){
     setUpToko();
-    map<string,int>& temp = SimpanMuat::getToko();
+    const map<string,int> temp = SimpanMuat::getToko();
     for(auto i = temp.begin(); i != temp.end(); i++){
         aturJumlahBarang(i->first, i->second);
     }

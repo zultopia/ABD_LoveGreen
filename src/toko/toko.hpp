@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 #include "../Config/Config.hpp"
-#include "../Config/Muat.hpp"
 #include "../Config/SimpanMuat.hpp"
 #include "../Exception/TokoException.hpp"
 

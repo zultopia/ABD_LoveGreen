@@ -169,7 +169,7 @@ void Walikota::beli(){
 
     try {
         pilihanInt = stoi(pilihan);
-    } catch (invalid_argument e) {
+    } catch (invalid_argument& e) {
         valid = false;
     }
 
@@ -181,7 +181,7 @@ void Walikota::beli(){
 
         try {
             pilihanInt = stoi(pilihan);
-        } catch (invalid_argument e) {
+        } catch (invalid_argument& e) {
             valid = false;
         }
     }
@@ -193,7 +193,7 @@ void Walikota::beli(){
 
     try {
         kuantitasInt = stoi(kuantitas);
-    } catch (invalid_argument e) {
+    } catch (invalid_argument& e) {
         valid = false;
     }
 
@@ -205,7 +205,7 @@ void Walikota::beli(){
 
         try {
             kuantitasInt = stoi(kuantitas);
-        } catch (invalid_argument e) {
+        } catch (invalid_argument& e) {
             valid = false;
         }
     }

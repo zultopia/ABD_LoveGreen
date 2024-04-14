@@ -145,7 +145,7 @@ vector<tuple<int, int>> Penyimpanan::parserListKoordinat(string slots){
     string koordinat;
     while ((pos = slots.find(delimiter)) != string::npos) {
         koordinat = slots.substr(0, pos);
-        koordinat.erase(std::remove_if(koordinat.begin(), koordinat.end(), ::isspace),koordinat.end());
+        koordinat.erase(remove_if(koordinat.begin(), koordinat.end(), ::isspace),koordinat.end());
         slotList.push_back(koordinat);
         slots.erase(0, pos + delimiter.length());
         koordinatInt = konversiKoordinat(koordinat);
