@@ -6,6 +6,7 @@
 #include <cctype>
 #include <tuple>
 #include <vector>
+#include "../matrix/Grid.hpp"
 #include "../Matrix/Penyimpanan.hpp"
 #include "../config/Config.hpp"
 #include "../Toko/Toko.hpp"

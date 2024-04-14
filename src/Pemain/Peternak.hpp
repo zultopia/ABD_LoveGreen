@@ -2,13 +2,14 @@
 #define __PETERNAK_HPP__
 
 #include "Pemain.hpp"
-#include "../Peternakan.hpp"
+#include "../Matrix/Peternakan.hpp"
 
 class Peternak : public Pemain {
 	private:
 		Peternakan peternakan;
 	public:
 		Peternak(string& username, int kekayaan, int beratBadan);
+		~Peternak();
 
 		Peternakan& getPeternakan();
 		string getRole();
