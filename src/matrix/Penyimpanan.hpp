@@ -2,6 +2,7 @@
 #define __PENYIMPANAN_HPP__
 
 #include "Grid.hpp"
+#include <algorithm>
 
 class Penyimpanan {
     protected:
