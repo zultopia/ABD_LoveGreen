@@ -29,30 +29,23 @@ string Petani::getRole() {
 }
 
 void Petani::tanam() {
+    if (ladang.hitungSlotKosong() == 0) {
+        throw PemainException("Ladang sudah penuh. Tidak dapat menanam lebih banyak tanaman.");
+    }
+
     cout << endl << "Pilih tanaman dari penyimpanan:\n" << endl;
     inventory.cetakInfo();
 
     string slot;
     cout << "Slot: "; cin >> slot; cout << endl; 
 
-    Item* item = inventory.ambilItem(slot);
+    Item* item = inventory.ambilJenisItem(slot, "Tanaman");
     if (item != nullptr) {
-        if (ladang.hitungSlotKosong() == 0) {
-            throw PemainException("Ladang sudah penuh. Tidak dapat menanam lebih banyak tanaman.");
-        }
-
-        string name = item->getName();
-        cout << name << endl;
-        auto it = Config::getPlantMap().find(name);
-        if (it == Config::getPlantMap().end()) { 
-            inventory.tambahItem(item);
-            throw PemainException("Item yang dipilih bukan tanaman."); 
-        }
         cout << "Kamu memilih " << item->getName() << ".\n" << endl;
 
         ladang.menanamTanaman(item);
     } else {
-        throw PemainException("Tidak ada Item pada posisi tersebut.");
+        throw PemainException("Item yang dipilih tidak sesuai/Tidak ada Item pada posisi tersebut.");
     }
 }
 
@@ -224,16 +217,11 @@ int Petani::calculateTax() {
         }
     }
 
-    vector<string> list = ladang.getListPenyimpanan();
-    for (int i = 0; i < list.size(); i++) {
-        if (Config::getPlantMap().find(list[i]) != Config::getPlantMap().end()) {
-            netoKekayaan += get<4>(Config::getPlantMap()[list[i]]);
-        }
-        if (Config::getAnimalMap().find(list[i]) != Config::getAnimalMap().end()) {
-            netoKekayaan += get<4>(Config::getAnimalMap()[list[i]]);
-        }
-        if (Config::getProductMap().find(list[i]) != Config::getProductMap().end()) {
-            netoKekayaan += get<5>(Config::getProductMap()[list[i]]);
+    for (int i = 0; i < ladang.getRows(); i++) {
+        for (int j = 0; j < ladang.getCols(); j++) {
+            if (ladang.getCell(i, j) != nullptr) {
+                netoKekayaan += ladang.getCell(i, j)->getPrice();
+            }
         }
     }
 
