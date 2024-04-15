@@ -45,7 +45,7 @@ void Petani::tanam() {
 
         ladang.menanamTanaman(item);
     } else {
-        throw PemainException("Item yang dipilih tidak sesuai/Tidak ada Item pada posisi tersebut.");
+        throw PemainException("Tanam gagal...\nPastikan slot yang dipilih tidak kosong dan merupakan tanaman");
     }
 }
 
