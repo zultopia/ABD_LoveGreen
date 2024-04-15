@@ -13,9 +13,13 @@
 
 class GameEngine{
     private:
-        static map<string,int> commandTable;
-        static vector<Pemain*> listPemain;
-        static string command;
+        string command;
+        bool finish;
     public:
-        static void ReceiveCommand();
+        GameEngine();
+        void setUp();
+        void defaultSetUp();
+        void receiveCommand();
+        void loopCommand();
+        void run();
 };
