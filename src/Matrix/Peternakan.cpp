@@ -120,8 +120,8 @@ void Peternakan::menanamTernak(Item* item) {
             else if (type.compare("HERBIVORE") == 0) { hewan = new Herbivora(nama); } 
             else { hewan = new Omnivora(nama); }
             tambahHewan(koordinatPetak.first + 1, koordinatPetak.second, hewan);
-            cout << "Dengan hati-hati, kamu meletakkan seekor Chicken di kandang." << endl;
-            cout << item->getName() << " telah menjadi peliharaanmu sekarang!" << endl;
+            cout << "Dengan hati-hati, kamu meletakkan seekor "<< hewan->getName() << " di kandang." << endl;
+            cout << hewan->getName() << " telah menjadi peliharaanmu sekarang!" << endl;
             ternakBerhasil = true;
         }
     }

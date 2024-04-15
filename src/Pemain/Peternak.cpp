@@ -44,7 +44,7 @@ void Peternak::ternak() {
         cout << "Kamu memilih " << item->getName() << ".\n" << endl;
         peternakan.menanamTernak(item);
     } else {
-        throw PemainException("Item yang dipilih tidak sesuai/Tidak ada Item pada posisi tersebut.");
+        throw PemainException("Ternak gagal...\nPastikan slot yang dipilih tidak kosong dan merupakan hewan");
     }
 }
 
@@ -84,7 +84,7 @@ void Peternak::beriPangan() {
             }
 
         } else {
-            throw PemainException("Item yang dipilih tidak sesuai/Tidak ada Item pada posisi tersebut.");
+            throw PemainException("Gagal memberi makan...\nPastikan slot yang dipilih tidak kosong dan merupakan produk");
         }
     } else {
         throw PemainException("Petak kandang tersebut kosong.");
