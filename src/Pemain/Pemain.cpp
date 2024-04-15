@@ -34,10 +34,10 @@ Pemain::Pemain(string& username, int kekayaan, int beratBadan) : username(userna
         listPemain.insert(itr, this);
         numPemain++;
     }else{
-        while (username.compare((*itr)->getUsername()) < 0 && itr != listPemain.end()-1) {
+        while (username.compare((*itr)->getUsername()) > 0 && itr != listPemain.end()-1) {
             itr++;
         }
-        if(username.compare((*itr)->getUsername()) < 0){
+        if(username.compare((*itr)->getUsername()) > 0){
             itr++;
         }
         listPemain.insert(itr, this);
@@ -75,6 +75,9 @@ void Pemain::simpan() {
 }
 
 bool Pemain::namaValid(string nama){
+    if (nama.length() == 0) {
+        return false;
+    }
     for (int i = 0; i < listPemain.size(); i++) {
         if (nama.compare(listPemain[i]->username) == 0) {
             return false;

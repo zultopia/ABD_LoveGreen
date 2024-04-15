@@ -39,7 +39,10 @@ void Walikota::pungutPajak(){
             if (itr == pajak.end()){
                 pajak.push_back(tuple<Pemain*, int>(listPemain[i], currentPajak));
             } else {
-                while ((currentPajak < get<1>(*itr) ||(currentPajak == get<1>(*itr) && username.compare(get<0>(*itr)->getUsername()) < 0)) && itr != pajak.end()) {
+                while ((currentPajak < get<1>(*itr) || (currentPajak == get<1>(*itr) && username.compare(get<0>(*itr)->getUsername()) > 0)) && itr != pajak.end()-1) {
+                    itr++;
+                }
+                if (currentPajak < get<1>(*itr) || (currentPajak == get<1>(*itr) && username.compare(get<0>(*itr)->getUsername()) > 0)) {
                     itr++;
                 }
                 pajak.insert(itr, tuple<Pemain*, int>(listPemain[i], currentPajak));
@@ -147,29 +150,32 @@ void Walikota::tambahPemain(){
     if (kekayaan < 50) {
         cout << "Uang tidak cukup!" << endl;
     } else {
+        getline(cin, jenis);
         cout << "Masukkan jenis pemain: ";
-        cin >> jenis;
-        while (jenis.compare("walikota") != 0 && jenis.compare("petani") != 0 && jenis.compare("peternak") != 0) {
+        getline(cin, jenis);
+        while (jenis.compare("petani") != 0 && jenis.compare("peternak") != 0) {
             cout << "Masukkan jenis pemain: ";
-            cin >> jenis;
+            getline(cin, jenis);
         }
         cout << "Masukkan nama pemain: ";
-        cin >> nama;
+        getline(cin, nama);
         while (!namaValid(nama)) {
             cout << "Masukkan nama pemain: ";
-            cin >> nama;
+            getline(cin, nama);
         }
         Pemain* pemainBaru;
-        if (jenis.compare("walikota") == 0){
-            pemainBaru = new Walikota(nama, 50, 40);
-        } else if (jenis.compare("petani") == 0) {
+        if (jenis.compare("petani") == 0) {
             pemainBaru = new Petani(nama, 50, 40);
-        } else if (jenis.compare("peternak")) {
+        } else if (jenis.compare("peternak") == 0) {
             pemainBaru = new Peternak(nama, 50, 40);
         }
 
+        if (username.compare(nama) > 0) {
+            currentPemain++;
+        }
+
         cout << "Pemain baru ditambahkan!" << endl;
-        cout << "Selamat datang " << '"' << pemainBaru->getUsername() << "' di kota ini!" << endl;
+        cout << "Selamat datang " << "“" << pemainBaru->getUsername() << "“ di kota ini!" << endl;
     }
 }
 
@@ -306,6 +312,8 @@ void Walikota::beli(){
         getline(cin, buf);
         getline(cin, slots);
         slotIntList = Penyimpanan::parserListKoordinat(slots);
+
+
         cout << slotIntList.size() << endl;
         if (slotIntList.size() == kuantitasInt) {
             slotsValid = true;
@@ -317,23 +325,23 @@ void Walikota::beli(){
     // Add item ke penyimpanan
     for (auto i = slotIntList.begin(); i != slotIntList.end(); i++) {
         if (Config::isExistPlant(namaBarang)) {
-            getInventory().tambahItem(get<0>(*i), get<1>(*i), new Tanaman(namaBarang));
+            inventory.tambahItem(get<0>(*i), get<1>(*i), new Tanaman(namaBarang));
         } else if (Config::isExistAnimal(namaBarang)) {
             if (Config::getType(namaBarang).compare("HERBIVORE") == 0) {
-                getInventory().tambahItem(get<0>(*i), get<1>(*i), new Herbivora(namaBarang));
+                inventory.tambahItem(get<0>(*i), get<1>(*i), new Herbivora(namaBarang));
             } else if (Config::getType(namaBarang).compare("CARNIVORE") == 0) {
-                getInventory().tambahItem(get<0>(*i), get<1>(*i), new Karnivora(namaBarang));
+                inventory.tambahItem(get<0>(*i), get<1>(*i), new Karnivora(namaBarang));
             } else {
-                getInventory().tambahItem(get<0>(*i), get<1>(*i), new Omnivora(namaBarang));
+                inventory.tambahItem(get<0>(*i), get<1>(*i), new Omnivora(namaBarang));
             }
         } else if (Config::isExistProduct(namaBarang)) {
             if (Config::getType(namaBarang).compare("PRODUCT_MATERIAL_PLANT") == 0) {
-                getInventory().tambahItem(get<0>(*i), get<1>(*i), (Item*) new ProdukUneatable(namaBarang));
+                inventory.tambahItem(get<0>(*i), get<1>(*i), (Item*) new ProdukUneatable(namaBarang));
             } else {
-                getInventory().tambahItem(get<0>(*i), get<1>(*i), (Item*) new ProdukEatable(namaBarang));
+                inventory.tambahItem(get<0>(*i), get<1>(*i), (Item*) new ProdukEatable(namaBarang));
             }
         } else {
-            getInventory().tambahItem(get<0>(*i), get<1>(*i), new Bangunan(namaBarang));
+            inventory.tambahItem(get<0>(*i), get<1>(*i), new Bangunan(namaBarang));
         }
     }
 }
