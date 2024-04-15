@@ -44,7 +44,7 @@ void Peternakan::cetakInfo() {
                     cout << RED;
                 }
             }
-            cout << setw(5) << (cellValue != nullptr ? cellValue->getCode() : "") << RESET << "|";
+            cout << setw(5) << (cellValue != nullptr ? cellValue->getCode() + " " : "") << RESET << "|";
         }
         cout << endl;
         cout << setw(4) << "+";

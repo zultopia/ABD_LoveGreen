@@ -34,7 +34,7 @@ void Penyimpanan::cetakInfo() {
         }
         cout << setw(2) << "|";
         for (int j = 0; j < cols; ++j) {
-            cout << setw(5) << (grid.getCell(i, j) != nullptr ? grid.getCell(i, j)->getCode() : "") << "|"; 
+            cout << setw(5) << (grid.getCell(i, j) != nullptr ? grid.getCell(i, j)->getCode() + " " : "") << "|"; 
         }
         cout << endl;
         cout << setw(4) << "+";

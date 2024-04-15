@@ -93,9 +93,11 @@ void Peternak::beriPangan() {
 
             if (isAnimal) {
                 // Item ada di map animal
+                inventory.tambahItem(item);
                 throw PemainException("Hewan hanya dapat memakan produk hewan");
             } else if (isPlant) {
                 // Item ada di map plant
+                inventory.tambahItem(item);
                 throw PemainException("Hewan hanya dapat memakan produk tanaman");
             } else if (isProduct) {
                 // Item ada di map product
