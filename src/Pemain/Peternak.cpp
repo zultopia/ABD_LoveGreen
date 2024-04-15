@@ -11,6 +11,7 @@
 #include "../Tanaman/Tanaman.hpp"
 #include "../Matrix/Penyimpanan.hpp"
 #include "../Exception/PemainException.hpp"
+#include "../Exception/HewanException.hpp"
 #include "../Matrix/Grid.hpp"
 #include "../Toko/Toko.hpp"
 #include "../Produk/Produk.hpp"
@@ -29,107 +30,65 @@ string Peternak::getRole() {
 }
 
 void Peternak::ternak() {
+    if (peternakan.hitungSlotKosong() == 0) {
+        throw PemainException("Peternakan sudah penuh. Tidak dapat menambahkan lebih banyak hewan.");
+    }
     cout << endl << "Pilih hewan dari penyimpanan:\n" << endl;
     inventory.cetakInfo();
 
     string slot;
     cout << "Slot: "; cin >> slot; cout << endl; 
 
-    Item* item = inventory.ambilItem(slot);
+    Item* item = inventory.ambilJenisItem(slot, "Hewan");
     if (item != nullptr) {
-        if (peternakan.hitungSlotKosong() == 0) {
-            throw PemainException("Peternakan sudah penuh. Tidak dapat menambahkan lebih banyak hewan.");
-        }
-
-        string nama = item->getName();
-        auto it = Config::getAnimalMap().find(nama);
-        if (it == Config::getAnimalMap().end()) {
-            inventory.tambahItem(item);
-            throw PemainException("Item yang dipilih bukan hewan.");
-        }
         cout << "Kamu memilih " << item->getName() << ".\n" << endl;
-
         peternakan.menanamTernak(item);
     } else {
-        cout << "masuk situ" << endl;
-        throw PemainException("Tidak ada Item pada posisi tersebut.");
+        throw PemainException("Item yang dipilih tidak sesuai/Tidak ada Item pada posisi tersebut.");
     }
 }
 
 void Peternak::beriPangan() {
+    if (peternakan.hitungSlotKosong() == peternakan.getRows() * peternakan.getCols()) {
+        throw PemainException("Peternakan kosong. Tidak ada hewan yang bisa diberi makan.");
+    }
     cout << endl << "Pilih petak kandang yang akan ditinggali\n" << endl;
     peternakan.cetakInfo();
 
-    // Meminta input slot petak kandang
     string petak;
     cout << endl; cout << "Petak kandang: "; cin >> petak; cout << endl;
 
-    // Memeriksa apakah petak kandang sudah ditempati
     pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
     Hewan* hewan = peternakan.getCell(koordinatPetak.first, koordinatPetak.second);
 
     if (hewan != nullptr) {
-        string type = hewan->getTypeHewan();
-        bool isKarnivore = (type == "CARNIVORE");
-        bool isHerbivore = (type == "HERBIVORE");
-        bool isOmnivore = (type == "OMNIVORE");
-
         cout << "Kamu memilih " << hewan->getName() << " untuk diberi makan.\n" << endl;
-        cout << "Pilih pangan yang akan diberikan:" << endl;
-        cout << endl;
+        cout << "Pilih pangan yang akan diberikan:\n" << endl;
         inventory.cetakInfo();
 
-        // Meminta input slot item yang akan diberikan
         string slot;
         cout << "Slot: "; cin >> slot; cout << endl;
 
-        // Mengambil item dari penyimpanan
-        pair<int, int> koordinatItem = Penyimpanan::konversiKoordinat(slot);
-        Item* item = inventory.ambilItem(koordinatItem.first + 1, koordinatItem.second);
+        Item* item = inventory.ambilJenisItem(slot, "Produk");
         if (item != nullptr) {
-            bool isAnimal = (Config::getAnimalMap().find(item->getName()) != Config::getAnimalMap().end());
-            bool isPlant = (Config::getPlantMap().find(item->getName()) != Config::getPlantMap().end());
-            bool isProduct = (Config::getProductMap().find(item->getName()) != Config::getProductMap().end());
+            string typePangan = get<2>(Config::getProductMap()[item->getName()]);
+            Produk* produkPangan;
+            if (typePangan == "PRODUCT_MATERIAL_PLANT") { produkPangan = new ProdukUneatable(item->getName());} 
+            else { produkPangan = new ProdukEatable(item->getName()); }
 
-            if (isAnimal) {
-                // Item ada di map animal
-                inventory.tambahItem(item);
-                throw PemainException("Hewan hanya dapat memakan produk hewan");
-            } else if (isPlant) {
-                // Item ada di map plant
-                inventory.tambahItem(item);
-                throw PemainException("Hewan hanya dapat memakan produk tanaman");
-            } else if (isProduct) {
-                // Item ada di map product
-                string typePangan = get<2>(Config::getProductMap()[item->getName()]);
-                Produk* produkPangan;
-                if (typePangan == "PRODUCT_MATERIAL_PLANT") { produkPangan = new ProdukUneatable(item->getName());} 
-                else { produkPangan = new ProdukEatable(item->getName()); }
-                
-                if (Config::getAnimalMap().find(produkPangan->getOrigin()) != Config::getAnimalMap().end()) {
-                    if (isKarnivore || isOmnivore) {
-                        hewan->eat(*produkPangan);
-                        cout << "Hewan telah diberi makan." << endl;
-                    } else if (isHerbivore) {
-                        cout << "Hewan Herbivora hanya dapat memakan produk tanaman." << endl;
-                    } 
-                } else if (Config::getPlantMap().find(produkPangan->getOrigin()) != Config::getPlantMap().end()) {
-                    if (isHerbivore || isOmnivore) {
-                        hewan->eat(*produkPangan);
-                        cout << "Hewan telah diberi makan." << endl;
-                    } else if (isKarnivore) {
-                        cout << "Hewan Karnivora hanya dapat memakan produk hewan." << endl;
-                    }
-                }
+            try {
+                hewan->eat(*produkPangan);
+                delete produkPangan;
+            } catch(InvalidEatingException& e) {
+                e.printMessage();
             }
 
         } else {
-            throw PemainException("Tidak ada Item pada posisi tersebut.");
+            throw PemainException("Item yang dipilih tidak sesuai/Tidak ada Item pada posisi tersebut.");
         }
     } else {
         throw PemainException("Petak kandang tersebut kosong.");
     }
-    delete hewan;
 }
 
 void Peternak::cetakPeternakan() {
@@ -298,33 +257,21 @@ int Peternak::calculateTax() {
         }
     }
     
-    vector<string> list = peternakan.getListPenyimpanan();
-    for (int i = 0; i < list.size(); i++) {
-        if (Config::getPlantMap().find(list[i]) != Config::getPlantMap().end()) {
-            netoKekayaan += get<4>(Config::getPlantMap()[list[i]]);
-        }
-        if (Config::getAnimalMap().find(list[i]) != Config::getAnimalMap().end()) {
-            netoKekayaan += get<4>(Config::getAnimalMap()[list[i]]);
-        }
-        if (Config::getProductMap().find(list[i]) != Config::getProductMap().end()) {
-            netoKekayaan += get<5>(Config::getProductMap()[list[i]]);
+    for (int i = 0; i < peternakan.getRows(); i++) {
+        for (int j = 0; j < peternakan.getCols(); j++) {
+            if (peternakan.getCell(i, j) != nullptr) {
+                netoKekayaan += peternakan.getCell(i, j)->getPrice();
+            }
         }
     }
 
     int KKP = netoKekayaan - KTKP;
-    if (KKP <= 0) {
-        return 0;
-    } else if (KKP <= 6) {
-        return KKP * 0.05;
-    } else if (KKP > 6 && KKP <= 25) {
-        return KKP * 0.15;
-    } else if (KKP > 25 && KKP <= 50) {
-        return KKP * 0.25;
-    } else if (KKP > 50 && KKP <= 500) {
-        return KKP * 0.3;
-    } else {
-        return KKP * 0.35;
-    }
+    if (KKP <= 0) { return 0;} 
+    else if (KKP <= 6) { return KKP * 0.05; } 
+    else if (KKP > 6 && KKP <= 25) { return KKP * 0.15; } 
+    else if (KKP > 25 && KKP <= 50) { return KKP * 0.25; } 
+    else if (KKP > 50 && KKP <= 500) { return KKP * 0.3; } 
+    else { return KKP * 0.35; }
 }
 
 void Peternak::beli() {
