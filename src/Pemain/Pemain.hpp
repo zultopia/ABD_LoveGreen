@@ -45,26 +45,6 @@ class Pemain {
 		void cetakPenyimpanan();
 };
 
-// Declare listPemain
-vector<Pemain*> Pemain::listPemain;
-int Pemain::currentPemain = 0;
-int Pemain::numPemain = 0;
-map<string,int> Pemain::commandTable = {
-    {"NEXT",1},
-    {"CETAK_PENYIMPANAN",2},
-    {"PUNGUT_PAJAK",3},
-    {"CETAK_LADANG",4},
-    {"CETAK_PETERNAKAN",5},
-    {"TANAM",6},
-    {"TERNAK",7},
-    {"BANGUN",8},
-    {"MAKAN",9},
-    {"KASIH_MAKAN",10},
-    {"BELI",11},
-    {"JUAL",12},
-    {"PANEN",13},
-    {"SIMPAN",15},
-    {"TAMBAH_PEMAIN",16}
-};
+
 
 #endif
