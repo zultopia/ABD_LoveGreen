@@ -1,4 +1,7 @@
 #include "Toko.hpp"
+#include "../Config/Config.hpp"
+#include "../Config/SimpanMuat.hpp"
+#include "../Exception/TokoException.hpp"
 
 map<string,pair<int,int>> Toko::barang;
 vector<string> Toko::urutan;

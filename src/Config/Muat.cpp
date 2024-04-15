@@ -1,4 +1,18 @@
 #include "Muat.hpp"
+#include "SimpanMuat.hpp"
+#include "../Pemain/Pemain.hpp"
+#include "../Pemain/Petani.hpp"
+#include "../Pemain/Peternak.hpp"
+#include "../Pemain/Walikota.hpp"
+#include "../Hewan/Herbivora.hpp"
+#include "../Hewan/Karnivora.hpp"
+#include "../Hewan/Omnivora.hpp"
+#include "../Produk/ProdukEatable.hpp"
+#include "../Produk/ProdukUneatable.hpp"
+#include "../Item/Bangunan.hpp"
+#include "Config.hpp"
+#include "../Exception/ConfigException.hpp"
+#include "Toko/toko.hpp"
 
 string Muat::readPath(){
     string path;

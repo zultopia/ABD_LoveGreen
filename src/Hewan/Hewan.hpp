@@ -2,12 +2,10 @@
 #define HEWAN_HPP
 
 #include <iostream>
-#include "../Exception/HewanException.hpp"
-#include "../Item/Item.hpp"
-#include "../Produk/Produk.hpp"
-#include "../Config/Config.hpp"
 
 using namespace std;
+
+#include "Produk/Produk.hpp"
 
 class Hewan : public Item {
     private:

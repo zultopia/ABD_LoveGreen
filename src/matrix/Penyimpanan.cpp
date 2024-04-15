@@ -1,4 +1,6 @@
 #include "Penyimpanan.hpp"
+#include "../Config/Config.hpp"
+#include "../Item/Item.hpp"
 
 using namespace std;
 

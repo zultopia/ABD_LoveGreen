@@ -6,11 +6,6 @@
 #include <vector>
 #include <string>
 
-#include "../Item/Item.hpp"
-#include "../Tanaman/Tanaman.hpp"
-#include "../Hewan/Hewan.hpp"
-#include "../Config/Config.hpp"
-
 using namespace std;
 
 // Kode warna untuk menandakan apakah siap panen atau tidak

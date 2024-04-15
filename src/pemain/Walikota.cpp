@@ -1,6 +1,23 @@
 #include "./Walikota.hpp"
 #include "./Petani.hpp"
 #include "./Peternak.hpp"
+#include "./Pemain.hpp"
+#include "../Item/Item.hpp"
+#include "../Item/Bangunan.hpp"
+#include "../Matrix/Penyimpanan.hpp"
+#include "../Exception/PemainException.hpp"
+#include "../Matrix/Grid.hpp"
+#include "../Toko/Toko.hpp"
+#include "../Config/Config.hpp"
+#include "../Hewan/Hewan.hpp"
+#include "../Item/Item.hpp"
+#include "../Tanaman/Tanaman.hpp"
+#include "../Hewan/Karnivora.hpp"
+#include "../Hewan/Herbivora.hpp"
+#include "../Hewan/Omnivora.hpp"
+#include "../Produk/ProdukEatable.hpp"
+#include "../Produk/ProdukUneatable.hpp"
+
 
 // subclass functions
 Walikota::Walikota(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan){}
@@ -299,15 +316,17 @@ void Walikota::beli(){
             }
         } else if (Config::isExistProduct(namaBarang)) {
             if (Config::getType(namaBarang).compare("PRODUCT_MATERIAL_PLANT") == 0) {
-                getInventory().tambahItem(get<0>(*i), get<1>(*i), new ProdukUneatable(namaBarang));
+                getInventory().tambahItem(get<0>(*i), get<1>(*i), (Item*) new ProdukUneatable(namaBarang));
             } else {
-                getInventory().tambahItem(get<0>(*i), get<1>(*i), new ProdukEatable(namaBarang));
+                getInventory().tambahItem(get<0>(*i), get<1>(*i), (Item*) new ProdukEatable(namaBarang));
             }
         } else {
             getInventory().tambahItem(get<0>(*i), get<1>(*i), new Bangunan(namaBarang));
         }
     }
 }
+
+int Walikota::bayarPajak() {return -1;}
 
 void Walikota::jual(){
     if (inventory.hitungSlotKosong() == Config::getBesarPenyimpanan().first * Config::getBesarPenyimpanan().second) {

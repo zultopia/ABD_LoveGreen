@@ -6,12 +6,8 @@
 #include <cctype>
 #include <tuple>
 #include <vector>
-#include "../Matrix/Grid.hpp"
+#include <map>
 #include "../Matrix/Penyimpanan.hpp"
-#include "../Config/Config.hpp"
-#include "../Toko/Toko.hpp"
-#include "../Exception/PemainException.hpp"
-#include "../Config/Simpan.hpp"
 
 using namespace std;
 

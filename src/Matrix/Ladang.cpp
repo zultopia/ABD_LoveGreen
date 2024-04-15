@@ -1,4 +1,8 @@
 #include "Ladang.hpp"
+#include "Grid.hpp"
+#include "Penyimpanan.hpp"
+#include "../Tanaman/Tanaman.hpp"
+#include "../Config/Config.hpp"
 
 // CETAK_LADANG
 Ladang::Ladang() : Penyimpanan(), 

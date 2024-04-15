@@ -1,4 +1,7 @@
 #include "ProdukEatable.hpp"
+#include "Produk.hpp"
+#include "../Item/Item.hpp"
+#include "../Config/Config.hpp"
 
 // ctor
 ProdukEatable::ProdukEatable() : Produk() {}

@@ -2,6 +2,11 @@
 #include "../Hewan/Karnivora.hpp"
 #include "../Hewan/Herbivora.hpp"
 #include "../Hewan/Omnivora.hpp"
+#include "Grid.hpp"
+#include "Penyimpanan.hpp"
+#include "../Config/Config.hpp"
+#include "../Hewan/Hewan.hpp"
+#include "../Item/Item.hpp"
 
 // CETAK_PETERNAKAN
 Peternakan::Peternakan() : Penyimpanan(), grid(Config::getBesarPeternakan().first, Config::getBesarPeternakan().second) {}
@@ -127,9 +132,9 @@ void Peternakan::menanamTernak(Item* item) {
         } else {
             Hewan* hewan;
             string type = get<2>(Config::getAnimalMap()[nama]);
-            if (type == "CARNIVORE") { hewan = new Karnivora(nama); } 
-            else if (type == "HERBIVORE") { hewan = new Herbivora(nama); } 
-            else if (type == "OMNIVORE") { hewan = new Omnivora(nama); }
+            if (type.compare("CARNIVORE") == 0) { hewan = new Karnivora(nama); } 
+            else if (type.compare("HERBIVORE") == 0) { hewan = new Herbivora(nama); } 
+            else { hewan = new Omnivora(nama); }
             tambahHewan(koordinatPetak.first + 1, koordinatPetak.second, hewan);
             cout << "Dengan hati-hati, kamu meletakkan seekor Chicken di kandang." << endl;
             cout << item->getName() << " telah menjadi peliharaanmu sekarang!" << endl;

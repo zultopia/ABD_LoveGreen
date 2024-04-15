@@ -1,4 +1,5 @@
 #include "Produk.hpp"
+#include "../Config/Config.hpp"
 
 // ctor
 Produk::Produk() : Item(), idProduk(0), addedWeight(0), typeProduk(""), origin("")  {}

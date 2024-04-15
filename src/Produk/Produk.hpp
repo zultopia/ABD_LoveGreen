@@ -2,8 +2,7 @@
 #define PRODUK_HPP
 
 #include <iostream>
-#include "../Item/Item.hpp"
-#include "../Config/Config.hpp"
+#include "Item/Item.hpp"
 
 using namespace std;
 

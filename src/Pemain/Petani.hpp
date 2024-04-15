@@ -1,15 +1,8 @@
 #ifndef __PETANI_HPP__
 #define __PETANI_HPP__
 
-#include "./Pemain.hpp"
-#include "../Matrix/Ladang.hpp"
-#include "../Produk/ProdukEatable.hpp"
-#include "../Produk/ProdukUneatable.hpp"
-#include "../Hewan/Herbivora.hpp"
-#include "../Hewan/Karnivora.hpp"
-#include "../Hewan/Omnivora.hpp"
-#include "../Item/Bangunan.hpp"
-
+#include "Pemain.hpp"
+#include "Matrix/Ladang.hpp"
 
 class Petani : public Pemain {
 	private:

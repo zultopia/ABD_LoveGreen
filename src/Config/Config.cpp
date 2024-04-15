@@ -1,4 +1,5 @@
 #include "Config.hpp"
+#include "../Exception/ConfigException.hpp"
 
 map<string,tuple<int,string,string,int, int>> Config::plant;
 map<string,tuple<int,string,string,int,int>> Config::animal;

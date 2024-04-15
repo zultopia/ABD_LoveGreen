@@ -1,4 +1,7 @@
 #include "Karnivora.hpp"
+#include "../Item/Item.hpp"
+#include "../Config/Config.hpp"
+#include "../Produk/Produk.hpp"
 
 Karnivora::Karnivora(string nama) : Hewan() {
     setIdHewan(Config::getId(nama));

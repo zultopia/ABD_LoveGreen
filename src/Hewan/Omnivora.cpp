@@ -1,4 +1,7 @@
 #include "Omnivora.hpp"
+#include "../Item/Item.hpp"
+#include "../Config/Config.hpp"
+#include "../Produk/Produk.hpp"
 
 Omnivora::Omnivora(string nama) : Hewan() {
     setIdHewan(Config::getId(nama));

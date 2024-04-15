@@ -1,4 +1,8 @@
 #include "Hewan.hpp"
+#include "../Exception/HewanException.hpp"
+#include "../Item/Item.hpp"
+#include "../Produk/Produk.hpp"
+#include "../Config/Config.hpp"
 
 // ctor
 Hewan::Hewan() : Item(), idHewan(0), weightToHarvest(0), currentWeight(0), typeHewan("") {}

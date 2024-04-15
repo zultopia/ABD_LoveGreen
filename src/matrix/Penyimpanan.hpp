@@ -1,8 +1,9 @@
 #ifndef __PENYIMPANAN_HPP__
 #define __PENYIMPANAN_HPP__
 
-#include "Grid.hpp"
 #include <algorithm>
+#include "Grid.hpp"
+#include "../Item/Item.hpp"
 
 class Penyimpanan {
     protected:

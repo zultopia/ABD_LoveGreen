@@ -1,4 +1,7 @@
 #include "ProdukUneatable.hpp"
+#include "Produk.hpp"
+#include "../Item/Item.hpp"
+#include "../Config/Config.hpp"
 
 // ctor
 ProdukUneatable::ProdukUneatable() : Produk() {}

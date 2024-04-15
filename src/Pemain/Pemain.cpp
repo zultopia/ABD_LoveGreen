@@ -1,4 +1,10 @@
-#include "Pemain.hpp"
+#include "./Pemain.hpp"
+#include "../Matrix/Grid.hpp"
+#include "../Config/Config.hpp"
+#include "../Toko/Toko.hpp"
+#include "../Exception/PemainException.hpp"
+#include "../Config/Simpan.hpp"
+#include "../Item/Item.hpp"
 
 Pemain::Pemain(string& username, int kekayaan, int beratBadan) : username(username), kekayaan(kekayaan), beratBadan(beratBadan), inventory() {
     auto itr = listPemain.begin();
