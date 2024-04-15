@@ -101,11 +101,11 @@ void Petani::harvest() {
                 for (int i = 0; i < jumlahPetak; i++) {
                     cout << "Petak ke-" << i + 1 << ": "; cin >> petak;
                     pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
-                    if (ladang.getGrid().getCell(koordinatPetak.first, koordinatPetak.second) == nullptr) {
+                    if (ladang.getCell(koordinatPetak.first, koordinatPetak.second) == nullptr) {
                         throw PemainException("Petak tersebut tidak memiliki tanaman.");
-                    } else if (ladang.getGrid().getCell(koordinatPetak.first, koordinatPetak.second)->getCode() != kodeTanaman) {
+                    } else if (ladang.getCell(koordinatPetak.first, koordinatPetak.second)->getCode() != kodeTanaman) {
                         throw PemainException("Petak tersebut memiliki tanaman yang berbeda.");
-                    } else if (!ladang.getGrid().getCell(koordinatPetak.first, koordinatPetak.second)->isHarvest()) {
+                    } else if (!ladang.getCell(koordinatPetak.first, koordinatPetak.second)->isHarvest()) {
                         throw PemainException("Tanaman pada petak tersebut belum siap dipanen.");
                     } else {
                         petakDipanen.push_back(petak);
@@ -219,11 +219,10 @@ int Petani::calculateTax() {
     int netoKekayaan = getKekayaan();
     int KTKP = 13; // Petani getKTKP()
     
-    Grid<Item> inv = inventory.getGrid();
-    for (int i = 0; i < inv.getRows(); i++) {
-        for (int j = 0; j < inv.getCols(); j++) {
-            if (inv.getCell(i, j) != nullptr) {
-                netoKekayaan += inv.getCell(i, j)->getPrice();
+    for (int i = 0; i < inventory.getRows(); i++) {
+        for (int j = 0; j < inventory.getCols(); j++) {
+            if (inventory.getCell(i, j) != nullptr) {
+                netoKekayaan += inventory.getCell(i, j)->getPrice();
             }
         }
     }
@@ -386,7 +385,7 @@ void Petani::jual() {
         if (slotIntList.size() != 0) {
             slotsValid = true;
             for (int i = 0; i < slotIntList.size(); i++) {
-                item = inventory.getGrid().getCell(get<0>(slotIntList[i]), get<1>(slotIntList[i]));
+                item = inventory.getCell(get<0>(slotIntList[i]), get<1>(slotIntList[i]));
                 if ( item == nullptr || Config::isExistRecipe(item->getName())) {
                     slotsValid = false;
                     break;

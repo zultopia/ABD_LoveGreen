@@ -66,7 +66,7 @@ void Peternak::beriPangan() {
 
     // Memeriksa apakah petak kandang sudah ditempati
     pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
-    Hewan* hewan = peternakan.getGrid().getCell(koordinatPetak.first, koordinatPetak.second);
+    Hewan* hewan = peternakan.getCell(koordinatPetak.first, koordinatPetak.second);
 
     if (hewan != nullptr) {
         string type = hewan->getTypeHewan();
@@ -177,13 +177,13 @@ void Peternak::harvest() {
                 for (int i = 0; i < jumlahPetak; i++) {
                     cout << "Petak ke-" << i + 1 << ": "; cin >> petak;
                     pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
-                    if (peternakan.getGrid().getCell(koordinatPetak.first, koordinatPetak.second) == nullptr) {
+                    if (peternakan.getCell(koordinatPetak.first, koordinatPetak.second) == nullptr) {
                         cout << "Petak tersebut tidak memiliki hewan." << endl;
                         return;
-                    } else if (peternakan.getGrid().getCell(koordinatPetak.first, koordinatPetak.second)->getCode() != kodeHewan) {
+                    } else if (peternakan.getCell(koordinatPetak.first, koordinatPetak.second)->getCode() != kodeHewan) {
                         cout << "Petak tersebut memiliki hewan yang berbeda." << endl;
                         return;
-                    } else if (!peternakan.getGrid().getCell(koordinatPetak.first, koordinatPetak.second)->isHarvest()){
+                    } else if (!peternakan.getCell(koordinatPetak.first, koordinatPetak.second)->isHarvest()){
                         cout << "Hewan belum siap dipanen." << endl;
                         return;
                     } else {
@@ -290,11 +290,10 @@ int Peternak::calculateTax() {
     int netoKekayaan = getKekayaan();
     int KTKP = 11; // Peternak
 
-    Grid<Item> inv = inventory.getGrid();
-    for (int i = 0; i < inv.getRows(); i++) {
-        for (int j = 0; j < inv.getCols(); j++) {
-            if (inv.getCell(i, j) != nullptr) {
-                netoKekayaan += inv.getCell(i, j)->getPrice();
+    for (int i = 0; i < inventory.getRows(); i++) {
+        for (int j = 0; j < inventory.getCols(); j++) {
+            if (inventory.getCell(i, j) != nullptr) {
+                netoKekayaan += inventory.getCell(i, j)->getPrice();
             }
         }
     }
@@ -464,7 +463,7 @@ void Peternak::jual() {
         if (slotIntList.size() != 0) {
             slotsValid = true;
             for (int i = 0; i < slotIntList.size(); i++) {
-                item = inventory.getGrid().getCell(get<0>(slotIntList[i]), get<1>(slotIntList[i]));
+                item = inventory.getCell(get<0>(slotIntList[i]), get<1>(slotIntList[i]));
                 if ( item == nullptr || Config::isExistRecipe(item->getName())) {
                     slotsValid = false;
                     break;
