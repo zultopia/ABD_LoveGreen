@@ -1,22 +1,10 @@
 #include "Muat.hpp"
 
 string Muat::readPath(){
-    char answer;
-    cout << "Apakah Anda ingin memuat state? (y/n) ";
-    cin >> answer;
-    answer = (char)tolower(answer);
-    while(answer != 'y' && answer != 'n'){
-        cout << "Apakah Anda ingin memuat state? (y/n) ";
-        cin >> answer;
-        answer = (char)tolower(answer);
-    }
     string path;
-    if(answer == 'y'){
-        cout << "Masukkan lokasi berkas state : ";
-        cin >> path;
-    }
+    cout << "Masukkan lokasi berkas state : ";
+    cin >> path;
     return path;
-
 }
 
 void Muat::muat(){

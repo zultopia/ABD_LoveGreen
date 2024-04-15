@@ -56,6 +56,14 @@ bool Pemain::namaValid(string nama){
     return true;
 }
 
+bool Pemain::checkWinCondition() {
+    if (kekayaan >= Config::getJumlahUangWin() && beratBadan >= Config::getBeratBadanWin()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void Pemain::cetakPenyimpanan() {
     inventory.cetakInfo();
 }
@@ -114,6 +122,7 @@ void Pemain::makan() {
         beratBadan += Config::getAddedWeight(item->getName());
         cout << "Alhasil, berat badan kamu naik menjadi " << beratBadan << endl;
     }
-
 }
+
+
 

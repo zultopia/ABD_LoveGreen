@@ -36,7 +36,7 @@ class Pemain {
 		Penyimpanan& getInventory();
         vector<string> getDaftarInventory();
         static bool namaValid(string nama);
-
+        bool checkWinCondition();
         virtual void doCommand(string command) = 0;
         void next();
         void simpan();
