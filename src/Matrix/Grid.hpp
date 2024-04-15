@@ -27,9 +27,7 @@ class Grid {
         const int cols;
 
     public:
-        Grid(){}
-
-        Grid(int numRows, int numCols) : grid(numRows, vector<T*>(numCols)) {}
+        Grid(int numRows, int numCols) : grid(numRows, vector<T*>(numCols)), rows(numRows), cols(numCols) {}
 
         void updateCell(int row, int col, T* value){
             if (row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size()) {

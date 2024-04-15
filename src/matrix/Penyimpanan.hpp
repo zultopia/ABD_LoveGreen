@@ -7,9 +7,8 @@
 
 class Penyimpanan : public Grid<Item> {
     public:
-        Penyimpanan() {}
-
-        Penyimpanan(int numRows, int numCols) : Grid<Item>(numRows, numCols) {}
+        Penyimpanan();
+        Penyimpanan(int numRows, int numCols);
 
         void cetakInfo();
 
