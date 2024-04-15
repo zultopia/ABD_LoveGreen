@@ -92,16 +92,13 @@ class Grid {
             vector<tuple<int, int>> listKoordinat;
             string temp = "";
             for (char c : input) {
-                if (c == '(') {
-                    temp = "";
-                } else if (c == ')') {
-                    int row = temp[0] - 'A';
-                    int col = stoi(temp.substr(1));
-                    listKoordinat.push_back(make_tuple(row, col));
-                } else if (c != ' ' && c != ',') {
+                if (c != ' ' && c != ',') {
                     temp += c;
                 }
             }
+            int row = stoi(temp.substr(1)) - 1; 
+            int col = temp[0] - 'A';
+            listKoordinat.push_back(make_tuple(row, col));
             return listKoordinat;
         }
 };

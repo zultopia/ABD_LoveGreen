@@ -118,7 +118,7 @@ void Walikota::bangun(){
                 int j = 0;
                 while (j < Config::getBesarPenyimpanan().second){
                     Item* item;
-                    item = inventory.getGrid().getCell(i, j);
+                    item = inventory.getCell(i, j);
                     if (item->getName().compare(itrMaterials->first)){
                         jumlah++;
                         inventory.ambilItem(i+1, j);
@@ -355,7 +355,7 @@ void Walikota::jual(){
         if (slotIntList.size() != 0) {
             slotsValid = true;
             for (int i = 0; i < slotIntList.size(); i++) {
-                if (inventory.getGrid().getCell(get<0>(slotIntList[i]), get<1>(slotIntList[i])) == nullptr) {
+                if (inventory.getCell(get<0>(slotIntList[i]), get<1>(slotIntList[i])) == nullptr) {
                     slotsValid = false;
                     break;
                 }

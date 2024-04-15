@@ -115,7 +115,7 @@ void Pemain::makan() {
     Item* currentItem;
     while (i < width && !adaMakanan) {
         while (j < height && !adaMakanan) {
-            currentItem = inventory.getGrid().getCell(i, j);
+            currentItem = inventory.getCell(i, j);
             if (currentItem != nullptr) {
                 if (currentItem->eatable()) {
                     adaMakanan = true;
