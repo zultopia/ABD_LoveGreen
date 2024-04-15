@@ -1,4 +1,5 @@
 #include "SimpanMuat.hpp"
+#include "../Exception/ConfigException.hpp"
 
 vector<string> SimpanMuat::pemain;
 map<string,tuple<string,int,int>> SimpanMuat::dataPemain;

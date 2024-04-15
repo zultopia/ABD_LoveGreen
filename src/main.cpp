@@ -1,4 +1,8 @@
-#include "./GameEngine/GameEngine.hpp";
+#include <iostream>
+#include <exception>
+#include "./GameEngine/GameEngine.hpp"
+
+using namespace std;
 
 int main() {
     GameEngine GE;

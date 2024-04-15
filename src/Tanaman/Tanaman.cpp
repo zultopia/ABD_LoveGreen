@@ -1,5 +1,7 @@
 #include "Tanaman.hpp"
-
+#include "../Item/Item.hpp"
+#include "../Produk/Produk.hpp"
+#include "../Config/Config.hpp"
 // ctor
 Tanaman::Tanaman() : Item(), idTanaman(0), durationToHarvest(0), currentDuration(0), typeTanaman("") {}
 Tanaman::Tanaman(string nama) {

@@ -1,4 +1,9 @@
 #include "Simpan.hpp"
+#include "SimpanMuat.hpp"
+#include "../Toko/Toko.hpp"
+#include "../Pemain/Petani.hpp"
+#include "../Pemain/Peternak.hpp"
+#include "../Pemain/Walikota.hpp"
 
 using namespace std;
 

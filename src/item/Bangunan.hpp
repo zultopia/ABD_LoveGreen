@@ -5,7 +5,6 @@
 #include <map> 
 #include <string>
 #include "Item.hpp"
-#include "../Config/Config.hpp"
 
 using namespace std;
 

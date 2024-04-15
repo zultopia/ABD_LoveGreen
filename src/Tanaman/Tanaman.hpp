@@ -2,8 +2,7 @@
 #define TANAMAN_HPP
 
 #include <iostream>
-#include "../Item/Item.hpp"
-#include "../Produk/Produk.hpp"
+#include "Item/Item.hpp"
 
 using namespace std;
 

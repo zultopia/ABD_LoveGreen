@@ -1,4 +1,5 @@
 #include "Herbivora.hpp"
+#include "../Config/Config.hpp"
 
 Herbivora::Herbivora(string nama) : Hewan() {
     setIdHewan(Config::getId(nama));

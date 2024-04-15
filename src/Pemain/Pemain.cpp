@@ -1,5 +1,31 @@
-#include "Pemain.hpp"
-
+#include "./Pemain.hpp"
+#include "../Matrix/Grid.hpp"
+#include "../Config/Config.hpp"
+#include "../Toko/Toko.hpp"
+#include "../Exception/PemainException.hpp"
+#include "../Config/Simpan.hpp"
+#include "../Item/Item.hpp"
+// Declare listPemain
+vector<Pemain*> Pemain::listPemain;
+int Pemain::currentPemain = 0;
+int Pemain::numPemain = 0;
+map<string,int> Pemain::commandTable = {
+    {"NEXT",1},
+    {"CETAK_PENYIMPANAN",2},
+    {"PUNGUT_PAJAK",3},
+    {"CETAK_LADANG",4},
+    {"CETAK_PETERNAKAN",5},
+    {"TANAM",6},
+    {"TERNAK",7},
+    {"BANGUN",8},
+    {"MAKAN",9},
+    {"KASIH_MAKAN",10},
+    {"BELI",11},
+    {"JUAL",12},
+    {"PANEN",13},
+    {"SIMPAN",15},
+    {"TAMBAH_PEMAIN",16}
+};
 Pemain::Pemain(string& username, int kekayaan, int beratBadan) : username(username), kekayaan(kekayaan), beratBadan(beratBadan), inventory() {
     auto itr = listPemain.begin();
     while (username.compare((*itr)->getUsername()) < 0 && itr != listPemain.end()) {

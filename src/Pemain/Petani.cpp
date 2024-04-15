@@ -1,4 +1,20 @@
 #include "Petani.hpp"
+#include "Pemain.hpp"
+#include "../Produk/ProdukEatable.hpp"
+#include "../Produk/ProdukUneatable.hpp"
+#include "../Hewan/Herbivora.hpp"
+#include "../Hewan/Karnivora.hpp"
+#include "../Hewan/Omnivora.hpp"
+#include "../Item/Bangunan.hpp"
+#include "../Tanaman/Tanaman.hpp"
+#include "../Matrix/Ladang.hpp"
+#include "../Matrix/Penyimpanan.hpp"
+#include "../Exception/PemainException.hpp"
+#include "../Matrix/Grid.hpp"
+#include "../Toko/Toko.hpp"
+#include "../Item/Item.hpp"
+#include "../Produk/Produk.hpp"
+#include "../Config/Config.hpp"
 
 Petani::Petani(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), ladang() {}
 

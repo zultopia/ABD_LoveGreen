@@ -9,18 +9,13 @@
 #include <sstream>
 #include <ctype.h>
 #include <filesystem>
+
 #include "SimpanMuat.hpp"
-#include "../Pemain/Pemain.hpp"
-#include "../Pemain/Petani.hpp"
-#include "../Pemain/Peternak.hpp"
-#include "../Pemain/Walikota.hpp"
-#include "../Hewan/Herbivora.hpp"
-#include "../Hewan/Karnivora.hpp"
-#include "../Hewan/Omnivora.hpp"
-#include "../Produk/ProdukEatable.hpp"
-#include "../Produk/ProdukUneatable.hpp"
-#include "../Item/Bangunan.hpp"
-#include "Config.hpp"
+#include "Pemain/Pemain.hpp"
+#include "Matrix/Penyimpanan.hpp"
+#include "Matrix/Ladang.hpp"
+#include "Matrix/Peternakan.hpp"
+
 using namespace std;
 class Muat: virtual SimpanMuat{
     public:

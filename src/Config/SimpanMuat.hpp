@@ -7,7 +7,9 @@
 #include <map>
 #include <tuple>
 #include <filesystem>
-#include "../Exception/ConfigException.hpp"
+#include <string>
+
+using namespace std;
 
 class SimpanMuat{
     protected: 

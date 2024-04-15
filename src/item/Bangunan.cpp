@@ -1,4 +1,6 @@
 #include "Bangunan.hpp"
+#include "Item.hpp"
+#include "../Config/Config.hpp"
 
 // Constructor
 Bangunan::Bangunan() : Item(), idBangunan(0) {}

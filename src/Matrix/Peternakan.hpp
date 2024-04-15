@@ -1,8 +1,9 @@
 #ifndef __PETERNAKAN_HPP__
 #define __PETERNAKAN_HPP__
 
-#include "Grid.hpp"
+#include "../Hewan/Hewan.hpp"
 #include "Penyimpanan.hpp"
+#include <map>
 
 class Peternakan : public Penyimpanan {
     private:

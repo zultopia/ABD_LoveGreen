@@ -1,5 +1,20 @@
 #include "Peternak.hpp"
-
+#include "../Matrix/Peternakan.hpp"
+#include "../Hewan/Hewan.hpp"
+#include "../Hewan/Karnivora.hpp"
+#include "../Hewan/Herbivora.hpp"
+#include "../Hewan/Omnivora.hpp"
+#include "../Produk/ProdukEatable.hpp"
+#include "../Produk/ProdukUneatable.hpp"
+#include "../Item/Bangunan.hpp"
+#include "../Config/Config.hpp"
+#include "../Tanaman/Tanaman.hpp"
+#include "../Matrix/Penyimpanan.hpp"
+#include "../Exception/PemainException.hpp"
+#include "../Matrix/Grid.hpp"
+#include "../Toko/Toko.hpp"
+#include "../Produk/Produk.hpp"
+#include "../Item/Item.hpp"
 
 Peternak::Peternak(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), peternakan() {}
 

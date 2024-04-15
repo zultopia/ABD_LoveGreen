@@ -1,6 +1,5 @@
 CC = g++
-CFLAGS = -Wall -std=c++17
-LDFLAGS =
+CFLAGS = -c -Wall -std=c++17 
 INCLUDES = -I./src
 SRCDIR = src
 OBJDIR = obj

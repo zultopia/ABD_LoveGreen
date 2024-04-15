@@ -1,16 +1,8 @@
 #ifndef __PETERNAK_HPP__
 #define __PETERNAK_HPP__
 
-#include "./Pemain.hpp"
+#include "Pemain.hpp"
 #include "../Matrix/Peternakan.hpp"
-#include "../Hewan/Hewan.hpp"
-#include "../Hewan/Karnivora.hpp"
-#include "../Hewan/Herbivora.hpp"
-#include "../Hewan/Omnivora.hpp"
-#include "../Produk/ProdukEatable.hpp"
-#include "../Produk/ProdukUneatable.hpp"
-#include "../Item/Bangunan.hpp"
-#include "../Config/Config.hpp"
 
 class Peternak : public Pemain {
 	private:

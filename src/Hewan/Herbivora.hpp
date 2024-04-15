@@ -1,10 +1,10 @@
 #ifndef HERBIVORA_HPP
 #define HERBIVORA_HPP
 
-#include "Hewan.hpp"
 #include <iostream>
 
 using namespace std;
+#include "Hewan.hpp"
 
 class Herbivora : public Hewan {
     public:

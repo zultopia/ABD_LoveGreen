@@ -1,7 +1,8 @@
 #ifndef __LADANG_HPP__
 #define __LADANG_HPP__
 
-#include "Grid.hpp"
+#include <map>
+#include "../Tanaman/Tanaman.hpp"
 #include "Penyimpanan.hpp"
 
 class Ladang : public Penyimpanan {
