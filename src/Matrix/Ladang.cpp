@@ -108,6 +108,35 @@ void Ladang::tambahTanaman(Tanaman* jenisTanaman) {
     }
 }
 
+void Ladang::menanamTanaman(Item* item) {
+    string code = item->getCode();
+    auto it = Config::getPlantMap().find(code);
+    if (it == Config::getPlantMap().end()) { throw "Item yang dipilih bukan tanaman."; }
+    cout << "Kamu memilih " << item->getName() << ".\n" << endl;
+
+    bool tanamBerhasil = false;
+    while (!tanamBerhasil) {
+        cout << "Pilih petak tanah yang akan ditanami\n" << endl;
+        cetakInfo();
+
+        string petak;
+        cout << endl << "Petak tanah: "; cin >> petak; cout << endl;
+
+        pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
+
+        if (getGrid().getCell(koordinatPetak.first, koordinatPetak.second) != nullptr) {
+            cout << "Petak tanah tersebut sudah ditanami. Pilih petak lain." << endl;
+        } else {
+            Tanaman* tanaman = new Tanaman(item->getCode());
+            tambahTanaman(koordinatPetak.first + 1, koordinatPetak.second, tanaman);
+            cout << "Cangkul, cangkul, cangkul yang dalam~!" << endl;
+            cout << item->getName() << " berhasil ditanam di petak " << petak << endl;
+            cetakInfo();
+            tanamBerhasil = true;
+        }
+    }
+}
+
 map<string, int> Ladang::hitungJumlahTanamanPanen() {
     map<string, int> jumlahHarvest;
     for (int i = 0; i < rows; ++i) {

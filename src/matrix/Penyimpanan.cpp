@@ -76,6 +76,11 @@ Item* Penyimpanan::ambilItem(int row, int col) {
     }
 }
 
+Item* Penyimpanan::ambilItem(const string& slot) {
+    pair<int, int> koordinatItem = Penyimpanan::konversiKoordinat(slot);
+    return ambilItem(koordinatItem.first + 1, koordinatItem.second);
+}
+
 // Function Overloading
 void Penyimpanan::tambahItem(Item* jenisItem) {
     int emptyRow = -1;

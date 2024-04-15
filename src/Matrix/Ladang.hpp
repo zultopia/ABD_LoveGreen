@@ -25,6 +25,8 @@ class Ladang : public Penyimpanan {
 
         void tambahTanaman(Tanaman* jenisTanaman);
 
+        void menanamTanaman(Item* item);
+
         map<string, int> hitungJumlahTanamanPanen();
 
         void operator+(Tanaman* tanaman);

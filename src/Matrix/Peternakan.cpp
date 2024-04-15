@@ -1,4 +1,7 @@
 #include "Peternakan.hpp"
+#include "../Hewan/Karnivora.hpp"
+#include "../Hewan/Herbivora.hpp"
+#include "../Hewan/Omnivora.hpp"
 
 // CETAK_PETERNAKAN
 Peternakan::Peternakan() : Penyimpanan(), grid(Config::getBesarPeternakan().first, Config::getBesarPeternakan().second) {}
@@ -100,6 +103,39 @@ void Peternakan::tambahHewan(Hewan* jenisTernak) {
         cout << "Ternak " << jenisTernak->getCode() << " berhasil ditambahkan ke peternakan." << endl;
     } else {
         cout << "Peternakan penuh, tidak dapat menambahkan ternak baru." << endl;
+    }
+}
+
+void Peternakan::menanamTernak(Item* item) {
+    string nama = item->getName();
+    auto it = Config::getAnimalMap().find(nama);
+    if (it == Config::getAnimalMap().end()) { throw "Item yang dipilih bukan hewan."; }
+    cout << "Kamu memilih " << item->getName() << ".\n" << endl;
+
+    bool ternakBerhasil = false;
+    while (!ternakBerhasil) {
+        cout << endl << "Pilih petak tanah yang akan ditinggali\n" << endl;
+        cetakInfo();
+
+        string petak;
+        cout << endl << "Petak tanah: "; cin >> petak; cout << endl; 
+
+        pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
+
+        if (getGrid().getCell(koordinatPetak.first, koordinatPetak.second) != nullptr) {
+            cout << "Petak tanah tersebut sudah ditempati. Pilih petak lain." << endl;
+        } else {
+            Hewan* hewan;
+            string type = get<2>(Config::getAnimalMap()[nama]);
+            if (type == "CARNIVORE") { hewan = new Karnivora(nama); } 
+            else if (type == "HERBIVORE") { hewan = new Herbivora(nama); } 
+            else if (type == "OMNIVORE") { hewan = new Omnivora(nama); }
+            tambahHewan(koordinatPetak.first + 1, koordinatPetak.second, hewan);
+            cout << "Dengan hati-hati, kamu meletakkan seekor Chicken di kandang." << endl;
+            cout << item->getName() << " telah menjadi peliharaanmu sekarang!" << endl;
+            cetakInfo();
+            ternakBerhasil = true;
+        }
     }
 }
 
