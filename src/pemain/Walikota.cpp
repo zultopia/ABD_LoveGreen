@@ -238,11 +238,11 @@ void Walikota::beli(){
     }
 
     while (!valid) {
-        cout << "Pilihan berupa integer!" << endl;
+        cout << "Pilihan harus berupa integer!" << endl;
 
         cout << "Barang ingin dibeli : ";
         valid = true;
-
+        cin >> pilihan;
         try {
             pilihanInt = stoi(pilihan);
         } catch (invalid_argument& e) {
@@ -262,11 +262,11 @@ void Walikota::beli(){
     }
 
     while (!valid) {
-        cout << "Kuantitas berupa integer!" << endl;
+        cout << "Kuantitas harus berupa integer!" << endl;
 
         cout << "Kuantitas : ";
         valid = true;
-
+        cin >> kuantitas;
         try {
             kuantitasInt = stoi(kuantitas);
         } catch (invalid_argument& e) {
