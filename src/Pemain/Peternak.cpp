@@ -227,22 +227,15 @@ void Peternak::doCommand(string command) {
     }
 }
 
-int Peternak::bayarPajak() {
+void Peternak::bayarPajak() {
     int pajak = calculateTax();
-    if (pajak == 0) {
-        cout << "Tidak ada pajak yang harus dibayar." << endl;
+    if (getKekayaan() < pajak) {
+        pajak = getKekayaan();
+        this->kekayaan = 0;
     } else {
-        cout << "Pajak yang harus dibayar: " << pajak << endl;
-        if (getKekayaan() < pajak) {
-            pajak = getKekayaan();
-            this->kekayaan = 0;
-            cout << "Kekayaan tidak mencukupi untuk membayar pajak." << endl;
-        } else {
-            this->kekayaan = getKekayaan() - pajak;
-            cout << "Pajak berhasil dibayar." << endl;
-        }
+        this->kekayaan = getKekayaan() - pajak;
     }
-    return pajak;
+    cout << username << " - Peternak: " << pajak << " gulden" << endl;
 }
 
 int Peternak::calculateTax() {

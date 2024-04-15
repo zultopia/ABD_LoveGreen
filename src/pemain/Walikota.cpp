@@ -23,31 +23,40 @@ Walikota::Walikota(string& username, int kekayaan, int beratBadan) : Pemain(user
 
 void Walikota::pungutPajak(){
     cout << "Cring cring cring..." << endl;
-    cout << "Pajak sudah dipungut!" << endl << endl;;
+    cout << "Pajak sudah dipungut!" << endl << endl;
     vector<tuple<Pemain*, int>> pajak;
     int totalPajak = 0;
     int currentPajak;
 
     for (int i = 0; i < listPemain.size(); i++) {
         currentPajak = listPemain[i]->calculateTax();
+        if (currentPajak > listPemain[i]->getKekayaan()) {
+            currentPajak = listPemain[i]->getKekayaan();
+        }
         // Cek apakah walikota/bukan
         if (currentPajak >= 0) {
             auto itr = pajak.begin();
-            while ((currentPajak < get<1>(*itr) ||(currentPajak == get<1>(*itr) && username.compare(get<0>(*itr)->getUsername()) == 0)) && itr != pajak.end()) {
-                itr++;
+            if (itr == pajak.end()){
+                pajak.push_back(tuple<Pemain*, int>(listPemain[i], currentPajak));
+            } else {
+                while ((currentPajak < get<1>(*itr) ||(currentPajak == get<1>(*itr) && username.compare(get<0>(*itr)->getUsername()) < 0)) && itr != pajak.end()) {
+                    itr++;
+                }
+                pajak.insert(itr, tuple<Pemain*, int>(listPemain[i], currentPajak));
             }
-            pajak.insert(itr, tuple<Pemain*, int>(listPemain[i], currentPajak));
+            totalPajak += currentPajak;
         }
     }
     // Print hasil pemungutan;
     cout << "Berikut adalah detil dari pemungutan pajak:" << endl;
-    for (int i = 0; i < listPemain.size(); i++) {
-        cout << "  " << i+1;
-        totalPajak += get<0>(pajak[i])->bayarPajak();
+    for (int i = 0; i < pajak.size(); i++) {
+        cout << "  " << i+1 << ". ";
+        get<0>(pajak[i])->bayarPajak();
     }
 
-    cout << "Negara mendapatkan pemasukan sebesar" << totalPajak << " gulden." << endl;
-    cout << "Gunakan dengan baik dan jangan dikorupsi ya!";
+    cout << endl;
+    cout << "Negara mendapatkan pemasukan sebesar " << totalPajak << " gulden." << endl;
+    cout << "Gunakan dengan baik dan jangan dikorupsi ya!" << endl;
 }
 
 void Walikota::bangun(){
@@ -329,7 +338,7 @@ void Walikota::beli(){
     }
 }
 
-int Walikota::bayarPajak() {return -1;}
+void Walikota::bayarPajak() {}
 
 void Walikota::jual(){
     if (inventory.hitungSlotKosong() == Config::getBesarPenyimpanan().first * Config::getBesarPenyimpanan().second) {

@@ -74,19 +74,6 @@ void Pemain::simpan() {
     Simpan::simpan();
 }
 
-int Pemain::bayarPajak() {
-    int pajak = this->calculateTax();
-    if (this->kekayaan >= pajak) {
-        kekayaan -= pajak;
-        return pajak;
-    } else {
-        int tempKekayaan = kekayaan;
-        kekayaan -= pajak;
-        return tempKekayaan;
-    }
-
-}
-
 bool Pemain::namaValid(string nama){
     for (int i = 0; i < listPemain.size(); i++) {
         if (nama.compare(listPemain[i]->username) == 0) {

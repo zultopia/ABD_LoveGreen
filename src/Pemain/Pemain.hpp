@@ -36,7 +36,7 @@ class Pemain {
         virtual void doCommand(string command) = 0;
         void next();
         void simpan();
-        virtual int bayarPajak();
+        virtual void bayarPajak() = 0;
 
 		virtual int calculateTax() = 0;
 		virtual void beli() = 0;

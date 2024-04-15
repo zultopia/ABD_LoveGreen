@@ -19,7 +19,7 @@ class Petani : public Pemain {
 		void harvest();
 
 		void doCommand(string command);
-		int bayarPajak();
+		void bayarPajak();
 		int calculateTax();
 		void beli();
 		void jual();

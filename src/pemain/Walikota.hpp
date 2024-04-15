@@ -14,7 +14,7 @@ class Walikota : public Pemain {
         string getRole();
 
         // Inherited functions (virtual)
-        int bayarPajak();
+        void bayarPajak();
         void doCommand(string command);
         int calculateTax();
         void beli();
