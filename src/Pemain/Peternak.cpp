@@ -16,7 +16,7 @@
 #include "../Produk/Produk.hpp"
 #include "../Item/Item.hpp"
 
-Peternak::Peternak(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), peternakan() {}
+Peternak::Peternak(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), peternakan(Config::getBesarPeternakan().first, Config::getBesarPeternakan().second) {}
 
 Peternak::~Peternak() {}
 
@@ -41,9 +41,17 @@ void Peternak::ternak() {
             throw PemainException("Peternakan sudah penuh. Tidak dapat menambahkan lebih banyak hewan.");
         }
 
+        string nama = item->getName();
+        auto it = Config::getAnimalMap().find(nama);
+        if (it == Config::getAnimalMap().end()) {
+            inventory.tambahItem(item);
+            throw PemainException("Item yang dipilih bukan hewan.");
+        }
+        cout << "Kamu memilih " << item->getName() << ".\n" << endl;
+
         peternakan.menanamTernak(item);
-        inventory.cetakInfo();
     } else {
+        cout << "masuk situ" << endl;
         throw PemainException("Tidak ada Item pada posisi tersebut.");
     }
 }

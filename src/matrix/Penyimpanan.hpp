@@ -26,7 +26,7 @@ class Penyimpanan {
 
         Item* ambilItem(int row, int col);
 
-        Item* ambilItem(const string& koordinat);
+        Item* ambilItem(string koordinat);
 
         void tambahItem(Item* jenisItem);
 

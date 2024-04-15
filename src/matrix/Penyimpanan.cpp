@@ -78,7 +78,7 @@ Item* Penyimpanan::ambilItem(int row, int col) {
     }
 }
 
-Item* Penyimpanan::ambilItem(const string& slot) {
+Item* Penyimpanan::ambilItem(string slot) {
     pair<int, int> koordinatItem = Penyimpanan::konversiKoordinat(slot);
     return ambilItem(koordinatItem.first + 1, koordinatItem.second);
 }
