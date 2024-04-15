@@ -5,11 +5,9 @@
 using namespace std;
 
 // CETAK_PENYIMPANAN
-Penyimpanan::Penyimpanan() : rows(Config::getBesarPenyimpanan().first), 
-                                cols(Config::getBesarPenyimpanan().second), 
-                                grid(Config::getBesarPenyimpanan().first, Config::getBesarPenyimpanan().second) {}
+Penyimpanan::Penyimpanan() : Grid<Item>(Config::getBesarPenyimpanan().first, Config::getBesarPenyimpanan().second) {}
 
-Penyimpanan::Penyimpanan(int numRows, int numCols) : rows(numRows), cols(numCols), grid(numRows, numCols) {} 
+Penyimpanan::Penyimpanan(int numRows, int numCols) : Grid<Item>(numRows, numCols) {}
 
 void Penyimpanan::cetakInfo() {
     cout << "   =================[ Penyimpanan ]=================" << endl;
@@ -34,7 +32,7 @@ void Penyimpanan::cetakInfo() {
         }
         cout << setw(2) << "|";
         for (int j = 0; j < cols; ++j) {
-            cout << setw(5) << (grid.getCell(i, j) != nullptr ? grid.getCell(i, j)->getCode() + " " : "") << "|"; 
+            cout << setw(5) << (getCell(i, j) != nullptr ? getCell(i, j)->getCode() + " " : "") << "|"; 
         }
         cout << endl;
         cout << setw(4) << "+";
@@ -47,16 +45,16 @@ void Penyimpanan::cetakInfo() {
 }
 
 void Penyimpanan::tambahItem(int row, int col, Item* jenisItem) {
-    if (row >= 1 && row <= rows && col >= 0 && col < cols) {
-        grid.updateCell(row - 1, col, jenisItem); 
+    if (row >= 1 && row <= getRows() && col >= 0 && col < getCols()) {
+        updateCell(row - 1, col, jenisItem); 
     }
 }
 
 int Penyimpanan::hitungSlotKosong() {
     int count = 0;
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            if (grid.getCell(i, j) == nullptr || grid.getCell(i, j)->getCode().empty()) {
+    for (int i = 0; i < getRows(); ++i) {
+        for (int j = 0; j < getCols(); ++j) {
+            if (getCell(i, j) == nullptr || getCell(i, j)->getCode().empty()) {
                 ++count;
             }   
         }
@@ -64,14 +62,10 @@ int Penyimpanan::hitungSlotKosong() {
     return count;
 }
 
-Grid<Item> Penyimpanan::getGrid() const {
-    return grid;
-}
-
 Item* Penyimpanan::ambilItem(int row, int col) {
-    if (row >= 1 && row <= rows && col >= 0 && col < cols) {
-        Item* item = grid.getCell(row - 1, col);
-        grid.removeItem(row - 1, col);
+    if (row >= 1 && row <= getRows() && col >= 0 && col < getCols()) {
+        Item* item = getCell(row - 1, col);
+        removeItem(row - 1, col);
         return item;
     } else {
         return nullptr;
@@ -88,9 +82,9 @@ void Penyimpanan::tambahItem(Item* jenisItem) {
     int emptyRow = -1;
     int emptyCol = -1;
     // Cari slot kosong pertama
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            if (grid.getCell(i, j) == nullptr || grid.getCell(i, j)->getCode().empty()) {
+    for (int i = 0; i < getRows(); ++i) {
+        for (int j = 0; j < getCols(); ++j) {
+            if (getCell(i, j) == nullptr || getCell(i, j)->getCode().empty()) {
                 emptyRow = i;
                 emptyCol = j;
                 break;
@@ -99,7 +93,7 @@ void Penyimpanan::tambahItem(Item* jenisItem) {
         if (emptyRow != -1) break;
     }
     if (emptyRow != -1 && emptyCol != -1) {
-        grid.updateCell(emptyRow, emptyCol, jenisItem);
+        updateCell(emptyRow, emptyCol, jenisItem);
         cout << "Item " << jenisItem->getName() << " berhasil ditambahkan ke penyimpanan." << endl;
     } else {
         cout << "Penyimpanan penuh, tidak dapat menambahkan item baru." << endl;
@@ -115,8 +109,8 @@ vector<string> Penyimpanan::getListPenyimpanan(){
     vector<string> temp;
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < cols; j++){
-            if (grid.getCell(i,j) != nullptr) {
-                temp.push_back(grid.getCell(i,j)->getName());
+            if (getCell(i,j) != nullptr) {
+                temp.push_back(getCell(i,j)->getName());
             }
         }
     }
@@ -171,7 +165,7 @@ int Penyimpanan::jumlahItem(string nama) {
     int jumlah = 0;
     for (int i = 0; i < rows; i++) {
         for(int j = 0; j < cols; j++) {
-            if (grid.getCell(i, j)->getName().compare(nama) == 0) {
+            if (getCell(i, j)->getName().compare(nama) == 0) {
                 jumlah++;
             }
         }
@@ -184,7 +178,7 @@ bool Penyimpanan::checkMakanan(int row, int col){
         // Index tidak valid
         return -1;
     } else {
-        Item* item = grid.getCell(row-1, col);
+        Item* item = getCell(row-1, col);
         if (item == nullptr) {
             // Penyimpanan di index tersebut kosong
             return 1;

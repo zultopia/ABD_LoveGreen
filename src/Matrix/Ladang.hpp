@@ -3,24 +3,21 @@
 
 #include <map>
 #include "../Tanaman/Tanaman.hpp"
+#include "Grid.hpp"
+#include "../Item/Item.hpp"
 #include "Penyimpanan.hpp"
 
-class Ladang : public Penyimpanan {
-    private:
-        Grid<Tanaman> grid;
-
+class Ladang : public Grid<Tanaman> {
     public:
-        Ladang();
+        Ladang() : Grid<Tanaman>(Config::getBesarLahan().first, Config::getBesarLahan().second) {}
 
-        Ladang(int numRows, int numCols);
+        Ladang(int numRows, int numCols) : Grid<Tanaman>(numRows, numCols) {}
 
-        void cetakInfo() override;
+        void cetakInfo();
 
         void cetakKeteranganTanaman();
 
         void tambahTanaman(int row, int col, Tanaman* jenis);
-
-        Grid<Tanaman> getGrid() const;
 
         Tanaman* ambilTanaman(int row, int col);
 

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-#include "Produk/Produk.hpp"
+#include "../Produk/Produk.hpp"
 
 class Hewan : public Item {
     private:

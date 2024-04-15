@@ -5,24 +5,17 @@
 #include "Grid.hpp"
 #include "../Item/Item.hpp"
 
-class Penyimpanan {
-    protected:
-        const int rows;
-        const int cols;
-        Grid<Item> grid;
-
+class Penyimpanan : public Grid<Item> {
     public:
-        Penyimpanan();
+        Penyimpanan() {}
 
-        Penyimpanan(int numRows, int numCols);
+        Penyimpanan(int numRows, int numCols) : Grid<Item>(numRows, numCols) {}
 
-        virtual void cetakInfo();
+        void cetakInfo();
 
         void tambahItem(int row, int col, Item* jenisItem);
 
         int hitungSlotKosong();
-
-        Grid<Item> getGrid() const;
 
         Item* ambilItem(int row, int col);
 
@@ -40,9 +33,7 @@ class Penyimpanan {
 
         int jumlahItem(string nama);
 
-        bool checkMakanan(int row, int col);
-
-
+    bool checkMakanan(int row, int col);
 };
 
 #endif
