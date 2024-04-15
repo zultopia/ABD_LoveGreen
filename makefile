@@ -1,5 +1,6 @@
 CC = g++
 CFLAGS = -c -Wall -std=c++17 
+CFLAGS += -Wno-sign-compare
 INCLUDES = -I./src
 SRCDIR = src
 OBJDIR = obj

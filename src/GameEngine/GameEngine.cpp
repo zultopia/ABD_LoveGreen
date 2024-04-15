@@ -32,15 +32,23 @@ void GameEngine::setUp() {
         answer = (char)tolower(answer);
     }
     if (answer == 'y') {
-        Muat::muat();
-        Toko::setUpTokoMuat();
+        try{
+            Muat::muat();
+            // Muat::cekMuat();
+            Muat::setUp();
+        } catch (ConfigException& e){
+            cout << e.what() << endl << endl;
+            cout << "Default Start" << endl;
+            cout << endl;
+            defaultSetUp();
+        }
     } else {
         defaultSetUp();
-        Toko::setUpToko();
     }
 }
 
 void GameEngine::defaultSetUp() {
+    Toko::setUpToko();
     string nama = "Petani1";
     new Petani(nama, 50, 40);
     nama = "Peternak1";
@@ -57,15 +65,21 @@ void GameEngine::receiveCommand(){
 }
 
 void GameEngine::loopCommand() {
-    while (!finish) {
-        Pemain* currentPemain = Pemain::listPemain[Pemain::currentPemain];
-        receiveCommand();
-        if (currentPemain->checkWinCondition()) {
-            finish = true;
-            cout << "Pemain " << currentPemain->getUsername() << " menang dengan kekayaan " << currentPemain->getUsername() << " gulden dan berat badan " << currentPemain->getBeratBadan() << " kg!" << endl;
-            cout << "Game Finished." << endl;
+    try{
+        while (!finish) {
+            Pemain* currentPemain = Pemain::listPemain[Pemain::currentPemain];
+            receiveCommand();
+            if (currentPemain->checkWinCondition()) {
+                finish = true;
+                cout << "Pemain " << currentPemain->getUsername() << " menang dengan kekayaan " << currentPemain->getUsername() << " gulden dan berat badan " << currentPemain->getBeratBadan() << " kg!" << endl;
+                cout << "Game Finished." << endl;
+            }
         }
+    } catch (exception& e){
+        cout << e.what() << endl;
+        loopCommand();
     }
+    
 }
 
 void GameEngine::run() {

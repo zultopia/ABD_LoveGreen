@@ -32,9 +32,15 @@ Pemain::Pemain(string& username, int kekayaan, int beratBadan) : username(userna
         listPemain.insert(itr, this);
         numPemain++;
     }else{
-        while (username.compare((*itr)->getUsername()) < 0 && itr != listPemain.end()) {
-        itr++;
+        while (username.compare((*itr)->getUsername()) < 0 && itr != listPemain.end()-1) {
+            itr++;
         }
+        if(username.compare((*itr)->getUsername()) < 0){
+            itr++;
+        }
+        // if(itr == listPemain.end()){
+        //     cout << "terakhir" << endl;
+        // }
         listPemain.insert(itr, this);
         numPemain++;
     }

@@ -15,7 +15,7 @@ Config::Config(){
 
 }
 int Config::bacaPlant(){
-    ifstream inputFile("../config/plant.txt");
+    ifstream inputFile("./config/plant.txt");
     if(!inputFile.is_open()){
         InvalidFileConfigException e("plant");
         throw e;
@@ -32,7 +32,7 @@ int Config::bacaPlant(){
     return 1;
 }
 int Config::bacaAnimal(){
-    ifstream inputFile("../config/animal.txt");
+    ifstream inputFile("./config/animal.txt");
     if(!inputFile.is_open()){
         InvalidFileConfigException e("animal");
         throw e;
@@ -49,7 +49,7 @@ int Config::bacaAnimal(){
     return 1;
 }
 int Config::bacaProduct(){
-    ifstream inputFile("../config/product.txt");
+    ifstream inputFile("./config/product.txt");
     if(!inputFile.is_open()){
         InvalidFileConfigException e("product");
         throw e;
@@ -66,7 +66,7 @@ int Config::bacaProduct(){
     return 1;
 }
 int Config::bacaRecipe(){
-    ifstream inputFile("../config/recipe.txt");
+    ifstream inputFile("./config/recipe.txt");
     if(!inputFile.is_open()){
         InvalidFileConfigException e("recipe");
         throw e;
@@ -92,7 +92,7 @@ int Config::bacaRecipe(){
     return 1;
 }
 int Config::bacaMisc(){
-    ifstream inputFile("../config/misc.txt");
+    ifstream inputFile("./config/misc.txt");
     if(!inputFile.is_open()){
         InvalidFileConfigException e("misc");
         throw e;

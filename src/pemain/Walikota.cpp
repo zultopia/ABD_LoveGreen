@@ -20,7 +20,9 @@
 
 
 // subclass functions
-Walikota::Walikota(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan){}
+Walikota::Walikota(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan){
+    
+}
 
 void Walikota::pungutPajak(){
     cout << "Cring cring cring..." << endl;
@@ -171,42 +173,44 @@ string Walikota::getRole() {
 
 // Inherited functions (virtual)
 void Walikota::doCommand(string command){
-    if(commandTable.find(command) == commandTable.end()){
-        throw "Command Tidak Valid!";
-    }
-    switch (commandTable[command])
-    {
-    case 1:
-        this->next();
-        break;
-    case 2:
-        this->cetakPenyimpanan();
-        break;
-    case 3:
-        this->pungutPajak();
-        break;
-    case 8:
-        this->bangun();
-        break;
-    case 9:
-        this->makan();
-        break;
-    case 11:
-        this->beli();
-        break;
-    case 12:
-        this->jual();
-        break;
-    case 15:
-        this->simpan();
-        break;
-    case 16:
-        this->tambahPemain();
-        break;
-    default:
+    try{
+        switch (commandTable.at(command))
+        {
+        case 1:
+            this->next();
+            break;
+        case 2:
+            this->cetakPenyimpanan();
+            break;
+        case 3:
+            this->pungutPajak();
+            break;
+        case 8:
+            this->bangun();
+            break;
+        case 9:
+            this->makan();
+            break;
+        case 11:
+            this->beli();
+            break;
+        case 12:
+            this->jual();
+            break;
+        case 15:
+            this->simpan();
+            break;
+        case 16:
+            this->tambahPemain();
+            break;
+        // default:
+        //     PemainException e("Command Tidak Valid untuk Pemain ini");
+        //     throw e;
+        //     break;
+        }
+    } catch(std::out_of_range& err){
         PemainException e("Command Tidak Valid untuk Pemain ini");
         throw e;
-        break;
     }
 }
 

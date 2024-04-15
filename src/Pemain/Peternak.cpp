@@ -214,44 +214,46 @@ void Peternak::harvest() {
 }
 
 void Peternak::doCommand(string command) {
-    if(commandTable.find(command) == commandTable.end()){
-        // throw error
-    }
-    switch (commandTable[command])
-    {
-    case 1:
-        this->next();
-        break;
-    case 2:
-        this->cetakPenyimpanan();
-        break;
-    case 5:
-        this->cetakPeternakan();
-        break;
-    case 7:
-        this->ternak();
-        break;
-    case 9:
-        this->makan();
-        break;
-    case 10:
-        this->beriPangan();
-        break;
-    case 11:
-        this->beli();
-        break;
-    case 12:
-        this->jual();
-        break;
-    case 13:
-        harvest();
-        break;
-    case 15:
-        this->simpan();
-        break;
-    default:
-        throw "Command Tidak Valid untuk Pemain ini";
-        break;
+    try{
+        switch (commandTable.at(command))
+        {
+        case 1:
+            this->next();
+            break;
+        case 2:
+            this->cetakPenyimpanan();
+            break;
+        case 5:
+            this->cetakPeternakan();
+            break;
+        case 7:
+            this->ternak();
+            break;
+        case 9:
+            this->makan();
+            break;
+        case 10:
+            this->beriPangan();
+            break;
+        case 11:
+            this->beli();
+            break;
+        case 12:
+            this->jual();
+            break;
+        case 13:
+            harvest();
+            break;
+        case 15:
+            this->simpan();
+            break;
+        // default:
+        //     throw "Command Tidak Valid untuk Pemain ini";
+        //     break;
+        }
+    } catch(std::out_of_range& err){
+        PemainException e("Command Tidak Valid untuk Pemain ini");
+        throw e;
     }
 }
 

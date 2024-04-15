@@ -22,42 +22,38 @@ string Muat::readPath(){
 }
 
 void Muat::muat(){
-    string path = readPath();
-    if(path.length() == 0){
-
-    }else{
-        // Memeriksa folder sudah ada atau belum
-        // if(!filesystem::exists(filesystem::path(path).parent_path())) {
-        //     ConfigException e("Lokasi berkas tidak valid");
-        //     throw e;
-        // }
-        ifstream inputFile(path);
-        if(!inputFile.is_open()){
-            ConfigException e("File state.txt tidak dapat dibuka.");
-            throw e;
-        }
-        string line;
-        getline(inputFile, line);
-        stringstream s(line);
-        string loop;
-        s >> loop;
-        for(int i = 0; i < stoi(loop); i++){
-            read(inputFile);
-        }
-        // bagian toko
-        getline(inputFile,line);
-        string jumlah;
-        stringstream s2(line);
-        s2 >> jumlah;
-        for(int i = 0; i < stoi(jumlah); i++){
-            getline(inputFile,line);
-            stringstream s(line);
-            string namaItem, jumlahItem;
-            s >> namaItem >> jumlahItem;
-            toko.insert({namaItem,stoi(jumlahItem)});
-        }
+    // string path = readPath();
+    string path = "./config/state.txt";
+    // Memeriksa folder sudah ada atau belum
+    // if(!filesystem::exists(filesystem::path(path).parent_path())) {
+    //     ConfigException e("Lokasi berkas tidak valid");
+    //     throw e;
+    // }
+    ifstream inputFile(path);
+    if(!inputFile.is_open()){
+        ConfigException e("File state.txt tidak dapat dibuka.");
+        throw e;
     }
-    
+    string line;
+    getline(inputFile, line);
+    stringstream s(line);
+    string loop;
+    s >> loop;
+    for(int i = 0; i < stoi(loop); i++){
+        read(inputFile);
+    }
+    // bagian toko
+    getline(inputFile,line);
+    string jumlah;
+    stringstream s2(line);
+    s2 >> jumlah;
+    for(int i = 0; i < stoi(jumlah); i++){
+        getline(inputFile,line);
+        stringstream s(line);
+        string namaItem, jumlahItem;
+        s >> namaItem >> jumlahItem;
+        toko.insert({namaItem,stoi(jumlahItem)});
+    }
 }
 
 void Muat::read(ifstream& inputFile){
@@ -102,13 +98,29 @@ void Muat::read(ifstream& inputFile){
     }
 
 }
-
+void Muat::cekMuat(){
+    for(auto i = pemain.begin(); i != pemain.end(); i++){
+        cout << *i << endl;
+        cout << get<0>(dataPemain.at(*i)) << " " << get<1>(dataPemain.at(*i)) << " " << get<2>(dataPemain.at(*i)) << endl;
+        for(auto j = inventory.at(*i).begin(); j != inventory.at(*i).end(); j++){
+            cout << *j << endl;
+        }
+        if( get<0>(dataPemain.at(*i)) != "Walikota" ){
+            for(auto j = LadangdanTernak.at(*i).begin(); j != LadangdanTernak.at(*i).end(); j++){
+                cout << get<0>(*j) << " " << get<1>(*j) << " " << get<2>(*j) << endl;
+            }
+        }
+        cout << endl;
+    }
+    for(auto j = toko.begin(); j != toko.end(); j++){
+        cout << j->first << " " << j->second << endl;
+    }
+}
 void Muat::setUp(){
     for(auto i = pemain.begin(); i != pemain.end(); i++){
         Pemain* player = nullptr;
         if(get<0>(dataPemain.at(*i)) == "Petani"){
             setUpPetani(player, *i);
-            
         }
         if(get<0>(dataPemain.at(*i)) == "Peternak"){
             setUpPeternak(player, *i);
@@ -117,10 +129,11 @@ void Muat::setUp(){
             setUpWalikota(player, *i);
         }
         setUpInventory(player);
+        cout << endl;
     }
     Toko::setUpTokoMuat();
 }
-void Muat::setUpPetani(Pemain* player, string nama){
+void Muat::setUpPetani(Pemain*& player, string nama){
     player = (Pemain*) new Petani(nama,get<2>(dataPemain.at(nama)),get<1>(dataPemain.at(nama)));
     Petani* currenPetani = (Petani*)(player);
     Ladang& ladang = currenPetani->getLadang();
@@ -131,10 +144,11 @@ void Muat::setUpPetani(Pemain* player, string nama){
         ladang.tambahTanaman(posisi.first, posisi.second, currTanaman);
     }
 }
-void Muat::setUpPeternak(Pemain* player, string nama){
+void Muat::setUpPeternak(Pemain*& player, string nama){
     player = (Pemain*) new Peternak(nama,get<2>(dataPemain.at(nama)),get<1>(dataPemain.at(nama)));
     Peternak* currenPeternak = (Peternak*)(player);
     Peternakan& peternakan = currenPeternak->getPeternakan();
+    // peternakan.cetakInfo();
     for(auto j = LadangdanTernak.at(nama).begin(); j != LadangdanTernak.at(nama).end(); j++){
         pair<int,int> posisi = Penyimpanan::konversiKoordinat(get<0>(*j));
         if(Config::getType(get<1>(*j)) == "HERBIVORE"){
@@ -153,32 +167,41 @@ void Muat::setUpPeternak(Pemain* player, string nama){
     
     }
 }
-void Muat::setUpWalikota(Pemain* player, string nama){
+void Muat::setUpWalikota(Pemain*& player, string nama){
     player = (Pemain*) new Walikota(nama,get<2>(dataPemain.at(nama)),get<1>(dataPemain.at(nama)));
+    
 }
-void Muat::setUpInventory(Pemain* pemain){
+void Muat::setUpInventory(Pemain*& pemain){
     Penyimpanan& inventoryPlayer = pemain->getInventory();
+    cout << pemain->getUsername() << endl;
     for(auto j = inventory.at(pemain->getUsername()).begin(); j != inventory.at(pemain->getUsername()).end(); j++){
-        if(Config::getType(*j) == "HERBIVORE"){
-            Herbivora* animal = new Herbivora(*j);
-            inventoryPlayer.tambahItem(animal);
-        }else if(Config::getType(*j) == "CARNIVORE"){
-            Karnivora* animal = new Karnivora(*j);
-            inventoryPlayer.tambahItem(animal);
-        }else if(Config::getType(*j) == "OMNIVORE"){
-            Omnivora* animal = new Omnivora(*j);
-            inventoryPlayer.tambahItem(animal);
-        }else if(Config::getType(*j) == "MATERIAL_PLANT" || Config::getType(*j) == "FRUIT_PLANT"){
+        if (Config::isExistAnimal(*j)){
+            if(Config::getType(*j) == "HERBIVORE"){
+                Herbivora* animal = new Herbivora(*j);
+                inventoryPlayer.tambahItem(animal);
+            }else if(Config::getType(*j) == "CARNIVORE"){
+                Karnivora* animal = new Karnivora(*j);
+                inventoryPlayer.tambahItem(animal);
+            }else if(Config::getType(*j) == "OMNIVORE"){
+                Omnivora* animal = new Omnivora(*j);
+                inventoryPlayer.tambahItem(animal);
+            }
+        } else if (Config::isExistPlant(*j)){
+            // if(Config::getType(*j) == "MATERIAL_PLANT" || Config::getType(*j) == "FRUIT_PLANT"){
+            //     Tanaman* plant = new Tanaman(*j);
+            //     inventoryPlayer.tambahItem(plant);
+            // }
             Tanaman* plant = new Tanaman(*j);
             inventoryPlayer.tambahItem(plant);
-        }else if(Config::getType(*j) == "PRODUCT_MATERIAL_PLANT"){
-            ProdukUneatable* product = new ProdukUneatable(*j);
-            inventoryPlayer.tambahItem(product);
-        }else if(Config::getType(*j) == "PRODUCT_FRUIT_PLANT" || Config::getType(*j) == "PRODUCT_ANIMAL"){
-            ProdukEatable* product = new ProdukEatable(*j);
-            inventoryPlayer.tambahItem(product);
-        }else if(Config::getCode(*j) == "SMH" || Config::getCode(*j) == "MDH" || Config::getCode(*j) == "LRH" || Config::getCode(*j) == "HTL"){
-            // konstruk bangunan trus masukin inventory
+        } else if (Config::isExistProduct(*j)){
+            if(Config::getType(*j) == "PRODUCT_MATERIAL_PLANT"){
+                ProdukUneatable* product = new ProdukUneatable(*j);
+                inventoryPlayer.tambahItem(product);
+            }else if(Config::getType(*j) == "PRODUCT_FRUIT_PLANT" || Config::getType(*j) == "PRODUCT_ANIMAL"){
+                ProdukEatable* product = new ProdukEatable(*j);
+                inventoryPlayer.tambahItem(product);
+            }
+        } else if (Config::isExistRecipe(*j)){
             Bangunan* bangunan = new Bangunan(*j);
             inventoryPlayer.tambahItem(bangunan);
         }

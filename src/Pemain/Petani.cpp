@@ -145,41 +145,46 @@ void Petani::harvest() {
 }
 
 void Petani::doCommand(string command) {
-    if(commandTable.find(command) == commandTable.end()){
-        // throw error
-    }
-    switch (commandTable[command])
-    {
-    case 1:
-        this->next();
-        break;
-    case 2:
-        this->cetakPenyimpanan();
-        break;
-    case 4:
-        this->cetakLadang();
-        break;
-    case 6:
-        this->tanam();
-        break;
-    case 9:
-        this->makan();
-        break;
-    case 11:
-        this->beli();
-        break;
-    case 12:
-        this->jual();
-        break;
-    case 13:
-        this->harvest();
-        break;
-    case 15:
-        this->simpan();
-        break;
-    default:
-        throw "Command Tidak Valid untuk Pemain ini";
-        break;
+    // if(commandTable.find(command) == commandTable.end()){
+    //     // throw error
+    // }
+    try{
+        switch (commandTable.at(command))
+        {
+        case 1:
+            this->next();
+            break;
+        case 2:
+            this->cetakPenyimpanan();
+            break;
+        case 4:
+            this->cetakLadang();
+            break;
+        case 6:
+            this->tanam();
+            break;
+        case 9:
+            this->makan();
+            break;
+        case 11:
+            this->beli();
+            break;
+        case 12:
+            this->jual();
+            break;
+        case 13:
+            this->harvest();
+            break;
+        case 15:
+            this->simpan();
+            break;
+        // default:
+        //     throw "Command Tidak Valid untuk Pemain ini";
+        //     break;
+        }
+    } catch(std::out_of_range& err){
+        PemainException e("Command Tidak Valid untuk Pemain ini");
+        throw e;
     }
 }
 
