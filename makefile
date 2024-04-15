@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -c -Wall
+CFLAGS = -Wall -std=c++17
 LDFLAGS =
 INCLUDES = -I./src
 SRCDIR = src

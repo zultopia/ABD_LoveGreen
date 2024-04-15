@@ -1,7 +1,7 @@
 #ifndef WALIKOTA_HPP
 #define WALIKOTA_HPP
 
-#include "Pemain.hpp"
+#include "./Pemain.hpp"
 
 class Walikota : public Pemain {
     public:

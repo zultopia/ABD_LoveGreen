@@ -107,7 +107,7 @@ void Muat::setUp(){
     Toko::setUpTokoMuat();
 }
 void Muat::setUpPetani(Pemain* player, string nama){
-    player = new Petani(nama,get<2>(dataPemain.at(nama)),get<1>(dataPemain.at(nama)));
+    player = (Pemain*) new Petani(nama,get<2>(dataPemain.at(nama)),get<1>(dataPemain.at(nama)));
     Petani* currenPetani = (Petani*)(player);
     Ladang& ladang = currenPetani->getLadang();
     for(auto j = LadangdanTernak.at(nama).begin(); j != LadangdanTernak.at(nama).end(); j++){
@@ -118,7 +118,7 @@ void Muat::setUpPetani(Pemain* player, string nama){
     }
 }
 void Muat::setUpPeternak(Pemain* player, string nama){
-    player = new Peternak(nama,get<2>(dataPemain.at(nama)),get<1>(dataPemain.at(nama)));
+    player = (Pemain*) new Peternak(nama,get<2>(dataPemain.at(nama)),get<1>(dataPemain.at(nama)));
     Peternak* currenPeternak = (Peternak*)(player);
     Peternakan& peternakan = currenPeternak->getPeternakan();
     for(auto j = LadangdanTernak.at(nama).begin(); j != LadangdanTernak.at(nama).end(); j++){
@@ -140,7 +140,7 @@ void Muat::setUpPeternak(Pemain* player, string nama){
     }
 }
 void Muat::setUpWalikota(Pemain* player, string nama){
-    player = new Walikota(nama,get<2>(dataPemain.at(nama)),get<1>(dataPemain.at(nama)));
+    player = (Pemain*) new Walikota(nama,get<2>(dataPemain.at(nama)),get<1>(dataPemain.at(nama)));
 }
 void Muat::setUpInventory(Pemain* pemain){
     Penyimpanan& inventoryPlayer = pemain->getInventory();
