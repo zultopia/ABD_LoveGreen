@@ -49,6 +49,9 @@ void Peternak::ternak() {
 }
 
 void Peternak::beriPangan() {
+    if (peternakan.hitungSlotKosong() == peternakan.getRows() * peternakan.getCols()) {
+        throw PemainException("Peternakan kosong. Tidak ada hewan yang bisa diberi makan.");
+    }
     cout << endl << "Pilih petak kandang yang akan ditinggali\n" << endl;
     peternakan.cetakInfo();
 
