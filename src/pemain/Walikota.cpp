@@ -203,13 +203,13 @@ void Walikota::doCommand(string command){
         case 16:
             this->tambahPemain();
             break;
-        // default:
-        //     PemainException e("Command Tidak Valid untuk Pemain ini");
-        //     throw e;
-        //     break;
+        default:
+            PemainException e("Command Tidak Valid untuk Pemain ini\n");
+            throw e;
+            break;
         }
     } catch(std::out_of_range& err){
-        PemainException e("Command Tidak Valid untuk Pemain ini");
+        PemainException e("Command Tidak Ada\n");
         throw e;
     }
 }
