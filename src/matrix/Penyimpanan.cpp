@@ -42,6 +42,8 @@ void Penyimpanan::cetakInfo() {
         cout << endl;
     }
     cout << endl;
+    cout << "Total slot kosong: " << hitungSlotKosong() << endl;
+    cout << endl;
 }
 
 void Penyimpanan::tambahItem(int row, int col, Item* jenisItem) {
