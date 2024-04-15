@@ -16,7 +16,7 @@
 #include "../Produk/Produk.hpp"
 #include "../Config/Config.hpp"
 
-Petani::Petani(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), ladang() {}
+Petani::Petani(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan), ladang(Config::getBesarLahan().first, Config::getBesarLahan().second) {}
 
 Petani::~Petani() {}
 
@@ -41,8 +41,16 @@ void Petani::tanam() {
             throw PemainException("Ladang sudah penuh. Tidak dapat menanam lebih banyak tanaman.");
         }
 
+        string name = item->getName();
+        cout << name << endl;
+        auto it = Config::getPlantMap().find(name);
+        if (it == Config::getPlantMap().end()) { 
+            inventory.tambahItem(item);
+            throw PemainException("Item yang dipilih bukan tanaman."); 
+        }
+        cout << "Kamu memilih " << item->getName() << ".\n" << endl;
+
         ladang.menanamTanaman(item);
-        inventory.cetakInfo();
     } else {
         throw PemainException("Tidak ada Item pada posisi tersebut.");
     }

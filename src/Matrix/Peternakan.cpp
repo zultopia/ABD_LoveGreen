@@ -113,10 +113,6 @@ void Peternakan::tambahHewan(Hewan* jenisTernak) {
 
 void Peternakan::menanamTernak(Item* item) {
     string nama = item->getName();
-    auto it = Config::getAnimalMap().find(nama);
-    if (it == Config::getAnimalMap().end()) { throw "Item yang dipilih bukan hewan."; }
-    cout << "Kamu memilih " << item->getName() << ".\n" << endl;
-
     bool ternakBerhasil = false;
     while (!ternakBerhasil) {
         cout << endl << "Pilih petak tanah yang akan ditinggali\n" << endl;
@@ -138,7 +134,6 @@ void Peternakan::menanamTernak(Item* item) {
             tambahHewan(koordinatPetak.first + 1, koordinatPetak.second, hewan);
             cout << "Dengan hati-hati, kamu meletakkan seekor Chicken di kandang." << endl;
             cout << item->getName() << " telah menjadi peliharaanmu sekarang!" << endl;
-            cetakInfo();
             ternakBerhasil = true;
         }
     }
