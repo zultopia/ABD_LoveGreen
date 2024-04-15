@@ -123,7 +123,7 @@ void Ladang::menanamTanaman(Item* item) {
             Tanaman* tanaman = new Tanaman(item->getName());
             tambahTanaman(koordinatPetak.first + 1, koordinatPetak.second, tanaman);
             cout << "Cangkul, cangkul, cangkul yang dalam~!" << endl;
-            cout << item->getName() << " berhasil ditanam di petak " << petak << endl;
+            cout << tanaman->getName() << " berhasil ditanam di petak " << petak << endl;
             tanamBerhasil = true;
         }
     }
