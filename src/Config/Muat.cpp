@@ -12,7 +12,7 @@
 #include "../Item/Bangunan.hpp"
 #include "Config.hpp"
 #include "../Exception/ConfigException.hpp"
-#include "Toko/toko.hpp"
+#include "../Toko/toko.hpp"
 
 string Muat::readPath(){
     string path;
