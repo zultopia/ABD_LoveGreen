@@ -326,7 +326,6 @@ void Petani::beli() {
     vector<tuple<int, int>> slotIntList;
 
     while (!slotsValid) {
-        slotsValid = true;
         cout << "Petak Slot: ";
         cin >> slots;
         slotIntList = Penyimpanan::parserListKoordinat(slots);
@@ -339,24 +338,25 @@ void Petani::beli() {
 
     // Add item ke penyimpanan
     for (auto i = slotIntList.begin(); i != slotIntList.end(); i++) {
+        cout << get<0>(*i) << get<1>(*i) << endl;
         if (Config::isExistPlant(namaBarang)) {
-            getInventory().tambahItem(get<0>(*i), get<1>(*i), new Tanaman(namaBarang));
+            inventory.tambahItem(get<0>(*i)+1, get<1>(*i), new Tanaman(namaBarang));
         } else if (Config::isExistAnimal(namaBarang)) {
             if (Config::getType(namaBarang).compare("HERBIVORE") == 0) {
-                getInventory().tambahItem(get<0>(*i), get<1>(*i), new Herbivora(namaBarang));
+                inventory.tambahItem(get<0>(*i)+1, get<1>(*i), new Herbivora(namaBarang));
             } else if (Config::getType(namaBarang).compare("CARNIVORE") == 0) {
-                getInventory().tambahItem(get<0>(*i), get<1>(*i), new Karnivora(namaBarang));
+                inventory.tambahItem(get<0>(*i)+1, get<1>(*i), new Karnivora(namaBarang));
             } else {
-                getInventory().tambahItem(get<0>(*i), get<1>(*i), new Omnivora(namaBarang));
+                inventory.tambahItem(get<0>(*i)+1, get<1>(*i), new Omnivora(namaBarang));
             }
         } else if (Config::isExistProduct(namaBarang)) {
             if (Config::getType(namaBarang).compare("PRODUCT_MATERIAL_PLANT") == 0) {
-                getInventory().tambahItem(get<0>(*i), get<1>(*i), new ProdukUneatable(namaBarang));
+                inventory.tambahItem(get<0>(*i)+1, get<1>(*i), new ProdukUneatable(namaBarang));
             } else {
-                getInventory().tambahItem(get<0>(*i), get<1>(*i), new ProdukEatable(namaBarang));
+                inventory.tambahItem(get<0>(*i)+1, get<1>(*i), new ProdukEatable(namaBarang));
             }
         } else {
-            getInventory().tambahItem(get<0>(*i), get<1>(*i), new Bangunan(namaBarang));
+            inventory.tambahItem(get<0>(*i)+1, get<1>(*i), new Bangunan(namaBarang));
         }
     }
 }

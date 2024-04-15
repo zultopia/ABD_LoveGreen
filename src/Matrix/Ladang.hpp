@@ -8,9 +8,9 @@
 
 class Ladang : public Grid<Tanaman> {
     public:
-        Ladang() : Grid<Tanaman>(Config::getBesarLahan().first, Config::getBesarLahan().second) {}
+        Ladang();
 
-        Ladang(int numRows, int numCols) : Grid<Tanaman>(numRows, numCols) {}
+        Ladang(int numRows, int numCol);
 
         void cetakInfo();
 

@@ -10,9 +10,9 @@
 
 class Peternakan : public Grid<Hewan> {
 public:
-    Peternakan() : Grid<Hewan>(Config::getBesarPeternakan().first, Config::getBesarPeternakan().second) {}
+    Peternakan();
 
-    Peternakan(int numRows, int numCols) : Grid<Hewan>(numRows, numCols) {}
+    Peternakan(int numRows, int numCols);
 
     void cetakInfo();
 
