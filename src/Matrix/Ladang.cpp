@@ -66,7 +66,6 @@ void Ladang::cetakKeteranganTanaman() {
     }
 }
 
-
 void Ladang::tambahTanaman(int row, int col, Tanaman* jenis) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
         updateCell(row - 1, col, jenis);

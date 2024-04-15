@@ -18,11 +18,8 @@
 #include "../Produk/ProdukEatable.hpp"
 #include "../Produk/ProdukUneatable.hpp"
 
-
 // subclass functions
-Walikota::Walikota(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan){
-    
-}
+Walikota::Walikota(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan){}
 
 void Walikota::pungutPajak(){
     cout << "Cring cring cring..." << endl;
@@ -295,10 +292,12 @@ void Walikota::beli(){
     vector<tuple<int, int>> slotIntList;
 
     while (!slotsValid) {
-        slotsValid = true;
         cout << "Petak Slot: ";
-        cin >> slots;
+        string buf;
+        getline(cin, buf);
+        getline(cin, slots);
         slotIntList = Penyimpanan::parserListKoordinat(slots);
+        cout << slotIntList.size() << endl;
         if (slotIntList.size() == kuantitasInt) {
             slotsValid = true;
         } else {

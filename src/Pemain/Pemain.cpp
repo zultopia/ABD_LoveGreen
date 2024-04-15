@@ -5,6 +5,7 @@
 #include "../Exception/PemainException.hpp"
 #include "../Config/Simpan.hpp"
 #include "../Item/Item.hpp"
+
 // Declare listPemain
 vector<Pemain*> Pemain::listPemain;
 int Pemain::currentPemain = 0;
@@ -26,6 +27,7 @@ map<string,int> Pemain::commandTable = {
     {"SIMPAN",15},
     {"TAMBAH_PEMAIN",16}
 };
+
 Pemain::Pemain(string& username, int kekayaan, int beratBadan) : username(username), kekayaan(kekayaan), beratBadan(beratBadan), inventory() {
     auto itr = listPemain.begin();
     if(itr == listPemain.end()){
@@ -38,9 +40,6 @@ Pemain::Pemain(string& username, int kekayaan, int beratBadan) : username(userna
         if(username.compare((*itr)->getUsername()) < 0){
             itr++;
         }
-        // if(itr == listPemain.end()){
-        //     cout << "terakhir" << endl;
-        // }
         listPemain.insert(itr, this);
         numPemain++;
     }
@@ -62,12 +61,15 @@ int Pemain::getBeratBadan() {
 Penyimpanan& Pemain::getInventory() {
     return inventory;
 }
+
 vector<string> Pemain::getDaftarInventory(){
     return inventory.getListPenyimpanan();
 }
+
 void Pemain::next() {
     currentPemain = (currentPemain + 1) % numPemain;
 }
+
 void Pemain::simpan() {
     Simpan::simpan();
 }

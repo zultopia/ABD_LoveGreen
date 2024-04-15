@@ -165,8 +165,6 @@ void Toko::batalBeli(string nama, int Quantity){
     }
 }
 
-
-
 // menjual ke toko
 // mengembalikan jumlah uang yang akan diterima dari penjualan
 int Toko::Jual(string nama, int Quantity){
