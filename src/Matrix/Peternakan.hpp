@@ -25,6 +25,8 @@ class Peternakan : public Penyimpanan {
 
         void tambahHewan( Hewan* jenisTernak);
 
+        void menanamTernak(Item* item);
+
         map<string, int> hitungJumlahHewanPanen();
 
         void operator+(Hewan* ternak);

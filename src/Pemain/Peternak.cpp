@@ -14,90 +14,32 @@ string Peternak::getRole() {
 }
 
 void Peternak::ternak() {
-    // Menampilkan daftar hewan yang tersedia di penyimpanan
-    cout << endl;
-    cout << "Pilih hewan dari penyimpanan:" << endl;
-    cout << endl;
+    cout << endl << "Pilih hewan dari penyimpanan:\n" << endl;
     inventory.cetakInfo();
 
-    // Meminta input slot item yang akan ditanam
     string slot;
     cout << "Slot: "; cin >> slot; cout << endl; 
 
-    // Mengambil item dari penyimpanan
-    pair<int, int> koordinatItem = Penyimpanan::konversiKoordinat(slot);
-    Item* item = inventory.ambilItem(koordinatItem.first + 1, koordinatItem.second);
+    Item* item = inventory.ambilItem(slot);
     if (item != nullptr) {
-        string nama = item->getName();
-        auto it = Config::getAnimalMap().find(nama);
-        if (it == Config::getAnimalMap().end()) {
-            throw "Item yang dipilih bukan hewan.";
-            return;
-        }
-
-        // Memeriksa apakah peternakan sudah penuh
         if (peternakan.hitungSlotKosong() == 0) {
-            throw "Peternakan sudah penuh. Tidak dapat menambahkan lebih banyak hewan.";
-            return;
+            throw PemainException("Peternakan sudah penuh. Tidak dapat menambahkan lebih banyak hewan.");
         }
 
-        bool ternakBerhasil = false;
-        while (!ternakBerhasil) {
-            // Meminta input petak tanah yang akan ditinggali
-            cout << endl;
-            cout << "Pilih petak tanah yang akan ditinggali" << endl;
-            cout << endl;
-            peternakan.cetakInfo();
-
-            // Meminta input slot petak tanah
-            string petak;
-            cout << endl;
-            cout << "Petak tanah: "; 
-            cin >> petak; 
-            cout << endl; 
-
-            // Menanam hewan pada petak kandang yang dipilih
-            pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
-
-            // Memeriksa apakah petak kandang sudah ditempati
-            if (peternakan.getGrid().getCell(koordinatPetak.first, koordinatPetak.second) != nullptr) {
-                cout << "Petak tanah tersebut sudah ditempati. Pilih petak lain." << endl;
-            } else {
-                // Menanam hewan pada petak kandang yang dipilih
-                Hewan* hewan;
-                string type = get<2>(Config::getAnimalMap()[nama]);
-                if (type == "CARNIVORE") {
-                    hewan = new Karnivora(nama);
-                } else if (type == "HERBIVORE") {
-                    hewan = new Herbivora(nama);
-                } else if (type == "OMNIVORE") {
-                    hewan = new Omnivora(nama);
-                }
-                peternakan.tambahHewan(koordinatPetak.first + 1, koordinatPetak.second, hewan);
-                cout << "Dengan hati-hati, kamu meletakkan seekor Chicken di kandang." << endl;
-                cout << item->getName() << " telah menjadi peliharaanmu sekarang!" << endl;
-                peternakan.cetakInfo();
-                inventory.cetakInfo();
-                ternakBerhasil = true;
-            }
-        }
+        peternakan.menanamTernak(item);
+        inventory.cetakInfo();
     } else {
-        cout << "Tidak ada Item pada posisi tersebut." << endl;
+        throw PemainException("Tidak ada Item pada posisi tersebut.");
     }
 }
 
 void Peternak::beriPangan() {
-    cout << endl;
-    cout << "Pilih petak kandang yang akan ditinggali" << endl;
-    cout << endl;
+    cout << endl << "Pilih petak kandang yang akan ditinggali\n" << endl;
     peternakan.cetakInfo();
 
     // Meminta input slot petak kandang
     string petak;
-    cout << endl;
-    cout << "Petak kandang: ";
-    cin >> petak;
-    cout << endl;
+    cout << endl; cout << "Petak kandang: "; cin >> petak; cout << endl;
 
     // Memeriksa apakah petak kandang sudah ditempati
     pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
@@ -128,19 +70,16 @@ void Peternak::beriPangan() {
 
             if (isAnimal) {
                 // Item ada di map animal
-                cout << "Hewan hanya dapat memakan produk hewan" << endl;
+                throw PemainException("Hewan hanya dapat memakan produk hewan");
             } else if (isPlant) {
                 // Item ada di map plant
-                cout << "Hewan hanya dapat memakan produk tanaman" << endl;
+                throw PemainException("Hewan hanya dapat memakan produk tanaman");
             } else if (isProduct) {
                 // Item ada di map product
                 string typePangan = get<2>(Config::getProductMap()[item->getName()]);
                 Produk* produkPangan;
-                if (typePangan == "PRODUCT_MATERIAL_PLANT") {
-                    produkPangan = new ProdukUneatable(item->getName());
-                } else {
-                    produkPangan = new ProdukEatable(item->getName());
-                }
+                if (typePangan == "PRODUCT_MATERIAL_PLANT") { produkPangan = new ProdukUneatable(item->getName());} 
+                else { produkPangan = new ProdukEatable(item->getName()); }
                 
                 if (Config::getAnimalMap().find(produkPangan->getOrigin()) != Config::getAnimalMap().end()) {
                     if (isKarnivore || isOmnivore) {
@@ -160,12 +99,10 @@ void Peternak::beriPangan() {
             }
 
         } else {
-            throw "Tidak ada Item pada posisi tersebut.";
-            return;
+            throw PemainException("Tidak ada Item pada posisi tersebut.");
         }
     } else {
-        throw "Petak kandang tersebut kosong.";
-        return;
+        throw PemainException("Petak kandang tersebut kosong.");
     }
     delete hewan;
 }
@@ -181,9 +118,9 @@ void Peternak::harvest() {
     map<string, int> harvest = peternakan.hitungJumlahHewanPanen();
 
     if (harvest.empty()) {
-        cout << "Tidak ada hewan siap panen." << endl;
+        throw PemainException("Tidak ada hewan siap panen.");
     } else {
-        cout << "Pilih hewan siap panen yang kamu miliki" << endl;
+        cout << "Pilih hewan siap panen yang kamu miliki\n" << endl;
         int counter = 1;
         map<int, string> hewanByNumber;
         for (auto it = harvest.begin(); it != harvest.end(); it++) {
@@ -192,23 +129,21 @@ void Peternak::harvest() {
             counter++;
         }
 
-        cout << endl;
         int nomor;
         cout << "Nomor hewan yang ingin dipanen: "; cin >> nomor; cout << endl;
 
         if (nomor < 1 || nomor > harvest.size()) {
-            cout << "Nomor hewan tidak valid." << endl;
+            throw PemainException("Nomor hewan tidak valid.");
         } else {
             int jumlahPetak;
             string kodeHewan = hewanByNumber[nomor];
             cout << "Berapa petak yang ingin dipanen: "; cin >> jumlahPetak; cout << endl;
 
             if (jumlahPetak < 1 || jumlahPetak > harvest[kodeHewan]) {
-                cout << "Jumlah petak yang ingin dipanen melebihi/kurang dari jumlah petak yang tersedia." << endl;
+                throw PemainException("Jumlah petak yang ingin dipanen melebihi/kurang dari jumlah petak yang tersedia.");
             } else {
                 if (inventory.hitungSlotKosong() < jumlahPetak) {
-                    cout << "Slot penyimpanan tidak cukup." << endl;
-                    return;
+                    throw PemainException("Slot penyimpanan tidak cukup.");
                 } 
 
                 string petak;

@@ -13,69 +13,22 @@ string Petani::getRole() {
 }
 
 void Petani::tanam() {
-    // Menampilkan daftar tanaman yang tersedia di penyimpanan
-    cout << endl;
-    cout << "Pilih tanaman dari penyimpanan:" << endl;
-    cout << endl;
+    cout << endl << "Pilih tanaman dari penyimpanan:\n" << endl;
     inventory.cetakInfo();
 
-    // Meminta input slot item yang akan ditanam
     string slot;
     cout << "Slot: "; cin >> slot; cout << endl; 
 
-    // Mengambil item dari penyimpanan
-    pair<int, int> koordinatItem = Penyimpanan::konversiKoordinat(slot);
-    Item* item = inventory.ambilItem(koordinatItem.first + 1, koordinatItem.second);
+    Item* item = inventory.ambilItem(slot);
     if (item != nullptr) {
-        string code = item->getCode();
-        auto it = Config::getPlantMap().find(code);
-        if (it == Config::getPlantMap().end()) {
-            PemainException e("Item yang dipilih bukan tanaman.");
-            throw e;
-        }
-        
-        cout << "Kamu memilih " << item->getName() << "." << endl;
-        cout << endl;
-
-        // Memeriksa apakah ladang sudah penuh
         if (ladang.hitungSlotKosong() == 0) {
-            PemainException e("Ladang sudah penuh. Tidak dapat menanam lebih banyak tanaman.");
-            throw e;
+            throw PemainException("Ladang sudah penuh. Tidak dapat menanam lebih banyak tanaman.");
         }
 
-        bool tanamBerhasil = false;
-        while (!tanamBerhasil) {
-            // Meminta input petak tanah yang akan ditanami
-            cout << "Pilih petak tanah yang akan ditanami" << endl;
-            cout << endl;
-            ladang.cetakInfo();
-
-            // Meminta input slot petak tanah
-            string petak;
-            cout << endl;
-            cout << "Petak tanah: ";
-            cin >> petak;
-            cout << endl;
-
-            // Menanam tanaman pada petak tanah yang dipilih
-            pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
-
-            // Memeriksa apakah petak tanah sudah ditanami
-            if (ladang.getGrid().getCell(koordinatPetak.first, koordinatPetak.second) != nullptr) {
-                cout << "Petak tanah tersebut sudah ditanami. Pilih petak lain." << endl;
-            } else {
-                // Menanam tanaman pada petak tanah yang dipilih
-                Tanaman* tanaman = new Tanaman(item->getCode());
-                ladang.tambahTanaman(koordinatPetak.first + 1, koordinatPetak.second, tanaman);
-                cout << "Cangkul, cangkul, cangkul yang dalam~!" << endl;
-                cout << item->getName() << " berhasil ditanam di petak " << petak << endl;
-                ladang.cetakInfo();
-                inventory.cetakInfo();
-                tanamBerhasil = true;
-            }
-        }
+        ladang.menanamTanaman(item);
+        inventory.cetakInfo();
     } else {
-        cout << "Tidak ada Item pada posisi tersebut." << endl;
+        throw PemainException("Tidak ada Item pada posisi tersebut.");
     }
 }
 
@@ -90,8 +43,7 @@ void Petani::harvest() {
     map<string, int> harvest = ladang.hitungJumlahTanamanPanen();
 
     if (harvest.empty()) {
-        PemainException e("Tidak ada tanaman siap panen.");
-        throw e;
+        throw PemainException("Tidak ada tanaman siap panen.");
     } else {
         cout << "Pilih tanaman siap panen yang kamu miliki" << endl;
         int counter = 1;
@@ -102,25 +54,21 @@ void Petani::harvest() {
             counter++;
         }
 
-        cout << endl;
         int nomor;
-        cout << "Nomor tanaman yang ingin dipanen: "; cin >> nomor; cout << endl;
+        cout << endl << "Nomor tanaman yang ingin dipanen: "; cin >> nomor; cout << endl;
 
         if (nomor < 1 || nomor > harvest.size()) {
-            PemainException e("Nomor tanaman tidak valid.");
-            throw e;
+            throw PemainException("Nomor tanaman tidak valid.");
         } else {
             int jumlahPetak;
             string kodeTanaman = tanamanByNumber[nomor];
             cout << "Berapa petak yang ingin dipanen: "; cin >> jumlahPetak; cout << endl;
 
             if (jumlahPetak < 1 || jumlahPetak > harvest[kodeTanaman]) {
-                PemainException e("Jumlah petak yang ingin dipanen melebihi/kurang dari jumlah petak yang tersedia.");
-                throw e;
+                throw PemainException("Jumlah petak yang ingin dipanen melebihi/kurang dari jumlah petak yang tersedia.");
             } else {
                 if (inventory.hitungSlotKosong() < jumlahPetak) {
-                    PemainException e("Slot penyimpanan tidak cukup.");
-                    throw e;
+                    throw PemainException("Slot penyimpanan tidak cukup.");
                 } 
 
                 string petak;
@@ -130,14 +78,11 @@ void Petani::harvest() {
                     cout << "Petak ke-" << i + 1 << ": "; cin >> petak;
                     pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
                     if (ladang.getGrid().getCell(koordinatPetak.first, koordinatPetak.second) == nullptr) {
-                        cout << "Petak tersebut tidak memiliki tanaman." << endl;
-                        return;
+                        throw PemainException("Petak tersebut tidak memiliki tanaman.");
                     } else if (ladang.getGrid().getCell(koordinatPetak.first, koordinatPetak.second)->getCode() != kodeTanaman) {
-                        cout << "Petak tersebut memiliki tanaman yang berbeda." << endl;
-                        return;
+                        throw PemainException("Petak tersebut memiliki tanaman yang berbeda.");
                     } else if (!ladang.getGrid().getCell(koordinatPetak.first, koordinatPetak.second)->isHarvest()) {
-                        cout << "Tanaman pada petak tersebut belum siap dipanen." << endl;
-                        return;
+                        throw PemainException("Tanaman pada petak tersebut belum siap dipanen.");
                     } else {
                         petakDipanen.push_back(petak);
                         Tanaman* tanamanPanen = ladang.ambilTanaman(koordinatPetak.first + 1, koordinatPetak.second);
@@ -155,7 +100,7 @@ void Petani::harvest() {
 
                         for (int i = 0; i < namaProduk.size(); i++) {
                             if (tipeTanamanPanen == "MATERIAL_PLANT") {
-                                Produk* produk = new ProdukEatable(namaProduk[i]);
+                                Produk* produk = new ProdukUneatable(namaProduk[i]);
                                 Item* item = dynamic_cast<Item*>(produk);
                                 if(produk != nullptr){
                                     inventory.tambahItem(item);
@@ -267,19 +212,12 @@ int Petani::calculateTax() {
     }
 
     int KKP = netoKekayaan - KTKP;
-    if (KKP <= 0) {
-        return 0;
-    } else if (KKP <= 6) {
-        return KKP * 0.05;
-    } else if (KKP > 6 && KKP <= 25) {
-        return KKP * 0.15;
-    } else if (KKP > 25 && KKP <= 50) {
-        return KKP * 0.25;
-    } else if (KKP > 50 && KKP <= 500) {
-        return KKP * 0.3;
-    } else {
-        return KKP * 0.35;
-    }
+    if (KKP <= 0) { return 0;} 
+    else if (KKP <= 6) { return KKP * 0.05; } 
+    else if (KKP > 6 && KKP <= 25) { return KKP * 0.15; } 
+    else if (KKP > 25 && KKP <= 50) { return KKP * 0.25; } 
+    else if (KKP > 50 && KKP <= 500) { return KKP * 0.3; } 
+    else { return KKP * 0.35; }
 }
 
 void Petani::beli() {
