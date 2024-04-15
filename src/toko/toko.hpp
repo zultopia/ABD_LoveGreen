@@ -39,10 +39,8 @@ class Toko{
         static int CetakPeternakPetani();
         // Produk yang dibeli
         // mengembalikan jumlah uang yang harus dibayarkan untuk membeli
-        static int BeliWalikota(int no, int Quantity);
-        static int BeliPeternakPetani(int no, int Quantity);
-        static string getBarangNoUrutWalikota(int no);
-        static string getBarangNoUrutPeternakPetani(int no);
+        static pair<string,int> BeliWalikota(int no, int Quantity);
+        static pair<string,int> BeliPeternakPetani(int no, int Quantity);
         // batal melakukan pembelian
         static void batalBeli(string nama, int Quantity);
 

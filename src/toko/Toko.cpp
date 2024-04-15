@@ -101,13 +101,14 @@ int Toko::CetakPeternakPetani(){
         }
         
     }
+    cout << endl;
     return i;
 }
 
 // Produk yang dibeli
 // mengembalikan jumlah uang yang harus dibayarkan untuk membeli
-int Toko::BeliWalikota(int no, int Quantity){
-    int i = 1;
+pair<string,int> Toko::BeliWalikota(int no, int Quantity){
+    int i = 0;
     auto itr = urutan.begin();
     while(itr != urutan.end() && i < no){
         if(!Config::isExistRecipe(*itr) && barang.at(*itr).second != 0){
@@ -115,11 +116,13 @@ int Toko::BeliWalikota(int no, int Quantity){
         }
         itr++;
     }
-    if(itr == urutan.end() && i != no){
+    itr--;
+    if(i != no){
         InvalidNumberTokoException e;
         throw e;
     }
     // itr = barang yang ditunjuk oleh no
+    cout << (*itr) << " " << barang.at(*itr).second << endl;
     if(barang.at(*itr).second != -1){
         if(barang.at(*itr).second < Quantity){
             InvalidQuantityTokoException e;
@@ -128,26 +131,10 @@ int Toko::BeliWalikota(int no, int Quantity){
         barang.at(*itr).second -= Quantity;
     }
     // harga * quantity
-    return barang.at(*itr).first*Quantity;
+    return make_pair((*itr),barang.at(*itr).first*Quantity);
 }
-string Toko::getBarangNoUrutWalikota(int no){
-    int i = 1;
-    auto itr = urutan.begin();
-    while(itr != urutan.end() && i < no){
-        if(!Config::isExistRecipe(*itr) && barang.at(*itr).second != 0){
-            i++;
-        }
-        itr++;
-    }
-    if(itr == urutan.end() && i != no){
-        InvalidNumberTokoException e;
-        throw e;
-    }
-    // itr = barang yang ditunjuk oleh no
-    return (*itr);
-}
-int Toko::BeliPeternakPetani(int no, int Quantity){
-    int i = 1;
+pair<string,int> Toko::BeliPeternakPetani(int no, int Quantity){
+    int i = 0;
     auto itr = urutan.begin();
     while(itr != urutan.end() && i < no){
         if(barang.at(*itr).second != 0){
@@ -155,7 +142,8 @@ int Toko::BeliPeternakPetani(int no, int Quantity){
         }
         itr++;
     }
-    if(itr == urutan.end() && i != no){
+    itr--;
+    if(i != no){
         InvalidNumberTokoException e;
         throw e;
     }
@@ -167,7 +155,7 @@ int Toko::BeliPeternakPetani(int no, int Quantity){
         }
         barang.at(*itr).second -= Quantity;
     }
-    return barang.at(*itr).first*Quantity;
+    return make_pair((*itr),barang.at(*itr).first*Quantity);
 }
 
 // batal melakukan pembelian
@@ -177,22 +165,6 @@ void Toko::batalBeli(string nama, int Quantity){
     }
 }
 
-string Toko::getBarangNoUrutPeternakPetani(int no){
-    int i = 1;
-    auto itr = urutan.begin();
-    while(itr != urutan.end() && i < no){
-        if(barang.at(*itr).second != 0){
-            i++;
-        }
-        itr++;
-    }
-    if(itr == urutan.end() && i != no){
-        InvalidNumberTokoException e;
-        throw e;
-    }
-    // itr = barang yang ditunjuk oleh no
-    return (*itr);
-}
 
 
 // menjual ke toko
@@ -241,14 +213,16 @@ map<string,int> Toko::getIsiToko(){
 
 void Toko::displayIsiToko(){
     int jumlah = urutan.size();
+    int urut = 1;
     cout << "namaBarang | Harga | Jumlah " << endl;
     for(auto i = urutan.begin(); i != urutan.end(); i++){
-        cout << *i << " " << barang.at(*i).first << " ";
+        cout << urut << ". " << *i << " " << barang.at(*i).first << " ";
         if(barang.at(*i).second == -1){
             cout << "infinite" << endl;
         }else{
             cout << barang.at(*i).second << endl;
         }
+        urut++;
     }
     cout << "Jumlah daftar item di Toko ada " << jumlah << " buah" << endl;
 }

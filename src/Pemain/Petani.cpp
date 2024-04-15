@@ -305,8 +305,9 @@ void Petani::beli() {
             valid = false;
         }
     }
-
-    int hargaTotal = Toko::BeliPeternakPetani(pilihanInt, kuantitasInt);
+    pair<string,int> barangHarga = Toko::BeliPeternakPetani(pilihanInt, kuantitasInt);
+    int hargaTotal = barangHarga.second;
+    string namaBarang = barangHarga.first;
 
     if (kuantitasInt > slotKosong) {
         PemainException e("Slot penyimpanan tidak cukup!");
@@ -315,9 +316,8 @@ void Petani::beli() {
         PemainException e("Jumlah gulden pemain tidak cukup!");
         throw e;
     }
-    string namaBarang = Toko::getBarangNoUrutPeternakPetani(pilihanInt);
     kekayaan -= hargaTotal;
-    cout << "Selamat Anda berhasil membeli " << kuantitas << " " << namaBarang << ". Uang Anda tersisa 88 gulden." << endl;
+    cout << "Selamat Anda berhasil membeli " << kuantitas << " " << namaBarang << ". Uang Anda tersisa " << kekayaan << " gulden." << endl;
     cout << "Pilih slot untuk menyimpan barang yang Anda beli!" << endl;
     cetakPenyimpanan();
 
