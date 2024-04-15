@@ -6,7 +6,6 @@
 #include "../Hewan/Herbivora.hpp"
 #include "../Hewan/Omnivora.hpp"
 #include "Grid.hpp"
-#include "Penyimpanan.hpp"
 #include <map>
 
 class Peternakan : public Grid<Hewan> {

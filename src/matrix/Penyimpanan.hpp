@@ -15,8 +15,6 @@ class Penyimpanan : public Grid<Item> {
 
         void tambahItem(int row, int col, Item* jenisItem);
 
-        int hitungSlotKosong();
-
         Item* ambilItem(int row, int col);
 
         Item* ambilItem(string koordinat);
@@ -25,15 +23,9 @@ class Penyimpanan : public Grid<Item> {
 
         void operator+(Item* item);
 
-        vector<string> getListPenyimpanan();
-
-        static pair<int, int> konversiKoordinat(string koordinat);
-
-        static vector<tuple<int, int>> parserListKoordinat(string input);
-
         int jumlahItem(string nama);
 
-    bool checkMakanan(int row, int col);
+        bool checkMakanan(int row, int col);
 };
 
 #endif

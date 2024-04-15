@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <vector>
 #include <string>
+#include <tuple>
 
 #include "../Item/Item.hpp"
 #include "../Tanaman/Tanaman.hpp"
@@ -57,6 +58,53 @@ class Grid {
 
         int getCols() const{
             return grid.empty() ? 0 : grid[0].size();
+        }
+
+        vector<string> getListPenyimpanan() const {
+            vector<string> listPenyimpanan;
+            for (int i = 0; i < rows; ++i) {
+                for (int j = 0; j < cols; ++j) {
+                    if (grid[i][j] != nullptr) {
+                        listPenyimpanan.push_back(grid[i][j]->getCode());
+                    }
+                }
+            }
+            return listPenyimpanan;
+        }
+
+        int hitungSlotKosong() const {
+            int count = 0;
+            for (int i = 0; i < rows; ++i) {
+                for (int j = 0; j < cols; ++j) {
+                    if (grid[i][j] == nullptr) {
+                        count++;
+                    }
+                }
+            }
+            return count;
+        }
+
+        static pair<int, int> konversiKoordinat(string koordinat) {
+            int col = koordinat[0] - 'A';
+            int row = stoi(koordinat.substr(1)) - 1;
+            return make_pair(row, col);
+        }
+
+        static vector<tuple<int, int>> parserListKoordinat(string input) {
+            vector<tuple<int, int>> listKoordinat;
+            string temp = "";
+            for (char c : input) {
+                if (c == '(') {
+                    temp = "";
+                } else if (c == ')') {
+                    int row = temp[0] - 'A';
+                    int col = stoi(temp.substr(1));
+                    listKoordinat.push_back(make_tuple(row, col));
+                } else if (c != ' ' && c != ',') {
+                    temp += c;
+                }
+            }
+            return listKoordinat;
         }
 };
 

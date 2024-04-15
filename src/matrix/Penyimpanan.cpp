@@ -50,18 +50,6 @@ void Penyimpanan::tambahItem(int row, int col, Item* jenisItem) {
     }
 }
 
-int Penyimpanan::hitungSlotKosong() {
-    int count = 0;
-    for (int i = 0; i < getRows(); ++i) {
-        for (int j = 0; j < getCols(); ++j) {
-            if (getCell(i, j) == nullptr || getCell(i, j)->getCode().empty()) {
-                ++count;
-            }   
-        }
-    }
-    return count;
-}
-
 Item* Penyimpanan::ambilItem(int row, int col) {
     if (row >= 1 && row <= getRows() && col >= 0 && col < getCols()) {
         Item* item = getCell(row - 1, col);
@@ -103,62 +91,6 @@ void Penyimpanan::tambahItem(Item* jenisItem) {
 // Operator Overloading
 void Penyimpanan::operator+(Item* item) {
     tambahItem(item);
-}
-
-vector<string> Penyimpanan::getListPenyimpanan(){
-    vector<string> temp;
-    for(int i = 0; i < rows; i++){
-        for(int j = 0; j < cols; j++){
-            if (getCell(i,j) != nullptr) {
-                temp.push_back(getCell(i,j)->getName());
-            }
-        }
-    }
-    return temp;
-}
-
-pair<int, int> Penyimpanan::konversiKoordinat(string koordinat) {
-    if (koordinat.length() < 3) {
-        cout << "Format koordinat tidak valid\n";
-        return {-1, -1};
-    }
-
-    char huruf = toupper(koordinat[0]); 
-    int y = huruf - 'A';
-
-    string angkaStr = koordinat.substr(1); 
-    int x = stoi(angkaStr) - 1; 
-
-    if (x < 0 || x >= Config::getBesarPenyimpanan().first) {
-        cout << "Indeks kolom tidak valid\n";
-        return {-1, -1}; 
-    }
-
-    return {x, y};
-}
-
-vector<tuple<int, int>> Penyimpanan::parserListKoordinat(string slots){
-    string delimiter = ",";
-    vector<string> slotList;
-    vector<tuple<int, int>> slotIntList;
-    tuple<int, int> koordinatInt;
-    size_t pos = 0;
-    string koordinat;
-    while ((pos = slots.find(delimiter)) != string::npos) {
-        koordinat = slots.substr(0, pos);
-        koordinat.erase(remove_if(koordinat.begin(), koordinat.end(), ::isspace),koordinat.end());
-        slotList.push_back(koordinat);
-        slots.erase(0, pos + delimiter.length());
-        koordinatInt = konversiKoordinat(koordinat);
-        if (get<0>(koordinatInt) < 0 || get<0>(koordinatInt) >= Config::getBesarPenyimpanan().first || get<1>(koordinatInt) < 0 || get<1>(koordinatInt) >= Config::getBesarPenyimpanan().second) {
-            slotList.clear();
-            slotIntList.clear();
-            break;
-        } else {
-            slotIntList.push_back(koordinatInt);
-        }
-    }
-    return slotIntList;
 }
 
 int Penyimpanan::jumlahItem(string nama) {

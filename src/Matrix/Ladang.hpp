@@ -5,7 +5,6 @@
 #include "../Tanaman/Tanaman.hpp"
 #include "Grid.hpp"
 #include "../Item/Item.hpp"
-#include "Penyimpanan.hpp"
 
 class Ladang : public Grid<Tanaman> {
     public:

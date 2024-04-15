@@ -109,7 +109,7 @@ void Peternakan::menanamTernak(Item* item) {
         string petak;
         cout << endl << "Petak tanah: "; cin >> petak; cout << endl; 
 
-        pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
+        pair<int, int> koordinatPetak = konversiKoordinat(petak);
 
         if (getCell(koordinatPetak.first, koordinatPetak.second) != nullptr) {
             cout << "Petak tanah tersebut sudah ditempati. Pilih petak lain." << endl;
