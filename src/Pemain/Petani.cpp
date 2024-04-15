@@ -186,12 +186,13 @@ void Petani::doCommand(string command) {
         case 15:
             this->simpan();
             break;
-        // default:
-        //     throw "Command Tidak Valid untuk Pemain ini";
-        //     break;
+        default:
+            PemainException e("Command Tidak Valid untuk Pemain ini\n");
+            throw e;
+            break;
         }
     } catch(std::out_of_range& err){
-        PemainException e("Command Tidak Valid untuk Pemain ini");
+        PemainException e("Command Tidak Ada\n");
         throw e;
     }
 }

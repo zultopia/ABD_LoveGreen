@@ -36,6 +36,7 @@ void GameEngine::setUp() {
             Muat::muat();
             // Muat::cekMuat();
             Muat::setUp();
+            Muat::cekMuat();
         } catch (ConfigException& e){
             cout << e.what() << endl << endl;
             cout << "Default Start" << endl;

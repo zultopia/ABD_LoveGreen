@@ -141,7 +141,7 @@ void Muat::setUpPetani(Pemain*& player, string nama){
         pair<int,int> posisi = Penyimpanan::konversiKoordinat(get<0>(*j));
         Tanaman* currTanaman = new Tanaman(get<1>(*j), get<2>(*j));
         // masukkin ladang
-        ladang.tambahTanaman(posisi.first, posisi.second, currTanaman);
+        ladang.tambahTanaman(posisi.first+1, posisi.second, currTanaman);
     }
 }
 void Muat::setUpPeternak(Pemain*& player, string nama){
@@ -153,16 +153,19 @@ void Muat::setUpPeternak(Pemain*& player, string nama){
         pair<int,int> posisi = Penyimpanan::konversiKoordinat(get<0>(*j));
         if(Config::getType(get<1>(*j)) == "HERBIVORE"){
             Herbivora* animal = new Herbivora(get<1>(*j), get<2>(*j));
+            cout << get<1>(*j) << endl;
             // masukkin peternakan
-            peternakan.tambahHewan(posisi.first,posisi.second, animal);
+            peternakan.tambahHewan(posisi.first+1,posisi.second, animal);
         }else if(Config::getType(get<1>(*j)) == "CARNIVORE"){
             Karnivora* animal = new Karnivora(get<1>(*j), get<2>(*j));
+            cout << get<1>(*j) << endl;
             // masukkin peternakan
-            peternakan.tambahHewan(posisi.first,posisi.second, animal);
+            peternakan.tambahHewan(posisi.first+1,posisi.second, animal);
         }else if(Config::getType(get<1>(*j)) == "OMNIVORE"){
             Omnivora* animal = new Omnivora(get<1>(*j), get<2>(*j));
+            cout << get<1>(*j) << endl;
             // masukkin peternakan
-            peternakan.tambahHewan(posisi.first,posisi.second, animal);
+            peternakan.tambahHewan(posisi.first+1,posisi.second, animal);
         }
     
     }
