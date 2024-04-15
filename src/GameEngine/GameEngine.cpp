@@ -36,7 +36,6 @@ void GameEngine::setUp() {
             Muat::muat();
             // Muat::cekMuat();
             Muat::setUp();
-            Toko::displayIsiToko();
         } catch (ConfigException& e){
             cout << e.what() << endl << endl;
             cout << "Default Start" << endl;

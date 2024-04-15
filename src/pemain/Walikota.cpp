@@ -295,10 +295,12 @@ void Walikota::beli(){
     vector<tuple<int, int>> slotIntList;
 
     while (!slotsValid) {
-        slotsValid = true;
         cout << "Petak Slot: ";
-        cin >> slots;
+        string buf;
+        getline(cin, buf);
+        getline(cin, slots);
         slotIntList = Penyimpanan::parserListKoordinat(slots);
+        cout << slotIntList.size() << endl;
         if (slotIntList.size() == kuantitasInt) {
             slotsValid = true;
         } else {
