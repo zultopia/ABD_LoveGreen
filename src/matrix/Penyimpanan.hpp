@@ -16,7 +16,7 @@ class Penyimpanan : public Grid<Item> {
 
         Item* ambilItem(int row, int col);
 
-        Item* ambilItem(string koordinat);
+        Item* ambilJenisItem(string slot, string jenisItem);
 
         void tambahItem(Item* jenisItem);
 

@@ -62,9 +62,36 @@ Item* Penyimpanan::ambilItem(int row, int col) {
     }
 }
 
-Item* Penyimpanan::ambilItem(string slot) {
+Item* Penyimpanan::ambilJenisItem(string slot, string jenisItem) {
     pair<int, int> koordinatItem = Penyimpanan::konversiKoordinat(slot);
-    return ambilItem(koordinatItem.first + 1, koordinatItem.second);
+    if (koordinatItem.first >= 0 && koordinatItem.first <= getRows() && koordinatItem.second >= 0 && koordinatItem.second < getCols()) {
+        Item* item = getCell(koordinatItem.first, koordinatItem.second);
+        if (item == nullptr) return nullptr;
+        cout << "Item: " << item->getName() << endl;
+
+        auto it = Config::getAnimalMap().find(item->getName());
+        if (it != Config::getAnimalMap().end() && jenisItem.compare("Hewan") == 0) {
+            removeItem(koordinatItem.first, koordinatItem.second);
+            return item;
+        }
+
+        auto it2 = Config::getPlantMap().find(item->getName());
+        if (it2 != Config::getPlantMap().end() && jenisItem.compare("Tanaman") == 0) {
+            removeItem(koordinatItem.first, koordinatItem.second);
+            return item;
+        }
+
+        auto it3 = Config::getProductMap().find(item->getName());
+        if (it3 != Config::getProductMap().end() && jenisItem.compare("Produk") == 0) {
+            removeItem(koordinatItem.first, koordinatItem.second);
+            return item;
+        }
+
+        return nullptr;
+    } else {
+        return nullptr;
+    }
+
 }
 
 // Function Overloading

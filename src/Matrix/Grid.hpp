@@ -94,11 +94,17 @@ class Grid {
             for (char c : input) {
                 if (c != ' ' && c != ',') {
                     temp += c;
+                } else if (c == ',' ){
+                    int row = stoi(temp.substr(1)); 
+                    int col = temp[0] - 'A';
+                    listKoordinat.push_back(make_tuple(row, col));
+                    temp = "";
                 }
             }
-            int row = stoi(temp.substr(1)) - 1; 
+            int row = stoi(temp.substr(1)); 
             int col = temp[0] - 'A';
             listKoordinat.push_back(make_tuple(row, col));
+            
             return listKoordinat;
         }
 };

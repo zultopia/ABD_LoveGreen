@@ -29,30 +29,23 @@ string Petani::getRole() {
 }
 
 void Petani::tanam() {
+    if (ladang.hitungSlotKosong() == 0) {
+        throw PemainException("Ladang sudah penuh. Tidak dapat menanam lebih banyak tanaman.");
+    }
+
     cout << endl << "Pilih tanaman dari penyimpanan:\n" << endl;
     inventory.cetakInfo();
 
     string slot;
     cout << "Slot: "; cin >> slot; cout << endl; 
 
-    Item* item = inventory.ambilItem(slot);
+    Item* item = inventory.ambilJenisItem(slot, "Tanaman");
     if (item != nullptr) {
-        if (ladang.hitungSlotKosong() == 0) {
-            throw PemainException("Ladang sudah penuh. Tidak dapat menanam lebih banyak tanaman.");
-        }
-
-        string name = item->getName();
-        cout << name << endl;
-        auto it = Config::getPlantMap().find(name);
-        if (it == Config::getPlantMap().end()) { 
-            inventory.tambahItem(item);
-            throw PemainException("Item yang dipilih bukan tanaman."); 
-        }
         cout << "Kamu memilih " << item->getName() << ".\n" << endl;
 
         ladang.menanamTanaman(item);
     } else {
-        throw PemainException("Tidak ada Item pada posisi tersebut.");
+        throw PemainException("Item yang dipilih tidak sesuai/Tidak ada Item pada posisi tersebut.");
     }
 }
 
@@ -153,9 +146,6 @@ void Petani::harvest() {
 }
 
 void Petani::doCommand(string command) {
-    // if(commandTable.find(command) == commandTable.end()){
-    //     // throw error
-    // }
     try{
         switch (commandTable.at(command))
         {
@@ -227,16 +217,11 @@ int Petani::calculateTax() {
         }
     }
 
-    vector<string> list = ladang.getListPenyimpanan();
-    for (int i = 0; i < list.size(); i++) {
-        if (Config::getPlantMap().find(list[i]) != Config::getPlantMap().end()) {
-            netoKekayaan += get<4>(Config::getPlantMap()[list[i]]);
-        }
-        if (Config::getAnimalMap().find(list[i]) != Config::getAnimalMap().end()) {
-            netoKekayaan += get<4>(Config::getAnimalMap()[list[i]]);
-        }
-        if (Config::getProductMap().find(list[i]) != Config::getProductMap().end()) {
-            netoKekayaan += get<5>(Config::getProductMap()[list[i]]);
+    for (int i = 0; i < ladang.getRows(); i++) {
+        for (int j = 0; j < ladang.getCols(); j++) {
+            if (ladang.getCell(i, j) != nullptr) {
+                netoKekayaan += ladang.getCell(i, j)->getPrice();
+            }
         }
     }
 
@@ -327,7 +312,9 @@ void Petani::beli() {
 
     while (!slotsValid) {
         cout << "Petak Slot: ";
-        cin >> slots;
+        string buf;
+        getline(cin, buf);
+        getline(cin, slots);
         slotIntList = Penyimpanan::parserListKoordinat(slots);
         if (slotIntList.size() == kuantitasInt) {
             slotsValid = true;
@@ -338,25 +325,24 @@ void Petani::beli() {
 
     // Add item ke penyimpanan
     for (auto i = slotIntList.begin(); i != slotIntList.end(); i++) {
-        cout << get<0>(*i) << get<1>(*i) << endl;
         if (Config::isExistPlant(namaBarang)) {
-            inventory.tambahItem(get<0>(*i)+1, get<1>(*i), new Tanaman(namaBarang));
+            inventory.tambahItem(get<0>(*i), get<1>(*i), new Tanaman(namaBarang));
         } else if (Config::isExistAnimal(namaBarang)) {
             if (Config::getType(namaBarang).compare("HERBIVORE") == 0) {
-                inventory.tambahItem(get<0>(*i)+1, get<1>(*i), new Herbivora(namaBarang));
+                inventory.tambahItem(get<0>(*i), get<1>(*i), new Herbivora(namaBarang));
             } else if (Config::getType(namaBarang).compare("CARNIVORE") == 0) {
-                inventory.tambahItem(get<0>(*i)+1, get<1>(*i), new Karnivora(namaBarang));
+                inventory.tambahItem(get<0>(*i), get<1>(*i), new Karnivora(namaBarang));
             } else {
-                inventory.tambahItem(get<0>(*i)+1, get<1>(*i), new Omnivora(namaBarang));
+                inventory.tambahItem(get<0>(*i), get<1>(*i), new Omnivora(namaBarang));
             }
         } else if (Config::isExistProduct(namaBarang)) {
             if (Config::getType(namaBarang).compare("PRODUCT_MATERIAL_PLANT") == 0) {
-                inventory.tambahItem(get<0>(*i)+1, get<1>(*i), new ProdukUneatable(namaBarang));
+                inventory.tambahItem(get<0>(*i), get<1>(*i), new ProdukUneatable(namaBarang));
             } else {
-                inventory.tambahItem(get<0>(*i)+1, get<1>(*i), new ProdukEatable(namaBarang));
+                inventory.tambahItem(get<0>(*i), get<1>(*i), new ProdukEatable(namaBarang));
             }
         } else {
-            inventory.tambahItem(get<0>(*i)+1, get<1>(*i), new Bangunan(namaBarang));
+            inventory.tambahItem(get<0>(*i), get<1>(*i), new Bangunan(namaBarang));
         }
     }
 }
