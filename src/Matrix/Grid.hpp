@@ -20,8 +20,10 @@ using namespace std;
 
 template<class T>
 class Grid {
-    private:
+    protected:
         vector<vector<T*> > grid;
+        const int rows;
+        const int cols;
 
     public:
         Grid(){}

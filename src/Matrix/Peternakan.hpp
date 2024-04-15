@@ -2,37 +2,36 @@
 #define __PETERNAKAN_HPP__
 
 #include "../Hewan/Hewan.hpp"
+#include "../Hewan/Karnivora.hpp"
+#include "../Hewan/Herbivora.hpp"
+#include "../Hewan/Omnivora.hpp"
+#include "Grid.hpp"
 #include "Penyimpanan.hpp"
 #include <map>
 
-class Peternakan : public Penyimpanan {
-    private:
-        Grid<Hewan> grid;
+class Peternakan : public Grid<Hewan> {
+public:
+    Peternakan() : Grid<Hewan>(Config::getBesarPeternakan().first, Config::getBesarPeternakan().second) {}
 
-    public:
-        Peternakan();
+    Peternakan(int numRows, int numCols) : Grid<Hewan>(numRows, numCols) {}
 
-        Peternakan(int numRows, int numCols);
+    void cetakInfo();
 
-        void cetakInfo() override;
+    void cetakLokasiHewan();
 
-        void cetakLokasiHewan();
+    void tambahHewan(int row, int col, Hewan* jenis);
 
-        void tambahHewan(int row, int col,  Hewan* jenis);
+    Hewan* ambilTernak(int row, int col);
 
-        Grid<Hewan> getGrid() const;
+    void tambahHewan(Hewan* jenisTernak);
 
-        Hewan* ambilTernak(int row, int col);
+    void menanamTernak(Item* item);
 
-        void tambahHewan( Hewan* jenisTernak);
+    map<string, int> hitungJumlahHewanPanen();
 
-        void menanamTernak(Item* item);
+    void operator+(Hewan* ternak);
 
-        map<string, int> hitungJumlahHewanPanen();
-
-        void operator+(Hewan* ternak);
-
-        vector<tuple<string,string,int> > getDaftarIsi();
+    vector<tuple<string,string,int>> getDaftarIsi();
 };
 
 #endif

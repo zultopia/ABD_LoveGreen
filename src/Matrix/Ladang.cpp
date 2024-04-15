@@ -5,10 +5,9 @@
 #include "../Config/Config.hpp"
 
 // CETAK_LADANG
-Ladang::Ladang() : Penyimpanan(), 
-                    grid(Config::getBesarLahan().first, Config::getBesarLahan().second) {}
+Ladang::Ladang() : Grid<Tanaman>(Config::getBesarLahan().first, Config::getBesarLahan().second) {}
 
-Ladang::Ladang(int numRows, int numCols) : Penyimpanan(numRows, numCols), grid(numRows, numCols) {}
+Ladang::Ladang(int numRows, int numCols) : Grid<Tanaman>(numRows, numCols) {}
 
 void Ladang::cetakInfo() {
     cout << "   ====================[ Ladang ]===================" << endl;
@@ -33,7 +32,7 @@ void Ladang::cetakInfo() {
         }
         cout << setw(2) << "|";
         for (int j = 0; j < cols; ++j) {
-            Tanaman* cellValue = grid.getCell(i, j);
+            Tanaman* cellValue = getCell(i, j);
             if (cellValue != nullptr) {
                 if (cellValue->isHarvest()) {
                     cout << GREEN;
@@ -41,7 +40,7 @@ void Ladang::cetakInfo() {
                     cout << RED;
                 }
             }
-            cout << setw(5) << (cellValue != nullptr ? cellValue->getCode() : "") << RESET << "|";
+            cout << setw(5) << (cellValue != nullptr ? cellValue->getCode() + " " : "") << RESET << "|";
         }
         cout << endl;
         cout << setw(4) << "+";
@@ -57,10 +56,10 @@ void Ladang::cetakKeteranganTanaman() {
     map<string, bool> kodeTanamanDicetak;
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            if (grid.getCell(i, j) != nullptr) {
-                string kodeTanaman = grid.getCell(i, j)->getCode();
+            if (getCell(i, j) != nullptr) {
+                string kodeTanaman = getCell(i, j)->getCode();
                 if (kodeTanamanDicetak.find(kodeTanaman) == kodeTanamanDicetak.end()) {
-                    cout << "- " << kodeTanaman << ": " << grid.getCell(i, j)->getName() << endl;
+                    cout << "- " << kodeTanaman << ": " << getCell(i, j)->getName() << endl;
                     kodeTanamanDicetak[kodeTanaman] = true;
                 }
             }
@@ -71,18 +70,14 @@ void Ladang::cetakKeteranganTanaman() {
 
 void Ladang::tambahTanaman(int row, int col, Tanaman* jenis) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
-        grid.updateCell(row - 1, col, jenis);
+        updateCell(row - 1, col, jenis);
     }
-}
-
-Grid<Tanaman> Ladang::getGrid() const {
-    return grid;
 }
 
 Tanaman* Ladang::ambilTanaman(int row, int col) {
     if (row >= 1 && row <= rows && col >= 0 && col < cols) {
-        Tanaman* item = grid.getCell(row - 1, col);
-        grid.removeItem(row - 1, col);
+        Tanaman* item = getCell(row - 1, col);
+        removeItem(row - 1, col);
         return item;
     } else {
         return nullptr;
@@ -96,7 +91,7 @@ void Ladang::tambahTanaman(Tanaman* jenisTanaman) {
     // Cari slot kosong pertama
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            if (grid.getCell(i, j)->getCode().empty()) {
+            if (getCell(i, j)->getCode().empty()) {
                 emptyRow = i;
                 emptyCol = j;
                 break;
@@ -105,7 +100,7 @@ void Ladang::tambahTanaman(Tanaman* jenisTanaman) {
         if (emptyRow != -1) break;
     }
     if (emptyRow != -1 && emptyCol != -1) {
-        grid.updateCell(emptyRow, emptyCol, jenisTanaman);
+        updateCell(emptyRow, emptyCol, jenisTanaman);
         cout << "Tanaman " << jenisTanaman->getCode() << " berhasil ditambahkan ke ladang." << endl;
     } else {
         cout << "Ladang penuh, tidak dapat menambahkan tanaman baru." << endl;
@@ -123,7 +118,7 @@ void Ladang::menanamTanaman(Item* item) {
 
         pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
 
-        if (getGrid().getCell(koordinatPetak.first, koordinatPetak.second) != nullptr) {
+        if (getCell(koordinatPetak.first, koordinatPetak.second) != nullptr) {
             cout << "Petak tanah tersebut sudah ditanami. Pilih petak lain." << endl;
         } else {
             Tanaman* tanaman = new Tanaman(item->getName());
@@ -139,7 +134,7 @@ map<string, int> Ladang::hitungJumlahTanamanPanen() {
     map<string, int> jumlahHarvest;
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            Tanaman* cellValue = grid.getCell(i, j);
+            Tanaman* cellValue = getCell(i, j);
             if (cellValue != nullptr && cellValue->isHarvest()) {
                 string kodeTanaman = cellValue->getCode();
                 if (jumlahHarvest.find(kodeTanaman) == jumlahHarvest.end()) {
@@ -162,11 +157,11 @@ vector<tuple<string,string,int>> Ladang::getDaftarIsi(){
     vector<tuple<string,string,int>> tempvector;
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < cols; j++){
-            if (grid.getCell(i,j) != nullptr) {
+            if (getCell(i,j) != nullptr) {
                 char lokasitemp = 'A' + j;
                 string temp = string() + lokasitemp;
                 string lokasi = temp + "0" + to_string(i+1);
-                tempvector.push_back(make_tuple(lokasi,grid.getCell(i,j)->getName(),grid.getCell(i,j)->getCurrentDuration()));
+                tempvector.push_back(make_tuple(lokasi,getCell(i,j)->getName(),getCell(i,j)->getCurrentDuration()));
             }
         }
     }
