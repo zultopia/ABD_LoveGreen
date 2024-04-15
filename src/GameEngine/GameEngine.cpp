@@ -20,8 +20,8 @@ GameEngine::GameEngine() {
 }
 
 void GameEngine::setUp() {
-    Toko::setUpToko();
-    Config::bacaConfig;
+    Config::bacaConfig();
+    // Config::cekConfig();
     char answer;
     cout << "Apakah Anda ingin memuat state? (y/n) ";
     cin >> answer;
@@ -33,8 +33,10 @@ void GameEngine::setUp() {
     }
     if (answer == 'y') {
         Muat::muat();
+        Toko::setUpTokoMuat();
     } else {
         defaultSetUp();
+        Toko::setUpToko();
     }
 }
 
@@ -48,6 +50,8 @@ void GameEngine::defaultSetUp() {
 }
 
 void GameEngine::receiveCommand(){
+    cout << "Sekarang giliran " << Pemain::listPemain[Pemain::currentPemain]->getUsername() << ", seorang " << Pemain::listPemain[Pemain::currentPemain]->getRole() << endl;
+    cout << "Masukkan perintah: ";
     cin >> command;
     Pemain::listPemain[Pemain::currentPemain]->doCommand(command);
 }

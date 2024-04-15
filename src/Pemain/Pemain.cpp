@@ -28,11 +28,17 @@ map<string,int> Pemain::commandTable = {
 };
 Pemain::Pemain(string& username, int kekayaan, int beratBadan) : username(username), kekayaan(kekayaan), beratBadan(beratBadan), inventory() {
     auto itr = listPemain.begin();
-    while (username.compare((*itr)->getUsername()) < 0 && itr != listPemain.end()) {
+    if(itr == listPemain.end()){
+        listPemain.insert(itr, this);
+        numPemain++;
+    }else{
+        while (username.compare((*itr)->getUsername()) < 0 && itr != listPemain.end()) {
         itr++;
+        }
+        listPemain.insert(itr, this);
+        numPemain++;
     }
-    listPemain.insert(itr, this);
-    numPemain++;
+    
 }
 
 string Pemain::getUsername() {

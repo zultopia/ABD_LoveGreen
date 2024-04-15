@@ -6,6 +6,11 @@
 #include <vector>
 #include <string>
 
+#include "../Item/Item.hpp"
+#include "../Tanaman/Tanaman.hpp"
+#include "../Hewan/Hewan.hpp"
+#include "../Config/Config.hpp"
+
 using namespace std;
 
 // Kode warna untuk menandakan apakah siap panen atau tidak
@@ -19,21 +24,38 @@ class Grid {
         vector<vector<T*> > grid;
 
     public:
-        Grid();
+        Grid(){}
 
-        Grid(int numRows, int numCols);
+        Grid(int numRows, int numCols) : grid(numRows, vector<T*>(numCols)) {}
 
-        void updateCell(int row, int col, T* value);
+        void updateCell(int row, int col, T* value){
+            if (row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size()) {
+                grid[row][col] = value;
+            }
+        }
 
-        T* getCell(int row, int col) const;
+        T* getCell(int row, int col) const{
+            return grid[row][col];
+        }
 
-        void removeItem(int row, int col);
+        void removeItem(int row, int col){
+            if (row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size()) {
+                delete grid[row][col];
+                grid[row][col] = nullptr;
+            }
+        }
 
-        vector<vector<T*> > getGrid() const;
+        vector<vector<T*> > getGrid() const{
+            return grid;
+        }
 
-        int getRows() const;
+        int getRows() const{
+            return grid.size();
+        }
 
-        int getCols() const;
+        int getCols() const{
+            return grid.empty() ? 0 : grid[0].size();
+        }
 };
 
 #endif

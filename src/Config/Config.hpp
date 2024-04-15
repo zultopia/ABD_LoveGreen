@@ -59,6 +59,7 @@ class Config{
         static pair<int,int> getBesarPenyimpanan();
         static pair<int,int> getBesarLahan();
         static pair<int,int> getBesarPeternakan();
+        static void cekConfig();
         
 };
 

@@ -240,6 +240,7 @@ map<string,int> Toko::getIsiToko(){
 }
 
 void Toko::displayIsiToko(){
+    int jumlah = urutan.size();
     cout << "namaBarang | Harga | Jumlah " << endl;
     for(auto i = urutan.begin(); i != urutan.end(); i++){
         cout << *i << " " << barang.at(*i).first << " ";
@@ -249,4 +250,5 @@ void Toko::displayIsiToko(){
             cout << barang.at(*i).second << endl;
         }
     }
+    cout << "Jumlah daftar item di Toko ada " << jumlah << " buah" << endl;
 }
