@@ -18,11 +18,8 @@
 #include "../Produk/ProdukEatable.hpp"
 #include "../Produk/ProdukUneatable.hpp"
 
-
 // subclass functions
-Walikota::Walikota(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan){
-    
-}
+Walikota::Walikota(string& username, int kekayaan, int beratBadan) : Pemain(username, kekayaan, beratBadan){}
 
 void Walikota::pungutPajak(){
     cout << "Cring cring cring..." << endl;

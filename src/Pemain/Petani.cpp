@@ -153,9 +153,6 @@ void Petani::harvest() {
 }
 
 void Petani::doCommand(string command) {
-    // if(commandTable.find(command) == commandTable.end()){
-    //     // throw error
-    // }
     try{
         switch (commandTable.at(command))
         {
