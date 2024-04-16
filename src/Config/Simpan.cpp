@@ -62,6 +62,14 @@ void Simpan::simpan() {
 
     outputFile.close();
     cout << "State berhasil disimpan" << endl;
+
+    char choice;
+    cout << "Apakah Anda ingin melanjutkan permainan? (Y/N): ";
+    cin >> choice;
+    if (toupper(choice) == 'N') {
+        // Menutup game 
+        exit(0); 
+    }
 }
 
 void Simpan::update(){

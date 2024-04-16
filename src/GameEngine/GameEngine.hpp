@@ -20,8 +20,7 @@ class GameEngine{
         void loopCommand();
         void printYellow(const string& text); 
         void printBlue(const string& text); 
-        void welcome();
-        void genie();
+        void welcomeGenie();
         void run();
 };
 
