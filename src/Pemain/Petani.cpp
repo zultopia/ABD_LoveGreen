@@ -310,19 +310,21 @@ void Petani::beli() {
         getline(cin, slots);
         slotIntList = Penyimpanan::parserListKoordinat(slots);
 
-        // Memeriksa setiap sel untuk keberadaan objek item
-        bool allSlotsEmpty = true;
+        // Memeriksa setiap sel yang dipilih
+        bool anySlotOccupied = false;
         for (const auto& slot : slotIntList) {
-            if (inventory.isCellKosong(get<0>(slot), get<1>(slot))) {
-                allSlotsEmpty = false;
+            int row = get<0>(slot);
+            int col = get<1>(slot);
+            if (!inventory.isCellKosong(row, col)) {
+                anySlotOccupied = true;
                 break;
             }
         }
 
-        if (slotIntList.size() == kuantitasInt) {
+        if (slotIntList.size() == kuantitasInt && !anySlotOccupied) {
             slotsValid = true;
         } else {
-            if (!allSlotsEmpty) {
+            if (anySlotOccupied) {
                 cout << "Salah satu atau lebih slot sudah terisi! Silakan pilih slot yang kosong." << endl;
             } else {
                 cout << "Pilihan slot tidak valid! Silakan input kembali." << endl;

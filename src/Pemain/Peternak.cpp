@@ -349,10 +349,26 @@ void Peternak::beli() {
         getline(cin, buf);
         getline(cin, slots);
         slotIntList = Penyimpanan::parserListKoordinat(slots);
-        if (slotIntList.size() == kuantitasInt) {
+        
+        // Memeriksa setiap sel yang dipilih
+        bool anySlotOccupied = false;
+        for (const auto& slot : slotIntList) {
+            int row = get<0>(slot);
+            int col = get<1>(slot);
+            if (!inventory.isCellKosong(row, col)) {
+                anySlotOccupied = true;
+                break;
+            }
+        }
+
+        if (slotIntList.size() == kuantitasInt && !anySlotOccupied) {
             slotsValid = true;
         } else {
-            cout << "Pilihan slot tidak valid! silahkan input kembali!" << endl;
+            if (anySlotOccupied) {
+                cout << "Salah satu atau lebih slot sudah terisi! Silakan pilih slot yang kosong." << endl;
+            } else {
+                cout << "Pilihan slot tidak valid! Silakan input kembali." << endl;
+            }
         }
     }
 
