@@ -23,12 +23,6 @@ string Muat::readPath(){
 
 void Muat::muat(){
     string path = readPath();
-    // string path = "./config/state.txt";
-    // Memeriksa folder sudah ada atau belum
-    // if(!filesystem::exists(filesystem::path(path).parent_path())) {
-    //     ConfigException e("Lokasi berkas tidak valid");
-    //     throw e;
-    // }
     ifstream inputFile(path);
     if(!inputFile.is_open()){
         ConfigException e("File tidak dapat dibuka.");
@@ -153,17 +147,14 @@ void Muat::setUpPeternak(Pemain*& player, string nama){
         pair<int,int> posisi = Penyimpanan::konversiKoordinat(get<0>(*j));
         if(Config::getType(get<1>(*j)) == "HERBIVORE"){
             Herbivora* animal = new Herbivora(get<1>(*j), get<2>(*j));
-            cout << get<1>(*j) << endl;
             // masukkin peternakan
             peternakan.tambahHewan(posisi.first+1,posisi.second, animal);
         }else if(Config::getType(get<1>(*j)) == "CARNIVORE"){
             Karnivora* animal = new Karnivora(get<1>(*j), get<2>(*j));
-            cout << get<1>(*j) << endl;
             // masukkin peternakan
             peternakan.tambahHewan(posisi.first+1,posisi.second, animal);
         }else if(Config::getType(get<1>(*j)) == "OMNIVORE"){
             Omnivora* animal = new Omnivora(get<1>(*j), get<2>(*j));
-            cout << get<1>(*j) << endl;
             // masukkin peternakan
             peternakan.tambahHewan(posisi.first+1,posisi.second, animal);
         }
@@ -181,13 +172,16 @@ void Muat::setUpInventory(Pemain*& pemain){
         if (Config::isExistAnimal(*j)){
             if(Config::getType(*j) == "HERBIVORE"){
                 Herbivora* animal = new Herbivora(*j);
-                inventoryPlayer.tambahItem(animal);
+                // inventoryPlayer.tambahItem(animal);
+                inventoryPlayer + animal;
             }else if(Config::getType(*j) == "CARNIVORE"){
                 Karnivora* animal = new Karnivora(*j);
-                inventoryPlayer.tambahItem(animal);
+                // inventoryPlayer.tambahItem(animal);
+                inventoryPlayer + animal;
             }else if(Config::getType(*j) == "OMNIVORE"){
                 Omnivora* animal = new Omnivora(*j);
-                inventoryPlayer.tambahItem(animal);
+                // inventoryPlayer.tambahItem(animal);
+                inventoryPlayer + animal;
             }
         } else if (Config::isExistPlant(*j)){
             // if(Config::getType(*j) == "MATERIAL_PLANT" || Config::getType(*j) == "FRUIT_PLANT"){
@@ -195,18 +189,22 @@ void Muat::setUpInventory(Pemain*& pemain){
             //     inventoryPlayer.tambahItem(plant);
             // }
             Tanaman* plant = new Tanaman(*j);
-            inventoryPlayer.tambahItem(plant);
+            // inventoryPlayer.tambahItem(plant);
+            inventoryPlayer + plant;
         } else if (Config::isExistProduct(*j)){
             if(Config::getType(*j) == "PRODUCT_MATERIAL_PLANT"){
                 ProdukUneatable* product = new ProdukUneatable(*j);
-                inventoryPlayer.tambahItem(product);
+                // inventoryPlayer.tambahItem(product);
+                inventoryPlayer + product;
             }else if(Config::getType(*j) == "PRODUCT_FRUIT_PLANT" || Config::getType(*j) == "PRODUCT_ANIMAL"){
                 ProdukEatable* product = new ProdukEatable(*j);
-                inventoryPlayer.tambahItem(product);
+                // inventoryPlayer.tambahItem(product);
+                inventoryPlayer + product;
             }
         } else if (Config::isExistRecipe(*j)){
             Bangunan* bangunan = new Bangunan(*j);
-            inventoryPlayer.tambahItem(bangunan);
+            // inventoryPlayer.tambahItem(bangunan);
+            inventoryPlayer + bangunan;
         }
     }
 }
