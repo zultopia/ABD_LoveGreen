@@ -126,8 +126,11 @@ int Penyimpanan::jumlahItem(string nama) {
     int jumlah = 0;
     for (int i = 0; i < rows; i++) {
         for(int j = 0; j < cols; j++) {
-            if (getCell(i, j)->getName().compare(nama) == 0) {
-                jumlah++;
+            Item* item = getCell(i, j);
+            if (item != nullptr) {
+                if (getCell(i, j)->getName().compare(nama) == 0) {
+                    jumlah++;
+                }
             }
         }
     }

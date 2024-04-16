@@ -68,12 +68,15 @@ void Walikota::bangun(){
     auto itr = recipeMap.begin();
     int i = 1;
     vector<string> listBangunan;
-    while (itr != Config::getRecipeMap().end()) {
-        cout << "  " << i << ". " << itr->first << " (" << Config::getPrice(itr->first);
+    while (itr != recipeMap.end()) {
+        cout << "  " << i << ". " << itr->first << " (";
         auto materialInfo = Config::getMaterialInfo(itr->first);
         auto itrMaterial = materialInfo.begin();
-        while (itrMaterial != Config::getMaterialInfo(itr->first).end()){
-            cout << ", " << itrMaterial->first << " " << itrMaterial->second;
+        while (itrMaterial != materialInfo.end()){
+            if (itrMaterial != materialInfo.begin()) {
+                cout << ", ";
+            }
+            cout << itrMaterial->second << " " << itrMaterial->first;
             itrMaterial++;
         }
         cout << ")" << endl;
@@ -93,11 +96,6 @@ void Walikota::bangun(){
     map<string,int> materials = Config::getMaterialInfo(answer);
     map<string,int> bahanKurang;
 
-    // Cek gulden
-    if (kekayaan < Config::getPrice(answer)) {
-        bahanKurang.insert(pair<string, int>("gulden", Config::getPrice(answer) - kekayaan));
-    }
-
     // Cek material
     auto itrMaterials = materials.begin();
     while (itrMaterials != materials.end()) {
@@ -111,7 +109,7 @@ void Walikota::bangun(){
     if (bahanKurang.size() > 0) {
         cout << "Kamu tidak punya sumber daya yang cukup! Masih memerlukan ";
         auto itrBahanKurang = bahanKurang.begin();
-        while (itrBahanKurang != materials.end()) {
+        while (itrBahanKurang != bahanKurang.end()) {
             cout << itrBahanKurang->second << " " << itrBahanKurang->first;
             if (++itrBahanKurang != bahanKurang.end()) {
                 cout << ", ";
@@ -119,7 +117,6 @@ void Walikota::bangun(){
                 cout << "!" << endl;
             }
         }
-        return;
     } else {
         // Bahan memenuhi
         auto itrMaterials = materials.begin();

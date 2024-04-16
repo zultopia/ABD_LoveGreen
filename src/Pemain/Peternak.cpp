@@ -40,7 +40,7 @@ void Peternak::ternak() {
     cout << "Slot: "; cin >> slot; cout << endl; 
 
     // Memanggil fungsi konversi dan menyimpan hasilnya
-    pair<int, int> slotCoordinate = Peternakan::konversiKoordinat(slot);
+    pair<int, int> slotCoordinate = Penyimpanan::konversiKoordinat(slot);
     int row = slotCoordinate.first;
     int col = slotCoordinate.second;
 
