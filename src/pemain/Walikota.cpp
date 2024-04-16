@@ -141,7 +141,7 @@ void Walikota::bangun(){
             itrMaterials++;
         }
         
-        inventory.tambahItem(new Bangunan(answer));
+        inventory + (new Bangunan(answer));
 
         cout << answer << " berhasil dibangun dan telah menjadi hak milik walikota!\n";
     };

@@ -1,5 +1,6 @@
 #include "Penyimpanan.hpp"
 #include "../Config/Config.hpp"
+#include "../Config/Muat.hpp"
 #include "../Item/Item.hpp"
 
 using namespace std;
@@ -121,11 +122,12 @@ void Penyimpanan::operator+(Item* item) {
 
 int Penyimpanan::jumlahItem(string nama) {
     int jumlah = 0;
+    Item* inputItem = Muat::universalConstructor(nama);
     for (int i = 0; i < rows; i++) {
         for(int j = 0; j < cols; j++) {
             Item* item = getCell(i, j);
             if (item != nullptr) {
-                if (getCell(i, j)->getName().compare(nama) == 0) {
+                if ((*inputItem) == (*item)) {
                     jumlah++;
                 }
             }
