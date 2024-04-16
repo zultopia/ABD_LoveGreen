@@ -56,7 +56,7 @@ void Walikota::pungutPajak(){
         cout << "  " << i+1 << ". ";
         get<0>(pajak[i])->bayarPajak();
     }
-
+    kekayaan += totalPajak;
     cout << endl;
     cout << "Negara mendapatkan pemasukan sebesar " << totalPajak << " gulden." << endl;
     cout << "Gunakan dengan baik dan jangan dikorupsi ya!" << endl;
