@@ -156,11 +156,3 @@ bool Penyimpanan::checkMakanan(int row, int col){
         }
     }
 }
-
-bool Penyimpanan::isCellKosong(int row, int col) {
-    if (row >= 0 && row < getRows() && col >= 0 && col < getCols()) {
-        return getCell(row, col) != nullptr;
-    } else {
-        return false;
-    }
-}
