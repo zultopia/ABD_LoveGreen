@@ -36,7 +36,11 @@ class Grid {
         }
 
         T* getCell(int row, int col) const{
-            return grid[row][col];
+            if (row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size()) {
+                return grid[row][col];
+            } else{
+                return nullptr;
+            }
         }
 
         void removeItem(int row, int col){
