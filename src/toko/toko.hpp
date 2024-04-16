@@ -66,6 +66,4 @@ class Toko{
         static void displayIsiToko();
 
 };
-
-
 #endif
