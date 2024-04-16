@@ -108,8 +108,16 @@ class Grid {
             return listKoordinat;
         }
 
-        bool isCellKosong(int row, int col) {
+        bool isCellValid(int row, int col) {
             if (row >= 0 && row < getRows() && col >= 0 && col < getCols()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        bool isCellKosong(int row, int col) {
+            if (isCellValid(row, col)) {
                 return getCell(row, col) == nullptr;
             } else {
                 return false;

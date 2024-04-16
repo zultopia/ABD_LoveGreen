@@ -8,7 +8,7 @@ Peternakan::Peternakan(int numRows, int numCols) : Grid<Hewan>(numRows, numCols)
 void Peternakan::cetakInfo() {
     cout << "   ===================[ Peternakan ]================" << endl;
     cout << setw(5) << " ";
-    for (char c = 'A'; c <= 'H'; ++c) {
+    for (char c = 'A'; c <= 'A' + cols - 1; ++c) {
         cout << setw(2) << c;
         cout << "    ";
     }
@@ -93,9 +93,9 @@ void Peternakan::tambahHewan(Hewan* jenisTernak) {
     }
     if (emptyRow != -1 && emptyCol != -1) {
         updateCell(emptyRow, emptyCol, jenisTernak);
-        cout << "Ternak " << jenisTernak->getCode() << " berhasil ditambahkan ke peternakan." << endl;
+        cout << "Ternak " << jenisTernak->getCode() << " berhasil ditambahkan ke peternakan.\n" << endl;
     } else {
-        cout << "Peternakan penuh, tidak dapat menambahkan ternak baru." << endl;
+        cout << "Peternakan penuh, tidak dapat menambahkan ternak baru.\n" << endl;
     }
 }
 
@@ -110,19 +110,22 @@ void Peternakan::menanamTernak(Item* item) {
         cout << endl << "Petak tanah: "; cin >> petak; cout << endl; 
 
         pair<int, int> koordinatPetak = konversiKoordinat(petak);
-
-        if (getCell(koordinatPetak.first, koordinatPetak.second) != nullptr) {
-            cout << "Petak tanah tersebut sudah ditempati. Pilih petak lain." << endl;
+        if (isCellValid(koordinatPetak.first, koordinatPetak.second)) {
+            if (getCell(koordinatPetak.first, koordinatPetak.second) != nullptr) {
+                cout << "Petak tanah tersebut sudah ditempati. Pilih petak lain." << endl;
+            } else {
+                Hewan* hewan;
+                string type = get<2>(Config::getAnimalMap()[nama]);
+                if (type.compare("CARNIVORE") == 0) { hewan = new Karnivora(nama); } 
+                else if (type.compare("HERBIVORE") == 0) { hewan = new Herbivora(nama); } 
+                else { hewan = new Omnivora(nama); }
+                tambahHewan(koordinatPetak.first + 1, koordinatPetak.second, hewan);
+                cout << "Dengan hati-hati, kamu meletakkan seekor "<< hewan->getName() << " di kandang." << endl;
+                cout << hewan->getName() << " telah menjadi peliharaanmu sekarang!\n" << endl;
+                ternakBerhasil = true;
+            }
         } else {
-            Hewan* hewan;
-            string type = get<2>(Config::getAnimalMap()[nama]);
-            if (type.compare("CARNIVORE") == 0) { hewan = new Karnivora(nama); } 
-            else if (type.compare("HERBIVORE") == 0) { hewan = new Herbivora(nama); } 
-            else { hewan = new Omnivora(nama); }
-            tambahHewan(koordinatPetak.first + 1, koordinatPetak.second, hewan);
-            cout << "Dengan hati-hati, kamu meletakkan seekor "<< hewan->getName() << " di kandang." << endl;
-            cout << hewan->getName() << " telah menjadi peliharaanmu sekarang!" << endl;
-            ternakBerhasil = true;
+            cout << "Petak kandang tidak valid!\n" << endl;
         }
     }
 }

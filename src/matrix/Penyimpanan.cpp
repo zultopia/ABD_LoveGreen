@@ -69,23 +69,19 @@ Item* Penyimpanan::ambilJenisItem(string slot, string jenisItem) {
         if (item == nullptr) return nullptr;
         cout << "Item: " << item->getName() << endl;
 
-        auto animalMap = Config::getAnimalMap();
-        auto plantMap = Config::getPlantMap();
-        auto productMap = Config::getProductMap();
-
-        auto it = animalMap.find(item->getName());
+        auto it = Config::getAnimalMap().find(item->getName());
         if (it != Config::getAnimalMap().end() && jenisItem.compare("Hewan") == 0) {
             removeItem(koordinatItem.first, koordinatItem.second);
             return item;
         }
 
-        auto it2 = plantMap.find(item->getName());
+        auto it2 = Config::getPlantMap().find(item->getName());
         if (it2 != Config::getPlantMap().end() && jenisItem.compare("Tanaman") == 0) {
             removeItem(koordinatItem.first, koordinatItem.second);
             return item;
         }
 
-        auto it3 = productMap.find(item->getName());
+        auto it3 = Config::getProductMap().find(item->getName());
         if (it3 != Config::getProductMap().end() && jenisItem.compare("Produk") == 0) {
             removeItem(koordinatItem.first, koordinatItem.second);
             return item;
