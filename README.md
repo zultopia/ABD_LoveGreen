@@ -61,7 +61,7 @@ Dokumentasi lengkap tentang program dapat dilihat pada [link berikut](https://do
    
 ## Bonus Kreativitas
 
----
+Bonus kreasi mandiri yang kami implementasikan adalah sebuah method magic() yang nantinya dapat dipanggil oleh setiap pemain dengan memanggil command MAGIC. Command ini bisa menguntungkan namun juga bisa merugikan bagi si pemain atau pemain lain. Contoh yang menguntungkan adalah mendapatkan gulden. Karena salah satu syarat untuk menang bagi pemain adalah memiliki gulden yang sesuai dengan Config. Sedangkan contoh yang merugikan adalah kehilangan berat badan. Hal ini akan membuat pemain menjadi jauh dari kemenangan karena berat badan juga merupakan salah satu syarat untuk menang. Contoh yang merugikan bagi pemain lain adalah Musim Kemarau atau Wabah. Musim Kemarau akan mengurangi “umur” dari tanaman yang ada pada setiap ladang yang merugikan bagi pemain Petani. Wabah akan membunuh seekor hewan dengan berat badan terendah pada setiap peternakan yang akan merugikan pemain Peternak.
 
 ## Setup and Installation
 
