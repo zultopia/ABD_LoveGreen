@@ -168,9 +168,9 @@ void Walikota::tambahPemain(){
         
         Pemain* pemainBaru = nullptr;
         if (jenis.compare("petani") == 0) {
-            pemainBaru = new Petani(nama, 50, 40);
+            pemainBaru = new Petani(nama, 50, 0);
         } else if (jenis.compare("peternak") == 0) {
-            pemainBaru = new Peternak(nama, 50, 40);
+            pemainBaru = new Peternak(nama, 50, 0);
         }
 
         if (username.compare(nama) > 0) {
