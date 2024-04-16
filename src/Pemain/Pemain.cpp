@@ -114,7 +114,7 @@ void Pemain::makan() {
     int width = Config::getBesarPenyimpanan().first;
     int height = Config::getBesarPenyimpanan().second;
     bool adaMakanan = false;
-    int i, j = 0;
+    int i = 0, j = 0;
     Item* currentItem;
     while (i < width && !adaMakanan) {
         while (j < height && !adaMakanan) {
@@ -164,6 +164,3 @@ void Pemain::makan() {
         cout << "Alhasil, berat badan kamu naik menjadi " << beratBadan << endl;
     }
 }
-
-
-
