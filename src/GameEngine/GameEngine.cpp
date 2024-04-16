@@ -12,7 +12,7 @@
 #include "../Produk/ProdukEatable.hpp"
 #include "../Produk/ProdukUneatable.hpp"
 #include "../Tanaman/Tanaman.hpp"
-#include "../Toko/toko.hpp"
+#include "../Toko/Toko.hpp"
 #include "../Pemain/Pemain.hpp"
 
 GameEngine::GameEngine() {
@@ -89,7 +89,48 @@ void GameEngine::loopCommand() {
     
 }
 
+void GameEngine::printYellow(const string& text) {
+    cout << YELLOW << text << RESET << endl;
+}
+
+void GameEngine::printBlue(const string& text) {
+    cout << BLUE << text << RESET << endl;
+}
+
+void GameEngine::welcome() {
+    printYellow(" _____ ______ _               __  __       _______   _____       _______       _   _  _____    _____ _____                    ");
+    printYellow("/ ____|  ____| |        /\\   |  \\/  |   /\\|__   __| |  __ \\   /\\|__   __|/\\   | \\ | |/ ____|  |  __ \\_   _|                   ");
+    printYellow("| (___ | |__  | |       /  \\  | \\  / |  /  \\  | |    | |  | | /  \\  | |  /  \\  |  \\| | |  __   | |  | || |                     ");
+    printYellow("\\___ \\|  __| | |      / /\\ \\ | |\\/| | / /\\ \\ | |    | |  | |/ /\\ \\ | | / /\\ \\ | . ` | | |_ |  | |  | || |                     ");
+    printYellow("______) | |____| |____ / ____ \\| |  | |/ ____ \\ |    | |__| / ____ \\| |/ ____ \\| |\\  | |__| |  | |__| || |_                    ");
+    printYellow("|_____/|______|______/_/    \\_\\_| _|_/_/    \\_\\_|    |_____/_/____\\_\\_/_/  _\\_\\_|_\\_|\\_____|__|_____/_____|___   _____  ____  ");
+    printYellow("| |/ /  ____|  __ \\     /\\       | |  /\\        /\\   | \\ | | |  _ \\ / __ \\| \\ | |  __ \\ / __ \\ \\        / / __ \\ / ____|/ __ \\ ");
+    printYellow("| ' /| |__  | |__) |   /  \\      | | /  \\      /  \\  |  \\| | | |_) | |  | |  \\| | |  | | |  | \\ \\  /\\  / / |  | | (___ | |  | |");
+    printYellow("|  < |  __| |  _  /   / /\\ \\ _   | |/ /\\ \\    / /\\ \\ | . ` | |  _ <| |  | | . ` | |  | | |  | |\\ \\/  \\/ /| |  | |\\___ \\| |  | |");
+    printYellow("| . \\| |____| | \\ \\  / ____ \\|__| / ____ \\  / ____ \\| |\\  | | |_) | |__| | |\\  | |__| | |__| | \\  /\\  / | |__| |____) | |__| |");
+    printYellow("|_|\\_\\______|_|  \\_\\/_/    \\_\\____/_/    \\_\\/_/    \\_\\_| \\_| |____/ \\____/|_| \\_|_____/ \\____/   \\/  \\/   \\____/|_____/ \\____/");
+    printYellow("                                                                                                                                    ");
+}
+
+void GameEngine::genie() {
+    printBlue("⠀⠀⠀⠀⠀⢀⣴⣾⣿⣿⣿⣿⣷⣦⡀⠀⠀⠀⠀⠀");
+    printBlue("⠀⠀⠀⠀⠀⢸⣿⠟⠋⣉⣉⠙⠻⣿⡇⠀⠀⠀⠀⠀");
+    printBlue("⠀⠀⠀⠀⠀⠀⠉⢠⣾⣿⣿⣷⡄⠉⠀⠀⠀⠀⠀⠀");
+    printBlue("⠀⠀⠀⣀⣤⡄⠘⣿⣿⣿⣿⠃⢠⣤⣄⡀⠀⠀⠀");
+    printBlue("⠀⢀⣴⣿⣿⣿⣿⣦⣈⠉⠉⣁⣴⣿⣿⣿⣷⣄⠀");
+    printBlue("⠀⣾⣿⣿⣿⡿⠛⠛⠛⠛⠛⠛⠛⢿⣿⣿⣿⣿⣧");
+    printBlue("⢸⣿⣿⣿⣿⣷⣤⣤⣤⡄⢠⣤⣤⣤⣾⣿⣿⣿⣿");
+    printBlue("⠀⢻⣿⣿⣿⣿⣿⣿⡿⠁⠀⢻⣿⣿⣿⣿⣿⣿⠏");
+    printBlue("⠀⠀⠙⠻⠿⠿⠟⠛⢁⣼⣷⣄⠙⠛⠿⠿⠿⠟⠀");
+    printBlue("⠀⠀⠀⠀⠠⣤⣶⣾⣿⣿⣿⣿⣶⣶⠀⠀⠀⠀⠀");
+    printBlue("⠀⠀⠀⠀⠀⠻⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⠀⠀");
+    printBlue("⠀⠀⠀⠀⠀⠀⠙⠿⣿⣿⣿⣿⣿⣿⣿⣄⡀⠀⠀");
+    printBlue("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⢿⣿⣿⣿⣷⠄");
+}
+
 void GameEngine::run() {
+    welcome();
+    genie();
     setUp();
     loopCommand();
 }

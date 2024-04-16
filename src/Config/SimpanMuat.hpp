@@ -25,11 +25,6 @@ class SimpanMuat{
         static map<string, vector<string> > getInventory();
         static map<string,vector<tuple<string,string,int> > > getLadangdanTernak();
         static map<string,int> getToko();
-        // void update(const std::vector<std::string>& newPemain,
-        //         const std::map<std::string, std::tuple<std::string, int, int>>& newDataPemain,
-        //         const std::map<std::string, std::vector<std::string>>& newInventory,
-        //         const std::map<std::string, std::vector<std::tuple<std::string, std::string, int>>>& newLadangdanTernak,
-        //         const std::map<std::string, int>& newToko);
 };
 
 #endif
