@@ -220,32 +220,32 @@ Item* Muat::universalConstructor(string nama){
             Karnivora* animal = new Karnivora(nama);
             // inventoryPlayer.tambahItem(animal);
             return animal;
-        }else if(Config::getType(nama) == "OMNIVORE"){
+        }else{
             Omnivora* animal = new Omnivora(nama);
             // inventoryPlayer.tambahItem(animal);
             return animal;
         }
-        } else if (Config::isExistPlant(nama)){
-            // if(Config::getType(*j) == "MATERIAL_PLANT" || Config::getType(*j) == "FRUIT_PLANT"){
-            //     Tanaman* plant = new Tanaman(*j);
-            //     inventoryPlayer.tambahItem(plant);
-            // }
-            Tanaman* plant = new Tanaman(nama);
-            // inventoryPlayer.tambahItem(plant);
-            return plant;
-        } else if (Config::isExistProduct(nama)){
-            if(Config::getType(nama) == "PRODUCT_MATERIAL_PLANT"){
-                ProdukUneatable* product = new ProdukUneatable(nama);
-                // inventoryPlayer.tambahItem(product);
-                return product;
-            }else if(Config::getType(nama) == "PRODUCT_FRUIT_PLANT" || Config::getType(nama) == "PRODUCT_ANIMAL"){
-                ProdukEatable* product = new ProdukEatable(nama);
-                // inventoryPlayer.tambahItem(product);
-                return product;
-            }
-        } else if (Config::isExistRecipe(nama)){
-            Bangunan* bangunan = new Bangunan(nama);
-            // inventoryPlayer.tambahItem(bangunan);
-            return bangunan;
+    } else if (Config::isExistPlant(nama)){
+        // if(Config::getType(*j) == "MATERIAL_PLANT" || Config::getType(*j) == "FRUIT_PLANT"){
+        //     Tanaman* plant = new Tanaman(*j);
+        //     inventoryPlayer.tambahItem(plant);
+        // }
+        Tanaman* plant = new Tanaman(nama);
+        // inventoryPlayer.tambahItem(plant);
+        return plant;
+    } else if (Config::isExistProduct(nama)){
+        if(Config::getType(nama) == "PRODUCT_MATERIAL_PLANT"){
+            ProdukUneatable* product = new ProdukUneatable(nama);
+            // inventoryPlayer.tambahItem(product);
+            return product;
+        }else{
+            ProdukEatable* product = new ProdukEatable(nama);
+            // inventoryPlayer.tambahItem(product);
+            return product;
         }
+    } else {
+        Bangunan* bangunan = new Bangunan(nama);
+        // inventoryPlayer.tambahItem(bangunan);
+        return bangunan;
+    }
 }

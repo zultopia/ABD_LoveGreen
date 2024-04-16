@@ -109,7 +109,6 @@ void Penyimpanan::tambahItem(Item* jenisItem) {
     }
     if (emptyRow != -1 && emptyCol != -1) {
         updateCell(emptyRow, emptyCol, jenisItem);
-        cout << "Item " << jenisItem->getName() << " berhasil ditambahkan ke penyimpanan." << endl;
     } else {
         cout << "Penyimpanan penuh, tidak dapat menambahkan item baru." << endl;
     }
