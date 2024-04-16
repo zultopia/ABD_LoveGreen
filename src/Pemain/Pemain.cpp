@@ -1,4 +1,5 @@
 #include "./Pemain.hpp"
+#include "./Petani.hpp"
 #include "../Matrix/Grid.hpp"
 #include "../Config/Config.hpp"
 #include "../Toko/Toko.hpp"
@@ -68,6 +69,16 @@ vector<string> Pemain::getDaftarInventory(){
 
 void Pemain::next() {
     currentPemain = (currentPemain + 1) % numPemain;
+    auto pemain = listPemain.begin();
+    while (pemain != listPemain.end()) {
+        if ((*pemain)->getRole() == "Petani") {
+            Petani* petani = dynamic_cast<Petani*>(*pemain);
+            if (petani) {
+                petani->getLadang().addDurationTanaman();
+            }
+        }
+        pemain++;
+    }
 }
 
 void Pemain::simpan() {
