@@ -57,7 +57,7 @@ Program ini adalah sebuah gim simulasi sederhana yang dibuat dengan C++, bertuju
 
 Program yang kelompok kami buat adalah sebuah gim simulasi bernama Kelola Kerajaan, dimana gim ini akan menggunakan konsep Object-Oriented Programming seperti Inheritance, Polymorphism, Method/Operator Overloading, Template dan Generic Classes
 
-Dokumentasi lengkap tentang program dapat dilihat pada [link berikut]()
+Dokumentasi lengkap tentang program dapat dilihat pada [link berikut](https://docs.google.com/document/d/1A101C0_IdiXhVJQB2i9sD30p2iGfV47j/edit?usp=sharing&ouid=112137241680761819044&rtpof=true&sd=true)
    
 ## Bonus Kreativitas
 
