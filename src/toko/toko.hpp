@@ -15,7 +15,6 @@ class Toko{
         static vector<string> urutan;
         
     public:
-
         Toko();
         static void setUpToko();
         static void setUpTokoMuat();
