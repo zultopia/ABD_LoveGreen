@@ -64,12 +64,14 @@ void Walikota::pungutPajak(){
 
 void Walikota::bangun(){
     cout << "Resep bangunan yang ada adalah sebagai berikut." << endl;
-    auto itr = Config::getRecipeMap().begin();
+    auto recipeMap = Config::getRecipeMap();
+    auto itr = recipeMap.begin();
     int i = 1;
     vector<string> listBangunan;
     while (itr != Config::getRecipeMap().end()) {
         cout << "  " << i << ". " << itr->first << " (" << Config::getPrice(itr->first);
-        auto itrMaterial = Config::getMaterialInfo(itr->first).begin();
+        auto materialInfo = Config::getMaterialInfo(itr->first);
+        auto itrMaterial = materialInfo.begin();
         while (itrMaterial != Config::getMaterialInfo(itr->first).end()){
             cout << ", " << itrMaterial->first << " " << itrMaterial->second;
             itrMaterial++;
@@ -163,7 +165,8 @@ void Walikota::tambahPemain(){
             cout << "Masukkan nama pemain: ";
             getline(cin, nama);
         }
-        Pemain* pemainBaru;
+        
+        Pemain* pemainBaru = nullptr;
         if (jenis.compare("petani") == 0) {
             pemainBaru = new Petani(nama, 50, 40);
         } else if (jenis.compare("peternak") == 0) {
@@ -174,8 +177,13 @@ void Walikota::tambahPemain(){
             currentPemain++;
         }
 
-        cout << "Pemain baru ditambahkan!" << endl;
-        cout << "Selamat datang " << "“" << pemainBaru->getUsername() << "“ di kota ini!" << endl;
+        if (pemainBaru != nullptr) {
+            cout << "Pemain baru ditambahkan!" << endl;
+            cout << "Selamat datang " << "“" << pemainBaru->getUsername() << "“ di kota ini!" << endl;
+        } else {
+            PemainException e("Gagal membuat pemain baru!\n");
+            throw e;
+        }
     }
 }
 
@@ -313,12 +321,25 @@ void Walikota::beli(){
         getline(cin, slots);
         slotIntList = Penyimpanan::parserListKoordinat(slots);
 
+        // Memeriksa setiap sel yang dipilih
+        bool anySlotOccupied = false;
+        for (const auto& slot : slotIntList) {
+            int row = get<0>(slot);
+            int col = get<1>(slot);
+            if (!inventory.isCellKosong(row, col)) {
+                anySlotOccupied = true;
+                break;
+            }
+        }
 
-        cout << slotIntList.size() << endl;
-        if (slotIntList.size() == kuantitasInt) {
+        if (slotIntList.size() == kuantitasInt && !anySlotOccupied) {
             slotsValid = true;
         } else {
-            cout << "Pilihan slot tidak valid! silahkan input kembali!" << endl;
+            if (anySlotOccupied) {
+                cout << "Salah satu atau lebih slot sudah terisi! Silakan pilih slot yang kosong." << endl;
+            } else {
+                cout << "Pilihan slot tidak valid! Silakan input kembali." << endl;
+            }
         }
     }
 

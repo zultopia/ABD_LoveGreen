@@ -39,12 +39,22 @@ void Peternak::ternak() {
     string slot;
     cout << "Slot: "; cin >> slot; cout << endl; 
 
-    Item* item = inventory.ambilJenisItem(slot, "Hewan");
-    if (item != nullptr) {
-        cout << "Kamu memilih " << item->getName() << ".\n" << endl;
-        peternakan.menanamTernak(item);
+    // Memanggil fungsi konversi dan menyimpan hasilnya
+    pair<int, int> slotCoordinate = Peternakan::konversiKoordinat(slot);
+    int row = slotCoordinate.first;
+    int col = slotCoordinate.second;
+
+    // Memeriksa apakah koordinat dalam rentang yang valid
+    if (row >= 0 && row < inventory.getRows() && col >= 0 && col < inventory.getCols()) {
+        Item* item = inventory.ambilJenisItem(slot, "Hewan");
+        if (item != nullptr) {
+            cout << "Kamu memilih " << item->getName() << ".\n" << endl;
+            peternakan.menanamTernak(item);
+        } else {
+            throw PemainException("Ternak gagal...\nPastikan slot yang dipilih tidak kosong dan merupakan hewan");
+        }
     } else {
-        throw PemainException("Ternak gagal...\nPastikan slot yang dipilih tidak kosong dan merupakan hewan");
+        throw PemainException("Slot yang dipilih tidak valid.");
     }
 }
 
