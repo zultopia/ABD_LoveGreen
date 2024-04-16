@@ -37,6 +37,7 @@ class Tanaman : public Item{
         // other operations
         bool eatable() const override;
         void addDuration();
+        void reduceDuration();
         bool isHarvest() const;
         friend ostream& operator<<(ostream& os, Tanaman tanaman);
 };

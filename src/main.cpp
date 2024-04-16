@@ -10,8 +10,6 @@ int main() {
         GE.run();
     } catch (exception& e) {
         cout << e.what() << endl;
-        // ????
-        // GE.loopCommand();
     }
     return 0;
 }

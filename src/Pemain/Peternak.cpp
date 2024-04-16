@@ -30,12 +30,26 @@ string Peternak::getRole() {
 }
 
 void Peternak::ternak() {
-    if (inventory.hitungSlotKosong() == Config::getBesarPenyimpanan().first * Config::getBesarPenyimpanan().second) {
-        throw PemainException("Inventory kosong, tidak ada hewan yang bisa diternak");
+    // Cek apakah ada tanaman di inventory (penyimpanan)
+    bool adaHewan = false;
+    for (int i = 0; i < inventory.getRows(); i++) {
+        for (int j = 0; j < inventory.getCols(); j++) {
+            if (inventory.getCell(i, j) != nullptr) {
+                if (Config::isExistAnimal(inventory.getCell(i, j)->getName())) {
+                    adaHewan = true;
+                    break;
+                }
+            }
+        }
+        if (adaHewan) break;
     }
+
+    if (!adaHewan) throw PemainException("Tidak ada hewan di inventory.\n");
+
     if (peternakan.hitungSlotKosong() == 0) {
         throw PemainException("Peternakan sudah penuh. Tidak dapat menambahkan lebih banyak hewan.\n");
     }
+
     std::cout << endl << "Pilih hewan dari penyimpanan:\n" << endl;
     inventory.cetakInfo();
 
@@ -65,9 +79,22 @@ void Peternak::beriPangan() {
     if (peternakan.hitungSlotKosong() == peternakan.getRows() * peternakan.getCols()) {
         throw PemainException("Peternakan kosong. Tidak ada hewan yang bisa diberi makan.\n");
     }
-    if (inventory.hitungSlotKosong() == Config::getBesarPenyimpanan().first * Config::getBesarPenyimpanan().second) {
-        throw PemainException("Inventory kosong. Tidak ada pangan yang bisa diberikan.\n");
+
+    // Cek apakah ada tanaman di inventory (penyimpanan)
+    bool adaProduk = false;
+    for (int i = 0; i < inventory.getRows(); i++) {
+        for (int j = 0; j < inventory.getCols(); j++) {
+            if (inventory.getCell(i, j) != nullptr) {
+                if (Config::isExistProduct(inventory.getCell(i, j)->getName())) {
+                    adaProduk = true;
+                    break;
+                }
+            }
+        }
+        if (adaProduk) break;
     }
+
+    if (!adaProduk) throw PemainException("Tidak ada pangan di inventory.\n");
 
     std::cout << endl << "Pilih petak kandang yang akan ditinggali\n" << endl;
     peternakan.cetakInfo();

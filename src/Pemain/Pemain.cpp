@@ -148,8 +148,6 @@ void Pemain::makan() {
 
         pair<int,int> koordinat = Penyimpanan::konversiKoordinat(slot);
         int validity = inventory.checkMakanan(koordinat.first, koordinat.second);
-        cout << koordinat.first << " " << koordinat.second << endl;
-        cout << validity << endl;
         while (validity != 0) {
             if (validity == -1){
                 cout << "Tidak ada slot dengan index seperti itu!" << endl;
@@ -194,14 +192,14 @@ void Pemain::magic() {
                 guldenDicuri = kekayaan; // Pastikan gulden yang dicuri tidak melebihi kekayaan pemain
             }
             kekayaan -= guldenDicuri; // Kurangi gulden pemain
-            std::cout << "Uangmu dicuri sebesar " << guldenDicuri << " gulden!" << std::endl;
+            cout << "Uangmu dicuri sebesar " << guldenDicuri << " gulden!" << endl;
             break;
         }
         case 2: {
             // Dapet Sedekah
             int sedekah = rand() % 10 + 1; // Gulden yang akan diterima secara acak antara 1 sampai 10
             kekayaan += sedekah; // Tambahkan gulden pemain
-            std::cout << "Kamu mendapat sedekah sebesar " << sedekah << " gulden!" << std::endl;
+            cout << "Kamu mendapat sedekah sebesar " << sedekah << " gulden!" << endl;
             break;
         }
         case 3: {
