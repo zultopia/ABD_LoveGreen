@@ -183,7 +183,7 @@ void Pemain::magic() {
 
     // Pilih tools secara acak
     int tool = rand() % 6 + 1;
-    cout << tool << endl;
+    cout << endl;
     switch (tool) {
         case 1: {
             // Gulden/Uang dicuri
