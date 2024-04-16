@@ -77,7 +77,7 @@ Pastikan gcc dan cmake telah terinstall. Buka terminal pada folder project, lalu
 
 ### Linux
 
-Buka terminal pada folder project, lalu jalankan makefile dengan perintah
+Buka terminal pada folder project, buat folder bernama bin, lalu jalankan makefile dengan perintah
 
 ```
 make clean
