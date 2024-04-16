@@ -37,13 +37,13 @@ class Pemain {
         void next();
         void simpan();
         virtual void bayarPajak() = 0;
-
 		virtual int calculateTax() = 0;
 		virtual void beli() = 0;
 		virtual void jual() = 0;
 		virtual void makan();
 		void cetakPenyimpanan();
 		virtual void printStatus();
+		virtual void magic() = 0;
 };
 
 

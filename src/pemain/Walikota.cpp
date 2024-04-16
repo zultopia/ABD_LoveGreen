@@ -226,6 +226,9 @@ void Walikota::doCommand(string command){
         case 16:
             this->tambahPemain();
             break;
+        case 17:
+            this->magic();
+            break;
         default:
             PemainException e("Command Tidak Valid untuk Pemain ini\n");
             throw e;
@@ -431,4 +434,8 @@ void Walikota::jual(){
 
 void Walikota::printStatus() {
     Pemain::printStatus();
+}
+
+void Walikota::magic(){
+    Pemain::magic();
 }

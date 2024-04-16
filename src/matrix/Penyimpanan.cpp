@@ -134,7 +134,7 @@ int Penyimpanan::jumlahItem(string nama) {
     return jumlah;
 }
 
-bool Penyimpanan::checkMakanan(int row, int col){
+int Penyimpanan::checkMakanan(int row, int col){
     if (row < 0 || row >= rows || col < 0 || col >= cols) {
         // Index tidak valid
         return -1;
