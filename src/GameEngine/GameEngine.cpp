@@ -33,7 +33,14 @@ void GameEngine::setUp() {
     }
     if (answer == 'y') {
         try{
-            Muat::muat();
+            try{
+                Muat::muat();
+            } catch(ConfigException& e){
+                throw e;
+            } catch (...){
+                ConfigException e("File tidak valid");
+                throw e;
+            }
             // Muat::cekMuat();
             Muat::setUp();
         } catch (ConfigException& e){
