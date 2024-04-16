@@ -78,7 +78,7 @@ void GameEngine::loopCommand() {
             receiveCommand();
             if (currentPemain->checkWinCondition()) {
                 finish = true;
-                cout << "Pemain " << currentPemain->getUsername() << " menang dengan kekayaan " << currentPemain->getUsername() << " gulden dan berat badan " << currentPemain->getBeratBadan() << " kg!" << endl;
+                cout << "Pemain " << currentPemain->getUsername() << " menang dengan kekayaan " << currentPemain->getKekayaan() << " gulden dan berat badan " << currentPemain->getBeratBadan() << " kg!" << endl;
                 cout << "Game Finished." << endl;
             }
         }
