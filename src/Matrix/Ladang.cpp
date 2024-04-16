@@ -179,3 +179,17 @@ vector<tuple<string,string,int>> Ladang::getDaftarIsi(){
     }
     return tempvector;
 }
+
+void Ladang::musimKemarau() {
+    // Mempercepat proses kematangan tanaman
+    for (int i = 0; i < getRows(); ++i) {
+        for (int j = 0; j < getCols(); ++j) {
+            Tanaman* tanaman = getCell(i, j);
+            if (tanaman != nullptr) {
+                if (!tanaman->isHarvest()) {
+                    tanaman->addDuration(); 
+                }
+            }
+        }
+    }
+}

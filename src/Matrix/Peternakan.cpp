@@ -168,3 +168,26 @@ vector<tuple<string,string,int>> Peternakan::getDaftarIsi(){
     return tempvector;
 
 }
+
+void Peternakan::wabah() {
+    int minBeratBadan = INT_MAX;
+    int minRow = -1, minCol = -1;
+
+    for (int i = 0; i < getRows(); ++i) {
+        for (int j = 0; j < getCols(); ++j) {
+            Hewan* hewan = getCell(i, j);
+            if (hewan != nullptr && hewan->getCurrentWeight() < minBeratBadan) {
+                minBeratBadan = hewan->getCurrentWeight();
+                minRow = i;
+                minCol = j;
+            }
+        }
+    }
+    // Menghapus hewan dengan berat terendah
+    if (minRow != -1 && minCol != -1) {
+        Hewan* hewan = getCell(minRow, minCol);
+        removeItem(minRow, minCol); 
+        delete hewan; 
+        cout << "Sebuah hewan telah mati akibat wabah di peternakan." << endl;
+    }
+}

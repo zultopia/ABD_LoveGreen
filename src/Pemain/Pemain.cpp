@@ -1,5 +1,6 @@
 #include "./Pemain.hpp"
 #include "./Petani.hpp"
+#include "./Peternak.hpp"
 #include "../Matrix/Grid.hpp"
 #include "../Config/Config.hpp"
 #include "../Toko/Toko.hpp"
@@ -27,7 +28,8 @@ map<string,int> Pemain::commandTable = {
     {"PANEN",13},
     {"STATUS", 14},
     {"SIMPAN",15},
-    {"TAMBAH_PEMAIN",16}
+    {"TAMBAH_PEMAIN",16},
+    {"MAGIC",17}
 };
 
 Pemain::Pemain(string& username, int kekayaan, int beratBadan) : username(username), kekayaan(kekayaan), beratBadan(beratBadan), inventory() {
@@ -174,4 +176,71 @@ void Pemain::printStatus() {
     cout << "Berat Badan: " << beratBadan << endl;
     cout << "Role: " << getRole() << endl;
     cetakPenyimpanan();
+}
+
+void Pemain::magic() {
+    srand(time(0));
+
+    // Pilih tools secara acak
+    int tool = rand() % 6 + 1;
+
+    switch (tool) {
+        case 1: {
+            // Gulden/Uang dicuri
+            int guldenDicuri = rand() % 10 + 1; // Gulden yang akan dicuri secara acak antara 1 sampai 10
+            if (guldenDicuri > kekayaan) {
+                guldenDicuri = kekayaan; // Pastikan gulden yang dicuri tidak melebihi kekayaan pemain
+            }
+            kekayaan -= guldenDicuri; // Kurangi gulden pemain
+            std::cout << "Uangmu dicuri sebesar " << guldenDicuri << " gulden!" << std::endl;
+            break;
+        }
+        case 2: {
+            // Dapet Sedekah
+            int sedekah = rand() % 10 + 1; // Gulden yang akan diterima secara acak antara 1 sampai 10
+            kekayaan += sedekah; // Tambahkan gulden pemain
+            std::cout << "Kamu mendapat sedekah sebesar " << sedekah << " gulden!" << std::endl;
+            break;
+        }
+        case 3: {
+            // Harus diet
+            int penurunanBeratBadan = rand() % 5 + 1; // Berat badan akan berkurang secara acak antara 1 sampai 5
+            Item* item = nullptr;
+            beratBadan = Config::getAddedWeight(item->getName()) - penurunanBeratBadan;
+            cout << "Kamu harus diet! Berat badanmu berkurang menjadi " << beratBadan << endl;
+            break;
+        }
+        case 4: {
+            // Dapet traktiran makan
+            int penambahanBeratBadan = rand() % 5 + 1; // Berat badan akan bertambah secara acak antara 1 sampai 5
+            Item* item = nullptr;
+            beratBadan = Config::getAddedWeight(item->getName()) + penambahanBeratBadan;
+            cout << "Kamu mendapat traktiran makan! Berat badanmu bertambah menjadi " << beratBadan << endl;
+            break;
+        }
+        case 5: {
+            // Musim kemarau datang
+            for (auto pemain : listPemain) {
+                if (pemain->getRole() == "Petani") {
+                    Petani* petani = dynamic_cast<Petani*>(pemain);
+                    if (petani) {
+                        petani->getLadang().musimKemarau();
+                    }
+                }
+            }
+            break;
+        }
+        case 6: {
+            // Ada wabah
+            for (auto pemain : listPemain) {
+                if (pemain->getRole() == "Peternak") {
+                    Peternak* peternak = dynamic_cast<Peternak*>(pemain);
+                    if (peternak) {
+                        peternak->getPeternakan().wabah();
+                    }
+                }
+            }
+            break;
+        }
+    }
 }
