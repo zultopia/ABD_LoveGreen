@@ -51,7 +51,7 @@ void Petani::tanam() {
 
             ladang.menanamTanaman(item);
         } else {
-            throw PemainException("Tanam gagal...\nPastikan slot yang dipilih tidak kosong dan merupakan tanaman");
+            throw PemainException("Tanam gagal...\nPastikan slot yang dipilih tidak kosong dan merupakan tanaman\n");
         }
     } else {
         throw PemainException("Slot yang dipilih tidak valid.\n\n");
@@ -69,7 +69,7 @@ void Petani::harvest() {
     map<string, int> harvest = ladang.hitungJumlahTanamanPanen();
 
     if (harvest.empty()) {
-        throw PemainException("Tidak ada tanaman siap panen.");
+        throw PemainException("Tidak ada tanaman siap panen.\n");
     } else {
         cout << "Pilih tanaman siap panen yang kamu miliki" << endl;
         int counter = 1;
@@ -84,17 +84,17 @@ void Petani::harvest() {
         cout << endl << "Nomor tanaman yang ingin dipanen: "; cin >> nomor; cout << endl;
 
         if (nomor < 1 || nomor > harvest.size()) {
-            throw PemainException("Nomor tanaman tidak valid.");
+            throw PemainException("Nomor tanaman tidak valid.\n");
         } else {
             int jumlahPetak;
             string kodeTanaman = tanamanByNumber[nomor];
             cout << "Berapa petak yang ingin dipanen: "; cin >> jumlahPetak; cout << endl;
 
             if (jumlahPetak < 1 || jumlahPetak > harvest[kodeTanaman]) {
-                throw PemainException("Jumlah petak yang ingin dipanen melebihi/kurang dari jumlah petak yang tersedia.");
+                throw PemainException("Jumlah petak yang ingin dipanen melebihi/kurang dari jumlah petak yang tersedia.\n");
             } else {
                 if (inventory.hitungSlotKosong() < jumlahPetak) {
-                    throw PemainException("Slot penyimpanan tidak cukup.");
+                    throw PemainException("Slot penyimpanan tidak cukup.\n");
                 } 
 
                 string petak;
@@ -104,11 +104,11 @@ void Petani::harvest() {
                     cout << "Petak ke-" << i + 1 << ": "; cin >> petak;
                     pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
                     if (ladang.getCell(koordinatPetak.first, koordinatPetak.second) == nullptr) {
-                        throw PemainException("Petak tersebut tidak memiliki tanaman.");
+                        throw PemainException("Petak tersebut tidak memiliki tanaman.\n");
                     } else if (ladang.getCell(koordinatPetak.first, koordinatPetak.second)->getCode() != kodeTanaman) {
-                        throw PemainException("Petak tersebut memiliki tanaman yang berbeda.");
+                        throw PemainException("Petak tersebut memiliki tanaman yang berbeda.\n");
                     } else if (!ladang.getCell(koordinatPetak.first, koordinatPetak.second)->isHarvest()) {
-                        throw PemainException("Tanaman pada petak tersebut belum siap dipanen.");
+                        throw PemainException("Tanaman pada petak tersebut belum siap dipanen.\n");
                     } else {
                         petakDipanen.push_back(petak);
                         Tanaman* tanamanPanen = ladang.ambilTanaman(koordinatPetak.first + 1, koordinatPetak.second);
@@ -148,7 +148,7 @@ void Petani::harvest() {
                         cout << ", ";
                     }
                 }
-                cout << " telah dipanen." << endl;
+                cout << " telah dipanen.\n" << endl;
             }
         }
     }
