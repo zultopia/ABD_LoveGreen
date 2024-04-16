@@ -188,6 +188,6 @@ void Peternakan::wabah() {
         Hewan* hewan = getCell(minRow, minCol);
         removeItem(minRow, minCol); 
         delete hewan; 
-        cout << "Sebuah hewan telah mati akibat wabah di setiap peternakan." << endl;
+        cout << "Seekor hewan telah mati akibat wabah di setiap peternakan." << endl;
     }
 }
