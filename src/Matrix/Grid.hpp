@@ -115,6 +115,10 @@ class Grid {
                 return false;
             }
         }
+
+        bool isValidKoordinat(int row, int col) const {
+            return (row >= 0 && row < getRows() && col >= 0 && col < getCols());
+        }
 };
 
 #endif
