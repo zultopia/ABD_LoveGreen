@@ -321,7 +321,11 @@ void Walikota::beli(){
     while (!slotsValid) {
         cout << "Petak Slot: ";
         getline(cin, slots);
-        slotIntList = Penyimpanan::parserListKoordinat(slots);
+        try {
+            slotIntList = Penyimpanan::parserListKoordinat(slots);
+        } catch (...) {
+            slotsValid = false;
+        }
 
         // Memeriksa setiap sel yang dipilih
         bool anySlotOccupied = false;
