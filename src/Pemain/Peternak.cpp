@@ -159,7 +159,7 @@ void Peternak::harvest() {
         }
 
         while (stoi(jumlahPetak) < 1 || stoi(jumlahPetak) > harvest[kodeHewan]) {
-            std::cout << "Jumlah petak yang ingin dipanen melebihi/kurang dari jumlah petak yang tersedia.\n";
+            std::cout << "Jumlah petak yang ingin dipanen melebihi jumlah petak yang tersedia atau kurang dari satu.\n";
             std::cout << "Berapa petak yang ingin dipanen: "; std::cin >> jumlahPetak; std::cout << endl;
         }
 

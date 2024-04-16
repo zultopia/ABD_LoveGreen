@@ -185,7 +185,7 @@ void Pemain::magic() {
 
     // Pilih tools secara acak
     int tool = rand() % 6 + 1;
-
+    cout << tool << endl;
     switch (tool) {
         case 1: {
             // Gulden/Uang dicuri
@@ -207,16 +207,14 @@ void Pemain::magic() {
         case 3: {
             // Harus diet
             int penurunanBeratBadan = rand() % 5 + 1; // Berat badan akan berkurang secara acak antara 1 sampai 5
-            Item* item = nullptr;
-            beratBadan = Config::getAddedWeight(item->getName()) - penurunanBeratBadan;
+            beratBadan -= penurunanBeratBadan;
             cout << "Kamu harus diet! Berat badanmu berkurang menjadi " << beratBadan << endl;
             break;
         }
         case 4: {
             // Dapet traktiran makan
             int penambahanBeratBadan = rand() % 5 + 1; // Berat badan akan bertambah secara acak antara 1 sampai 5
-            Item* item = nullptr;
-            beratBadan = Config::getAddedWeight(item->getName()) + penambahanBeratBadan;
+            beratBadan += penambahanBeratBadan;
             cout << "Kamu mendapat traktiran makan! Berat badanmu bertambah menjadi " << beratBadan << endl;
             break;
         }

@@ -88,7 +88,7 @@ void Walikota::bangun(){
     string answer;
     cin >> answer;
     if (!Config::isExistRecipe(answer)) {
-        PemainException e("Kamu tidak punya resep bangunan tersebut!");
+        PemainException e("Kamu tidak punya resep bangunan tersebut!\n");
         throw e;
     }
 
@@ -142,7 +142,7 @@ void Walikota::bangun(){
         
         inventory.tambahItem(new Bangunan(answer));
 
-        cout << answer << " berhasil dibangun dan telah menjadi hak milik walikota!";
+        cout << answer << " berhasil dibangun dan telah menjadi hak milik walikota!\n";
     };
 
 
