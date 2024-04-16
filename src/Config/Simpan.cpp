@@ -29,22 +29,24 @@ void Simpan::simpan() {
     update();
 
     // Data pemain ditulis
-    outputFile << getPemain().size() << endl;
-    for (const auto& pemain : getPemain()) {
-        outputFile << get<0>(getDataPemain()[pemain]) << " ";
-        outputFile << get<1>(getDataPemain()[pemain]) << " ";
-        outputFile << get<2>(getDataPemain()[pemain]) << endl;
+    outputFile << pemain.size() << endl;
+    for (const auto& username : pemain) {
+        outputFile << username << " ";
+        outputFile << get<0>(dataPemain[username]) << " ";
+        outputFile << get<1>(dataPemain[username]) << " ";
+        outputFile << get<2>(dataPemain[username]) << endl;
 
         // Inventory ditulis
-        outputFile << getInventory()[pemain].size() << endl;
-        for (const auto& inventory : getInventory()[pemain]) {
-            outputFile << inventory << endl;
+    
+        outputFile << inventory[username].size() << endl;
+        for (const auto& i : inventory[username]) {
+            outputFile << i << endl;
         }
 
         // Ladang (petani) atau peternakan (peternak) ditulis
-        if (get<0>(getDataPemain()[pemain]) != "Walikota") {
-            outputFile << getLadangdanTernak()[pemain].size() << endl;
-            for (const auto& ladangTernak : getLadangdanTernak()[pemain]) {
+        if (get<0>(dataPemain[username]) != "Walikota") {
+            outputFile << getLadangdanTernak()[username].size() << endl;
+            for (const auto& ladangTernak : LadangdanTernak[username]) {
                 outputFile << get<0>(ladangTernak) << " ";
                 outputFile << get<1>(ladangTernak) << " ";
                 outputFile << get<2>(ladangTernak) << endl;
@@ -70,6 +72,7 @@ void Simpan::update(){
         role = (*i)->getRole();
         dataPemain[(*i)->Pemain::getUsername()] = make_tuple(role,(*i)->getBeratBadan(), (*i)->getKekayaan());
         inventory[(*i)->Pemain::getUsername()] = (*i)->getDaftarInventory();
+        
         if((*i)->getRole() == "Petani"){
             Petani* currenPetani = (Petani*)(*i);
             LadangdanTernak[(*i)->getUsername()] = currenPetani->getDaftarIsi();
