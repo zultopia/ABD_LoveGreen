@@ -147,6 +147,16 @@ map<string, int> Ladang::hitungJumlahTanamanPanen() {
     return jumlahHarvest;
 }
 
+void Ladang::addDurationTanaman() {
+    for (int i = 0; i < getRows(); i++) {
+        for (int j = 0; j < getCols(); j++) {
+            if (getCell(i, j) != nullptr) {
+                getCell(i, j)->addDuration();
+            }
+        }
+    }
+}
+
 // Operator Overloading
 void Ladang::operator+(Tanaman* tanaman) {
     tambahTanaman(tanaman);

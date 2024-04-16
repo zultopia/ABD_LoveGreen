@@ -26,6 +26,8 @@ class Ladang : public Grid<Tanaman> {
 
         map<string, int> hitungJumlahTanamanPanen();
 
+        void addDurationTanaman();
+
         void operator+(Tanaman* tanaman);
 
         // daftar isi ladang

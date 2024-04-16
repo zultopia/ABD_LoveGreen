@@ -302,28 +302,34 @@ void Petani::beli() {
     string slots;
     vector<tuple<int, int>> slotIntList;
 
+    string buf;
+    getline(cin, buf);
     while (!slotsValid) {
         cout << "Petak Slot: ";
-        string buf;
-        getline(cin, buf);
         getline(cin, slots);
         slotIntList = Penyimpanan::parserListKoordinat(slots);
 
         // Memeriksa setiap sel yang dipilih
         bool anySlotOccupied = false;
+        bool anyIndexOutOfBound = false;
         for (const auto& slot : slotIntList) {
             int row = get<0>(slot);
             int col = get<1>(slot);
+            if (!(row >= 0 && row < inventory.getRows() && col >= 0 && col < inventory.getCols())){
+                anyIndexOutOfBound = true;
+            }
             if (!inventory.isCellKosong(row, col)) {
                 anySlotOccupied = true;
                 break;
             }
         }
 
-        if (slotIntList.size() == kuantitasInt && !anySlotOccupied) {
+        if (slotIntList.size() == kuantitasInt && !anySlotOccupied && !anyIndexOutOfBound) {
             slotsValid = true;
         } else {
-            if (anySlotOccupied) {
+            if (anyIndexOutOfBound) {
+                cout << "Pilihan index slot tidak valid! Silakan input kembali." << endl;
+            } else if (anySlotOccupied) {
                 cout << "Salah satu atau lebih slot sudah terisi! Silakan pilih slot yang kosong." << endl;
             } else {
                 cout << "Pilihan slot tidak valid! Silakan input kembali." << endl;
@@ -369,6 +375,9 @@ void Petani::jual() {
     bool slotsValid = false;
     string slots;
     vector<tuple<int, int>> slotIntList;
+
+    string buf;
+    getline(cin,buf);
 
     while (!slotsValid) {
         cout << "Petak: ";

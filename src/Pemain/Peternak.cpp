@@ -31,7 +31,7 @@ string Peternak::getRole() {
 
 void Peternak::ternak() {
     if (peternakan.hitungSlotKosong() == 0) {
-        throw PemainException("Peternakan sudah penuh. Tidak dapat menambahkan lebih banyak hewan.");
+        throw PemainException("Peternakan sudah penuh. Tidak dapat menambahkan lebih banyak hewan.\n");
     }
     cout << endl << "Pilih hewan dari penyimpanan:\n" << endl;
     inventory.cetakInfo();
@@ -45,64 +45,70 @@ void Peternak::ternak() {
     int col = slotCoordinate.second;
 
     // Memeriksa apakah koordinat dalam rentang yang valid
-    if (row >= 0 && row < inventory.getRows() && col >= 0 && col < inventory.getCols()) {
+    if (inventory.isCellValid(row, col)) {
         Item* item = inventory.ambilJenisItem(slot, "Hewan");
         if (item != nullptr) {
             cout << "Kamu memilih " << item->getName() << ".\n" << endl;
             peternakan.menanamTernak(item);
         } else {
-            throw PemainException("Ternak gagal...\nPastikan slot yang dipilih tidak kosong dan merupakan hewan");
+            throw PemainException("Ternak gagal...\nPastikan slot yang dipilih tidak kosong dan merupakan hewan\n\n");
         }
     } else {
-        throw PemainException("Slot yang dipilih tidak valid.");
+        throw PemainException("Slot yang dipilih tidak valid.\n\n");
     }
 }
 
 void Peternak::beriPangan() {
     if (peternakan.hitungSlotKosong() == peternakan.getRows() * peternakan.getCols()) {
-        throw PemainException("Peternakan kosong. Tidak ada hewan yang bisa diberi makan.");
+        throw PemainException("Peternakan kosong. Tidak ada hewan yang bisa diberi makan.\n");
     }
+
     cout << endl << "Pilih petak kandang yang akan ditinggali\n" << endl;
     peternakan.cetakInfo();
-
     string petak;
     cout << endl; cout << "Petak kandang: "; cin >> petak; cout << endl;
+    pair<int, int> koordinatPetak = Peternakan::konversiKoordinat(petak);
+    if (peternakan.isCellValid(koordinatPetak.first, koordinatPetak.second)) {
+        Hewan* hewan = peternakan.getCell(koordinatPetak.first, koordinatPetak.second);
+        if (hewan != nullptr) {
+            cout << "Kamu memilih " << hewan->getName() << " untuk diberi makan.\n" << endl;
+            cout << "Pilih pangan yang akan diberikan:\n" << endl;
+            inventory.cetakInfo();
 
-    pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
-    Hewan* hewan = peternakan.getCell(koordinatPetak.first, koordinatPetak.second);
+            string slot;
+            cout << "Slot: "; cin >> slot; cout << endl;
+            pair<int, int> koordinatSlot = Penyimpanan::konversiKoordinat(slot);
+            if (inventory.isCellValid(koordinatSlot.first, koordinatSlot.second)) {
+                Item* item = inventory.ambilJenisItem(slot, "Produk");
+                if (item != nullptr) {
+                    string typePangan = get<2>(Config::getProductMap()[item->getName()]);
+                    Produk* produkPangan;
+                    if (typePangan == "PRODUCT_MATERIAL_PLANT") { produkPangan = new ProdukUneatable(item->getName());} 
+                    else { produkPangan = new ProdukEatable(item->getName()); }
 
-    if (hewan != nullptr) {
-        cout << "Kamu memilih " << hewan->getName() << " untuk diberi makan.\n" << endl;
-        cout << "Pilih pangan yang akan diberikan:\n" << endl;
-        inventory.cetakInfo();
+                    try {
+                        hewan->eat(*produkPangan);
+                        delete produkPangan;
+                    } catch(InvalidEatingException& e) {
+                        e.printMessage();
+                    }
 
-        string slot;
-        cout << "Slot: "; cin >> slot; cout << endl;
-
-        Item* item = inventory.ambilJenisItem(slot, "Produk");
-        if (item != nullptr) {
-            string typePangan = get<2>(Config::getProductMap()[item->getName()]);
-            Produk* produkPangan;
-            if (typePangan == "PRODUCT_MATERIAL_PLANT") { produkPangan = new ProdukUneatable(item->getName());} 
-            else { produkPangan = new ProdukEatable(item->getName()); }
-
-            try {
-                hewan->eat(*produkPangan);
-                delete produkPangan;
-            } catch(InvalidEatingException& e) {
-                e.printMessage();
+                } else {
+                    throw PemainException("Gagal memberi makan...\nPastikan slot yang dipilih tidak kosong dan merupakan produk\n");
+                }
+            } else {
+                throw PemainException("Slot tidak valid!\n");
             }
-
         } else {
-            throw PemainException("Gagal memberi makan...\nPastikan slot yang dipilih tidak kosong dan merupakan produk");
+            throw PemainException("Petak kandang tersebut kosong.\n");
         }
     } else {
-        throw PemainException("Petak kandang tersebut kosong.");
+        throw PemainException("Petak kandang tidak valid!\n");
     }
 }
 
 void Peternak::cetakPeternakan() {
-    peternakan.cetakInfo();
+    peternakan.cetakInfo(); cout << endl;
 }
 
 void Peternak::harvest() {
@@ -320,9 +326,8 @@ void Peternak::beli() {
         valid = false;
     }
 
-    while (!valid) {
-        cout << "Kuantitas harus berupa integer!" << endl;
-
+    while (!valid || kuantitasInt <= 0) {
+        cout << "Kuantitas harus berupa integer dan lebih besar dari 0!" << endl;
         cout << "Kuantitas : ";
         valid = true;
         cin >> kuantitas;
@@ -353,28 +358,34 @@ void Peternak::beli() {
     string slots;
     vector<tuple<int, int>> slotIntList;
 
+    string buf;
+    getline(cin, buf);
     while (!slotsValid) {
         cout << "Petak Slot: ";
-        string buf;
-        getline(cin, buf);
         getline(cin, slots);
         slotIntList = Penyimpanan::parserListKoordinat(slots);
-        
+
         // Memeriksa setiap sel yang dipilih
         bool anySlotOccupied = false;
+        bool anyIndexOutOfBound = false;
         for (const auto& slot : slotIntList) {
             int row = get<0>(slot);
             int col = get<1>(slot);
+            if (!(row >= 0 && row < inventory.getRows() && col >= 0 && col < inventory.getCols())){
+                anyIndexOutOfBound = true;
+            }
             if (!inventory.isCellKosong(row, col)) {
                 anySlotOccupied = true;
                 break;
             }
         }
 
-        if (slotIntList.size() == kuantitasInt && !anySlotOccupied) {
+        if (slotIntList.size() == kuantitasInt && !anySlotOccupied && !anyIndexOutOfBound) {
             slotsValid = true;
         } else {
-            if (anySlotOccupied) {
+            if (anyIndexOutOfBound) {
+                cout << "Pilihan index slot tidak valid! Silakan input kembali." << endl;
+            } else if (anySlotOccupied) {
                 cout << "Salah satu atau lebih slot sudah terisi! Silakan pilih slot yang kosong." << endl;
             } else {
                 cout << "Pilihan slot tidak valid! Silakan input kembali." << endl;
@@ -420,6 +431,9 @@ void Peternak::jual() {
     bool slotsValid = false;
     string slots;
     vector<tuple<int, int>> slotIntList;
+
+    string buf;
+    getline(cin,buf);
 
     while (!slotsValid) {
         cout << "Petak: ";
