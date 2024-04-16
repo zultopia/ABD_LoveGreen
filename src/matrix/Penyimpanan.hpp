@@ -8,6 +8,7 @@
 class Penyimpanan : public Grid<Item> {
     public:
         Penyimpanan();
+
         Penyimpanan(int numRows, int numCols);
 
         void cetakInfo();
@@ -25,6 +26,8 @@ class Penyimpanan : public Grid<Item> {
         int jumlahItem(string nama);
 
         bool checkMakanan(int row, int col);
+
+        bool isCellKosong(int row, int col);
 };
 
 #endif
