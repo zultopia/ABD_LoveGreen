@@ -127,7 +127,7 @@ void Ladang::menanamTanaman(Item* item) {
                 tanamBerhasil = true;
             }
         } else {
-            cout << "Petak kandang tidak valid!\n" << endl;
+            cout << "Petak ladang tidak valid!\n" << endl;
         }
     }
 }
@@ -178,4 +178,18 @@ vector<tuple<string,string,int>> Ladang::getDaftarIsi(){
         }
     }
     return tempvector;
+}
+
+void Ladang::musimKemarau() {
+    // Mempercepat proses kematangan tanaman
+    for (int i = 0; i < getRows(); ++i) {
+        for (int j = 0; j < getCols(); ++j) {
+            Tanaman* tanaman = getCell(i, j);
+            if (tanaman != nullptr) {
+                if (!tanaman->isHarvest()) {
+                    tanaman->addDuration(); 
+                }
+            }
+        }
+    }
 }

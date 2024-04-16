@@ -32,6 +32,8 @@ class Ladang : public Grid<Tanaman> {
 
         // daftar isi ladang
         vector<tuple<string,string,int> > getDaftarIsi();
+
+        void musimKemarau();
 };
 
 #endif

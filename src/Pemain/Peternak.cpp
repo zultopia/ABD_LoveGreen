@@ -256,6 +256,9 @@ void Peternak::doCommand(string command) {
         case 15:
             this->simpan();
             break;
+        case 17:
+            this->magic();
+            break;
         default:
             PemainException e("Command Tidak Valid untuk Pemain ini\n");
             throw e;
@@ -385,9 +388,13 @@ void Peternak::beli() {
     string buf;
     getline(std::cin, buf);
     while (!slotsValid) {
-        std::cout << "Petak Slot: ";
-        getline(std::cin, slots);
-        slotIntList = Penyimpanan::parserListKoordinat(slots);
+        cout << "Petak Slot: ";
+        getline(cin, slots);
+        try {
+            slotIntList = Penyimpanan::parserListKoordinat(slots);
+        } catch (...) {
+            slotsValid = false;
+        }
 
         // Memeriksa setiap sel yang dipilih
         bool anySlotOccupied = false;
@@ -500,4 +507,8 @@ vector<tuple<string,string,int>> Peternak::getDaftarIsi(){
 void Peternak::printStatus() {
     Pemain::printStatus();
     cetakPeternakan();
+}
+
+void Peternak::magic(){
+    Pemain::magic();
 }

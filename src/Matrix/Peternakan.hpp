@@ -31,6 +31,8 @@ public:
     void operator+(Hewan* ternak);
 
     vector<tuple<string,string,int>> getDaftarIsi();
+
+    void wabah();
 };
 
 #endif
