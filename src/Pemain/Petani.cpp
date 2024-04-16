@@ -370,6 +370,9 @@ void Petani::jual() {
     string slots;
     vector<tuple<int, int>> slotIntList;
 
+    string buf;
+    getline(cin,buf);
+
     while (!slotsValid) {
         cout << "Petak: ";
         getline(cin,slots);
