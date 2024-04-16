@@ -82,6 +82,8 @@ void Pemain::next() {
 }
 
 void Pemain::simpan() {
+    string buf;
+    getline(cin,buf);
     Simpan::simpan();
 }
 

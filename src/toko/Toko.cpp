@@ -202,7 +202,7 @@ vector<string>& Toko::getUrutan(){
 map<string,int> Toko::getIsiToko(){
     map<string,int> temp;
     for(auto i = urutan.begin(); i != urutan.end(); i++){
-        if(barang[*i].second != -1){
+        if(barang[*i].second != -1 && barang[*i].second != 0){
             temp[*i] = barang[*i].second;
         }
     }

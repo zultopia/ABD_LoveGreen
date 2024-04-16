@@ -67,7 +67,7 @@ class Grid {
             for (int i = 0; i < rows; ++i) {
                 for (int j = 0; j < cols; ++j) {
                     if (grid[i][j] != nullptr) {
-                        listPenyimpanan.push_back(grid[i][j]->getCode());
+                        listPenyimpanan.push_back(grid[i][j]->getName());
                     }
                 }
             }
