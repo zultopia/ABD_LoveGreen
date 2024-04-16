@@ -20,6 +20,7 @@ class Walikota : public Pemain {
         void beli();
         void jual();
         void printStatus();
+        void magic();
 };
 
 #endif

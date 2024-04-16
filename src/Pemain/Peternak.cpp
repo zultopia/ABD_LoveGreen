@@ -240,6 +240,9 @@ void Peternak::doCommand(string command) {
         case 15:
             this->simpan();
             break;
+        case 17:
+            this->magic();
+            break;
         default:
             PemainException e("Command Tidak Valid untuk Pemain ini\n");
             throw e;
@@ -484,4 +487,8 @@ vector<tuple<string,string,int>> Peternak::getDaftarIsi(){
 void Peternak::printStatus() {
     Pemain::printStatus();
     cetakPeternakan();
+}
+
+void Peternak::magic(){
+    Pemain::magic();
 }
