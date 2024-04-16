@@ -270,9 +270,8 @@ void Petani::beli() {
         valid = false;
     }
 
-    while (!valid) {
-        cout << "Kuantitas harus berupa integer!" << endl;
-
+    while (!valid || kuantitasInt <= 0) {
+        cout << "Kuantitas harus berupa integer dan lebih besar dari 0!" << endl;
         cout << "Kuantitas : ";
         valid = true;
         cin >> kuantitas;
