@@ -28,6 +28,7 @@ class Muat: virtual SimpanMuat{
         static void setUpPeternak(Pemain*& player, string nama);
         static void setUpWalikota(Pemain*& player, string nama);
         static void setUpInventory(Pemain*& pemain);
+        static Item* universalConstructor(string nama);
 };
 
 #endif

@@ -169,42 +169,83 @@ void Muat::setUpInventory(Pemain*& pemain){
     Penyimpanan& inventoryPlayer = pemain->getInventory();
     cout << pemain->getUsername() << endl;
     for(auto j = inventory.at(pemain->getUsername()).begin(); j != inventory.at(pemain->getUsername()).end(); j++){
-        if (Config::isExistAnimal(*j)){
-            if(Config::getType(*j) == "HERBIVORE"){
-                Herbivora* animal = new Herbivora(*j);
-                // inventoryPlayer.tambahItem(animal);
-                inventoryPlayer + animal;
-            }else if(Config::getType(*j) == "CARNIVORE"){
-                Karnivora* animal = new Karnivora(*j);
-                // inventoryPlayer.tambahItem(animal);
-                inventoryPlayer + animal;
-            }else if(Config::getType(*j) == "OMNIVORE"){
-                Omnivora* animal = new Omnivora(*j);
-                // inventoryPlayer.tambahItem(animal);
-                inventoryPlayer + animal;
-            }
-        } else if (Config::isExistPlant(*j)){
+        // if (Config::isExistAnimal(*j)){
+        //     if(Config::getType(*j) == "HERBIVORE"){
+        //         Herbivora* animal = new Herbivora(*j);
+        //         // inventoryPlayer.tambahItem(animal);
+        //         inventoryPlayer + animal;
+        //     }else if(Config::getType(*j) == "CARNIVORE"){
+        //         Karnivora* animal = new Karnivora(*j);
+        //         // inventoryPlayer.tambahItem(animal);
+        //         inventoryPlayer + animal;
+        //     }else if(Config::getType(*j) == "OMNIVORE"){
+        //         Omnivora* animal = new Omnivora(*j);
+        //         // inventoryPlayer.tambahItem(animal);
+        //         inventoryPlayer + animal;
+        //     }
+        // } else if (Config::isExistPlant(*j)){
+        //     // if(Config::getType(*j) == "MATERIAL_PLANT" || Config::getType(*j) == "FRUIT_PLANT"){
+        //     //     Tanaman* plant = new Tanaman(*j);
+        //     //     inventoryPlayer.tambahItem(plant);
+        //     // }
+        //     Tanaman* plant = new Tanaman(*j);
+        //     // inventoryPlayer.tambahItem(plant);
+        //     inventoryPlayer + plant;
+        // } else if (Config::isExistProduct(*j)){
+        //     if(Config::getType(*j) == "PRODUCT_MATERIAL_PLANT"){
+        //         ProdukUneatable* product = new ProdukUneatable(*j);
+        //         // inventoryPlayer.tambahItem(product);
+        //         inventoryPlayer + product;
+        //     }else if(Config::getType(*j) == "PRODUCT_FRUIT_PLANT" || Config::getType(*j) == "PRODUCT_ANIMAL"){
+        //         ProdukEatable* product = new ProdukEatable(*j);
+        //         // inventoryPlayer.tambahItem(product);
+        //         inventoryPlayer + product;
+        //     }
+        // } else if (Config::isExistRecipe(*j)){
+        //     Bangunan* bangunan = new Bangunan(*j);
+        //     // inventoryPlayer.tambahItem(bangunan);
+        //     inventoryPlayer + bangunan;
+        // }
+        inventoryPlayer + universalConstructor(*j);
+    }
+}
+
+Item* Muat::universalConstructor(string nama){
+    if (Config::isExistAnimal(nama)){
+        if(Config::getType(nama) == "HERBIVORE"){
+            Herbivora* animal = new Herbivora(nama);
+            // inventoryPlayer.tambahItem(animal);
+            return animal;
+        }else if(Config::getType(nama) == "CARNIVORE"){
+            Karnivora* animal = new Karnivora(nama);
+            // inventoryPlayer.tambahItem(animal);
+            return animal;
+        }else if(Config::getType(nama) == "OMNIVORE"){
+            Omnivora* animal = new Omnivora(nama);
+            // inventoryPlayer.tambahItem(animal);
+            return animal;
+        }
+        } else if (Config::isExistPlant(nama)){
             // if(Config::getType(*j) == "MATERIAL_PLANT" || Config::getType(*j) == "FRUIT_PLANT"){
             //     Tanaman* plant = new Tanaman(*j);
             //     inventoryPlayer.tambahItem(plant);
             // }
-            Tanaman* plant = new Tanaman(*j);
+            Tanaman* plant = new Tanaman(nama);
             // inventoryPlayer.tambahItem(plant);
-            inventoryPlayer + plant;
-        } else if (Config::isExistProduct(*j)){
-            if(Config::getType(*j) == "PRODUCT_MATERIAL_PLANT"){
-                ProdukUneatable* product = new ProdukUneatable(*j);
+            return plant;
+        } else if (Config::isExistProduct(nama)){
+            if(Config::getType(nama) == "PRODUCT_MATERIAL_PLANT"){
+                ProdukUneatable* product = new ProdukUneatable(nama);
                 // inventoryPlayer.tambahItem(product);
-                inventoryPlayer + product;
-            }else if(Config::getType(*j) == "PRODUCT_FRUIT_PLANT" || Config::getType(*j) == "PRODUCT_ANIMAL"){
-                ProdukEatable* product = new ProdukEatable(*j);
+                return product;
+            }else if(Config::getType(nama) == "PRODUCT_FRUIT_PLANT" || Config::getType(nama) == "PRODUCT_ANIMAL"){
+                ProdukEatable* product = new ProdukEatable(nama);
                 // inventoryPlayer.tambahItem(product);
-                inventoryPlayer + product;
+                return product;
             }
-        } else if (Config::isExistRecipe(*j)){
-            Bangunan* bangunan = new Bangunan(*j);
+        } else if (Config::isExistRecipe(nama)){
+            Bangunan* bangunan = new Bangunan(nama);
             // inventoryPlayer.tambahItem(bangunan);
-            inventoryPlayer + bangunan;
+            return bangunan;
         }
-    }
 }

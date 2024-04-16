@@ -7,7 +7,8 @@
 #include "../Produk/ProdukEatable.hpp"
 #include "../Produk/ProdukUneatable.hpp"
 #include "../Item/Bangunan.hpp"
-#include "../Config/Config.hpp"
+#include "../Config/Config.hpp" 
+#include "../Config/Muat.hpp" 
 #include "../Tanaman/Tanaman.hpp"
 #include "../Matrix/Penyimpanan.hpp"
 #include "../Exception/PemainException.hpp"
@@ -453,25 +454,7 @@ void Peternak::beli() {
 
     // Add item ke penyimpanan
     for (auto i = slotIntList.begin(); i != slotIntList.end(); i++) {
-        if (Config::isExistPlant(namaBarang)) {
-            inventory.tambahItem(get<0>(*i) + 1, get<1>(*i), new Tanaman(namaBarang));
-        } else if (Config::isExistAnimal(namaBarang)) {
-            if (Config::getType(namaBarang).compare("HERBIVORE") == 0) {
-                inventory.tambahItem(get<0>(*i) + 1, get<1>(*i), new Herbivora(namaBarang));
-            } else if (Config::getType(namaBarang).compare("CARNIVORE") == 0) {
-                inventory.tambahItem(get<0>(*i) + 1, get<1>(*i), new Karnivora(namaBarang));
-            } else {
-                inventory.tambahItem(get<0>(*i) + 1, get<1>(*i), new Omnivora(namaBarang));
-            }
-        } else if (Config::isExistProduct(namaBarang)) {
-            if (Config::getType(namaBarang).compare("PRODUCT_MATERIAL_PLANT") == 0) {
-                inventory.tambahItem(get<0>(*i) + 1, get<1>(*i), new ProdukUneatable(namaBarang));
-            } else {
-                inventory.tambahItem(get<0>(*i) + 1, get<1>(*i), new ProdukEatable(namaBarang));
-            }
-        } else {
-            inventory.tambahItem(get<0>(*i) + 1, get<1>(*i), new Bangunan(namaBarang));
-        }
+        inventory.tambahItem(get<0>(*i) + 1, get<1>(*i), Muat::universalConstructor(namaBarang));
     }
 }
 
