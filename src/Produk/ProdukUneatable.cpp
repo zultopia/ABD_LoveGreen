@@ -19,7 +19,7 @@ ProdukUneatable::ProdukUneatable(string nama) : Produk() {
 ProdukUneatable::~ProdukUneatable() {}
 
 // other operations
-bool ProdukUneatable::eatable() const {return true;}
+bool ProdukUneatable::eatable() const {return false;}
 
 // overloading
 ostream& operator<<(ostream& os, ProdukUneatable produk) {

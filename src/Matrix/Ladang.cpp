@@ -127,7 +127,7 @@ void Ladang::menanamTanaman(Item* item) {
                 tanamBerhasil = true;
             }
         } else {
-            cout << "Petak kandang tidak valid!\n" << endl;
+            cout << "Petak ladang tidak valid!\n" << endl;
         }
     }
 }
