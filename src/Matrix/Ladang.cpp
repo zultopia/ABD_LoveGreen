@@ -192,4 +192,5 @@ void Ladang::musimKemarau() {
             }
         }
     }
+    cout << "Waduh Musim Kemarau tiba! \"Umur\" semua tanaman akan berkurang" << endl;
 }

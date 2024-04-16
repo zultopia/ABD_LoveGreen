@@ -193,6 +193,7 @@ void Pemain::magic() {
             }
             kekayaan -= guldenDicuri; // Kurangi gulden pemain
             cout << "Uangmu dicuri sebesar " << guldenDicuri << " gulden!" << endl;
+            cout << "Kekayaanmu menjadi " << kekayaan << endl;
             break;
         }
         case 2: {
@@ -200,13 +201,14 @@ void Pemain::magic() {
             int sedekah = rand() % 10 + 1; // Gulden yang akan diterima secara acak antara 1 sampai 10
             kekayaan += sedekah; // Tambahkan gulden pemain
             cout << "Kamu mendapat sedekah sebesar " << sedekah << " gulden!" << endl;
+            cout << "Kekayaanmu menjadi " << kekayaan << endl;
             break;
         }
         case 3: {
             // Harus diet
             int penurunanBeratBadan = rand() % 5 + 1; // Berat badan akan berkurang secara acak antara 1 sampai 5
             beratBadan -= penurunanBeratBadan;
-            cout << "Kamu harus diet! Berat badanmu berkurang menjadi " << beratBadan << endl;
+            cout << "Kamu melakukan diet! Berat badanmu berkurang menjadi " << beratBadan << endl;
             break;
         }
         case 4: {
