@@ -148,8 +148,6 @@ void Pemain::makan() {
 
         pair<int,int> koordinat = Penyimpanan::konversiKoordinat(slot);
         int validity = inventory.checkMakanan(koordinat.first, koordinat.second);
-        cout << koordinat.first << " " << koordinat.second << endl;
-        cout << validity << endl;
         while (validity != 0) {
             if (validity == -1){
                 cout << "Tidak ada slot dengan index seperti itu!" << endl;

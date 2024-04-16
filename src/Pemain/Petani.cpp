@@ -29,11 +29,24 @@ string Petani::getRole() {
 }
 
 void Petani::tanam() {
-    if (inventory.hitungSlotKosong() == Config::getBesarLahan().first * Config::getBesarLahan().second){
-        throw PemainException("Inventory kosong, tidak ada tanaman yang bisa ditanam");
+    // Cek apakah ada tanaman di inventory (penyimpanan)
+    bool adaTanaman = false;
+    for (int i = 0; i < inventory.getRows(); i++) {
+        for (int j = 0; j < inventory.getCols(); j++) {
+            if (inventory.getCell(i, j) != nullptr) {
+                if (Config::isExistPlant(inventory.getCell(i, j)->getName())) {
+                    adaTanaman = true;
+                    break;
+                }
+            }
+        }
+        if (adaTanaman) break;
     }
+
+    if (!adaTanaman) throw PemainException("Tidak ada tanaman di inventory.\n");
+
     if (ladang.hitungSlotKosong() == 0) {
-        throw PemainException("Ladang sudah penuh. Tidak dapat menanam lebih banyak tanaman.");
+        throw PemainException("Ladang sudah penuh. Tidak dapat menanam lebih banyak tanaman.\n");
     }
 
     std::cout << endl << "Pilih tanaman dari penyimpanan:\n" << endl;
