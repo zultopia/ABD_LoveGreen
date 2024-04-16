@@ -69,6 +69,7 @@ void GameEngine::receiveCommand(){
     cout << "Masukkan perintah: ";
     cin >> command;
     Pemain::listPemain[Pemain::currentPemain]->doCommand(command);
+    cout << endl;
 }
 
 void GameEngine::loopCommand() {

@@ -364,6 +364,7 @@ void Walikota::beli(){
     for (auto i = slotIntList.begin(); i != slotIntList.end(); i++) {
         inventory.tambahItem(get<0>(*i) + 1, get<1>(*i), Muat::universalConstructor(namaBarang));
     }
+    cout << namaBarang << " berhasil disimpan dalam penyimpanan!" << endl;
 }
 
 void Walikota::bayarPajak() {}
