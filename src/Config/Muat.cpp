@@ -12,7 +12,7 @@
 #include "../Item/Bangunan.hpp"
 #include "Config.hpp"
 #include "../Exception/ConfigException.hpp"
-#include "../Toko/toko.hpp"
+#include "../Toko/Toko.hpp"
 
 string Muat::readPath(){
     string path;
@@ -22,8 +22,8 @@ string Muat::readPath(){
 }
 
 void Muat::muat(){
-    // string path = readPath();
-    string path = "./config/state.txt";
+    string path = readPath();
+    // string path = "./config/state.txt";
     // Memeriksa folder sudah ada atau belum
     // if(!filesystem::exists(filesystem::path(path).parent_path())) {
     //     ConfigException e("Lokasi berkas tidak valid");
@@ -31,7 +31,7 @@ void Muat::muat(){
     // }
     ifstream inputFile(path);
     if(!inputFile.is_open()){
-        ConfigException e("File state.txt tidak dapat dibuka.");
+        ConfigException e("File tidak dapat dibuka.");
         throw e;
     }
     string line;

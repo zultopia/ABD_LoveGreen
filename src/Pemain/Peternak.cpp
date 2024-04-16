@@ -54,7 +54,7 @@ void Peternak::ternak() {
             cout << "Kamu memilih " << item->getName() << ".\n" << endl;
             peternakan.menanamTernak(item);
         } else {
-            throw PemainException("Ternak gagal...\nPastikan slot yang dipilih tidak kosong dan merupakan hewan\n\n");
+            throw PemainException("Ternak gagal...\nPastikan slot yang dipilih tidak kosong dan merupakan hewan\n");
         }
     } else {
         throw PemainException("Slot yang dipilih tidak valid.\n\n");
@@ -93,10 +93,12 @@ void Peternak::beriPangan() {
                     else { produkPangan = new ProdukEatable(item->getName()); }
 
                     try {
-                        hewan->eat(*produkPangan);
+                        hewan->eat(*produkPangan); cout << endl;
                         delete produkPangan;
                     } catch(InvalidEatingException& e) {
                         e.printMessage();
+                        cout << "Mengembalikan item ke penyimpanan.." << endl;
+                        inventory.tambahItem(item);
                     }
 
                 } else {
@@ -124,7 +126,7 @@ void Peternak::harvest() {
     map<string, int> harvest = peternakan.hitungJumlahHewanPanen();
 
     if (harvest.empty()) {
-        throw PemainException("Tidak ada hewan siap panen.");
+        throw PemainException("Tidak ada hewan siap panen.\n");
     } else {
         cout << "Pilih hewan siap panen yang kamu miliki\n" << endl;
         int counter = 1;
@@ -139,17 +141,17 @@ void Peternak::harvest() {
         cout << "Nomor hewan yang ingin dipanen: "; cin >> nomor; cout << endl;
 
         if (nomor < 1 || nomor > harvest.size()) {
-            throw PemainException("Nomor hewan tidak valid.");
+            throw PemainException("Nomor hewan tidak valid.\n");
         } else {
             int jumlahPetak;
             string kodeHewan = hewanByNumber[nomor];
             cout << "Berapa petak yang ingin dipanen: "; cin >> jumlahPetak; cout << endl;
 
             if (jumlahPetak < 1 || jumlahPetak > harvest[kodeHewan]) {
-                throw PemainException("Jumlah petak yang ingin dipanen melebihi/kurang dari jumlah petak yang tersedia.");
+                throw PemainException("Jumlah petak yang ingin dipanen melebihi/kurang dari jumlah petak yang tersedia.\n");
             } else {
                 if (inventory.hitungSlotKosong() < jumlahPetak) {
-                    throw PemainException("Slot penyimpanan tidak cukup.");
+                    throw PemainException("Slot penyimpanan tidak cukup.\n");
                 } 
 
                 string petak;
@@ -159,14 +161,11 @@ void Peternak::harvest() {
                     cout << "Petak ke-" << i + 1 << ": "; cin >> petak;
                     pair<int, int> koordinatPetak = Penyimpanan::konversiKoordinat(petak);
                     if (peternakan.getCell(koordinatPetak.first, koordinatPetak.second) == nullptr) {
-                        cout << "Petak tersebut tidak memiliki hewan." << endl;
-                        return;
+                        throw PemainException("Petak tersebut tidak memiliki hewan.\n");
                     } else if (peternakan.getCell(koordinatPetak.first, koordinatPetak.second)->getCode() != kodeHewan) {
-                        cout << "Petak tersebut memiliki hewan yang berbeda." << endl;
-                        return;
+                        throw PemainException("Petak tersebut memiliki hewan yang berbeda.\n");
                     } else if (!peternakan.getCell(koordinatPetak.first, koordinatPetak.second)->isHarvest()){
-                        cout << "Hewan belum siap dipanen." << endl;
-                        return;
+                        throw PemainException("Hewan pada petak tersebut belum siap dipanen.\n");
                     } else {
                         petakDipanen.push_back(petak);
                         Hewan* hewanPanen = peternakan.ambilTernak(koordinatPetak.first + 1, koordinatPetak.second);
@@ -198,7 +197,7 @@ void Peternak::harvest() {
                         cout << ", ";
                     }
                 }
-                cout << " telah dipanen." << endl;
+                cout << " telah dipanen.\n" << endl;
             }
         }
     }
