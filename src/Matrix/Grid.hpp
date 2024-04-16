@@ -45,7 +45,6 @@ class Grid {
 
         void removeItem(int row, int col){
             if (row >= 0 && row < grid.size() && col >= 0 && col < grid[row].size()) {
-                delete grid[row][col];
                 grid[row][col] = nullptr;
             }
         }

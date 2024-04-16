@@ -411,7 +411,7 @@ void Walikota::jual(){
     Item* item;
     int totalJual = 0;
     for (auto i = slotIntList.begin(); i != slotIntList.end(); i++) {
-        item = getInventory().ambilItem(get<0>(*i)+1, get<1>(*i));
+        item = inventory.ambilItem(get<0>(*i)+1, get<1>(*i));
         totalJual += Config::getPrice((item->getName()));
         Toko::Jual(item->getName(), 1);
     }
