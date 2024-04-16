@@ -29,6 +29,9 @@ class Item {
         void setCode(string code);
         void setName(string name);
 
+        // operator overloading
+        bool operator==(const Item& other);
+
         // other operations
         virtual bool eatable() const = 0;
 };
