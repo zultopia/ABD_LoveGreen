@@ -30,6 +30,9 @@ string Peternak::getRole() {
 }
 
 void Peternak::ternak() {
+    if (inventory.hitungSlotKosong() == Config::getBesarPenyimpanan().first * Config::getBesarPenyimpanan().second) {
+        throw PemainException("Inventory kosong, tidak ada hewan yang bisa diternak");
+    }
     if (peternakan.hitungSlotKosong() == 0) {
         throw PemainException("Peternakan sudah penuh. Tidak dapat menambahkan lebih banyak hewan.\n");
     }
@@ -61,6 +64,9 @@ void Peternak::ternak() {
 void Peternak::beriPangan() {
     if (peternakan.hitungSlotKosong() == peternakan.getRows() * peternakan.getCols()) {
         throw PemainException("Peternakan kosong. Tidak ada hewan yang bisa diberi makan.\n");
+    }
+    if (inventory.hitungSlotKosong() == Config::getBesarPenyimpanan().first * Config::getBesarPenyimpanan().second) {
+        throw PemainException("Inventory kosong. Tidak ada pangan yang bisa diberikan.\n");
     }
 
     cout << endl << "Pilih petak kandang yang akan ditinggali\n" << endl;

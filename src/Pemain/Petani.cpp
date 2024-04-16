@@ -29,6 +29,9 @@ string Petani::getRole() {
 }
 
 void Petani::tanam() {
+    if (inventory.hitungSlotKosong() == Config::getBesarLahan().first * Config::getBesarLahan().second){
+        throw PemainException("Inventory kosong, tidak ada tanaman yang bisa ditanam");
+    }
     if (ladang.hitungSlotKosong() == 0) {
         throw PemainException("Ladang sudah penuh. Tidak dapat menanam lebih banyak tanaman.");
     }
