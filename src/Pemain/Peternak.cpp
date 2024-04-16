@@ -231,8 +231,11 @@ void Peternak::doCommand(string command) {
         case 12:
             this->jual();
             break;
+        case 14:
+            this->printStatus();
+            break;
         case 13:
-            harvest();
+            this->harvest();
             break;
         case 15:
             this->simpan();
@@ -476,4 +479,9 @@ void Peternak::jual() {
 
 vector<tuple<string,string,int>> Peternak::getDaftarIsi(){
     return peternakan.getDaftarIsi();
+}
+
+void Peternak::printStatus() {
+    Pemain::printStatus();
+    cetakPeternakan();
 }

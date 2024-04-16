@@ -185,6 +185,9 @@ void Petani::doCommand(string command) {
         case 13:
             this->harvest();
             break;
+        case 14:
+            this->printStatus();
+            break;
         case 15:
             this->simpan();
             break;
@@ -427,4 +430,9 @@ void Petani::jual() {
 
 vector<tuple<string,string,int>> Petani::getDaftarIsi(){
     return ladang.getDaftarIsi();
+}
+
+void Petani::printStatus(){
+    Pemain::printStatus();
+    cetakLadang();
 }

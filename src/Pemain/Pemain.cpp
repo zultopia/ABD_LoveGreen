@@ -25,6 +25,7 @@ map<string,int> Pemain::commandTable = {
     {"BELI",11},
     {"JUAL",12},
     {"PANEN",13},
+    {"STATUS", 14},
     {"SIMPAN",15},
     {"TAMBAH_PEMAIN",16}
 };
@@ -165,4 +166,12 @@ void Pemain::makan() {
         beratBadan += Config::getAddedWeight(item->getName());
         cout << "Alhasil, berat badan kamu naik menjadi " << beratBadan << endl;
     }
+}
+
+void Pemain::printStatus() {
+    cout << "Nama: " << username << endl;
+    cout << "Kekayaan: " << kekayaan << endl;
+    cout << "Berat Badan: " << beratBadan << endl;
+    cout << "Role: " << getRole() << endl;
+    cetakPenyimpanan();
 }

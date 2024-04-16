@@ -25,6 +25,7 @@ class Peternak : public Pemain {
 		void beli();
 		void jual();
 		vector<tuple<string,string,int>> getDaftarIsi();
+		void printStatus();
 };
 
 #endif

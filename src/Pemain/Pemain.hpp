@@ -43,6 +43,7 @@ class Pemain {
 		virtual void jual() = 0;
 		virtual void makan();
 		void cetakPenyimpanan();
+		virtual void printStatus();
 };
 
 

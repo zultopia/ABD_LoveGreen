@@ -19,6 +19,7 @@ class Walikota : public Pemain {
         int calculateTax();
         void beli();
         void jual();
+        void printStatus();
 };
 
 #endif

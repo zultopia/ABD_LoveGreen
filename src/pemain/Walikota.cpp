@@ -214,6 +214,9 @@ void Walikota::doCommand(string command){
         case 12:
             this->jual();
             break;
+        case 14:
+            this->printStatus();
+            break;
         case 15:
             this->simpan();
             break;
@@ -417,4 +420,8 @@ void Walikota::jual(){
     }
     kekayaan += totalJual;
     cout << "Barang Anda berhasil dijual! Uang Anda bertambah " << totalJual << " gulden!" << endl;
+}
+
+void Walikota::printStatus() {
+    Pemain::printStatus();
 }
