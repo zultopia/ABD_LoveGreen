@@ -80,6 +80,7 @@ Pastikan gcc dan cmake telah terinstall. Buka terminal pada folder project, lalu
 Buka terminal pada folder project, lalu jalankan makefile dengan perintah
 
 ```
+make clean
 make run
 ```
 
