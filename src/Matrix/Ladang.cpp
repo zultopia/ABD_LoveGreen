@@ -116,15 +116,18 @@ void Ladang::menanamTanaman(Item* item) {
         cout << endl << "Petak tanah: "; cin >> petak; cout << endl;
 
         pair<int, int> koordinatPetak = konversiKoordinat(petak);
-
-        if (getCell(koordinatPetak.first, koordinatPetak.second) != nullptr) {
-            cout << "Petak tanah tersebut sudah ditanami. Pilih petak lain." << endl;
+        if (isCellValid(koordinatPetak.first, koordinatPetak.second)) {
+            if (getCell(koordinatPetak.first, koordinatPetak.second) != nullptr) {
+                cout << "Petak tanah tersebut sudah ditanami. Pilih petak lain." << endl;
+            } else {
+                Tanaman* tanaman = new Tanaman(item->getName());
+                tambahTanaman(koordinatPetak.first + 1, koordinatPetak.second, tanaman);
+                cout << "Cangkul, cangkul, cangkul yang dalam~!" << endl;
+                cout << tanaman->getName() << " berhasil ditanam di petak " << petak << endl << endl;
+                tanamBerhasil = true;
+            }
         } else {
-            Tanaman* tanaman = new Tanaman(item->getName());
-            tambahTanaman(koordinatPetak.first + 1, koordinatPetak.second, tanaman);
-            cout << "Cangkul, cangkul, cangkul yang dalam~!" << endl;
-            cout << tanaman->getName() << " berhasil ditanam di petak " << petak << endl;
-            tanamBerhasil = true;
+            cout << "Petak kandang tidak valid!\n" << endl;
         }
     }
 }

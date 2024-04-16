@@ -38,19 +38,28 @@ void Petani::tanam() {
 
     string slot;
     cout << "Slot: "; cin >> slot; cout << endl; 
+    // Memanggil fungsi konversi dan menyimpan hasilnya
+    pair<int, int> slotCoordinate = Penyimpanan::konversiKoordinat(slot);
+    int row = slotCoordinate.first;
+    int col = slotCoordinate.second;
 
-    Item* item = inventory.ambilJenisItem(slot, "Tanaman");
-    if (item != nullptr) {
-        cout << "Kamu memilih " << item->getName() << ".\n" << endl;
+    // Memeriksa apakah koordinat dalam rentang yang valid
+    if (inventory.isCellValid(row, col)) {
+        Item* item = inventory.ambilJenisItem(slot, "Tanaman");
+        if (item != nullptr) {
+            cout << "Kamu memilih " << item->getName() << ".\n" << endl;
 
-        ladang.menanamTanaman(item);
+            ladang.menanamTanaman(item);
+        } else {
+            throw PemainException("Tanam gagal...\nPastikan slot yang dipilih tidak kosong dan merupakan tanaman");
+        }
     } else {
-        throw PemainException("Tanam gagal...\nPastikan slot yang dipilih tidak kosong dan merupakan tanaman");
+        throw PemainException("Slot yang dipilih tidak valid.\n\n");
     }
 }
 
 void Petani::cetakLadang() {
-    ladang.cetakInfo();
+    ladang.cetakInfo(); cout << endl;
 }
 
 void Petani::harvest() {
