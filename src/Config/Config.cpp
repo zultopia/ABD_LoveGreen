@@ -120,19 +120,19 @@ int Config::bacaMisc(){
 void Config::bacaConfig(){
     try{
         if(bacaPlant() == 1){
-            cout << "plant.txt berhasil.\n";
+            cout << "plant.txt berhasil\n";
         }
         if(bacaAnimal() == 1){
-            cout << "animal.txt berhasil.\n";
+            cout << "animal.txt berhasil\n";
         }
         if(bacaProduct() == 1){
-            cout << "product.txt berhasil.\n";
+            cout << "product.txt berhasil\n";
         }
         if(bacaRecipe() == 1){
-            cout << "recipe.txt berhasil.\n";
+            cout << "recipe.txt berhasil\n";
         }
         if(bacaMisc() == 1){
-            cout << "misc.txt berhasil.\n";
+            cout << "misc.txt berhasil\n";
         }
     } catch(ConfigException& e){
         cout << e.what() << endl;
