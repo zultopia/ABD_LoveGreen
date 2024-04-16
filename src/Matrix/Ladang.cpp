@@ -186,8 +186,8 @@ void Ladang::musimKemarau() {
         for (int j = 0; j < getCols(); ++j) {
             Tanaman* tanaman = getCell(i, j);
             if (tanaman != nullptr) {
-                if (!tanaman->isHarvest()) {
-                    tanaman->addDuration(); 
+                if (tanaman != nullptr && !tanaman->isHarvest()) {
+                    tanaman->reduceDuration(); 
                 }
             }
         }

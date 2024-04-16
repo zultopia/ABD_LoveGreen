@@ -1,4 +1,5 @@
 #include "Peternakan.hpp"
+#include <climits>
 
 // CETAK_PETERNAKAN
 Peternakan::Peternakan() : Grid<Hewan>(Config::getBesarPeternakan().first, Config::getBesarPeternakan().second) {}

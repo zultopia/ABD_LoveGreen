@@ -42,6 +42,10 @@ void Tanaman::addDuration() {
     currentDuration++;
 }
 
+void Tanaman::reduceDuration() {
+    currentDuration--;
+}
+
 bool Tanaman::isHarvest() const {
     if (getCurrentDuration() >= getDurationToHarvest()) {
         return true;
