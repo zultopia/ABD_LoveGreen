@@ -124,17 +124,20 @@ void Walikota::bangun(){
             int jumlah = 0, i = 0;
             while (jumlah != itrMaterials->second) {
                 int j = 0;
-                while (j < Config::getBesarPenyimpanan().second){
+                while (j < Config::getBesarPenyimpanan().second && jumlah != itrMaterials->second){
                     Item* item;
                     item = inventory.getCell(i, j);
-                    if (item->getName().compare(itrMaterials->first)){
-                        jumlah++;
-                        inventory.ambilItem(i+1, j);
+                    if (item != nullptr) {
+                        if (item->getName().compare(itrMaterials->first)){
+                            jumlah++;
+                            inventory.ambilItem(i+1, j);
+                        }
                     }
                     j++;
                 }
                 i++;
             }
+            itrMaterials++;
         }
         
         inventory.tambahItem(new Bangunan(answer));
