@@ -161,7 +161,7 @@ void Pemain::makan() {
             koordinat = Penyimpanan::konversiKoordinat(slot);
             validity = inventory.checkMakanan(koordinat.first, koordinat.second);
         }
-        Item* item = inventory.ambilItem(koordinat.first, koordinat.second);
+        Item* item = inventory.ambilItem(koordinat.first + 1, koordinat.second);
         cout << "Dengan lahapnya, kamu memakanan hidangan itu" << endl;
         beratBadan += Config::getAddedWeight(item->getName());
         cout << "Alhasil, berat badan kamu naik menjadi " << beratBadan << endl;

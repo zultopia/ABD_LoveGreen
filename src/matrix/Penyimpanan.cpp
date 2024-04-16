@@ -135,11 +135,11 @@ int Penyimpanan::jumlahItem(string nama) {
 }
 
 bool Penyimpanan::checkMakanan(int row, int col){
-    if (row <= 0 || row > rows || col < 0 || col >= cols) {
+    if (row < 0 || row >= rows || col < 0 || col >= cols) {
         // Index tidak valid
         return -1;
     } else {
-        Item* item = getCell(row-1, col);
+        Item* item = getCell(row, col);
         if (item == nullptr) {
             // Penyimpanan di index tersebut kosong
             return 1;
