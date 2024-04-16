@@ -385,9 +385,8 @@ void Walikota::jual(){
     vector<tuple<int, int>> slotIntList;
 
     while (!slotsValid) {
-        slotsValid = true;
         cout << "Petak: ";
-        cin >> slots;
+        getline(cin,slots);
         slotIntList = Penyimpanan::parserListKoordinat(slots);
         if (slotIntList.size() != 0) {
             slotsValid = true;

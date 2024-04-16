@@ -422,9 +422,8 @@ void Peternak::jual() {
     vector<tuple<int, int>> slotIntList;
 
     while (!slotsValid) {
-        slotsValid = true;
         cout << "Petak: ";
-        cin >> slots;
+        getline(cin,slots);
         slotIntList = Penyimpanan::parserListKoordinat(slots);
         Item* item;
         if (slotIntList.size() != 0) {
