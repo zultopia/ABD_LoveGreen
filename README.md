@@ -80,15 +80,7 @@ Pastikan gcc dan cmake telah terinstall. Buka terminal pada folder project, lalu
 Buka terminal pada folder project, lalu jalankan makefile dengan perintah
 
 ```
-make
-```
-
-3. Run the app
-
-Pada folder build, jalankan perintah
-
-```
-run
+make run
 ```
 
 <!-- LICENSE -->
